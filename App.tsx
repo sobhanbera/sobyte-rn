@@ -11,7 +11,7 @@
 import React from 'react'
 import 'react-native-gesture-handler'
 
-import {AppEntryPoint} from './src/export'
+import {AppEntryPoint} from '@/export'
 
 const App = () => <AppEntryPoint />
 

@@ -1,14 +1,14 @@
 {
     "compilerOptions": {
-        "baseUrl": ".",
+        "baseUrl": "./src",
         "paths": {
-            "@/*": ["src/*"]
+            "@/*": ["./*"]
         },
         "target": "esnext",
         "module": "commonjs",
         "lib": ["es2017"],
         "allowJs": true,
-        "checkJs": false,
+        "checkJs": true,
         "jsx": "react-native",
         "sourceMap": false,
         "removeComments": false,
@@ -33,6 +33,6 @@
         "babel.config.js",
         "metro.config.js",
         "jest.config.js"
-    ],
-    "typeRoots": ["node_modules/@types", "@types"]
+    ]
+    // "typeRoots": ["node_modules/@types", "@types"]
 }

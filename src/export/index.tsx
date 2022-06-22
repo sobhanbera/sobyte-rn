@@ -11,6 +11,8 @@
 import React from 'react'
 import {SafeAreaView, StatusBar, useColorScheme, Text} from 'react-native'
 
+import ErrorBoundary from '@/error/ErrorBoundary'
+
 export function AppEntryPoint() {
     const isDarkMode = useColorScheme() === 'dark'
 
@@ -20,7 +22,9 @@ export function AppEntryPoint() {
                 barStyle={isDarkMode ? 'dark-content' : 'light-content'}
             />
 
-            <Text>{'Sobyte - Entry Point'}</Text>
+            <ErrorBoundary>
+                <Text>{'Sobyte - Entry Point'}</Text>
+            </ErrorBoundary>
         </SafeAreaView>
     )
 }
