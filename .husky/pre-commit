@@ -3,7 +3,7 @@
 
 # checking for file formatting issues...
 node .husky/helper.js CFF
-yarn prettier -c app
+yarn prettier -c src
 
 # formatting the files before commiting
 node .husky/helper.js FF

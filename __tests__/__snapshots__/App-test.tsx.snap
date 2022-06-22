@@ -9,3 +9,13 @@ exports[`renders correctly 1`] = `
   </Text>
 </RCTSafeAreaView>
 `;
+
+exports[`renders correctly: test 1`] = `
+<RCTSafeAreaView
+  emulateUnlessSupported={true}
+>
+  <Text>
+    Sobyte - Entry Point
+  </Text>
+</RCTSafeAreaView>
+`;
