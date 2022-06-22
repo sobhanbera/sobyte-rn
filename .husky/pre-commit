@@ -1,0 +1,18 @@
+# #!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# checking for file formatting issues...
+node .husky/helper.js CFF
+yarn prettier -c app
+
+# formatting the files before commiting
+node .husky/helper.js FF
+yarn pretty-quick --staged --pattern "**/*.*(ts|tsx|js|jsx|json)" | tee logs/prettier.log
+
+# showing the git status
+node .husky/helper.js GST
+git status | tee logs/gitstatus.log
+
+# adding all the files to git which are staged along with some metadata about project's work flow
+node .husky/helper.js GAA
+git add logs/gitstatus.log logs/prettier.log

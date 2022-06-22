@@ -1,0 +1,5 @@
+# #!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# show success message
+node .husky/helper.js SUCCESS
