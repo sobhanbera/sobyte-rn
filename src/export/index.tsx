@@ -15,7 +15,7 @@ import {Provider} from 'react-redux'
 import {PersistGate} from 'redux-persist/lib/integration/react'
 
 import ErrorBoundary from '@/error/ErrorBoundary'
-import {store, persistor} from '@/redux/store'
+import {store, persistor} from '@/state/store'
 import AppNavigator from '@/navigators/AppNavigator'
 
 export function AppEntryPoint() {
