@@ -8,9 +8,7 @@
  * Purpose - one and only redux store
  */
 
-import AsyncStorage from '@react-native-async-storage/async-storage'
-import {configureStore, combineReducers} from '@reduxjs/toolkit'
-import {setupListeners} from '@reduxjs/toolkit/query'
+import {combineReducers} from 'redux'
 import {
     persistReducer,
     persistStore,
@@ -21,23 +19,33 @@ import {
     PURGE,
     REGISTER,
 } from 'redux-persist'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import {configureStore} from '@reduxjs/toolkit'
+import {setupListeners} from '@reduxjs/toolkit/query'
 
-import theme from './reducers/Theme'
+import {ThemeReducer} from './reducers/Theme'
 
-// all reducers at one place combined
-const reducers = combineReducers({
-    theme: theme,
+/**
+ * default persisting config for the reducers...
+ */
+const rootPersistConfig = {
+    key: 'root',
+    storage: AsyncStorage,
+    whitelist: ['theme'],
+    // blacklist: [''],
+}
+
+/**
+ * all reducers at one place combined
+ * different reducers could have different persisting configs
+ * according to there use case...
+ */
+const rootReducers = combineReducers({
+    theme: ThemeReducer,
 })
 
 // persisted reducers
-const persistedReducer = persistReducer(
-    {
-        key: 'root',
-        storage: AsyncStorage,
-        whitelist: ['theme'],
-    },
-    reducers,
-)
+const persistedReducer = persistReducer(rootPersistConfig, rootReducers)
 
 /**
  * using persisted reducers instead of

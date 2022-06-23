@@ -33,7 +33,7 @@ type ThemePayload = {
     payload: Partial<ThemeState>
 }
 
-const slice = createSlice({
+const themeSlice = createSlice({
     name: 'theme',
     initialState: {
         themeName: 'dark',
@@ -96,6 +96,7 @@ const slice = createSlice({
     },
 })
 
-export const {changeTheme, toggleTheme} = slice.actions
+const {actions, reducer} = themeSlice
 
-export default slice.reducer
+export const {changeTheme, toggleTheme} = actions
+export {reducer as ThemeReducer}
