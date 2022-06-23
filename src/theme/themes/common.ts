@@ -139,6 +139,4 @@ export const DefaultTheme: ThemeColors = {
             '#205E00',
         ],
     },
-
-    ...RequiredCommonColors,
 }

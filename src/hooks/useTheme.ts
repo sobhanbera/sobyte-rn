@@ -20,7 +20,7 @@ import {
     MetricSizeTypes,
 } from '@/theme'
 import {ThemeCombinationParams} from '@/theme/theme'
-import {SobyteState} from '@/state'
+import {SobyteState, ThemeState} from '@/state'
 
 /**
  * a simple hook to get all the theme data related things throughout the whole application...
@@ -44,7 +44,7 @@ export function useTheme(): ThemeCombinationParams {
      *      @param {[key: string]: number} metrics: all the metrics sizes we can use
      * }
      */
-    const baseTheme: ThemeCombinationParams = {
+    const baseTheme: ThemeCombinationParams & ThemeState = {
         theme: ThemeDistribution[themeState.themeName],
         fonts: fontStyles,
         gutters: gutterStyles,
@@ -54,6 +54,8 @@ export function useTheme(): ThemeCombinationParams {
             fontsize: FontSizeTypes,
             metrics: MetricSizeTypes,
         },
+
+        ...themeState, // the state for theme, now theme state could be featched from either useSelector (the default way) or by useTheme hook (custom way)
     }
 
     return baseTheme

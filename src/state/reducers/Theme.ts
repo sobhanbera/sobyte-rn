@@ -10,7 +10,7 @@
 
 import {createSlice} from '@reduxjs/toolkit'
 
-import {ThemeColors, ThemeOptions} from '@/theme/theme'
+import {ThemeOptions} from '@/theme/theme'
 import {DarkTheme, LightTheme} from '@/theme'
 
 /**
@@ -26,7 +26,6 @@ export const ThemeDistribution = {
 export type ThemeState = {
     themeName: ThemeOptions
     isDarkTheme: boolean
-    theme: ThemeColors
 }
 // default payload type
 type ThemePayload = {
@@ -38,7 +37,6 @@ const themeSlice = createSlice({
     initialState: {
         themeName: 'dark',
         isDarkTheme: true,
-        theme: DarkTheme,
     } as ThemeState,
 
     reducers: {
@@ -56,19 +54,16 @@ const themeSlice = createSlice({
              * then change the theme to light theme
              * else change it to dark theme
              */
-            if (themeName === 'light' || isDarkTheme === false) {
-                state = {
+            if (themeName === 'light' || isDarkTheme === false)
+                return (state = {
                     themeName: 'light',
                     isDarkTheme: false,
-                    theme: ThemeDistribution[themeName],
-                }
-            } else {
-                state = {
+                })
+            else
+                return (state = {
                     themeName: 'dark',
                     isDarkTheme: true,
-                    theme: ThemeDistribution[themeName],
-                }
-            }
+                })
         },
 
         /**
@@ -78,25 +73,22 @@ const themeSlice = createSlice({
          */
         toggleTheme: (state: ThemeState, {}) => {
             // if the current theme is light theme, then update it to dark
-            if (state.themeName === 'light') {
-                state = {
+            if (state.themeName === 'light')
+                return (state = {
                     themeName: 'dark',
                     isDarkTheme: true,
-                    theme: ThemeDistribution['dark'],
-                }
-            } else {
-                // vice versa
-                state = {
+                })
+            // vice versa
+            else
+                return (state = {
                     themeName: 'light',
                     isDarkTheme: false,
-                    theme: ThemeDistribution['light'],
-                }
-            }
+                })
         },
     },
 })
 
-const {actions, reducer} = themeSlice
+export const {changeTheme, toggleTheme} = themeSlice.actions
 
-export const {changeTheme, toggleTheme} = actions
+const {reducer} = themeSlice
 export {reducer as ThemeReducer}

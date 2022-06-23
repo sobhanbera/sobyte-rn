@@ -21,12 +21,29 @@ import {DefaultTheme} from './common'
 export const LightTheme: ThemeColors = {
     ...DefaultTheme,
 
-    // TODO: entries for light theme
-    combinations: {
-        blueGradient: [],
-        greenGradient: [],
-        pinkGradient: [],
-        redGradient: [],
-        yellowGradient: [],
+    primary: {
+        main: '#EF1559',
+        light: '#F9B5AC',
+        dark: '#EE7674',
     },
+    secondary: {
+        main: '#EF1559',
+        light: '#F9B5AC',
+        dark: '#EE7674',
+    },
+
+    background: '#101010',
+    themecolor: '#000000',
+    themecolorrevert: '#FFFFFF',
+
+    surface: '#050505',
+    surfacelight: '#21242b',
+    border: '#303030',
+    placeholder: '#CFCFCF',
+    text: '#EFEFEF',
+
+    onSuccess: '#28a745',
+    onError: '#FF5500',
+    onWarning: '#ffc107',
+    onDanger: '#dc3545',
 }
