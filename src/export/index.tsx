@@ -22,7 +22,7 @@ export function AppEntryPoint() {
     const isDarkMode = useColorScheme() === 'dark'
 
     return (
-        <ErrorBoundary>
+        <ErrorBoundary id="root">
             <Provider store={store}>
                 {/**
                  * DOCUMENTATION:
@@ -41,7 +41,7 @@ export function AppEntryPoint() {
                             }
                         />
 
-                        <ErrorBoundary>
+                        <ErrorBoundary id="app">
                             <AppNavigator />
                         </ErrorBoundary>
                     </SafeAreaView>

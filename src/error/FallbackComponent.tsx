@@ -13,11 +13,12 @@ import React from 'react'
 
 interface FallbackComponentProps {
     error: Error
+    id: string
 }
 export default function FallbackComponent(props: FallbackComponentProps) {
     return (
         <View>
-            <Text>Oops...</Text>
+            <Text>Oops ID: {props.id}</Text>
             <Text>Error: {props.error.message}</Text>
         </View>
     )

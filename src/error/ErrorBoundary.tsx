@@ -14,6 +14,7 @@ import FallbackComponent from './FallbackComponent'
 interface ErrorBoundaryProps {
     fallbackComponent?: React.ReactNode
     children: React.ReactChild
+    id: string
 }
 class ErrorBoundary extends React.Component<ErrorBoundaryProps> {
     state = {
@@ -34,7 +35,12 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps> {
     render() {
         // render the fallback component when any error occurs.
         if (this.state.hasError) {
-            return <FallbackComponent error={this.state.error} />
+            return (
+                <FallbackComponent
+                    id={this.props.id}
+                    error={this.state.error}
+                />
+            )
         }
 
         return this.props.children
