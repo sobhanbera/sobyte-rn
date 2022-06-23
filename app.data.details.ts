@@ -1,5 +1,15 @@
+/**
+ * © Sobyte
+ *
+ * @author : Sobhan Bera (sobhanbera)
+ * @other_editors :
+ * @file : Typescript
+ *
+ * Purpose - metadata of app
+ */
+
 export default {
-    name: 'Sobyte',
+    name: 'sobyte',
     displayName: 'Sobyte',
     owner: 'Sobhan Bera <https://github.com/sobhanbera>',
     developerName: 'Sobhan Bera',
