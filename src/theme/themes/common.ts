@@ -88,7 +88,7 @@ export const DefaultTheme: ThemeColors = {
     onDanger: '#dc3545',
 
     combinations: {
-        blueGradient: [
+        blue: [
             '#0F002D',
             '#0F002D',
             '#0A032B',
@@ -98,7 +98,7 @@ export const DefaultTheme: ThemeColors = {
             '#10003E',
             '#10004E',
         ],
-        pinkGradient: [
+        pink: [
             '#3D002F',
             '#3D002F',
             '#3B032A',
@@ -108,7 +108,7 @@ export const DefaultTheme: ThemeColors = {
             '#4E0030',
             '#5E0030',
         ],
-        redGradient: [
+        red: [
             '#2D000F',
             '#2D000F',
             '#2B030A',
@@ -118,7 +118,7 @@ export const DefaultTheme: ThemeColors = {
             '#3E0010',
             '#4E0010',
         ],
-        greenGradient: [
+        green: [
             '#0F402D',
             '#0F402D',
             '#0A432B',
@@ -128,7 +128,7 @@ export const DefaultTheme: ThemeColors = {
             '#10403E',
             '#10404E',
         ],
-        yellowGradient: [
+        yellow: [
             '#1F3D00',
             '#1F3D00',
             '#1A3B03',

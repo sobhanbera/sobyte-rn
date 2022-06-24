@@ -15,7 +15,11 @@ import GetFonts from './fonts'
 import GetGutters from './gutters'
 import GetLayouts from './layouts'
 
-import CombinedVariables, {FontSizeTypes, MetricSizeTypes} from './variables'
+import CombinedVariables, {
+    FontSizeTypes,
+    MetricSizeTypes,
+    ThemeColorSchemeOptionsArray,
+} from './variables'
 
 export const VariablesCollection: CombinedThemeVariables = {
     colors: RequiredCommonColors,
@@ -37,4 +41,5 @@ export {
     CombinedVariables,
     FontSizeTypes,
     MetricSizeTypes,
+    ThemeColorSchemeOptionsArray,
 }

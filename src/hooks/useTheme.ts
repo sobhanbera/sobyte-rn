@@ -10,7 +10,6 @@
 
 import {useSelector} from 'react-redux'
 
-import {ThemeDistribution} from '@/state/reducers/Theme'
 import {
     RequiredCommonColors,
     fontStyles,
@@ -20,7 +19,7 @@ import {
     MetricSizeTypes,
 } from '@/theme'
 import {ThemeCombinationParams} from '@/theme/theme'
-import {SobyteState, ThemeState} from '@/state'
+import {SobyteState, ThemeState, ThemeDistribution} from '@/state'
 
 /**
  * a simple hook to get all the theme data related things throughout the whole application...
@@ -54,6 +53,10 @@ export function useTheme(): ThemeCombinationParams {
             fontsize: FontSizeTypes,
             metrics: MetricSizeTypes,
         },
+        colorscheme:
+            ThemeDistribution[themeState.themeName].combinations[
+                themeState.colorSchemeName
+            ],
 
         ...themeState, // the state for theme, now theme state could be featched from either useSelector (the default way) or by useTheme hook (custom way)
     }

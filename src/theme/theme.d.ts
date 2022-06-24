@@ -81,16 +81,22 @@ export interface ThemeColors /* extends CommonColors */ {
 
     // these gradient colors arrays must be of length 8 not >8 not <8 exactly =8
     combinations: {
-        blueGradient: string[] // blue gradient colors, application_code_name - bisman
-        pinkGradient: string[] // pink gradient colors, application_code_name - flamingo
-        redGradient: string[] // red gradient colors, application_code_name - Phoenix
-        greenGradient: string[] // green gradient colors, application_code_name - Emerald
-        yellowGradient: string[] // yellow gradient colors, application_code_name - canary
+        blue: string[] // blue gradient colors, application_code_name - bisman
+        pink: string[] // pink gradient colors, application_code_name - flamingo
+        red: string[] // red gradient colors, application_code_name - Phoenix
+        green: string[] // green gradient colors, application_code_name - Emerald
+        yellow: string[] // yellow gradient colors, application_code_name - canary
     }
 }
 
 // types of theme string
 export type ThemeOptions = 'dark' | 'default' | 'light'
+export type ThemeColorSchemeOptions =
+    | 'blue'
+    | 'pink'
+    | 'red'
+    | 'green'
+    | 'yellow'
 
 /**
  * all the available font sizes
@@ -150,8 +156,9 @@ export type CombinedThemeVariables = {
  * seperate type of theme which will contain all the parameters
  * like font, gutter, layouts etc
  */
-export type ThemeType<T, F, G, L, CV> = {
+export type ThemeType<T, C, F, G, L, CV> = {
     theme: T
+    colorscheme: C
     fonts: F
     gutters: G
     layouts: L
@@ -164,10 +171,11 @@ export type ThemeType<T, F, G, L, CV> = {
 export type ThemeCombinationParams = Pick<
     ThemeType<
         ThemeColors,
+        Array<string>,
         typeof fontStyles,
         typeof gutterStyles,
         typeof layoutStyles,
         CombinedThemeVariables
     >,
-    'theme' | 'fonts' | 'gutters' | 'layouts' | 'variables'
+    'theme' | 'colorscheme' | 'fonts' | 'gutters' | 'layouts' | 'variables'
 >

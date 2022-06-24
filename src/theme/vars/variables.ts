@@ -38,4 +38,16 @@ const CombinedVariables = {
     fontsize: FontSizeTypes,
 }
 
+/**
+ * all the types of colorschemes we have
+ * and could be available to customize in both theme
+ */
+export const ThemeColorSchemeOptionsArray = [
+    'blue',
+    'pink',
+    'red',
+    'green',
+    'yellow',
+]
+
 export default CombinedVariables
