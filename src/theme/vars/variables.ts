@@ -8,7 +8,7 @@
  * Purpose - important variables
  */
 
-import {FontSizes, MetricSizes} from '../theme'
+import {FontSizes, MetricSizes, ThemeColorSchemeOptions} from '../theme'
 
 /**
  * all constants for Metrics Sizes
@@ -42,7 +42,7 @@ const CombinedVariables = {
  * all the types of colorschemes we have
  * and could be available to customize in both theme
  */
-export const ThemeColorSchemeOptionsArray = [
+export const ThemeColorSchemeOptionsArray: ThemeColorSchemeOptions[] = [
     'blue',
     'pink',
     'red',

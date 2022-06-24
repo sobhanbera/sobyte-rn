@@ -92,17 +92,34 @@ const themeSlice = createSlice({
                 }
         },
 
+        /**
+         * change the color scheme of the theme
+         * @param state initial state
+         * @param param payload
+         */
         changeColorScheme: (
             state: ThemeState,
             {payload: {colorSchemeName = 'blue'}}: ThemePayload,
         ) => {
             // checking whether the passed colorSchemeName is valid or not
-            if (ThemeColorSchemeOptionsArray.includes(colorSchemeName))
+            const colorSchemeNameIsValidAndIndex =
+                ThemeColorSchemeOptionsArray.indexOf(colorSchemeName)
+
+            if (
+                colorSchemeName !== undefined &&
+                colorSchemeNameIsValidAndIndex >= 0 // the value passed exists in the array and getting its index to update the state
+            )
                 return {
                     ...state,
-                    colorSchemeName,
+                    colorSchemeName:
+                        ThemeColorSchemeOptionsArray[
+                            colorSchemeNameIsValidAndIndex
+                        ],
                 }
-            return state
+            return {
+                ...state,
+                colorSchemeName,
+            }
         },
     },
 })
