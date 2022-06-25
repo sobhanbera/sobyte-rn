@@ -19,6 +19,8 @@ import com.facebook.react.bridge.JSIModulePackage;
 import com.swmansion.reanimated.ReanimatedJSIModulePackage;
 import com.swmansion.gesturehandler.RNGestureHandlerPackage;
 import com.guichaguri.trackplayer.TrackPlayer;
+import com.zoontek.rnlocalize.RNLocalizePackage;
+import com.reactnativecommunity.netinfo.NetInfoPackage;
 
 public class MainApplication extends Application implements ReactApplication {
 

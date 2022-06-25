@@ -23,6 +23,8 @@ target 'sobyte' do
 
   pod 'react-native-track-player', :path => '../node_modules/react-native-track-player'
 
+  pod 'RNLocalize', :path => '../node_modules/react-native-localize'
+
   target 'sobyteTests' do
     inherit! :complete
     # Pods for testing
