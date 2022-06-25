@@ -21,6 +21,8 @@ target 'sobyte' do
 
   pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
 
+  pod 'react-native-track-player', :path => '../node_modules/react-native-track-player'
+
   target 'sobyteTests' do
     inherit! :complete
     # Pods for testing

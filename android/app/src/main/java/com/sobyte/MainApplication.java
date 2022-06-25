@@ -18,6 +18,7 @@ import com.facebook.react.bridge.JSIModulePackage;
 // linking of third-party packages...
 import com.swmansion.reanimated.ReanimatedJSIModulePackage;
 import com.swmansion.gesturehandler.RNGestureHandlerPackage;
+import com.guichaguri.trackplayer.TrackPlayer;
 
 public class MainApplication extends Application implements ReactApplication {
 
