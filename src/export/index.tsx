@@ -9,19 +9,18 @@
  */
 
 import React from 'react'
-import {SafeAreaView, StatusBar, useColorScheme} from 'react-native'
+import {SafeAreaView} from 'react-native'
 
 import {Provider} from 'react-redux'
 import {PersistGate} from 'redux-persist/lib/integration/react'
+import {GestureHandlerRootView} from 'react-native-gesture-handler'
 
 import ErrorBoundary from '@/error/ErrorBoundary'
 import {store, persistor} from '@/state/store'
 import AppNavigator from '@/navigators/AppNavigator'
-import {GestureHandlerRootView} from 'react-native-gesture-handler'
+import SobyteTrackPlayer from '@/services/SobyteTrackPlayer'
 
 export function AppEntryPoint() {
-    const isDarkMode = useColorScheme() === 'dark'
-
     return (
         /* this wrapper is needed to work with react-native-gesture-handler package */
         <GestureHandlerRootView style={{flex: 1}}>
@@ -37,24 +36,17 @@ export function AppEntryPoint() {
                      * @see https://github.com/rt2zz/redux-persist/blob/master/docs/PersistGate.md
                      */}
                     <PersistGate loading={null} persistor={persistor}>
-                        <SafeAreaView
-                            style={{
-                                flex: 1,
-                                justifyContent: 'center',
-                            }}>
-                            {/* the status bar of device */}
-                            <StatusBar
-                                barStyle={
-                                    isDarkMode
-                                        ? 'dark-content'
-                                        : 'light-content'
-                                }
-                            />
-
-                            <ErrorBoundary id="app">
-                                <AppNavigator />
-                            </ErrorBoundary>
-                        </SafeAreaView>
+                        <SobyteTrackPlayer>
+                            <SafeAreaView
+                                style={{
+                                    flex: 1,
+                                    justifyContent: 'center',
+                                }}>
+                                <ErrorBoundary id="app">
+                                    <AppNavigator />
+                                </ErrorBoundary>
+                            </SafeAreaView>
+                        </SobyteTrackPlayer>
                     </PersistGate>
                 </Provider>
             </ErrorBoundary>
