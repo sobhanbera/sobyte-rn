@@ -23,7 +23,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import {configureStore} from '@reduxjs/toolkit'
 import {setupListeners} from '@reduxjs/toolkit/query'
 
-import {ThemeReducer} from './reducers/Theme'
+import {MusicConfigReducer, ThemeReducer} from './reducers'
+import {SobyteState} from '.'
 
 /**
  * default persisting config for the reducers...
@@ -40,8 +41,9 @@ const rootPersistConfig = {
  * different reducers could have different persisting configs
  * according to there use case...
  */
-const rootReducers = combineReducers({
-    theme: ThemeReducer,
+const rootReducers = combineReducers<SobyteState>({
+    theme: ThemeReducer, // theme data
+    musicconfig: MusicConfigReducer, // music api data
 })
 
 // persisted reducers

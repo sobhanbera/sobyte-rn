@@ -11,7 +11,7 @@
 export * from './store'
 export * from './reducers'
 
-import {ThemeState} from './reducers'
+import {ThemeState, MusicConfigState} from './reducers'
 
 /**
  * a interface which is a blueprint for all the states combined
@@ -23,4 +23,5 @@ import {ThemeState} from './reducers'
  */
 export interface SobyteState {
     theme: ThemeState
+    musicconfig: MusicConfigState
 }
