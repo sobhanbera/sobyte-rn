@@ -13,7 +13,6 @@ import {useSelector} from 'react-redux'
 import TrackPlayer, {Capability, RatingType} from 'react-native-track-player'
 
 import {useMusic} from '@/hooks'
-import playerServices from './playerservices'
 import {SobyteState} from '@/state'
 
 const SobyteTrackPlayerContext = React.createContext<boolean>(false)
@@ -88,13 +87,6 @@ export default function SobyteTrackPlayer(props: SobyteTrackPlayerProps) {
             alwaysPauseOnInterruption: true,
             ratingType: RatingType.Heart,
         })
-
-        /**
-         * registering all the services (we want to provide to the user) in notification
-         *
-         * this services will be evaluated through the notificaions (phone/lock) of device only...
-         */
-        TrackPlayer.registerPlaybackService(() => playerServices)
 
         /**
          * setting up the player's config
