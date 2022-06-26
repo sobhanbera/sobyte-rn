@@ -7,3 +7,5 @@
  *
  * Purpose - constants for queries...
  */
+
+export const DEFAULT_QUERY = 'Trending Bollywood Songs'
