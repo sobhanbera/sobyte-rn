@@ -402,7 +402,7 @@ export const parseSongSearchResult = (context: any) => {
                 lodash.last(MusicUtils.fv(flexColumn[1], 'runs:text', true)),
                 true,
             ),
-            thumbnails: MusicUtils.fv(
+            artworks: MusicUtils.fv(
                 sectionContext,
                 'musicThumbnailRenderer:thumbnails',
                 true,
