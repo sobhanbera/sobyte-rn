@@ -49,7 +49,12 @@ export const fv: any = (input: any, query: any, justOne: boolean = false) => {
     return v
 }
 
-export const hms2ms = (v: any) => {
+/**
+ * HH:MM:ss to milliseconds/seconds...
+ * @param v a time string in format of HH:MM:ss for example 3:45:29
+ * @returns the number of milliseconds the time holds
+ */
+export const hms2ms = (v: any, returnInSecond: boolean = false) => {
     try {
         let p = v.split(':'),
             s = 0,
@@ -58,6 +63,10 @@ export const hms2ms = (v: any) => {
             s += f * parseInt(p.pop(), 10)
             f *= 60
         }
+
+        // if second is provided then return the seconds counts
+        if (returnInSecond) return s
+        // else millisecond, the default option
         return s * 1e3
     } catch (e) {
         return 0

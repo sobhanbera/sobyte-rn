@@ -334,6 +334,7 @@ export const parseSongSearchResult = (context: any) => {
             'musicResponsiveListItemFlexColumnRenderer',
             true,
         )
+
         result.content.push({
             type: 'song',
             musicId: MusicUtils.fv(
@@ -345,7 +346,7 @@ export const parseSongSearchResult = (context: any) => {
                 sectionContext,
                 'playNavigationEndpoint:playlistId',
             ),
-            name: MusicUtils.fv(flexColumn[0], 'runs:text', true),
+            title: MusicUtils.fv(flexColumn[0], 'runs:text', true),
             artist: (function () {
                 var a = [],
                     c = MusicUtils.fv(flexColumn[1], 'runs')
@@ -379,7 +380,9 @@ export const parseSongSearchResult = (context: any) => {
                         })
                     }
                 }
-                return 1 < a.length ? a : 0 < a.length ? a[0] : a
+                // providing all artists data, instead of ambiguous Object | Array
+                return a
+                // return 1 < a.length ? a : 0 < a.length ? a[0] : a
             })(),
             album: (function () {
                 var c = lodash.first(MusicUtils.fv(flexColumn[1], 'runs', true))
@@ -392,10 +395,12 @@ export const parseSongSearchResult = (context: any) => {
                             true,
                         ),
                     }
-                return {}
+                return c
             })(),
+            // now in seconds...
             duration: MusicUtils.hms2ms(
                 lodash.last(MusicUtils.fv(flexColumn[1], 'runs:text', true)),
+                true,
             ),
             thumbnails: MusicUtils.fv(
                 sectionContext,
