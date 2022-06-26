@@ -31,6 +31,8 @@ target 'sobyte' do
 
   pod 'react-native-netinfo', :path => '../node_modules/@react-native-community/netinfo'
 
+  pod 'RNFastImage', :path => '../node_modules/react-native-fast-image'
+
   target 'sobyteTests' do
     inherit! :complete
     # Pods for testing

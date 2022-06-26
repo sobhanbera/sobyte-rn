@@ -23,6 +23,7 @@ import com.zoontek.rnlocalize.RNLocalizePackage;
 import com.reactnativecommunity.netinfo.NetInfoPackage;
 import com.swmansion.rnscreens.RNScreensPackage;
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
+import com.dylanvann.fastimage.FastImageViewPackage;
 
 public class MainApplication extends Application implements ReactApplication {
 
