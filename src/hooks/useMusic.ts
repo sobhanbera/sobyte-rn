@@ -38,9 +38,6 @@ import {
 
 export function useMusic() {
     // state for the music config and more...
-    // const [musicConfig, setMusicConfig] = useState<{[key: string]: any}>({})
-    // const [error, setError] = useState<boolean>(true)
-    // const [loaded, setLoaded] = useState<boolean>(false)
     const {musicConfigData} = useSelector(
         (state: SobyteState) => state.musicconfig,
     )
@@ -112,10 +109,6 @@ export function useMusic() {
                                 ready: true,
                             }),
                         )
-                        // not working with normal react state
-                        // setMusicConfig(apiConfigs)
-                        // setError(false)
-                        // setLoaded(true)
 
                         /**
                          * lets provide the full apiConfig data which could be used by _createApiRequest method below
@@ -166,9 +159,7 @@ export function useMusic() {
                                             ready: true,
                                         }),
                                     )
-                                    // setMusicConfig(fetchConfig)
-                                    // setError(false)
-                                    // setLoaded(true)
+
                                     /**
                                      * this is the timestamp when the last api was last updated which is done every day once automatically...
                                      */
@@ -200,8 +191,7 @@ export function useMusic() {
                                             ready: false,
                                         }),
                                     )
-                                    // setError(true)
-                                    // setLoaded(false)
+
                                     reject(err)
                                 }
                             })
@@ -213,8 +203,7 @@ export function useMusic() {
                                         ready: false,
                                     }),
                                 )
-                                // setError(true)
-                                // setLoaded(false)
+
                                 reject(err)
                             })
                     }
@@ -256,9 +245,7 @@ export function useMusic() {
                                         ready: true,
                                     }),
                                 )
-                                // setMusicConfig(fetchConfig)
-                                // setError(false)
-                                // setLoaded(true)
+
                                 /**
                                  * this is the timestamp when the last api was last updated which is done every day once automatically...
                                  */
@@ -289,8 +276,6 @@ export function useMusic() {
                                         ready: false,
                                     }),
                                 )
-                                // setError(true)
-                                // setLoaded(false)
 
                                 reject(err)
                             }
@@ -303,8 +288,6 @@ export function useMusic() {
                                     ready: false,
                                 }),
                             )
-                            // setError(true)
-                            // setLoaded(false)
 
                             reject(err)
                         })
@@ -440,40 +423,6 @@ export function useMusic() {
                             })
                     })
             }
-
-            /**
-             * previously used music data api requestor...
-             */
-            //             musicDataApiRequestor
-            //                 .post(
-            //                     `youtubei/${
-            //                         musicConfigData.INNERTUBE_API_VERSION
-            //                     }/${endpointName}?${querystring.stringify(
-            //                         Object.assign(
-            //                             {
-            //                                 alt: 'json',
-            //                                 key: musicConfigData.INNERTUBE_API_KEY,
-            //                             },
-            //                             inputQuery,
-            //                         ),
-            //                     )}`,
-            //                     Object.assign(
-            //                         inputVariables,
-            //                         MusicUtils.createApiContext(musicConfigData),
-            //                     ),
-            //                     {
-            //                         responseType: 'json',
-            //                         headers: {...headers, cancelToken: cancelToken.token},
-            //                     },
-            //                 )
-            //                 .then(res => {
-            //                     if (res.data?.hasOwnProperty('responseContext')) {
-            //                         apiRequsetResolver(res.data)
-            //                     }
-            //                 })
-            //                 .catch(err => {
-            //                     apiRequsetReject(err)
-            //                 })
         })
     }
 
@@ -567,9 +516,7 @@ export function useMusic() {
                                     return resolve(JSON.parse(res))
                                 }
                             })
-                            .catch(_err => {
-                                // console.log('ERROR LOCALLY LOAD', err)
-                            })
+                            .catch(_err => {})
                     } else {
                         // connected, do nothing and continue
                     }
