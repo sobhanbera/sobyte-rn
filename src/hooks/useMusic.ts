@@ -484,7 +484,7 @@ export function useMusic() {
      * when any error occured or seems to have no internet connection then if the particular search result is saved in local storage this function will return it in place of returning the new updated data
      * since there should be some 2nd plan for every work...
      */
-    const search = (
+    const search: any = (
         query: string,
         categoryName: SearchOptions = 'SONG',
         saveToLocalStorage: boolean = false,

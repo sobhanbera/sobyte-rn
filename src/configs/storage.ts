@@ -10,8 +10,9 @@
 
 export const LANGUAGE_CODE_STORAGE_KEY = '@APP:LANGUAGE_CODE' // Storage key where the app language variable exists, for internationlization purpose
 export const API_CONFIG_DATA_STORAGE_KEY = '@APP:API_CONFIG_DATA' // Storage key for header fetched by the api everytime...
+
 export const MUSIC_PLAYER_SONGS_RESULT_STORAGE_KEY =
-    '@APP:MUSIC_PLAYER_SONGS_RESULT_STORAGE_KEY' // the storage key where the user data like email, username, etc will be stored in android itself...
+    '@APP:MUSIC_PLAYER_SONGS_RESULT_STORAGE_KEY' // storage key where searched songs for the player will be saved...
 /**
  * like the searched query is New Bollywood songs and the category is PLAYLIST (may be)
  * then the results of it would be saved in here
