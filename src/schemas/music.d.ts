@@ -1,8 +1,27 @@
 /**
+ * © Sobyte
+ *
+ * @author : Sobhan Bera (sobhanbera)
+ * @other_editors :
+ * @file : Typescript
+ *
+ * Purpose - music related modal and all...
+ */
+/**
  * this is the all types of data which could be fetched
  * from the backend api
  */
 export type SearchOptions = 'SONG' | 'ALBUM' | 'ARTIST' | 'PLAYLIST' | 'VIDEO'
+
+/**
+ * all the endpoints we are supporting right now
+ */
+type PrimaryMusicApiEndpointsOptions =
+    | 'search'
+    | 'music/get_search_suggestions'
+    | 'browse'
+    | 'player'
+    | 'next'
 
 export interface MusicFormats {
     formats: Array<{
