@@ -8,6 +8,7 @@
  * Purpose - this is the reducer which contains configs for music fetching
  */
 
+import {MUSIC_CONFIG_SLICE_NAME} from '@/configs'
 import {createSlice} from '@reduxjs/toolkit'
 
 /**
@@ -66,7 +67,7 @@ export const BareMusicConfigState: MusicConfigState = {
 }
 
 const musicConfigSlice = createSlice({
-    name: 'musicconfig',
+    name: MUSIC_CONFIG_SLICE_NAME,
     initialState: {
         musicConfigData: {},
         error: false,
