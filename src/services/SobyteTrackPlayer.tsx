@@ -8,18 +8,23 @@
  * Purpose - wrapper to initialize app's track player
  */
 
-import React, {useEffect, useState} from 'react'
+import React, {useCallback, useEffect, useState} from 'react'
+import {useSelector} from 'react-redux'
 import TrackPlayer, {Capability, RatingType} from 'react-native-track-player'
 
 import {useMusic} from '@/hooks'
 import playerServices from './playerservices'
+import {SobyteState} from '@/state'
 
 const SobyteTrackPlayerContext = React.createContext<boolean>(false)
 interface SobyteTrackPlayerProps {
     children: React.ReactChild
 }
 export default function SobyteTrackPlayer(props: SobyteTrackPlayerProps) {
-    const {initMusicApi} = useMusic()
+    const {initMusicApi, search} = useMusic()
+    const musicConfigError = useSelector(
+        (state: SobyteState) => state.musicconfig.error,
+    )
 
     const [isPlayerReady, setIsPlayerReady] = useState<boolean>(false)
 
@@ -119,28 +124,40 @@ export default function SobyteTrackPlayer(props: SobyteTrackPlayerProps) {
      * this is the function which will be used to initialize the service
      * for music api, like the search, getSearchSuggestions, getPlayer, getAlbums searching and all...
      */
-    const initializeAppMusicService = () => {
+    const initializeAppMusicService = useCallback(() => {
         /**
          * it is not updating the state, don't why, so we need to call it at least twice
          * so that the previous state data could be fetched
          */
-        // console.log('init 0')
         initMusicApi()
             .then(_result => {
                 // the 2nd time
-                // console.log('init 1')
-                initMusicApi()
+
+                /**
+                 * we are searching for song because this will indirectly trigger the _createApiRequest function to call initialize once more...
+                 * then we can continue to make any other requests
+                 *
+                 * this makes sure that the api is up and running
+                 * with a status of 200 always...
+                 */
+                search('any random query here', 'SONG')
             })
             .catch(_error => {
                 // if any error occurs at least try once again to init the service
-                // console.log('init 2')
                 initMusicApi().then(_result => {
                     // if passes this time then call it again, and we are done!
-                    // console.log('init 3')
-                    initMusicApi()
+
+                    /**
+                     * we are searching for song because this will indirectly trigger the _createApiRequest function to call initialize once more...
+                     * then we can continue to make any other requests
+                     *
+                     * this makes sure that the api is up and running
+                     * with a status of 200 always...
+                     */
+                    search('any random query here', 'SONG')
                 })
             })
-    }
+    }, [musicConfigError])
     useEffect(() => {
         initializeAppMusicService()
     }, [])

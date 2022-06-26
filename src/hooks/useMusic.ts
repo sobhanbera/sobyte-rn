@@ -29,6 +29,8 @@ import MusicUtils from '@/utils/music'
 import MusicParser from '@/utils/musicparser'
 import {useDispatch, useSelector} from 'react-redux'
 import {
+    BareMusicConfig,
+    MusicConfig,
     SobyteState,
     updateMusicConfigState,
     updateMusicConfigStatus,
@@ -43,12 +45,10 @@ export function useMusic() {
         (state: SobyteState) => state.musicconfig,
     )
     const dispatch = useDispatch()
-    // console.log(musicConfigData)
 
     /**
      * main and core required variable to make requests to the backend
      */
-    let fetchConfig: {[key: string]: string} = {}
     let musicDataApiRequestor = axios.create({
         baseURL: 'https://music.youtube.com/',
         headers: {
@@ -116,9 +116,14 @@ export function useMusic() {
                         // setMusicConfig(apiConfigs)
                         // setError(false)
                         // setLoaded(true)
+
+                        /**
+                         * lets provide the full apiConfig data which could be used by _createApiRequest method below
+                         * this would be needed if the musicConfigData is not updated yet
+                         * then _createApiRequest method will call this init function and get the apiConfig in return
+                         */
                         resolve({
-                            locale: apiConfigs.LOCALE,
-                            logged_in: apiConfigs.LOGGED_IN,
+                            ...apiConfigs,
                         })
                     } else {
                         /**
@@ -127,13 +132,14 @@ export function useMusic() {
                          * will be done that the api data is available if not then this function will be called and this would be more faster and
                          * efficient than the usual code...
                          */
-                        // console.log(
-                        //     'STARTED INIT API CODE 1: under else condition...',
-                        // )
+
                         musicDataApiRequestor
                             .get('/')
                             .then(async res => {
                                 try {
+                                    let fetchConfig: MusicConfig =
+                                        BareMusicConfig // saving data
+
                                     res.data
                                         .split('ytcfg.set(')
                                         .map((v: string) => {
@@ -151,10 +157,6 @@ export function useMusic() {
                                                     fetchConfig,
                                                 )),
                                         )
-                                    resolve({
-                                        locale: fetchConfig.LOCALE,
-                                        logged_in: fetchConfig.LOGGED_IN,
-                                    })
 
                                     // not working with normal react state
                                     dispatch(
@@ -181,9 +183,16 @@ export function useMusic() {
                                                 LAST_UPDATED_DATE,
                                         }),
                                     )
-                                } catch (err) {
-                                    reject(err)
 
+                                    /**
+                                     * lets provide the full apiConfig data which could be used by _createApiRequest method below
+                                     * this would be needed if the musicConfigData is not updated yet
+                                     * then _createApiRequest method will call this init function and get the apiConfig in return
+                                     */
+                                    resolve({
+                                        ...fetchConfig,
+                                    })
+                                } catch (err) {
                                     // not working with normal react state
                                     dispatch(
                                         updateMusicConfigStatus({
@@ -193,9 +202,19 @@ export function useMusic() {
                                     )
                                     // setError(true)
                                     // setLoaded(false)
+                                    reject(err)
                                 }
                             })
                             .catch(err => {
+                                // not working with normal react state
+                                dispatch(
+                                    updateMusicConfigStatus({
+                                        error: true,
+                                        ready: false,
+                                    }),
+                                )
+                                // setError(true)
+                                // setLoaded(false)
                                 reject(err)
                             })
                     }
@@ -207,13 +226,12 @@ export function useMusic() {
                      * will be done that the api data is available if not then this function will be called and this would be more faster and
                      * efficient than the usual code...
                      */
-                    // console.log(
-                    //     'STARTED INIT API CODE 2: under catch statement...',
-                    // )
                     musicDataApiRequestor
                         .get('/')
                         .then(async res => {
                             try {
+                                let fetchConfig: MusicConfig = BareMusicConfig // saving data
+
                                 res.data
                                     .split('ytcfg.set(')
                                     .map((v: string) => {
@@ -229,10 +247,6 @@ export function useMusic() {
                                                 fetchConfig,
                                             )),
                                     )
-                                resolve({
-                                    locale: fetchConfig.LOCALE,
-                                    logged_in: fetchConfig.LOGGED_IN,
-                                })
 
                                 // not working with normal react state
                                 dispatch(
@@ -258,9 +272,16 @@ export function useMusic() {
                                         LAST_UPDATED_DATE: LAST_UPDATED_DATE,
                                     }),
                                 )
-                            } catch (err) {
-                                reject(err)
 
+                                /**
+                                 * lets provide the full apiConfig data which could be used by _createApiRequest method below
+                                 * this would be needed if the musicConfigData is not updated yet
+                                 * then _createApiRequest method will call this init function and get the apiConfig in return
+                                 */
+                                resolve({
+                                    ...fetchConfig,
+                                })
+                            } catch (err) {
                                 // not working with normal react state
                                 dispatch(
                                     updateMusicConfigStatus({
@@ -270,9 +291,21 @@ export function useMusic() {
                                 )
                                 // setError(true)
                                 // setLoaded(false)
+
+                                reject(err)
                             }
                         })
                         .catch(err => {
+                            // not working with normal react state
+                            dispatch(
+                                updateMusicConfigStatus({
+                                    error: true,
+                                    ready: false,
+                                }),
+                            )
+                            // setError(true)
+                            // setLoaded(false)
+
                             reject(err)
                         })
                 })
@@ -294,10 +327,6 @@ export function useMusic() {
         // cancelToken?: CancelTokenSource,
         cancelToken: any = '',
     ) => {
-        // if (error)
-        //     await initialize()
-        //         .then(res => {})
-        //         .catch(err => {})
         const headers: any = Object.assign(
             {
                 'x-origin': musicDataApiRequestor.defaults.baseURL,
@@ -315,37 +344,136 @@ export function useMusic() {
             musicDataApiRequestor.defaults.headers,
         )
 
-        return new Promise((resolve, reject) => {
-            musicDataApiRequestor
-                .post(
-                    `youtubei/${
-                        musicConfigData.INNERTUBE_API_VERSION
-                    }/${endpointName}?${querystring.stringify(
-                        Object.assign(
-                            {
-                                alt: 'json',
-                                key: musicConfigData.INNERTUBE_API_KEY,
-                            },
-                            inputQuery,
-                        ),
-                    )}`,
-                    Object.assign(
-                        inputVariables,
-                        MusicUtils.createApiContext(musicConfigData),
-                    ),
-                    {
-                        responseType: 'json',
-                        headers: {...headers, cancelToken: cancelToken.token},
-                    },
-                )
-                .then(res => {
-                    if (res.data?.hasOwnProperty('responseContext')) {
-                        resolve(res.data)
-                    }
-                })
-                .catch(err => {
-                    reject(err)
-                })
+        /**
+         * if the musicConfigData does not exists or it is undefined
+         * then call initialize() method here and then continue doing the actual task of this function...
+         */
+        return new Promise((apiRequsetResolver, apiRequsetReject) => {
+            if (musicConfigData.DEVICE === undefined) {
+                initialize()
+                    .then((musicConfigDataAfterManualInit: any) => {
+                        console.log('Successfully Manual Initialization')
+
+                        musicDataApiRequestor
+                            .post(
+                                `youtubei/${
+                                    musicConfigDataAfterManualInit.INNERTUBE_API_VERSION
+                                }/${endpointName}?${querystring.stringify(
+                                    Object.assign(
+                                        {
+                                            alt: 'json',
+                                            key: musicConfigDataAfterManualInit.INNERTUBE_API_KEY,
+                                        },
+                                        inputQuery,
+                                    ),
+                                )}`,
+                                Object.assign(
+                                    inputVariables,
+                                    MusicUtils.createApiContext(
+                                        musicConfigDataAfterManualInit,
+                                    ),
+                                ),
+                                {
+                                    responseType: 'json',
+                                    headers: {
+                                        ...headers,
+                                        cancelToken: cancelToken.token,
+                                    },
+                                },
+                            )
+                            .then(res => {
+                                if (
+                                    res.data?.hasOwnProperty('responseContext')
+                                ) {
+                                    apiRequsetResolver(res.data)
+                                }
+                            })
+                            .catch(err => {
+                                apiRequsetReject(err)
+                            })
+                    })
+                    .catch((musicConfigErrorAfterManualInit: any) => {
+                        console.log('Manual Init Failed')
+
+                        /**
+                         * the manual initialization is failed due to some reason, maybe internet, crashes, etc.
+                         *
+                         * but if eventually the musicConfigData is available by any chance (if the redux state is updated now)
+                         * then why not use if instead.
+                         */
+                        musicDataApiRequestor
+                            .post(
+                                `youtubei/${
+                                    musicConfigData.INNERTUBE_API_VERSION
+                                }/${endpointName}?${querystring.stringify(
+                                    Object.assign(
+                                        {
+                                            alt: 'json',
+                                            key: musicConfigData.INNERTUBE_API_KEY,
+                                        },
+                                        inputQuery,
+                                    ),
+                                )}`,
+                                Object.assign(
+                                    inputVariables,
+                                    MusicUtils.createApiContext(
+                                        musicConfigData,
+                                    ),
+                                ),
+                                {
+                                    responseType: 'json',
+                                    headers: {
+                                        ...headers,
+                                        cancelToken: cancelToken.token,
+                                    },
+                                },
+                            )
+                            .then(res => {
+                                if (
+                                    res.data?.hasOwnProperty('responseContext')
+                                ) {
+                                    apiRequsetResolver(res.data)
+                                }
+                            })
+                            .catch(err => {
+                                apiRequsetReject(err)
+                            })
+                    })
+            }
+
+            /**
+             * previously used music data api requestor...
+             */
+            //             musicDataApiRequestor
+            //                 .post(
+            //                     `youtubei/${
+            //                         musicConfigData.INNERTUBE_API_VERSION
+            //                     }/${endpointName}?${querystring.stringify(
+            //                         Object.assign(
+            //                             {
+            //                                 alt: 'json',
+            //                                 key: musicConfigData.INNERTUBE_API_KEY,
+            //                             },
+            //                             inputQuery,
+            //                         ),
+            //                     )}`,
+            //                     Object.assign(
+            //                         inputVariables,
+            //                         MusicUtils.createApiContext(musicConfigData),
+            //                     ),
+            //                     {
+            //                         responseType: 'json',
+            //                         headers: {...headers, cancelToken: cancelToken.token},
+            //                     },
+            //                 )
+            //                 .then(res => {
+            //                     if (res.data?.hasOwnProperty('responseContext')) {
+            //                         apiRequsetResolver(res.data)
+            //                     }
+            //                 })
+            //                 .catch(err => {
+            //                     apiRequsetReject(err)
+            //                 })
         })
     }
 
@@ -390,7 +518,6 @@ export function useMusic() {
     /**
      * @param query the query string
      * @param categoryName what type of data is needed like "song" | "album" | "playlist"
-     * @param getARandomResult boolean value if true then will provide a random search result out of the result got from api
      * @param saveToLocalStorage boolean if true then after searching and providing the results this function will also save the data in local storage for offline use cases.
      * @param saveToCustomLocation this is a string if any part of app needs only one type of data everytime then provide a custom location reference we will save the data instead of `${SEARCHED_SONG_OFFLINE_DATA_STORAGE_KEY}${query}${categoryName}` location this could be used in music player main UI component since there many different types of random queries are done and we have to load it in offline purpose so no need to save everytype query of data only one is sufficient
      * @param provideASubarray if any part of the app wants a subarray from the fetched content about 0 to 5 then use [0, 5]... etc.
@@ -404,7 +531,6 @@ export function useMusic() {
     const search = (
         query: string,
         categoryName: SearchOptions = 'SONG',
-        getARandomResult: boolean = false,
         saveToLocalStorage: boolean = false,
         saveToCustomLocation: string = '',
         provideASubarray: number[] = [0, 100], // default list count would be less than 30 so for safe case we are using 100 items
@@ -428,11 +554,11 @@ export function useMusic() {
              */
             if (saveToLocalStorage) {
                 NetInfo.fetch().then(state => {
-                    if (state.isConnected !== true) {
+                    if (!state.isConnected) {
                         isOffline = true
                         AsyncStorage.getItem(
                             saveToCustomLocation ||
-                                `${SEARCHED_SONG_OFFLINE_DATA_STORAGE_KEY}${query}${categoryName}`,
+                                `${SEARCHED_SONG_OFFLINE_DATA_STORAGE_KEY}-${categoryName}-${query}`,
                         )
                             .then((res: any) => {
                                 // checking if the data exists in local storage or not...
@@ -444,10 +570,16 @@ export function useMusic() {
                             .catch(_err => {
                                 // console.log('ERROR LOCALLY LOAD', err)
                             })
+                    } else {
+                        // connected, do nothing and continue
                     }
                 })
             }
 
+            /**
+             * TODO: if the user is offline, queue the api request and make it
+             * when the user in back online again...
+             */
             if (isOffline) return
 
             /**
@@ -466,17 +598,6 @@ export function useMusic() {
                             case 'SONG':
                                 result =
                                     MusicParser.parseSongSearchResult(context)
-                                if (getARandomResult) {
-                                    result =
-                                        result.content[
-                                            Math.floor(
-                                                Math.random() *
-                                                    result.content.length,
-                                            )
-                                        ]
-                                }
-                                // this line below provides a list of valid tracks list
-                                // result = result.content.filter((songItem: any) => songItem.musicId.match(MUSIC_ID_REGEX))
                                 break
                             case 'VIDEO':
                                 result =
@@ -513,8 +634,10 @@ export function useMusic() {
                         if (provideASubarray[0] <= provideASubarray[1]) {
                             /**
                              * checking that sufficient data is available or not and then providing the data
+                             *
+                             * if any range could be provided even if the provideASubarray[1] is more than the length of songs list
                              */
-                            if (result.content.length > 0) {
+                            if (result.content.length > provideASubarray[0]) {
                                 resolve({
                                     ...result,
                                     content: result.content.slice(
@@ -548,7 +671,7 @@ export function useMusic() {
                             if (!isOffline) {
                                 AsyncStorage.setItem(
                                     saveToCustomLocation ||
-                                        `${SEARCHED_SONG_OFFLINE_DATA_STORAGE_KEY}${query}${categoryName}`,
+                                        `${SEARCHED_SONG_OFFLINE_DATA_STORAGE_KEY}-${categoryName}-${query}`,
                                     JSON.stringify(result),
                                 )
                                     .then(() => {})
@@ -557,11 +680,13 @@ export function useMusic() {
                         }
                     } catch (error) {
                         return resolve({
-                            error: error.message,
+                            error: error,
                         })
                     }
                 })
-                .catch(error => reject(error))
+                .catch(error => {
+                    reject(error)
+                })
         })
     }
 
