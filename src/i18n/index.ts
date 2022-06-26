@@ -13,7 +13,7 @@ import {initReactI18next} from 'react-i18next'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 import {AvailableLanguages, LanguageOptions} from './resources'
-import {LANGUAGE_CODE_STORAGE_KEY} from '@/configs/storage'
+import {LANGUAGE_CODE_STORAGE_KEY} from '@/configs'
 
 /**
  * initialize internationalization feature for app

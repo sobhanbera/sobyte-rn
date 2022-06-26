@@ -1,6 +1,21 @@
-import {SearchOptions} from '@/schemas'
+/**
+ * © Sobyte
+ *
+ * @author : Sobhan Bera (sobhanbera)
+ * @other_editors :
+ * @file : Typescript
+ *
+ * Purpose - utils for music api
+ */
 
-const _ = require('lodash')
+import Lodash from 'lodash'
+import {SearchOptions} from '@/schemas'
+import {
+    LOCATION_PERMISSION_AUTHORIZATION_STATUS_UNSUPPORTED,
+    MUSIC_ACTIVITY_MASTER_SWITCH_INDETERMINATE,
+    MUSIC_LOCATION_MASTER_SWITCH_INDETERMINATE,
+    PWA_INSTALLABILITY_STATUS_UNKNOWN,
+} from '@/configs'
 
 export const fv: any = (input: any, query: any, justOne: boolean = false) => {
     const iterate: any = (x: any, y: any) => {
@@ -62,15 +77,14 @@ export const createApiContext = (ytcfg: any) => {
                 hl: ytcfg.HL,
                 locationInfo: {
                     locationPermissionAuthorizationStatus:
-                        'LOCATION_PERMISSION_AUTHORIZATION_STATUS_UNSUPPORTED',
+                        LOCATION_PERMISSION_AUTHORIZATION_STATUS_UNSUPPORTED,
                 },
                 musicAppInfo: {
                     musicActivityMasterSwitch:
-                        'MUSIC_ACTIVITY_MASTER_SWITCH_INDETERMINATE',
+                        MUSIC_ACTIVITY_MASTER_SWITCH_INDETERMINATE,
                     musicLocationMasterSwitch:
-                        'MUSIC_LOCATION_MASTER_SWITCH_INDETERMINATE',
-                    pwaInstallabilityStatus:
-                        'PWA_INSTALLABILITY_STATUS_UNKNOWN',
+                        MUSIC_LOCATION_MASTER_SWITCH_INDETERMINATE,
+                    pwaInstallabilityStatus: PWA_INSTALLABILITY_STATUS_UNKNOWN,
                 },
                 utcOffsetMinutes: -new Date().getTimezoneOffset(),
             },
@@ -126,11 +140,14 @@ export const getCategoryURI = (categoryName: SearchOptions) => {
     }
 }
 
-export const buildEndpointContext = (typeName: string, browseId: string) => {
+export const buildEndpointContext = (
+    typeName: SearchOptions,
+    browseId: string,
+) => {
     return {
         browseEndpointContextSupportedConfigs: {
             browseEndpointContextMusicConfig: {
-                pageType: `MUSIC_PAGE_TYPE_${_.upperCase(typeName)}`,
+                pageType: `MUSIC_PAGE_TYPE_${Lodash.upperCase(typeName)}`,
             },
         },
         browseId: browseId,

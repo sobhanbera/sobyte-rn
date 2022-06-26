@@ -18,10 +18,18 @@ import NetInfo from '@react-native-community/netinfo'
 import {
     API_CONFIG_DATA_STORAGE_KEY,
     SEARCHED_SONG_OFFLINE_DATA_STORAGE_KEY,
-} from '@/configs/storage'
+    PRIMARY_MUSIC_API,
+    PRIMARY_MUSIC_API_ENDPOINTS,
+    MUSIC_API_USER_AGENT,
+    MUSIC_API_ACCEPTED_LANGUAGE,
+    MUSIC_API_KEY,
+    MUSIC_API_NEXT,
+    MUSIC_API_ALT,
+} from '@/configs'
 import {
     ContinuationObject,
     ContinuationObjectKeys,
+    PrimaryMusicApiEndpointsOptions,
     SearchOptions,
 } from '@/schemas'
 
@@ -47,11 +55,10 @@ export function useMusic() {
      * main and core required variable to make requests to the backend
      */
     let musicDataApiRequestor = axios.create({
-        baseURL: 'https://music.youtube.com/',
+        baseURL: PRIMARY_MUSIC_API,
         headers: {
-            'User-Agent':
-                'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36',
-            'Accept-Language': 'en-US,en;q=0.5',
+            'User-Agent': MUSIC_API_USER_AGENT,
+            'Accept-Language': MUSIC_API_ACCEPTED_LANGUAGE,
         },
         withCredentials: true,
     })
@@ -441,7 +448,7 @@ export function useMusic() {
 
         return new Promise<string[]>((resolve, reject) => {
             _createApiRequest(
-                'music/get_search_suggestions',
+                PRIMARY_MUSIC_API_ENDPOINTS.get_search_suggestions,
                 {
                     input: query,
                 },
@@ -535,7 +542,7 @@ export function useMusic() {
              * we could search again and give the latest and updated data to the user...z
              */
             var result: any = {}
-            _createApiRequest('search', {
+            _createApiRequest(PRIMARY_MUSIC_API_ENDPOINTS.search, {
                 query: query,
                 params: MusicUtils.getCategoryURI(categoryName),
             })
@@ -643,7 +650,7 @@ export function useMusic() {
      * @returns return the same type of object for which the continuation is provided
      */
     const getContinuation = (
-        endpointName: string = 'search',
+        endpointName: PrimaryMusicApiEndpointsOptions = 'search',
         continuation: ContinuationObjectKeys,
         dataType: SearchOptions,
     ) => {
@@ -661,9 +668,9 @@ export function useMusic() {
                         ctoken: continuation.continuation,
                         continuation: continuation.continuation,
                         itct: continuation.clickTrackingParams,
-                        type: 'next',
-                        key: 'AIzaSyC9XL3ZjWddXya6X74dJoCTL-WEYFDNX30',
-                        alt: 'json',
+                        type: MUSIC_API_NEXT,
+                        key: MUSIC_API_KEY,
+                        alt: MUSIC_API_ALT,
                     },
                 ).then(context => {
                     // let parse:Date = new Date()
@@ -719,7 +726,7 @@ export function useMusic() {
         if (_.startsWith(browseId, 'MPREb')) {
             return new Promise((resolve, reject) => {
                 _createApiRequest(
-                    'browse',
+                    PRIMARY_MUSIC_API_ENDPOINTS.browse,
                     MusicUtils.buildEndpointContext('ALBUM', browseId),
                 )
                     .then(context => {
@@ -749,7 +756,7 @@ export function useMusic() {
             _.startsWith(browseId, 'PL') && (browseId = 'VL' + browseId)
             return new Promise((resolve, reject) => {
                 _createApiRequest(
-                    'browse',
+                    PRIMARY_MUSIC_API_ENDPOINTS.browse,
                     MusicUtils.buildEndpointContext('PLAYLIST', browseId),
                 )
                     .then(context => {
@@ -759,7 +766,7 @@ export function useMusic() {
                                 params: ContinuationObject,
                             ) => {
                                 _createApiRequest(
-                                    'browse',
+                                    PRIMARY_MUSIC_API_ENDPOINTS.browse,
                                     {},
                                     {
                                         ctoken: params.continuation,
@@ -833,7 +840,7 @@ export function useMusic() {
         if (_.startsWith(browseId, 'UC')) {
             return new Promise((resolve, reject) => {
                 _createApiRequest(
-                    'browse',
+                    PRIMARY_MUSIC_API_ENDPOINTS.browse,
                     MusicUtils.buildEndpointContext('ARTIST', browseId),
                 )
                     .then(context => {
@@ -865,7 +872,7 @@ export function useMusic() {
         paramString: string = '',
     ) => {
         return new Promise((resolve, reject) => {
-            _createApiRequest('player', {
+            _createApiRequest(PRIMARY_MUSIC_API_ENDPOINTS.player, {
                 captionParams: {},
                 // cpn: '8aVi-t8xotY1HKuU',
                 playlistId: playlistId,
@@ -910,7 +917,7 @@ export function useMusic() {
         playerParams: string = '',
     ) => {
         return new Promise((resolve, reject) => {
-            _createApiRequest('next', {
+            _createApiRequest(PRIMARY_MUSIC_API_ENDPOINTS.next, {
                 enablePersistentPlaylistPanel: true,
                 isAudioOnly: true,
                 params: param,

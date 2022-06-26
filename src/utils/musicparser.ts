@@ -1,3 +1,13 @@
+/**
+ * © Sobyte
+ *
+ * @author : Sobhan Bera (sobhanbera)
+ * @other_editors :
+ * @file : Typescript
+ *
+ * Purpose - parser methods for music api
+ */
+
 import lodash from 'lodash'
 
 import {VideoDetails} from '@/schemas'
