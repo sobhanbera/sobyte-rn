@@ -10,14 +10,59 @@
 
 import {createSlice} from '@reduxjs/toolkit'
 
+/**
+ * these are the fields we are using currently,
+ * in future more fields could be introduced for testing and deployment purpose and more...
+ */
+export interface MusicConfig {
+    VISITOR_DATA: string
+    INNERTUBE_CONTEXT_CLIENT_NAME: string
+    INNERTUBE_CLIENT_VERSION: string
+    DEVICE: string
+    PAGE_CL: string
+    PAGE_BUILD_LABEL: string
+    INNERTUBE_API_VERSION: string
+    INNERTUBE_API_KEY: string
+
+    /**
+     * extra fields
+     * these are not needed during api request
+     * instead needed during initialization of API
+     *
+     * it contains more fields which are only needed when making api request
+     * so saving it as anonymous data
+     * since they are a huge number of fields to be manually create a modal for it
+     */
+    [key: string]: any
+}
+/**
+ * the state of music config
+ * this is the type which gives a basic blueprint of music config data state...
+ */
 export interface MusicConfigState {
-    musicConfigData: {[key: string]: any}
+    musicConfigData: MusicConfig
     error: boolean
     ready: boolean
 }
 // default payload type
 type MusicConfigPayload = {
     payload: Partial<MusicConfigState>
+}
+
+export const BareMusicConfig: MusicConfig = {
+    VISITOR_DATA: '',
+    INNERTUBE_CONTEXT_CLIENT_NAME: '',
+    INNERTUBE_CLIENT_VERSION: '',
+    DEVICE: '',
+    PAGE_CL: '',
+    PAGE_BUILD_LABEL: '',
+    INNERTUBE_API_VERSION: '',
+    INNERTUBE_API_KEY: '',
+}
+export const BareMusicConfigState: MusicConfigState = {
+    musicConfigData: BareMusicConfig,
+    error: false,
+    ready: false,
 }
 
 const musicConfigSlice = createSlice({
@@ -38,12 +83,18 @@ const musicConfigSlice = createSlice({
         updateMusicConfigState: (
             state: MusicConfigState,
             {
-                payload: {musicConfigData = {}, error = false, ready = false},
+                payload: {
+                    musicConfigData = BareMusicConfig, // null backup data
+                    error = false,
+                    ready = false,
+                },
             }: MusicConfigPayload,
         ) => {
             state.musicConfigData = musicConfigData
+
             state.error = error
             state.ready = ready
+            // console.log(state.musicConfigData)
         },
 
         /**
@@ -53,7 +104,7 @@ const musicConfigSlice = createSlice({
          */
         updateMusicConfig: (
             state: MusicConfigState,
-            {payload: {musicConfigData = {}}}: MusicConfigPayload,
+            {payload: {musicConfigData = BareMusicConfig}}: MusicConfigPayload,
         ) => {
             state.musicConfigData = musicConfigData
         },
