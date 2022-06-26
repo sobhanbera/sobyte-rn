@@ -1,5 +1,5 @@
 /**
- * © 2021 Sobyte
+ * © Sobyte
  *
  * @author : Sobhan Bera (sobhanbera)
  * @other_editors :
@@ -24,7 +24,7 @@
 // more data could also be provided like date, time, location, etc..
 
 /**
- * © 2021 Sobyte
+ * © Sobyte
  *
  * @author : Sobhan Bera (sobhanbera)
  * @other_editors :

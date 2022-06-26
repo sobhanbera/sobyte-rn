@@ -1,5 +1,5 @@
 /**
- * © 2021 Sobyte
+ * © Sobyte
  *
  * @author : Sobhan Bera (sobhanbera)
  * @other_editors :
