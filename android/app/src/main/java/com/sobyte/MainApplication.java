@@ -21,6 +21,7 @@ import com.swmansion.gesturehandler.RNGestureHandlerPackage;
 import com.guichaguri.trackplayer.TrackPlayer;
 import com.zoontek.rnlocalize.RNLocalizePackage;
 import com.reactnativecommunity.netinfo.NetInfoPackage;
+import com.swmansion.rnscreens.RNScreensPackage;
 
 public class MainApplication extends Application implements ReactApplication {
 
