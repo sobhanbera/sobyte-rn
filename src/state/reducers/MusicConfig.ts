@@ -16,14 +16,14 @@ import {createSlice} from '@reduxjs/toolkit'
  * in future more fields could be introduced for testing and deployment purpose and more...
  */
 export interface MusicConfig {
-    VISITOR_DATA: string
-    INNERTUBE_CONTEXT_CLIENT_NAME: string
-    INNERTUBE_CLIENT_VERSION: string
-    DEVICE: string
-    PAGE_CL: string
-    PAGE_BUILD_LABEL: string
-    INNERTUBE_API_VERSION: string
-    INNERTUBE_API_KEY: string
+    VISITOR_DATA?: string
+    INNERTUBE_CONTEXT_CLIENT_NAME?: string
+    INNERTUBE_CLIENT_VERSION?: string
+    DEVICE?: string
+    PAGE_CL?: string
+    PAGE_BUILD_LABEL?: string
+    INNERTUBE_API_VERSION?: string
+    INNERTUBE_API_KEY?: string
 
     /**
      * extra fields
@@ -34,7 +34,7 @@ export interface MusicConfig {
      * so saving it as anonymous data
      * since they are a huge number of fields to be manually create a modal for it
      */
-    [key: string]: any
+    [key: string]: string | undefined
 }
 /**
  * the state of music config

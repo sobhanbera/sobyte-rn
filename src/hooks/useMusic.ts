@@ -37,8 +37,6 @@ import MusicUtils from '@/utils/music'
 import MusicParser from '@/utils/musicparser'
 import {useDispatch, useSelector} from 'react-redux'
 import {
-    BareMusicConfig,
-    MusicConfig,
     SobyteState,
     updateMusicConfigState,
     updateMusicConfigStatus,
@@ -78,13 +76,14 @@ export function useMusic() {
                      *  is launched */
                     const apiConfigs = JSON.parse(res)
                     /**
-                     * @LAST_UPDATED_DATE - this is the timestamp when the last api was last updated which is done every day once automatically...
+                     * @SOBYTE_MUSIC_CONFIG_LAST_UPDATED - this is the timestamp when the last api was last updated which is done every day once automatically...
                      */
                     const LAST_DATE = new Date(
-                        Number(apiConfigs.LAST_UPDATED_DATE),
+                        Number(apiConfigs.SOBYTE_MUSIC_CONFIG_LAST_UPDATED),
                     ).getDate()
                     // current date to compare the above date with...
                     const CURR_DATE = new Date().getDate()
+
                     /**
                      * here we are checking that the current date and the last update
                      * date difference is <= 1 only then we can continue to provide the
@@ -99,7 +98,6 @@ export function useMusic() {
                      * now it will update daily (updated) */
                     if (
                         Math.abs(CURR_DATE - LAST_DATE) === 0 &&
-                        apiConfigs.LAST_UPDATED_DATE &&
                         apiConfigs.VISITOR_DATA &&
                         apiConfigs.INNERTUBE_CONTEXT_CLIENT_NAME &&
                         apiConfigs.INNERTUBE_CLIENT_VERSION &&
@@ -137,8 +135,8 @@ export function useMusic() {
                             .get('/')
                             .then(async res => {
                                 try {
-                                    let fetchConfig: MusicConfig =
-                                        BareMusicConfig // saving data
+                                    let fetchConfig: {[key: string]: string} =
+                                        {}
 
                                     res.data
                                         .split('ytcfg.set(')
@@ -170,15 +168,14 @@ export function useMusic() {
                                     /**
                                      * this is the timestamp when the last api was last updated which is done every day once automatically...
                                      */
-                                    const LAST_UPDATED_DATE = new Date()
-                                        .getTime()
-                                        .toString()
+                                    const SOBYTE_MUSIC_CONFIG_LAST_UPDATED =
+                                        new Date().getTime().toString()
                                     await AsyncStorage.setItem(
                                         API_CONFIG_DATA_STORAGE_KEY,
                                         JSON.stringify({
                                             ...fetchConfig,
-                                            LAST_UPDATED_DATE:
-                                                LAST_UPDATED_DATE,
+                                            SOBYTE_MUSIC_CONFIG_LAST_UPDATED:
+                                                SOBYTE_MUSIC_CONFIG_LAST_UPDATED,
                                         }),
                                     )
 
@@ -226,7 +223,7 @@ export function useMusic() {
                         .get('/')
                         .then(async res => {
                             try {
-                                let fetchConfig: MusicConfig = BareMusicConfig // saving data
+                                let fetchConfig: {[key: string]: string} = {}
 
                                 res.data
                                     .split('ytcfg.set(')
@@ -256,14 +253,14 @@ export function useMusic() {
                                 /**
                                  * this is the timestamp when the last api was last updated which is done every day once automatically...
                                  */
-                                const LAST_UPDATED_DATE = new Date()
-                                    .getTime()
-                                    .toString()
+                                const SOBYTE_MUSIC_CONFIG_LAST_UPDATED =
+                                    new Date().getTime().toString()
                                 await AsyncStorage.setItem(
                                     API_CONFIG_DATA_STORAGE_KEY,
                                     JSON.stringify({
                                         ...fetchConfig,
-                                        LAST_UPDATED_DATE: LAST_UPDATED_DATE,
+                                        SOBYTE_MUSIC_CONFIG_LAST_UPDATED:
+                                            SOBYTE_MUSIC_CONFIG_LAST_UPDATED,
                                     }),
                                 )
 
@@ -382,7 +379,7 @@ export function useMusic() {
                                 apiRequsetReject(err)
                             })
                     })
-                    .catch((musicConfigErrorAfterManualInit: any) => {
+                    .catch((__musicConfigErrorAfterManualInit__: any) => {
                         console.log('Manual Init Failed')
 
                         /**
@@ -428,6 +425,41 @@ export function useMusic() {
                             .catch(err => {
                                 apiRequsetReject(err)
                             })
+                    })
+            } else {
+                // the music config data is updated and usable
+                musicDataApiRequestor
+                    .post(
+                        `youtubei/${
+                            musicConfigData.INNERTUBE_API_VERSION
+                        }/${endpointName}?${querystring.stringify(
+                            Object.assign(
+                                {
+                                    alt: 'json',
+                                    key: musicConfigData.INNERTUBE_API_KEY,
+                                },
+                                inputQuery,
+                            ),
+                        )}`,
+                        Object.assign(
+                            inputVariables,
+                            MusicUtils.createApiContext(musicConfigData),
+                        ),
+                        {
+                            responseType: 'json',
+                            headers: {
+                                ...headers,
+                                cancelToken: cancelToken.token,
+                            },
+                        },
+                    )
+                    .then(res => {
+                        if (res.data?.hasOwnProperty('responseContext')) {
+                            apiRequsetResolver(res.data)
+                        }
+                    })
+                    .catch(err => {
+                        apiRequsetReject(err)
                     })
             }
         })
@@ -477,20 +509,18 @@ export function useMusic() {
      * @param saveToLocalStorage boolean if true then after searching and providing the results this function will also save the data in local storage for offline use cases.
      * @param saveToCustomLocation this is a string if any part of app needs only one type of data everytime then provide a custom location reference we will save the data instead of `${SEARCHED_SONG_OFFLINE_DATA_STORAGE_KEY}${query}${categoryName}` location this could be used in music player main UI component since there many different types of random queries are done and we have to load it in offline purpose so no need to save everytype query of data only one is sufficient
      * @param provideASubarray if any part of the app wants a subarray from the fetched content about 0 to 5 then use [0, 5]... etc.
-     * @param _pageLimit number of data page wise (this argument is not in use currently).... and not prefered to use in future too...
      * @returns the search result after making api request
      *
      * the local storage will store the data in form of key value pair like {"search_query": JSON.stringify("search_result_json_value")}
      * when any error occured or seems to have no internet connection then if the particular search result is saved in local storage this function will return it in place of returning the new updated data
      * since there should be some 2nd plan for every work...
      */
-    const search: any = (
+    const search = (
         query: string,
         categoryName: SearchOptions = 'SONG',
         saveToLocalStorage: boolean = false,
         saveToCustomLocation: string = '',
         provideASubarray: number[] = [0, 100], // default list count would be less than 30 so for safe case we are using 100 items
-        _pageLimit: number = 1,
     ) => {
         var isOffline = false
         return new Promise((resolve, reject) => {
@@ -585,7 +615,12 @@ export function useMusic() {
                         /**
                          * if the provided subarray is correct then we will provide the data in that range
                          */
-                        if (provideASubarray[0] <= provideASubarray[1]) {
+                        if (
+                            provideASubarray.length >= 2 && // both the upper and the lower range are given
+                            provideASubarray[0] >= 0 && // lower range is a valid array index
+                            provideASubarray[1] >= 0 && // upper range is a valid array index
+                            provideASubarray[0] <= provideASubarray[1] // lower ranger is less than or equal to upper range
+                        ) {
                             /**
                              * checking that sufficient data is available or not and then providing the data
                              *
