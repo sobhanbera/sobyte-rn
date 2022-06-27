@@ -24,6 +24,7 @@ import com.reactnativecommunity.netinfo.NetInfoPackage;
 import com.swmansion.rnscreens.RNScreensPackage;
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 import com.dylanvann.fastimage.FastImageViewPackage;
+import com.BV.LinearGradient.LinearGradientPackage;
 
 public class MainApplication extends Application implements ReactApplication {
 

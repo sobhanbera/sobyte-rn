@@ -33,6 +33,8 @@ target 'sobyte' do
 
   pod 'RNFastImage', :path => '../node_modules/react-native-fast-image'
 
+  pod 'BVLinearGradient', :path => '../node_modules/react-native-linear-gradient'
+
   target 'sobyteTests' do
     inherit! :complete
     # Pods for testing
