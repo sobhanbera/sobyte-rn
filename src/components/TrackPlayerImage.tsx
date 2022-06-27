@@ -17,6 +17,7 @@ import {
     DEFAULT_PLAYER_ARTWORK_QUALITY,
     DEFAULT_PLAYER_ARTWORK_SIZE,
     SCREEN_WIDTH,
+    TRACK_ARTWORK_PARENT_VERTICAL_PADDING,
     TRACK_ARTWORK_WIDTH,
 } from '@/configs'
 import {updateArtworkQuality} from '@/utils'
@@ -84,6 +85,7 @@ export function PlayerTrackImage({
                 left: -TRACK_ARTWORK_WIDTH / 2,
                 opacity,
                 transform: [{scale}, {translateX}],
+                marginVertical: TRACK_ARTWORK_PARENT_VERTICAL_PADDING,
             }}>
             <FastImage
                 source={{

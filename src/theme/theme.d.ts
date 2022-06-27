@@ -122,6 +122,8 @@ export interface MetricSizes {
     medium: number
     large: number
     extraLarge: number
+
+    statusBarHeight: number // special key, this key will provide data specific to status bar's height
 }
 
 /**

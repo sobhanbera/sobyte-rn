@@ -9,6 +9,7 @@
  */
 
 import {FontSizes, MetricSizes, ThemeColorSchemeOptions} from '../theme'
+import {DEVICE_STATUSBAR_HEIGHT} from '@/configs'
 
 /**
  * all constants for Metrics Sizes
@@ -21,6 +22,8 @@ export const MetricSizeTypes: MetricSizes = {
     medium: 5 * 3 * 1.5, // 22.5
     large: 5 * 3 * 2, // 30
     extraLarge: 5 * 4 * 2, // 40
+
+    statusBarHeight: DEVICE_STATUSBAR_HEIGHT, // this special key contains the value of status bar's height
 }
 
 /**
