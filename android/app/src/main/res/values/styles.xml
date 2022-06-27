@@ -1,9 +1,25 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- Base application theme. -->
+    <!-- Root application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="android:editTextBackground">@drawable/rn_edit_text_material</item>
+        <!-- <item name="android:editTextBackground">@drawable/rn_edit_text_material</item> -->
+        <!-- <item name="android:textColor">@color/splash_screen_background_color</item> -->
+        <!-- <item name="android:statusBarColor">@color/splash_screen_background_color</item> -->
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="Q">false</item>
+
+<!--        <item name="android:textViewStyle">@style/DefaultTextViewStyle</item>-->
+<!--        <item name="android:buttonStyle">@style/DefaultButtonStyle</item>-->
     </style>
+
+<!--    these below styles for text and buttons are not working for now, we will find a solution in future  -->
+<!--    <style name="DefaultTextViewStyle" parent="android:Widget.TextView">-->
+<!--        <item name="android:fontFamily">@font/sobyteregular</item>-->
+<!--    </style>-->
+
+<!--    <style name="DefaultButtonStyle" parent="android:Widget.Holo.Button">-->
+<!--        <item name="android:fontFamily">@font/sobyteregular</item>-->
+<!--    </style>-->
 
 </resources>

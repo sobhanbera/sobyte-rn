@@ -53,6 +53,11 @@
 	<false/>
 	<key>UIAppFonts</key>
 	<array>
+		<string>Circular-Black.otf</string>
+		<string>Circular-Bold.otf</string>
+		<string>Circular-Light.otf</string>
+		<string>Circular-Medium.otf</string>
+		<string>Circular-Regular.otf</string>
 	</array>
 </dict>
 </plist>
