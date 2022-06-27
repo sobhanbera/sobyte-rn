@@ -13,7 +13,11 @@ import {View} from 'react-native'
 
 import {formatArtistsListFromArray, formatTrackTitle} from '@/utils'
 import {SongObject} from '@/schemas'
-import {SCREEN_WIDTH, TRACK_ARTWORK_SPACING} from '@/configs'
+import {
+    SCREEN_WIDTH,
+    TRACK_ARTWORK_HORIZONAL_SPACING,
+    TRACK_ARTWORK_SPACING,
+} from '@/configs'
 import {useTheme} from '@/hooks'
 import {SobyteMarquee} from './SobyteMarquee'
 
@@ -36,7 +40,7 @@ export const TrackPlayerDescription = ({
             style={{
                 width: SCREEN_WIDTH, // very imp
                 paddingVertical: TRACK_ARTWORK_SPACING,
-                paddingHorizontal: TRACK_ARTWORK_SPACING * 2.5,
+                paddingHorizontal: TRACK_ARTWORK_HORIZONAL_SPACING,
             }}>
             <SobyteMarquee
                 style={[fonts.titleSmall, gutters.extraTinyMarginBottom]}>

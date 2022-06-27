@@ -68,11 +68,15 @@ export const CircularLight = 'Circular-Light'
 /**
  * music player interface constants and vars...
  */
+export const TRACK_ARTWORK_SCREEN_WIDTH_OCCUPICATION = 0.82 // the artwork will take 82% of the available screen width
 export const TRACK_DATA_OVERFLOW_HEIGHT = 70
-export const TRACK_ARTWORK_SPACING = 10
 export const TRACK_ARTWORK_PARENT_VERTICAL_PADDING = 55
-export const TRACK_ARTWORK_WIDTH = SCREEN_WIDTH * 0.82
+export const TRACK_ARTWORK_WIDTH =
+    SCREEN_WIDTH * TRACK_ARTWORK_SCREEN_WIDTH_OCCUPICATION
 export const TRACK_ARTWORK_HEIGHT = TRACK_ARTWORK_WIDTH
+export const TRACK_ARTWORK_SPACING = 10
+export const TRACK_ARTWORK_HORIZONAL_SPACING =
+    (SCREEN_WIDTH - TRACK_ARTWORK_WIDTH) / 2 // divide by 2, since the padding will be on both sides...
 export const NUMBER_OF_VISIBLE_PLAYER_TRACKS = 2
 export const MAX_DISPLAY_HEIGHT_OF_TRACK_ARTWORK_WRAPPER =
     TRACK_ARTWORK_PARENT_VERTICAL_PADDING + // since vertical padding would be on both side, top & bottom
