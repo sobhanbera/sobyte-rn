@@ -19,9 +19,12 @@ import {
     AUTH_SIGNIN_SCREEN,
     AUTH_SIGNUP_SCREEN,
 } from '@/configs/screens'
+import {useTheme} from '@/hooks'
 
 const AuthNavigationStack = createNativeStackNavigator()
 export default function AuthStackNavigator() {
+    const {theme} = useTheme()
+
     return (
         <AuthNavigationStack.Navigator
             screenOptions={{
@@ -33,6 +36,10 @@ export default function AuthStackNavigator() {
                 statusBarStyle: 'auto',
 
                 orientation: 'portrait_up',
+
+                contentStyle: {
+                    backgroundColor: theme.background, // default bg color for all screens
+                },
             }}>
             {/* this is the landing and the top most first screen */}
             <AuthNavigationStack.Screen

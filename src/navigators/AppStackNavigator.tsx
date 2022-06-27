@@ -13,9 +13,12 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack'
 
 import {SOBYTE_PLAYER_SCREEN} from '@/configs/screens'
 import {SobytePlayerScreen} from '@/containers/app'
+import {useTheme} from '@/hooks'
 
 const AppNavigationStack = createNativeStackNavigator()
 export default function AppStackNavigator() {
+    const {theme} = useTheme()
+
     return (
         <AppNavigationStack.Navigator
             screenOptions={{
@@ -27,6 +30,10 @@ export default function AppStackNavigator() {
                 statusBarStyle: 'auto',
 
                 orientation: 'portrait_up',
+
+                contentStyle: {
+                    backgroundColor: theme.background, // default bg color for all screens
+                },
             }}>
             {/* main music player screen */}
             <AppNavigationStack.Screen
