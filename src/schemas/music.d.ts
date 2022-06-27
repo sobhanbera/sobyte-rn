@@ -159,7 +159,7 @@ export interface SongArtistObject {
 /**
  * thumbnail data for songs
  */
-export interface ThumbnailObject {
+export interface ArtworkObject {
     height: number
     url: string
 }
@@ -168,33 +168,37 @@ export interface ThumbnailObject {
  * content of songs which are returned when making a request to get songs list
  */
 export interface SongObject {
-    type: string
+    type?: string
+    title: string
     musicId: string
     playlistId: string
-    name: string
-    artist: Array<SongArtistObject> | SongArtistObject | string
-    album: {
+    artist: Array<SongArtistObject>
+    album?: {
         name: string
         browseId: string
     }
     duration: number
-    thumbnails: Array<ThumbnailObject>
-    params: 'wAEB'
+    artworks: Array<ArtworkObject>
+    params?: string
     [key: string]: any
 }
 
 /**
- * this is the modal which is the main blueprint representing the schema of any
- * type of search result
- *
- * here it is for searching songs
+ * metadata which every track contains...
  */
-export default interface FetchedSongObject {
-    content: Array<SongObject>
-    continuation: {
-        continuation: string
-        clickTrackingParams: string
+export interface TrackMetadataBase {
+    url: string
+    title?: string
+    duration?: number
+    artwork?: string
+    description?: string
+    genre?: string
+
+    headers?: {
+        [key: string]: any
     }
+
+    [key: string]: any
 }
 
 /**
@@ -213,4 +217,15 @@ export interface ContinuationObject {
 export interface ContinuationObjectKeys {
     continuation: string
     clickTrackingParams: string
+}
+
+/**
+ * this is the modal which is the main blueprint representing the schema of any
+ * type of search result
+ *
+ * here it is for searching songs
+ */
+export interface FetchedSongObject {
+    content: Array<SongObject>
+    continuation: ContinuationObjectKeys
 }
