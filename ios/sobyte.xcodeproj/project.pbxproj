@@ -14,14 +14,6 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		7699B88040F8A987B510C191 /* libPods-sobyte-sobyteTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-sobyte-sobyteTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		DEC11D5B1BA742439FFD0DEC /* Gotham.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7B909BCE6CEC4A129C31F414 /* Gotham.ttf */; };
-		D3939E9C105F4838A7366B38 /* GothamBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9671E58AC8B645DAB4970F4F /* GothamBold.ttf */; };
-		1891364A200F4C69A33E6F80 /* GothamBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5A63ECCCEDFA434FB1676551 /* GothamBoldItalic.ttf */; };
-		11206E7AA41A4485AB7AE882 /* GothamLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D5442DFC79444440907966D8 /* GothamLight.ttf */; };
-		00A17AF53E7F4AB6A42EE43B /* GothamLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 41E710EE3A6146E59453D613 /* GothamLightItalic.ttf */; };
-		B8D30F205FC3409A80D5A8CF /* GothamMedium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C50FAFC8BDFF499D8639A9BA /* GothamMedium.ttf */; };
-		7177159597594DFB9355FB3E /* GothamMediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3438D73566C54119BC53BBFE /* GothamMediumItalic.ttf */; };
-		52DAF7881ED6491288FB5729 /* GothamRegular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 670D195AA6F44D788C0C6007 /* GothamRegular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +52,14 @@
 		C50FAFC8BDFF499D8639A9BA /* GothamMedium.ttf */ = {isa = PBXFileReference; name = "GothamMedium.ttf"; path = "../src/assets/fonts/GothamMedium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		3438D73566C54119BC53BBFE /* GothamMediumItalic.ttf */ = {isa = PBXFileReference; name = "GothamMediumItalic.ttf"; path = "../src/assets/fonts/GothamMediumItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		670D195AA6F44D788C0C6007 /* GothamRegular.ttf */ = {isa = PBXFileReference; name = "GothamRegular.ttf"; path = "../src/assets/fonts/GothamRegular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		06A16B7141484DFBA206128B /* ageo.otf */ = {isa = PBXFileReference; name = "ageo.otf"; path = "../src/assets/fonts/ageo.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		977F1A299629480681EA7717 /* ageobold.otf */ = {isa = PBXFileReference; name = "ageobold.otf"; path = "../src/assets/fonts/ageobold.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		91D4B07A8887457FB0D560EA /* ageoextrabold.otf */ = {isa = PBXFileReference; name = "ageoextrabold.otf"; path = "../src/assets/fonts/ageoextrabold.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		18B4BEBBA9F14BA3BBBA2608 /* ageoheavy.otf */ = {isa = PBXFileReference; name = "ageoheavy.otf"; path = "../src/assets/fonts/ageoheavy.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		92847EF6442944FCA677420A /* ageolight.otf */ = {isa = PBXFileReference; name = "ageolight.otf"; path = "../src/assets/fonts/ageolight.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		3A9BE5C79AAE4DD5A5870B40 /* ageomedium.otf */ = {isa = PBXFileReference; name = "ageomedium.otf"; path = "../src/assets/fonts/ageomedium.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		1D4C8CC0FF1648018CDC612E /* ageosemibold.otf */ = {isa = PBXFileReference; name = "ageosemibold.otf"; path = "../src/assets/fonts/ageosemibold.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		16C2DA369CEB440D97DAF895 /* ageothin.otf */ = {isa = PBXFileReference; name = "ageothin.otf"; path = "../src/assets/fonts/ageothin.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,6 +176,14 @@
 				C50FAFC8BDFF499D8639A9BA /* GothamMedium.ttf */,
 				3438D73566C54119BC53BBFE /* GothamMediumItalic.ttf */,
 				670D195AA6F44D788C0C6007 /* GothamRegular.ttf */,
+				06A16B7141484DFBA206128B /* ageo.otf */,
+				977F1A299629480681EA7717 /* ageobold.otf */,
+				91D4B07A8887457FB0D560EA /* ageoextrabold.otf */,
+				18B4BEBBA9F14BA3BBBA2608 /* ageoheavy.otf */,
+				92847EF6442944FCA677420A /* ageolight.otf */,
+				3A9BE5C79AAE4DD5A5870B40 /* ageomedium.otf */,
+				1D4C8CC0FF1648018CDC612E /* ageosemibold.otf */,
+				16C2DA369CEB440D97DAF895 /* ageothin.otf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -285,6 +293,14 @@
 				B8D30F205FC3409A80D5A8CF /* GothamMedium.ttf in Resources */,
 				7177159597594DFB9355FB3E /* GothamMediumItalic.ttf in Resources */,
 				52DAF7881ED6491288FB5729 /* GothamRegular.ttf in Resources */,
+				6F3AC323F5FF4AD0BC1B1F33 /* ageo.otf in Resources */,
+				348B5F115F0D410B987AB04E /* ageobold.otf in Resources */,
+				4DCD3555F7954D338D16E29D /* ageoextrabold.otf in Resources */,
+				A34E8B6A98624305BDB6FBA4 /* ageoheavy.otf in Resources */,
+				90395093B45A4A76A419FD4A /* ageolight.otf in Resources */,
+				28D7F3D7199348328D3C0A0A /* ageomedium.otf in Resources */,
+				D3059319B5194D2B8576F555 /* ageosemibold.otf in Resources */,
+				700E8C799FDA4651B0233BC7 /* ageothin.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
