@@ -58,6 +58,13 @@ export const MARQUEE_REPEAT_SPACER = 100 // the distance between text of every r
 export const MARQUEE_DELAY = 1000 // value of delay for each marquee animation
 export const MARQUEE_BOUNCE_DELAY = 0 // the delay between bounces for the same marquee
 
+// fonts name as per there files
+export const CircularBlack = 'Circular-Black'
+export const CircularBold = 'Circular-Bold'
+export const CircularMedium = 'Circular-Medium'
+export const CircularRegular = 'Circular-Regular'
+export const CircularLight = 'Circular-Light'
+
 /**
  * music player interface constants and vars...
  */
