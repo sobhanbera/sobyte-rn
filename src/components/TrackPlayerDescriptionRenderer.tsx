@@ -9,11 +9,11 @@
  */
 
 import React from 'react'
-import {View, Animated, StyleSheet} from 'react-native'
+import {View, Animated} from 'react-native'
 import {useSelector} from 'react-redux'
 
 import {SobyteState} from '@/state'
-import {SCREEN_WIDTH, TRACK_DATA_OVERFLOW_HEIGHT} from '@/configs'
+import {SCREEN_WIDTH} from '@/configs'
 import {TrackPlayerDescription} from './TrackPlayerDescription'
 
 interface TrackPlayerDescriptionRendererProps {
@@ -31,7 +31,11 @@ export function TrackPlayerDescriptionRenderer({
     })
 
     return (
-        <View style={styles.trackPlayerDescriptionContainer}>
+        <View
+            style={{
+                overflow: 'hidden',
+                width: SCREEN_WIDTH,
+            }}>
             <Animated.View
                 style={{transform: [{translateX}], flexDirection: 'row'}}>
                 {tracks.map((track, index) => {
@@ -47,11 +51,3 @@ export function TrackPlayerDescriptionRenderer({
         </View>
     )
 }
-
-const styles = StyleSheet.create({
-    trackPlayerDescriptionContainer: {
-        height: TRACK_DATA_OVERFLOW_HEIGHT,
-        overflow: 'hidden',
-        width: SCREEN_WIDTH,
-    },
-})
