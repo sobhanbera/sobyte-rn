@@ -115,11 +115,15 @@ export interface FontSizes {
  * this might be padding, margin or anything like that...
  */
 export interface MetricSizes {
-    small: number
+    extraTiny: number
     tiny: number
+    small: number
     regular: number
     medium: number
     large: number
+    extraLarge: number
+
+    statusBarHeight: number // special key, this key will provide data specific to status bar's height
 }
 
 /**

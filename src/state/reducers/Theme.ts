@@ -12,6 +12,7 @@ import {createSlice} from '@reduxjs/toolkit'
 
 import {ThemeColorSchemeOptions, ThemeOptions} from '@/theme/theme'
 import {DarkTheme, LightTheme, ThemeColorSchemeOptionsArray} from '@/theme'
+import {THEME_SLICE_NAME} from '@/configs'
 
 /**
  * theme distributed along with the name as key
@@ -34,7 +35,7 @@ type ThemePayload = {
 }
 
 const themeSlice = createSlice({
-    name: 'theme',
+    name: THEME_SLICE_NAME,
     initialState: {
         themeName: 'dark',
         isDarkTheme: true,

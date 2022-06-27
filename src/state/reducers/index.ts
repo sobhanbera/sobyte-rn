@@ -8,4 +8,8 @@
  * Purpose - here all the redux reducers are being exported
  */
 
+export * from './MusicConfig'
+
+export * from './PlayerData'
+
 export * from './Theme'

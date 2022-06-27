@@ -18,6 +18,13 @@ import com.facebook.react.bridge.JSIModulePackage;
 // linking of third-party packages...
 import com.swmansion.reanimated.ReanimatedJSIModulePackage;
 import com.swmansion.gesturehandler.RNGestureHandlerPackage;
+import com.guichaguri.trackplayer.TrackPlayer;
+import com.zoontek.rnlocalize.RNLocalizePackage;
+import com.reactnativecommunity.netinfo.NetInfoPackage;
+import com.swmansion.rnscreens.RNScreensPackage;
+import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
+import com.dylanvann.fastimage.FastImageViewPackage;
+import com.BV.LinearGradient.LinearGradientPackage;
 
 public class MainApplication extends Application implements ReactApplication {
 

@@ -9,44 +9,47 @@
  */
 
 import React from 'react'
-import {SafeAreaView, StatusBar, useColorScheme} from 'react-native'
+// import {SafeAreaView} from 'react-native'
 
 import {Provider} from 'react-redux'
 import {PersistGate} from 'redux-persist/lib/integration/react'
+import {GestureHandlerRootView} from 'react-native-gesture-handler'
 
 import ErrorBoundary from '@/error/ErrorBoundary'
 import {store, persistor} from '@/state/store'
 import AppNavigator from '@/navigators/AppNavigator'
+import SobyteTrackPlayer from '@/services/SobyteTrackPlayer'
 
 export function AppEntryPoint() {
-    const isDarkMode = useColorScheme() === 'dark'
-
     return (
-        <ErrorBoundary id="root">
-            <Provider store={store}>
-                {/**
-                 * DOCUMENTATION:
-                 *
-                 * PersistGate delays the rendering of the app's UI until the persisted state has been retrieved
-                 * and saved to redux.
-                 * The `loading` prop can be `null` or any react instance to show during loading (e.g. a splash screen),
-                 * for example `loading={<SplashScreen />}`.
-                 * @see https://github.com/rt2zz/redux-persist/blob/master/docs/PersistGate.md
-                 */}
-                <PersistGate loading={null} persistor={persistor}>
-                    <SafeAreaView>
-                        <StatusBar
-                            barStyle={
-                                isDarkMode ? 'dark-content' : 'light-content'
-                            }
-                        />
-
-                        <ErrorBoundary id="app">
-                            <AppNavigator />
-                        </ErrorBoundary>
-                    </SafeAreaView>
-                </PersistGate>
-            </Provider>
-        </ErrorBoundary>
+        /* this wrapper is needed to work with react-native-gesture-handler package */
+        <GestureHandlerRootView style={{flex: 1}}>
+            <ErrorBoundary id="root">
+                <Provider store={store}>
+                    {/**
+                     * DOCUMENTATION:
+                     *
+                     * PersistGate delays the rendering of the app's UI until the persisted state has been retrieved
+                     * and saved to redux.
+                     * The `loading` prop can be `null` or any react instance to show during loading (e.g. a splash screen),
+                     * for example `loading={<SplashScreen />}`.
+                     * @see https://github.com/rt2zz/redux-persist/blob/master/docs/PersistGate.md
+                     */}
+                    <PersistGate loading={null} persistor={persistor}>
+                        <SobyteTrackPlayer>
+                            {/* <SafeAreaView
+                                style={{
+                                    flex: 1,
+                                    justifyContent: 'center',
+                                }}> */}
+                            <ErrorBoundary id="app">
+                                <AppNavigator />
+                            </ErrorBoundary>
+                            {/* </SafeAreaView> */}
+                        </SobyteTrackPlayer>
+                    </PersistGate>
+                </Provider>
+            </ErrorBoundary>
+        </GestureHandlerRootView>
     )
 }

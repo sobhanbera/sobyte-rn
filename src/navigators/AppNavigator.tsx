@@ -1,23 +1,25 @@
-import React from 'react'
-import {View, Text} from 'react-native'
+/**
+ * © Sobyte
+ *
+ * @author : Sobhan Bera (sobhanbera)
+ * @other_editors :
+ * @file : TypescriptReact
+ *
+ * Purpose - application main/root navigator....
+ */
 
-import {useTheme} from '@/hooks'
+import {NavigationContainer} from '@react-navigation/native'
+import React from 'react'
+
+import AppStackNavigator from './AppStackNavigator'
+import AuthStackNavigator from './AuthStackNavigator'
 
 export default function AppNavigator() {
-    const {fonts, colorscheme} = useTheme()
+    const isLoggedIn = true
 
     return (
-        <View>
-            <Text
-                style={[
-                    fonts.titleMedium,
-                    {
-                        color: colorscheme[0],
-                    },
-                ]}>
-                {' '}
-                HEllo
-            </Text>
-        </View>
+        <NavigationContainer>
+            {isLoggedIn ? <AppStackNavigator /> : <AuthStackNavigator />}
+        </NavigationContainer>
     )
 }

@@ -21,6 +21,20 @@ target 'sobyte' do
 
   pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
 
+  pod 'react-native-track-player', :path => '../node_modules/react-native-track-player'
+
+  pod 'RNLocalize', :path => '../node_modules/react-native-localize'
+
+  pod 'RNScreens', :path => '../node_modules/react-native-screens'
+
+  pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-async-storage/async-storage'
+
+  pod 'react-native-netinfo', :path => '../node_modules/@react-native-community/netinfo'
+
+  pod 'RNFastImage', :path => '../node_modules/react-native-fast-image'
+
+  pod 'BVLinearGradient', :path => '../node_modules/react-native-linear-gradient'
+
   target 'sobyteTests' do
     inherit! :complete
     # Pods for testing
