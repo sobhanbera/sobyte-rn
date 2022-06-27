@@ -11,7 +11,12 @@
 export * from './store'
 export * from './reducers'
 
-import {ThemeState, MusicConfigState} from './reducers'
+import {
+    MUSIC_CONFIG_SLICE_NAME,
+    PLAYER_DATA_SLICE_NAME,
+    THEME_SLICE_NAME,
+} from '@/configs'
+import {ThemeState, MusicConfigState, PlayerDataState} from './reducers'
 
 /**
  * a interface which is a blueprint for all the states combined
@@ -22,6 +27,7 @@ import {ThemeState, MusicConfigState} from './reducers'
  *
  */
 export interface SobyteState {
-    theme: ThemeState
-    musicconfig: MusicConfigState
+    [THEME_SLICE_NAME]: ThemeState
+    [MUSIC_CONFIG_SLICE_NAME]: MusicConfigState
+    [PLAYER_DATA_SLICE_NAME]: PlayerDataState
 }
