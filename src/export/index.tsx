@@ -9,7 +9,7 @@
  */
 
 import React from 'react'
-import {SafeAreaView} from 'react-native'
+// import {SafeAreaView} from 'react-native'
 
 import {Provider} from 'react-redux'
 import {PersistGate} from 'redux-persist/lib/integration/react'
@@ -37,15 +37,15 @@ export function AppEntryPoint() {
                      */}
                     <PersistGate loading={null} persistor={persistor}>
                         <SobyteTrackPlayer>
-                            <SafeAreaView
+                            {/* <SafeAreaView
                                 style={{
                                     flex: 1,
                                     justifyContent: 'center',
-                                }}>
-                                <ErrorBoundary id="app">
-                                    <AppNavigator />
-                                </ErrorBoundary>
-                            </SafeAreaView>
+                                }}> */}
+                            <ErrorBoundary id="app">
+                                <AppNavigator />
+                            </ErrorBoundary>
+                            {/* </SafeAreaView> */}
                         </SobyteTrackPlayer>
                     </PersistGate>
                 </Provider>

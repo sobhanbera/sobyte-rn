@@ -122,8 +122,6 @@ const playerDataSlice = createSlice({
                 ...state,
                 ...payload,
             }
-
-            console.log(state.currentTrackIndex)
         },
 
         /**

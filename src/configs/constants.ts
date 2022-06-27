@@ -8,7 +8,11 @@
  * Purpose - any type of constants...
  */
 
-import {Dimensions} from 'react-native'
+import {NativeModules, Dimensions} from 'react-native'
+
+/** App details */
+export const APP_NAME = 'Sobyte'
+export const APP_TAG_LINE = ''
 
 // dimension instance for the device
 export const WINDOW_DIMENSION = Dimensions.get('window')
@@ -23,6 +27,9 @@ export const SCREEN_WIDTH = SCREEN_DIMENSION.width // screen's width
 export const SCREEN_HEIGHT = SCREEN_DIMENSION.height // screen's height
 export const SCREEN_SCALE = SCREEN_DIMENSION.scale // screen's scale
 export const SCREEN_FONT_SCALE = SCREEN_DIMENSION.fontScale // screen's font scale
+
+const {StatusBarManager} = NativeModules
+export const DEVICE_STATUSBAR_HEIGHT = StatusBarManager.HEIGHT
 
 export const MAX_DISPLAY_TEXT_LENGTH = 30 // length of the text after which "..." will be shown
 

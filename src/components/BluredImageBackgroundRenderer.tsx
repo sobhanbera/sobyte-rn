@@ -26,9 +26,6 @@ export const BluredImageBackgroundRenderer = ({
     return (
         <View style={StyleSheet.absoluteFill}>
             {tracks.map((track, index) => {
-                // if (index <= 2)
-                //     console.log(scrollXAnimated, 'scrollXAnimated', index)
-
                 return (
                     <BluredImageBackground
                         key={index}
