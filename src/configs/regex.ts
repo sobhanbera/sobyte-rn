@@ -16,4 +16,6 @@ export const ARTWORK_HEIGHT_WIDTH_PART_WITH_SIZE =
     /w[0-9]{2,4}-h[0-9]{2,4}-s-l[0-9]{2,3}-rj/
 
 // enclosures (brackets, parans, braces) surrounded text
-export const ENCLOSURES_SURROUNDED_TEXT = / *\([^)]*\) */g
+export const BRACES_SURROUNDED_TEXT = /\{([^)]+)\}/
+export const BRACKETS_SURROUNDED_TEXT = /\[([^)]+)\]/
+export const PARATHESIS_SURROUNDED_TEXT = /\(([^)]+)\)/

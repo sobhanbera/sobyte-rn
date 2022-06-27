@@ -11,7 +11,9 @@
 import {MAX_DISPLAY_TEXT_LENGTH} from '@/configs'
 import {
     ARTWORK_HEIGHT_WIDTH_PART_WITH_SIZE,
-    ENCLOSURES_SURROUNDED_TEXT,
+    BRACES_SURROUNDED_TEXT,
+    BRACKETS_SURROUNDED_TEXT,
+    PARATHESIS_SURROUNDED_TEXT,
 } from '@/configs/regex'
 import {ArtworkObject, SongArtistObject} from '@/schemas'
 
@@ -135,14 +137,17 @@ export function removeUnnecessaryCharacters(trackTitle: string): string {
 export function formatTrackTitle(trackTitle: string): string {
     // we are checking if the trackTitle contain only one word
     // in that case we will return the full uppercase of the word...
-    if (trackTitle.split(' ').length - 1 <= 0) {
-        return capitalizeWords(
-            trackTitle.replace(ENCLOSURES_SURROUNDED_TEXT, ''),
-        ).toUpperCase()
-    }
+    // if (trackTitle.split(' ').length - 1 <= 0) {
+    //     return capitalizeWords(
+    //         trackTitle.replace(ENCLOSURES_SURROUNDED_TEXT, ''),
+    //     ).toUpperCase()
+    // }
     return capitalizeWords(
         removeUnnecessaryCharacters(
-            trackTitle.replace(ENCLOSURES_SURROUNDED_TEXT, ''),
+            trackTitle
+                .replace(BRACES_SURROUNDED_TEXT, '')
+                .replace(BRACKETS_SURROUNDED_TEXT, '')
+                .replace(PARATHESIS_SURROUNDED_TEXT, ''),
         ),
     )
 }
