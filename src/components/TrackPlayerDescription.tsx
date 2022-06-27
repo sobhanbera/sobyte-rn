@@ -40,7 +40,7 @@ export const TrackPlayerDescription = ({
             }}>
             <SobyteMarquee
                 style={[fonts.titleSmall, gutters.extraTinyMarginBottom]}>
-                {formattedTitle + 'Q'}
+                {formattedTitle}
             </SobyteMarquee>
 
             <SobyteMarquee style={[fonts.boldFont, gutters.extraTinyMarginTop]}>
