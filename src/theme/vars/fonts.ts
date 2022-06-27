@@ -8,6 +8,13 @@
  * Purpose - This file contains all application's style relative to fonts
  */
 
+import {
+    CircularBlack,
+    CircularBold,
+    CircularLight,
+    CircularMedium,
+    CircularRegular,
+} from '@/configs'
 import {StyleSheet} from 'react-native'
 import {CombinedThemeVariables} from '../theme'
 
@@ -33,28 +40,44 @@ export default function GetFonts({fontsize}: CombinedThemeVariables) {
         },
 
         titleTiny: {
-            fontSize: fontsize.tiny * 2,
-            fontWeight: 'bold',
+            fontFamily: CircularBold,
+            fontSize: fontsize.tiny * 1.5,
         },
         titleSmall: {
-            fontSize: fontsize.small * 2,
-            fontWeight: 'bold',
+            fontFamily: CircularBold,
+            fontSize: fontsize.small * 1.5,
         },
         titleRegular: {
-            fontSize: fontsize.regular * 2,
-            fontWeight: 'bold',
+            fontFamily: CircularBold,
+            fontSize: fontsize.regular * 1.5,
         },
         titleMedium: {
-            fontSize: fontsize.medium * 2,
-            fontWeight: 'bold',
+            fontFamily: CircularBold,
+            fontSize: fontsize.medium * 1.5,
         },
         titleLarge: {
-            fontSize: fontsize.large * 2,
-            fontWeight: 'bold',
+            fontFamily: CircularBold,
+            fontSize: fontsize.large * 1.5,
         },
         titleExtraLarge: {
-            fontSize: fontsize.extraLarge * 2,
-            fontWeight: 'bold',
+            fontFamily: CircularBold,
+            fontSize: fontsize.extraLarge * 1.5,
+        },
+
+        lightFont: {
+            fontFamily: CircularLight,
+        },
+        regularFont: {
+            fontFamily: CircularRegular,
+        },
+        mediumFont: {
+            fontFamily: CircularMedium,
+        },
+        boldFont: {
+            fontFamily: CircularBold,
+        },
+        blackFont: {
+            fontFamily: CircularBlack,
         },
 
         textCenter: {
