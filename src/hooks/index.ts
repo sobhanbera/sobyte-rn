@@ -10,3 +10,4 @@
 
 export * from './useTheme'
 export * from './useMusic'
+export * from './useTrackPlayer'
