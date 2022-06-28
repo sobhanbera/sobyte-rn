@@ -23,10 +23,6 @@ export interface PlayerDataState {
 
     currentTrack: TrackMetadataBase & SongObject
     currentTrackIndex: number
-    currentTrackID: string
-
-    playing: boolean
-    buffering: boolean
 }
 // default payload type
 type PlayerDataPayload = {
@@ -73,10 +69,6 @@ const initialState: PlayerDataState = {
     },
 
     currentTrackIndex: 0,
-    currentTrackID: '',
-
-    buffering: false,
-    playing: false,
 }
 
 /**
