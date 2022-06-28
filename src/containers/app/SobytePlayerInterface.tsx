@@ -9,16 +9,10 @@
  */
 
 import React, {useCallback, useEffect, useRef, useState} from 'react'
-import {
-    Animated,
-    FlatList,
-    ListRenderItemInfo,
-    StatusBar,
-    View,
-} from 'react-native'
+import {Animated, FlatList, ListRenderItemInfo, View} from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
 
-import {useMusic, useTheme} from '@/hooks'
+import {useMusic, useTheme, useTrackPlayer} from '@/hooks'
 import {
     updateTracksData,
     SobyteState,
@@ -45,17 +39,25 @@ import {
 export default function SobytePlayerInterface() {
     const {gutters, layouts} = useTheme()
     const {search} = useMusic()
+    const {playTrack, getTrackURL} = useTrackPlayer()
 
-    const {tracks} = useSelector((state: SobyteState) => state.playerdata)
+    const {tracks, currentTrackIndex} = useSelector(
+        (state: SobyteState) => state.playerdata,
+    )
     const dispatch = useDispatch()
 
     const scrollXIndex = useRef(new Animated.Value(0)).current
     const scrollXAnimated = useRef(new Animated.Value(0)).current
 
-    const [index, setIndex] = useState(0)
+    /**
+     * an extra local current index is also needed for a realtime animation
+     * I don't know why, but when the index is taken from reducer's state, this component is no longer animating
+     * wierd right! that's why this state
+     */
+    const [localCurrentTrackIndex, setLocalCurrentTrackIndex] = useState(0)
 
-    useEffect(() => {
-        // getting the initial tracks data when the application is being loaded...
+    // getting the initial tracks data when the application is being loaded...
+    const getInitialTracksData = () => {
         search(
             DEFAULT_QUERY,
             'SONG',
@@ -70,19 +72,77 @@ export default function SobytePlayerInterface() {
                         continuationData: result.continuation,
                     }),
                 )
+                /**
+                 * also updating the currently playing track's index to 0
+                 * and currently playing track's id
+                 */
                 dispatch(
                     updatePlayerData({
                         currentTrackIndex: 0,
                     }),
                 )
+
+                /**
+                 * now also play the song at index 0 at load
+                 * the next song at index 1
+                 */
+                const firstTrack = result.content[0]
+                playTrack(firstTrack).then(played => {
+                    if (played)
+                        if (result.content.length >= 1)
+                            // if there are more than or equal to 1 songs than load the 1st indexed song too
+                            // if there is a next song to the current one...
+                            getTrackURL(result.content[1].musicId)
+                })
             })
             .catch((_error: any) => {
                 console.log('Error getting player songs...')
             })
-
-        StatusBar.setTranslucent(true)
+    }
+    // getting initial list of songs
+    useEffect(() => {
+        getInitialTracksData()
     }, [])
 
+    /**
+     * whenever the currentIndex changes just initialize the play method for that
+     * particular track
+     *
+     * now we are also making this sure that if there is a next song
+     * then generate the URL for that too, so that it doesn't take much
+     * time on loading when actually scrolled to the next track
+     *
+     * ok plan changed after much thinking, now we are loading not one but two next tracks URLs
+     */
+    useEffect(() => {
+        if (tracks.length >= 1) {
+            const track = tracks[currentTrackIndex]
+            playTrack(track).then(played => {
+                if (played) {
+                    if (currentTrackIndex < tracks.length - 1) {
+                        // if there is a next song to the current one...
+                        getTrackURL(tracks[currentTrackIndex + 1].musicId).then(
+                            _notRequiredURL => {
+                                // if there is again a 2nd next song...
+                                if (currentTrackIndex < tracks.length - 2) {
+                                    getTrackURL(
+                                        tracks[currentTrackIndex + 2].musicId,
+                                    )
+                                }
+                            },
+                        )
+                    }
+                }
+            })
+        }
+    }, [currentTrackIndex])
+
+    /**
+     * get more tracks list data when the currently active track
+     * is among the end of the tracks list
+     *
+     * or when the queue is about to end
+     */
     // useEffect(() => {
     //     if (
     //         currentTrackIndex ===
@@ -92,6 +152,10 @@ export default function SobytePlayerInterface() {
     //     }
     // }, [currentTrackIndex])
 
+    /**
+     * this use effect is responsible for the smooth
+     * transition of the animation during left/right swipe of this UI
+     */
     useEffect(() => {
         Animated.spring(scrollXAnimated, {
             toValue: scrollXIndex,
@@ -99,18 +163,25 @@ export default function SobytePlayerInterface() {
         }).start()
     }, [scrollXIndex])
 
-    const setActiveIndex = React.useCallback(async activeIndex => {
-        if (activeIndex <= -1) return
+    /**
+     * when a fling gesture is success this method is executed
+     * the main task of this function is to update the current index or current tracks data
+     */
+    const updatedCurrentlyActiveTrackIndex = React.useCallback(
+        async activeIndex => {
+            if (activeIndex <= -1) return
 
-        scrollXIndex.setValue(activeIndex)
-        setIndex(activeIndex)
+            scrollXIndex.setValue(activeIndex)
+            setLocalCurrentTrackIndex(activeIndex)
 
-        dispatch(
-            updateCurrentTrackIndex({
-                index: activeIndex,
-            }),
-        )
-    }, [])
+            dispatch(
+                updateCurrentTrackIndex({
+                    index: activeIndex,
+                }),
+            )
+        },
+        [],
+    )
 
     /**
      * responsible for rendering the list of all the tracks
@@ -141,21 +212,29 @@ export default function SobytePlayerInterface() {
             <FlingGestureHandler
                 key="left"
                 direction={Directions.LEFT}
-                onHandlerStateChange={ev => {
-                    if (ev.nativeEvent.state === State.END) {
-                        if (index === tracks.length - 1) return
+                onHandlerStateChange={event => {
+                    // when the swipe is completed
+                    if (event.nativeEvent.state === State.END) {
+                        // checking if after a left swipe there is a next track available
+                        if (localCurrentTrackIndex === tracks.length - 1) return
 
-                        setActiveIndex(index + 1)
+                        updatedCurrentlyActiveTrackIndex(
+                            localCurrentTrackIndex + 1,
+                        )
                     }
                 }}>
                 <FlingGestureHandler
                     key="right"
                     direction={Directions.RIGHT}
-                    onHandlerStateChange={ev => {
-                        if (ev.nativeEvent.state === State.END) {
-                            if (index === 0) return
+                    onHandlerStateChange={event => {
+                        // when the swipe ended
+                        if (event.nativeEvent.state === State.END) {
+                            // checking if after a right swipe there is a next previous available
+                            if (localCurrentTrackIndex === 0) return
 
-                            setActiveIndex(index - 1)
+                            updatedCurrentlyActiveTrackIndex(
+                                localCurrentTrackIndex - 1,
+                            )
                         }
                     }}>
                     <View
