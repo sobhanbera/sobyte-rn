@@ -149,122 +149,133 @@ export function useTrackPlayer() {
         trackData?: SongObject,
         extraDescription: string = '',
         addAndPlayTrack: boolean = true,
-    ) => {
-        // JUST_FOR_DEV
-        const start = new Date().getTime()
+    ): Promise<boolean> => {
+        return new Promise((resolve, _reject) => {
+            const start = new Date().getTime() // JUST_FOR_DEV
 
-        /**
-         * now see since the trackData is optional so
-         *
-         * checking if the trackData is passed from in the argument
-         * if it is provided
-         *      then check if it is already loaded and is the current one only. in this case play the track
-         *      else if the track is different then fetch the Remote origin URL for the track and play the track
-         * else if the track is not provided
-         *      then once check if the current song could be played
-         *          if so, then play it
-         *      else
-         *          return from the method
-         */
-        if (!trackData) {
-            // if the track data is not provided
-            if (
-                currentTrack &&
-                currentTrack.musicId.length >=
-                    REMOTE_ORIGIN_MUSIC_ID_MAXIMUM_LENGTH
-            )
-                /**
-                 * if the current track is available, play it
-                 * this is the case when the user only wants to toggle pause state for the track
-                 */
+            /**
+             * now see since the trackData is optional so
+             *
+             * checking if the trackData is passed from in the argument
+             * if it is provided
+             *      then check if it is already loaded and is the current one only. in this case play the track
+             *      else if the track is different then fetch the Remote origin URL for the track and play the track
+             * else if the track is not provided
+             *      then once check if the current song could be played
+             *          if so, then play it
+             *      else
+             *          return from the method
+             */
+            if (!trackData) {
+                // if the track data is not provided
+                if (
+                    currentTrack &&
+                    currentTrack.musicId.length >=
+                        REMOTE_ORIGIN_MUSIC_ID_MAXIMUM_LENGTH
+                )
+                    /**
+                     * if the current track is available, play it
+                     * this is the case when the user only wants to toggle pause state for the track
+                     */
+                    TrackPlayer.play()
+                return
+            } else if (trackData.musicId === currentTrack.music) {
+                // the track is provided but it is same as the current track
                 TrackPlayer.play()
-            return
-        } else if (trackData.musicId === currentTrack.music) {
-            // the track is provided but it is same as the current track
-            TrackPlayer.play()
-            return
-        }
+                return
+            }
 
-        /**
-         * stopping the previous current track so that there is no
-         * gaps between playing songs
-         *
-         * if we don't pause at this time then, after going to
-         * next song the player will play the previous song for few second till the current song's URL is not loaded
-         */
-        TrackPlayer.pause()
-        getTrackURL(trackData.musicId)
-            .then(TrackURLData => {
-                resetPlayer()
+            /**
+             * stopping the previous current track so that there is no
+             * gaps between playing songs
+             *
+             * if we don't pause at this time then, after going to
+             * next song the player will play the previous song for few second till the current song's URL is not loaded
+             */
+            TrackPlayer.pause()
+            getTrackURL(trackData.musicId)
+                .then(TrackURLData => {
+                    resetPlayer()
 
-                const notificationArtwork = updateArtworkQuality(
-                    trackData.artworks[0],
-                    DEFAULT_NOTIFICATION_ARTWORK_SIZE,
-                    DEFAULT_NOTIFICATION_ARTWORK_QUALITY,
-                )
-                const formattedArtist = formatArtistsListFromArray(
-                    trackData.artists,
-                )
-                /**
-                 * this data will be required in future when any song will be
-                 * played outside of the music player
-                 */
-                const track: TrackMetadataBase & SongObject = {
-                    ...trackData,
-                    musicId: trackData.musicId, // just in case
-                    playlistId: trackData.playlistId, // just in case
+                    const notificationArtwork = updateArtworkQuality(
+                        trackData.artworks[0],
+                        DEFAULT_NOTIFICATION_ARTWORK_SIZE,
+                        DEFAULT_NOTIFICATION_ARTWORK_QUALITY,
+                    )
+                    const formattedArtist = formatArtistsListFromArray(
+                        trackData.artists,
+                    )
+                    /**
+                     * this data will be required in future when any song will be
+                     * played outside of the music player
+                     */
+                    const track: TrackMetadataBase & SongObject = {
+                        ...trackData,
+                        musicId: trackData.musicId, // just in case
+                        playlistId: trackData.playlistId, // just in case
 
-                    url: TrackURLData.url,
-                    title: trackData.title,
-                    artist: formattedArtist,
-                    artwork: notificationArtwork,
-                    duration: trackData.duration,
-                    description: extraDescription,
-                    genre: '',
+                        url: TrackURLData.url,
+                        title: trackData.title,
+                        artist: formattedArtist,
+                        artwork: notificationArtwork,
+                        duration: trackData.duration,
+                        description: extraDescription,
+                        genre: '',
 
-                    contentType: trackData.type,
-                }
+                        contentType: trackData.type,
+                    }
 
-                /**
-                 * adding required data to the queue of track player
-                 */
-                TrackPlayer.add({
-                    url: TrackURLData.url,
-                    title: trackData.title,
-                    artist: formattedArtist,
-                    artwork: notificationArtwork,
-                    duration: trackData.duration,
-                    description: extraDescription,
-                    genre: '',
+                    /**
+                     * adding required data to the queue of track player
+                     */
+                    TrackPlayer.add({
+                        url: TrackURLData.url,
+                        title: trackData.title,
+                        artist: formattedArtist,
+                        artwork: notificationArtwork,
+                        duration: trackData.duration,
+                        description: extraDescription,
+                        genre: '',
 
-                    contentType: trackData.type,
+                        contentType: trackData.type,
+                    })
+
+                    /**
+                     * after adding the track to queue and before playing it
+                     * just make sure that the currentTrack data is updated in the redux store
+                     * properly, or else it will cause difficulties in many places
+                     */
+                    dispatch(
+                        updatePlayerData({
+                            currentTrack: track,
+                        }),
+                    )
+
+                    // and now play the song/track
+                    if (addAndPlayTrack) TrackPlayer.play()
+
+                    console.log(
+                        'Player took',
+                        new Date().getTime() - start,
+                        'milliseconds to play -',
+                        trackData.title,
+                    ) // JUST_FOR_DEV
+
+                    /**
+                     * resolving a true value so that the caller function could procced furthur
+                     * this data is neccessary to load the next songs URL (if any) only after loading this ones
+                     */
+                    resolve(true)
                 })
+                .catch(() => {
+                    resolve(false) // always sending resolve not reject so that it can compair itself while loading the next songs data
 
-                /**
-                 * after adding the track to queue and before playing it
-                 * just make sure that the currentTrack data is updated in the redux store
-                 * properly, or else it will cause difficulties in many places
-                 */
-                dispatch(
-                    updatePlayerData({
-                        currentTrack: track,
-                    }),
-                )
-
-                // and now play the song/track
-                if (addAndPlayTrack) TrackPlayer.play()
-
-                // JUST_FOR_DEV
-                console.log(
-                    'Player took',
-                    new Date().getTime() - start,
-                    'milliseconds to play -',
-                    trackData.title,
-                )
-            })
-            .catch(() => {
-                console.log('useTrackPlayer.ts', 'cannot play the song! sorry!')
-            })
+                    console.log(
+                        'useTrackPlayer.ts',
+                        'cannot play the song! sorry!',
+                    )
+                })
+        })
     }
 
     const trackPlayer = {
