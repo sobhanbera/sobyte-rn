@@ -37,6 +37,7 @@ export const BareCurrentTrack: TrackMetadataBase & SongObject = {
     playlistId: '',
     duration: 0,
     type: '',
+    artist: '',
     description: '',
     artwork: '',
     genre: '',
@@ -51,7 +52,7 @@ export const BareCurrentTrack: TrackMetadataBase & SongObject = {
         name: '',
         browseId: '',
     },
-    artist: [
+    artists: [
         {
             name: '',
             browseId: '',

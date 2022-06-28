@@ -347,7 +347,7 @@ export const parseSongSearchResult = (context: any) => {
                 'playNavigationEndpoint:playlistId',
             ),
             title: MusicUtils.fv(flexColumn[0], 'runs:text', true),
-            artist: (function () {
+            artists: (function () {
                 var a = [],
                     c = MusicUtils.fv(flexColumn[1], 'runs')
                 if (Array.isArray(c)) {

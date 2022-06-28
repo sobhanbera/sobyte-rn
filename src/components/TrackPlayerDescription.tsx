@@ -31,7 +31,7 @@ export const TrackPlayerDescription = ({
 }: TrackPlayerDescriptionProps) => {
     const {fonts, gutters} = useTheme()
 
-    const formattedArtist = formatArtistsListFromArray(track.artist)
+    const formattedArtist = formatArtistsListFromArray(track.artists)
     const formattedTitle = formatTrackTitle(track.title)
 
     return (

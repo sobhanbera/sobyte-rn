@@ -172,7 +172,7 @@ export interface SongObject {
     title: string
     musicId: string
     playlistId: string
-    artist: Array<SongArtistObject>
+    artists: Array<SongArtistObject>
     album?: {
         name: string
         browseId: string
@@ -188,15 +188,10 @@ export interface SongObject {
  */
 export interface TrackMetadataBase {
     url: string
-    title?: string
-    duration?: number
+    artist: string
     artwork?: string
     description?: string
     genre?: string
-
-    headers?: {
-        [key: string]: any
-    }
 
     [key: string]: any
 }

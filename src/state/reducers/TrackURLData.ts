@@ -66,7 +66,7 @@ const trackURLDataSlice = createSlice({
     },
 })
 
-export const {} = trackURLDataSlice.actions
+export const {addTrackURL} = trackURLDataSlice.actions
 
 const {reducer} = trackURLDataSlice
 export {reducer as TrackURLDataReducer}
