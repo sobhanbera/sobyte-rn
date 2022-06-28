@@ -53,7 +53,7 @@ const trackURLDataSlice = createSlice({
             ) {
                 if (payload.musicId in state.trackURLs) {
                     // checking if it already exists here
-                    console.log('already exists')
+                    // don;t do anything
                 } else {
                     // if not then add it
                     state.trackURLs = {

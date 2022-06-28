@@ -189,9 +189,10 @@ export interface SongObject {
 export interface TrackMetadataBase {
     url: string
     artist: string
-    artwork?: string
-    description?: string
+    artwork: string
+    description: string
     genre?: string
+    contentType?: string
 
     [key: string]: any
 }
