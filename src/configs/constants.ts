@@ -85,6 +85,28 @@ export const MAX_DISPLAY_HEIGHT_OF_TRACK_ARTWORK_WRAPPER =
     TRACK_ARTWORK_SPACING + // this is also on both side as above, the difference is, this is just a extra padding
     TRACK_ARTWORK_SPACING // this is also on both side as above, the difference is, this is just a extra padding
 
+/**
+ * music URL related constants
+ */
+export const TRACK_REQUEST_BASE_URL = 'https://www.youtube.com/'
+export const TRACK_REQUEST_MAIN_ROUTE = 'watch?v='
+
+/**
+ * constants related to tracks URL quality and more
+ */
+export const EXTREME_QUALITY_AUDIO_BITRATE = 160 // bitrate we are providing for the very high quality songs
+export const HIGH_AUDIO_BITRATE = 128 // bitrate quality we are providing is high quality songs
+export const NORMAL_AUDIO_BITRATE = 64 // bitrate quality we are providing is average quality songs
+export const LOW_AUDIO_BITRATE = 48 // bitrate quality we are providing is low quality songs
+
+export const EXTREME_QUALITY_AUDIO_MINIMUM_BITRATE = 129 // this is the bitrate just after high quality, so that if sometime 160 is not available we can use this value to get equal to or more
+export const HIGH_AUDIO_MINIMUM_BITRATE = 64 // just after normal quality
+export const NORMAL_AUDIO_MINIMUM_BITRATE = 49 // just after low quality
+export const LOW_AUDIO_MINIMUM_BITRATE = 33 // a minimal thresold for every quality of bitrates we are providing...
+
+export const REMOTE_ORIGIN_MUSIC_ID_MAXIMUM_LENGTH = 11
+export const SOBYTE_MUSIC_ID_MAXIMUM_LENGTH = 11
+
 // user agent while making api request
 export const MUSIC_API_USER_AGENT =
     'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36'

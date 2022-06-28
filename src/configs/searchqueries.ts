@@ -8,4 +8,4 @@
  * Purpose - constants for queries...
  */
 
-export const DEFAULT_QUERY = 'Trending Bollywood Songs'
+export const DEFAULT_QUERY = 'trending reels songs'
