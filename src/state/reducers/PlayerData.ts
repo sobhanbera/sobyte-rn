@@ -29,6 +29,36 @@ type PlayerDataPayload = {
     payload: Partial<PlayerDataState>
 }
 
+// the bare current track without any data
+export const BareCurrentTrack: TrackMetadataBase & SongObject = {
+    url: '',
+    title: '',
+    musicId: '',
+    playlistId: '',
+    duration: 0,
+    type: '',
+    description: '',
+    artwork: '',
+    genre: '',
+    params: '',
+    artworks: [
+        {
+            url: '',
+            height: 0,
+        },
+    ],
+    album: {
+        name: '',
+        browseId: '',
+    },
+    artist: [
+        {
+            name: '',
+            browseId: '',
+        },
+    ],
+}
+
 /**
  * default initial state of the player data state
  */
@@ -39,35 +69,7 @@ const initialState: PlayerDataState = {
         continuation: '',
     },
 
-    currentTrack: {
-        url: '',
-        title: '',
-        musicId: '',
-        playlistId: '',
-        duration: 0,
-        type: 'song',
-        description: '',
-        artwork: '',
-        genre: '',
-        params: '',
-        artworks: [
-            {
-                url: '',
-                height: 0,
-            },
-        ],
-        album: {
-            name: '',
-            browseId: '',
-        },
-        artist: [
-            {
-                name: '',
-                browseId: '',
-            },
-        ],
-    },
-
+    currentTrack: BareCurrentTrack,
     currentTrackIndex: 0,
 }
 
@@ -127,13 +129,25 @@ const playerDataSlice = createSlice({
         ) => {
             state.currentTrackIndex = index
         },
+
+        /**
+         * reset the track players data, more specifically the currentTrack in the state
+         * @param state initial state of player data
+         */
+        resetPlayerData: state => {
+            state.currentTrack = BareCurrentTrack
+        },
     },
 
     extraReducers: {},
 })
 
-export const {updateTracksData, updatePlayerData, updateCurrentTrackIndex} =
-    playerDataSlice.actions
+export const {
+    updateTracksData,
+    updatePlayerData,
+    updateCurrentTrackIndex,
+    resetPlayerData,
+} = playerDataSlice.actions
 
 const {reducer} = playerDataSlice
 export {reducer as PlayerDataReducer}
