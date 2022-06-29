@@ -10,7 +10,8 @@
         <item name="android:windowTranslucentNavigation">true</item>
 
 <!--        I personaly think we should disable this feature so that we can customize the UI with the power of android itself   -->
-<!--        <item name="android:forceDarkAllowed" tools:targetApi="Q">false</item>-->
+        <item name="android:forceDarkAllowed" tools:targetApi="Q">false</item> <!--  plan changed! sorry!! -->
+
 
 <!--        <item name="android:textViewStyle">@style/DefaultTextViewStyle</item>-->
 <!--        <item name="android:buttonStyle">@style/DefaultButtonStyle</item>-->
