@@ -29,6 +29,7 @@ import {
     DEFAULT_NOTIFICATION_ARTWORK_QUALITY,
     DEFAULT_NOTIFICATION_ARTWORK_SIZE,
     EXTREME_QUALITY_AUDIO_MINIMUM_BITRATE,
+    LOW_AUDIO_MINIMUM_BITRATE,
     REMOTE_ORIGIN_MUSIC_ID_MAXIMUM_LENGTH,
 } from '@/configs'
 import {formatArtistsListFromArray, updateArtworkQuality} from '@/utils'
@@ -120,7 +121,7 @@ export function useTrackPlayer() {
                  * returning the actual data which is needed by the audio player
                  * but this data is total based on the bitrate quality the use set in settings
                  */
-                if (audio.bitrate >= EXTREME_QUALITY_AUDIO_MINIMUM_BITRATE) {
+                if (audio.bitrate >= LOW_AUDIO_MINIMUM_BITRATE) {
                     dispatch(
                         addTrackURL({
                             musicId: musicID,
