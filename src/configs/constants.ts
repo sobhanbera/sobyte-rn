@@ -53,7 +53,7 @@ export const DEFAULT_NOTIFICATION_ARTWORK_QUALITY = 90 // the quality of the ima
 export const MUSIC_PLAYER_BLUR = 25 // blur value of music player image background
 
 // marquee constants
-export const MARQUEE_SCROLL_SPEED = 25 // scroll speed of the marquee text
+export const MARQUEE_SCROLL_SPEED = 30 // scroll speed of the marquee text
 export const MARQUEE_REPEAT_SPACER = 100 // the distance between text of every repetation of marquee text
 export const MARQUEE_DELAY = 1000 // value of delay for each marquee animation
 export const MARQUEE_BOUNCE_DELAY = 0 // the delay between bounces for the same marquee

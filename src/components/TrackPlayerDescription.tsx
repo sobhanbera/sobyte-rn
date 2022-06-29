@@ -29,7 +29,7 @@ export const TrackPlayerDescription = ({
     track,
     index,
 }: TrackPlayerDescriptionProps) => {
-    const {fonts, gutters} = useTheme()
+    const {fonts, gutters, theme} = useTheme()
 
     const formattedArtist = formatArtistsListFromArray(track.artists)
     const formattedTitle = formatTrackTitle(track.title)
@@ -47,7 +47,12 @@ export const TrackPlayerDescription = ({
                 {formattedTitle}
             </SobyteMarquee>
 
-            <SobyteMarquee style={[fonts.boldFont, gutters.extraTinyMarginTop]}>
+            <SobyteMarquee
+                style={[
+                    fonts.titleTiny,
+                    gutters.extraTinyMarginTop,
+                    {color: `${theme.themecolorrevert}C7`},
+                ]}>
                 {formattedArtist}
             </SobyteMarquee>
         </View>
