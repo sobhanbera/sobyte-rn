@@ -87,7 +87,7 @@ export default function SobytePlayerInterface() {
                  * the next song at index 1
                  */
                 const firstTrack = result.content[0]
-                playTrack(firstTrack).then(played => {
+                playTrack(firstTrack, '', false).then(played => {
                     if (played)
                         if (result.content.length >= 1)
                             // if there are more than or equal to 1 songs than load the 1st indexed song too
