@@ -5,9 +5,12 @@
         <!-- <item name="android:editTextBackground">@drawable/rn_edit_text_material</item> -->
         <!-- <item name="android:textColor">@color/splash_screen_background_color</item> -->
         <!-- <item name="android:statusBarColor">@color/splash_screen_background_color</item> -->
+
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
-        <item name="android:forceDarkAllowed" tools:targetApi="Q">false</item>
+
+<!--        I personaly think we should disable this feature so that we can customize the UI with the power of android itself   -->
+<!--        <item name="android:forceDarkAllowed" tools:targetApi="Q">false</item>-->
 
 <!--        <item name="android:textViewStyle">@style/DefaultTextViewStyle</item>-->
 <!--        <item name="android:buttonStyle">@style/DefaultButtonStyle</item>-->
