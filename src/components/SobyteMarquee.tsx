@@ -9,8 +9,7 @@
  */
 
 import React from 'react'
-import {TextProps} from 'react-native'
-import Marquee from 'react-native-text-ticker'
+import Marquee, {TextTickerProps} from 'react-native-text-ticker'
 
 import {
     CircularRegular,
@@ -19,11 +18,14 @@ import {
     MARQUEE_REPEAT_SPACER,
     MARQUEE_SCROLL_SPEED,
 } from '@/configs'
+import {useTheme} from '@/hooks'
 
-export interface SobyteMarqueeProps extends TextProps {
+export interface SobyteMarqueeProps extends TextTickerProps {
     children: React.ReactChild
 }
 const SobyteMarquee = (props: SobyteMarqueeProps) => {
+    const {theme} = useTheme()
+
     return (
         <Marquee
             loop
@@ -39,6 +41,7 @@ const SobyteMarquee = (props: SobyteMarqueeProps) => {
             style={[
                 {
                     fontFamily: CircularRegular,
+                    color: theme.themecolorrevert,
                 },
                 props.style, // this style should be at last, so that our styles could be overwritten by parent component
             ]}>

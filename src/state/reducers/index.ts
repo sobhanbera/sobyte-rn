@@ -9,7 +9,6 @@
  */
 
 export * from './MusicConfig'
-
 export * from './PlayerData'
-
 export * from './Theme'
+export * from './TrackURLData'

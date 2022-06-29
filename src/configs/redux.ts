@@ -16,3 +16,5 @@ export const MUSIC_CONFIG_SLICE_NAME = 'musicconfig'
 
 // reducer/slice name for the player data reducer
 export const PLAYER_DATA_SLICE_NAME = 'playerdata'
+
+export const TRACK_URL_DATA_SLICE_NAME = 'trackurldata'

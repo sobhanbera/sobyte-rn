@@ -37,23 +37,29 @@ export const MAX_DISPLAY_TEXT_LENGTH = 30 // length of the text after which "...
 export const DEFAULT_ARTWORK_SIZE = 200 // default image width and height in string...
 export const DEFAULT_ARTWORK_QUALITY = 90 // default image quality in string...
 
-export const DEFAULT_LARGE_ARTWORK_SIZE = 576 // default high quality image width and height in string...
+export const DEFAULT_SMALL_ARTWORK_SIZE = 250 // default small/low quality image width and height in string...
+export const DEFAULT_SMALL_ARTWORK_QUALITY = 90 // default small/low quality image quality in string...
+
+export const DEFAULT_MEDIUM_ARTWORK_SIZE = 446 // default medium quality image width and height in string...
+export const DEFAULT_MEDIUM_ARTWORK_QUALITY = 90 // default medium quality image quality in string...
+
+export const DEFAULT_LARGE_ARTWORK_SIZE = 594 // default high quality image width and height in string...
 export const DEFAULT_LARGE_ARTWORK_QUALITY = 100 // default high quality image quality in string...
 
-export const DEFAULT_EXTRA_LARGE_ARTWORK_SIZE = 720 // default high quality image width and height in string...
-export const DEFAULT_EXTRA_LARGE_ARTWORK_QUALITY = 100 // default high quality image quality in string...
+export const DEFAULT_EXTRA_LARGE_ARTWORK_SIZE = 720 // default extra high/extreme quality image width and height in string...
+export const DEFAULT_EXTRA_LARGE_ARTWORK_QUALITY = 100 // default extra high/extreme quality image quality in string...
 
-export const DEFAULT_PLAYER_ARTWORK_SIZE = 400 // default size image for the music player UI in string...
-export const DEFAULT_PLAYER_ARTWORK_QUALITY = 100 // default quality image quality for music player UI string...
+export const DEFAULT_PLAYER_ARTWORK_SIZE = DEFAULT_SMALL_ARTWORK_SIZE // this could be changed as per need during development
+export const DEFAULT_PLAYER_ARTWORK_QUALITY = DEFAULT_SMALL_ARTWORK_QUALITY // this could be changed as per need during development
 
 // below value should not be changed regarding the shades on notification panel
-export const DEFAULT_NOTIFICATION_ARTWORK_SIZE = 250 // the size (width/height) of the image which will be shown in the notification of when a track is played short size of image would take less time to load and play the song faster then previously...
-export const DEFAULT_NOTIFICATION_ARTWORK_QUALITY = 90 // the quality of the image which will be shown in the notification of when a track is played short size of image would take less time to load and play the song faster then previously...
+export const DEFAULT_NOTIFICATION_ARTWORK_SIZE = 300 // the size (width/height) of the image which will be shown in the notification of when a track is played short size of image would take less time to load and play the song faster then previously...
+export const DEFAULT_NOTIFICATION_ARTWORK_QUALITY = 100 // the quality of the image which will be shown in the notification of when a track is played short size of image would take less time to load and play the song faster then previously...
 
 export const MUSIC_PLAYER_BLUR = 25 // blur value of music player image background
 
 // marquee constants
-export const MARQUEE_SCROLL_SPEED = 25 // scroll speed of the marquee text
+export const MARQUEE_SCROLL_SPEED = 30 // scroll speed of the marquee text
 export const MARQUEE_REPEAT_SPACER = 100 // the distance between text of every repetation of marquee text
 export const MARQUEE_DELAY = 1000 // value of delay for each marquee animation
 export const MARQUEE_BOUNCE_DELAY = 0 // the delay between bounces for the same marquee
@@ -68,11 +74,15 @@ export const CircularLight = 'Circular-Light'
 /**
  * music player interface constants and vars...
  */
+export const TRACK_ARTWORK_SCREEN_WIDTH_OCCUPICATION = 0.82 // the artwork will take 82% of the available screen width
 export const TRACK_DATA_OVERFLOW_HEIGHT = 70
-export const TRACK_ARTWORK_SPACING = 10
 export const TRACK_ARTWORK_PARENT_VERTICAL_PADDING = 55
-export const TRACK_ARTWORK_WIDTH = SCREEN_WIDTH * 0.82
+export const TRACK_ARTWORK_WIDTH =
+    SCREEN_WIDTH * TRACK_ARTWORK_SCREEN_WIDTH_OCCUPICATION
 export const TRACK_ARTWORK_HEIGHT = TRACK_ARTWORK_WIDTH
+export const TRACK_ARTWORK_SPACING = 10
+export const TRACK_ARTWORK_HORIZONAL_SPACING =
+    (SCREEN_WIDTH - TRACK_ARTWORK_WIDTH) / 2 // divide by 2, since the padding will be on both sides...
 export const NUMBER_OF_VISIBLE_PLAYER_TRACKS = 2
 export const MAX_DISPLAY_HEIGHT_OF_TRACK_ARTWORK_WRAPPER =
     TRACK_ARTWORK_PARENT_VERTICAL_PADDING + // since vertical padding would be on both side, top & bottom
@@ -80,6 +90,28 @@ export const MAX_DISPLAY_HEIGHT_OF_TRACK_ARTWORK_WRAPPER =
     TRACK_ARTWORK_HEIGHT +
     TRACK_ARTWORK_SPACING + // this is also on both side as above, the difference is, this is just a extra padding
     TRACK_ARTWORK_SPACING // this is also on both side as above, the difference is, this is just a extra padding
+
+/**
+ * music URL related constants
+ */
+export const TRACK_REQUEST_BASE_URL = 'https://www.youtube.com/'
+export const TRACK_REQUEST_MAIN_ROUTE = 'watch?v='
+
+/**
+ * constants related to tracks URL quality and more
+ */
+export const EXTREME_QUALITY_AUDIO_BITRATE = 160 // bitrate we are providing for the very high quality songs
+export const HIGH_AUDIO_BITRATE = 128 // bitrate quality we are providing is high quality songs
+export const NORMAL_AUDIO_BITRATE = 64 // bitrate quality we are providing is average quality songs
+export const LOW_AUDIO_BITRATE = 48 // bitrate quality we are providing is low quality songs
+
+export const EXTREME_QUALITY_AUDIO_MINIMUM_BITRATE = 129 // this is the bitrate just after high quality, so that if sometime 160 is not available we can use this value to get equal to or more
+export const HIGH_AUDIO_MINIMUM_BITRATE = 64 // just after normal quality
+export const NORMAL_AUDIO_MINIMUM_BITRATE = 49 // just after low quality
+export const LOW_AUDIO_MINIMUM_BITRATE = 33 // a minimal thresold for every quality of bitrates we are providing...
+
+export const REMOTE_ORIGIN_MUSIC_ID_MAXIMUM_LENGTH = 11
+export const SOBYTE_MUSIC_ID_MAXIMUM_LENGTH = 11
 
 // user agent while making api request
 export const MUSIC_API_USER_AGENT =
