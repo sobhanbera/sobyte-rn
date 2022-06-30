@@ -34,6 +34,8 @@
         "@react-navigation/native": "^6.0.10",
         "@react-navigation/native-stack": "^6.6.2",
         "@reduxjs/toolkit": "^1.8.2",
+        "@rneui/base": "^4.0.0-rc.5",
+        "@rneui/themed": "^4.0.0-rc.5",
         "@sobhanbera/react-native-sobyte-ytdl": "^1.0.0",
         "axios": "^0.27.2",
         "dayjs": "^1.11.3",
@@ -52,6 +54,7 @@
         "react-native-screens": "^3.13.1",
         "react-native-text-ticker": "^1.14.0",
         "react-native-track-player": "^2.1.3",
+        "react-native-vector-icons": "^9.2.0",
         "react-redux": "^8.0.2",
         "redux": "^4.2.0",
         "redux-persist": "^6.0.0"

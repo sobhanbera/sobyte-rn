@@ -37,6 +37,8 @@ target 'sobyte' do
 
   pod 'react-native-slider', :path => '../node_modules/@react-native-community/slider'
 
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
   target 'sobyteTests' do
     inherit! :complete
     # Pods for testing
