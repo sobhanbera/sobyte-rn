@@ -58,7 +58,7 @@ export default function SobytePlayerInterface() {
     const [localCurrentTrackIndex, setLocalCurrentTrackIndex] = useState(0)
 
     // getting the initial tracks data when the application is being loaded...
-    const getInitialTracksData = () => {
+    const getInitialTracksData = useCallback(() => {
         search(
             DEFAULT_QUERY,
             'SONG',
@@ -99,11 +99,11 @@ export default function SobytePlayerInterface() {
             .catch((_error: any) => {
                 console.log('Error getting player songs...')
             })
-    }
+    }, [dispatch])
     // getting initial list of songs
     useEffect(() => {
         getInitialTracksData()
-    }, [])
+    }, [dispatch])
 
     /**
      * whenever the currentIndex changes just initialize the play method for that
@@ -168,27 +168,24 @@ export default function SobytePlayerInterface() {
      * when a fling gesture is success this method is executed
      * the main task of this function is to update the current index or current tracks data
      */
-    const updatedCurrentlyActiveTrackIndex = React.useCallback(
-        async activeIndex => {
-            if (activeIndex <= -1) return
+    const updatedCurrentlyActiveTrackIndex = useCallback(async activeIndex => {
+        if (activeIndex <= -1) return
 
-            scrollXIndex.setValue(activeIndex)
-            setLocalCurrentTrackIndex(activeIndex)
+        scrollXIndex.setValue(activeIndex)
+        setLocalCurrentTrackIndex(activeIndex)
 
-            dispatch(
-                updateCurrentTrackIndex({
-                    index: activeIndex,
-                }),
-            )
-        },
-        [],
-    )
+        dispatch(
+            updateCurrentTrackIndex({
+                index: activeIndex,
+            }),
+        )
+    }, [])
 
     /**
      * this method handles what to do when the user pressed
      * on play previous button in the UI
      */
-    const onPlayPreviousTrack = () => {
+    const onPlayPreviousTrack = useCallback(() => {
         /**
          * cheking if the track is the first one
          * return and do nothing
@@ -208,13 +205,13 @@ export default function SobytePlayerInterface() {
                 return value
             })
         }
-    }
+    }, [])
 
     /**
      * this method handles what to do when the user pressed
      * on play next button in the UI
      */
-    const onPlayNextTrack = () => {
+    const onPlayNextTrack = useCallback(() => {
         /**
          * cheking if the track is the last one
          * in this case we can load more data
@@ -234,10 +231,10 @@ export default function SobytePlayerInterface() {
                  */
                 updatedCurrentlyActiveTrackIndex(value + 1)
 
-                return value
+                return value + 1 // plan changed after 2 hours, we are now updating the state here only, but only for next track event
             })
         }
-    }
+    }, [])
 
     /**
      * responsible for rendering the list of all the tracks

@@ -82,13 +82,27 @@ export const TrackControls = ({
     useEffect(() => {
         const stateChangeEvent = TrackPlayer.addEventListener(
             Event.PlaybackState,
-            (state: {state: number}) => {
+            (stateData: {state: number}) => {
                 // we are only containing paused state because for all other state we want to show the use a play state
                 // or else it will signify that the track is being pause all the time when buffering
-                if (state.state === State.Paused) {
-                    setIsPlaying(false)
-                } else {
+                // if (stateData.state === State.Paused) {
+                //     setIsPlaying(false)
+                // } else {
+                //     setIsPlaying(true)
+                // }
+
+                /**
+                 * or we can do an alternative in this way
+                 * we are enabling play when buffering or else actually playing,
+                 * else we are saying its been paused...
+                 */
+                if (
+                    stateData.state === State.Buffering ||
+                    stateData.state === State.Playing
+                ) {
                     setIsPlaying(true)
+                } else {
+                    setIsPlaying(false)
                 }
             },
         )
