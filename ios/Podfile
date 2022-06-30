@@ -35,8 +35,6 @@ target 'sobyte' do
 
   pod 'BVLinearGradient', :path => '../node_modules/react-native-linear-gradient'
 
-  pod 'react-native-slider', :path => '../node_modules/@react-native-community/slider'
-
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
   target 'sobyteTests' do
