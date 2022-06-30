@@ -933,10 +933,10 @@ export function useMusic() {
     /**
      * @param {string} musicId id of the music
      * @param {string} playlistId id of the playlist
-     * @param {boolean} provideFullData if true than will provide a SongObject type object else will provide only music Id and playlist Id object array
-     * @param {number} numberOfSongs the number of songs data to return from this function
      * @param {string} param id of the param string if any
      * @param {string} playerParams id of the param string if any
+     * @param {boolean} provideFullData if true than will provide a SongObject type object else will provide only music Id and playlist Id object array
+     * @param {number} numberOfSongs the number of songs data to return from this function
      * @returns the next songs list may be bare or with full data of each song
      *
      * current the use of @param provideFullData and @param numberOfSongs is deprecated
@@ -944,10 +944,10 @@ export function useMusic() {
     const getNext = (
         musicId: string,
         playlistId: string,
-        _provideFullData: boolean = false,
-        _numberOfSongs: number = 10,
         param: string = '',
         playerParams: string = '',
+        _provideFullData: boolean = false,
+        _numberOfSongs: number = 10,
     ) => {
         return new Promise((resolve, reject) => {
             _createApiRequest(PRIMARY_MUSIC_API_ENDPOINTS.next, {
