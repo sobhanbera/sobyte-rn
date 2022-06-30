@@ -14,6 +14,7 @@ import {View} from 'react-native'
 import {formatArtistsListFromArray, formatTrackTitle} from '@/utils'
 import {SongObject} from '@/schemas'
 import {
+    NEXT_TITLE_COLOR_ALPHA,
     SCREEN_WIDTH,
     TRACK_ARTWORK_HORIZONAL_SPACING,
     TRACK_ARTWORK_SPACING,
@@ -51,7 +52,9 @@ export const TrackPlayerDescription = ({
                 style={[
                     fonts.titleTiny,
                     gutters.extraTinyMarginTop,
-                    {color: `${theme.themecolorrevert}C7`},
+                    {
+                        color: `${theme.themecolorrevert}${NEXT_TITLE_COLOR_ALPHA}`,
+                    },
                 ]}>
                 {formattedArtist}
             </SobyteMarquee>
