@@ -256,10 +256,11 @@ export function useTrackPlayer() {
                     if (addAndPlayTrack) TrackPlayer.play()
 
                     console.log(
-                        'Player took',
-                        new Date().getTime() - start,
-                        'milliseconds to play -',
+                        'Played',
                         trackData.title,
+                        'in',
+                        new Date().getTime() - start,
+                        'milliseconds.',
                     ) // JUST_FOR_DEV
 
                     /**

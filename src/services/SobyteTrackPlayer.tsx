@@ -93,7 +93,7 @@ export default function SobyteTrackPlayer(props: SobyteTrackPlayerProps) {
          * with some metadata about the track which is to be played in the future of this instance
          */
         TrackPlayer.setupPlayer({
-            // minBuffer: 15, // Minimum time in seconds that needs to be buffered
+            minBuffer: 30, // Minimum time in seconds that needs to be buffered
             maxBuffer: 45, // Maximum time in seconds that needs to be buffered
             playBuffer: 3, // Minimum time in seconds that needs to be buffered to start playing
             // backBuffer: 0, // Time in seconds that should be kept in the buffer behind the current playhead time.
