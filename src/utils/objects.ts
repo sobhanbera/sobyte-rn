@@ -151,3 +151,22 @@ export function formatTrackTitle(trackTitle: string): string {
         ),
     )
 }
+
+/**
+ * this method will return a min:second formatted string when the number of second is passed through its parameter
+ *
+ * @param seconds number which shows number of seconds
+ * @returns a string in min:second format
+ */
+export function secondsToHms(seconds: number) {
+    // I hope any song will not proccedd over 1 hours so for now the use of hours is deprecated
+    // var hrs = ('0' + hr).slice(-2)
+
+    var min = Math.floor((seconds % 3600) / 60) // now getting the number of minutes left after getting hours
+    var sec = Math.floor((seconds % 3600) % 60) // finally getting few seconds left from the seconds {number}
+
+    // not to min
+    var secs = ('0' + sec).slice(-2)
+
+    return `${min}:${secs}`
+}

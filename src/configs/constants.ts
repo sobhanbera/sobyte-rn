@@ -91,6 +91,21 @@ export const MAX_DISPLAY_HEIGHT_OF_TRACK_ARTWORK_WRAPPER =
     TRACK_ARTWORK_SPACING + // this is also on both side as above, the difference is, this is just a extra padding
     TRACK_ARTWORK_SPACING // this is also on both side as above, the difference is, this is just a extra padding
 
+export const NEXT_TITLE_COLOR_ALPHA = 'B0' // the alpha value of text next to title
+
+export const DEFAULT_SLIDER_THUMB_SIZE = 8 // the width and height of the thumb in sliders
+export const DEFAULT_SLIDER_TRACK_HEIGHT = 2.6 // the default height of the slider's track
+
+export const TINY_ICON_SIZE = 22 // size of tiny icons
+export const DEFAULT_ICON_SIZE = 24 // default icon size
+export const SMALL_ICON_SIZE = 28 // somewhat larger than tiny and deafult icon
+export const MEDIUM_ICON_SIZE = 32 // icon size for medium icons
+export const LARGE_ICON_SIZE = 38 // large icons size
+export const EXTRA_LARGE_ICON_SIZE = 45 // extra large icons size
+export const PLAY_PAUSE_ICON_SIZE = 80 // icon size for play/pause button
+
+export const DEFAULT_TOUCHABLE_OPACITY_BUTTON_ACTIVE_OPACITY = 0.6 // default active opacity value of the touchable opacity component
+
 /**
  * music URL related constants
  */

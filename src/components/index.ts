@@ -16,3 +16,5 @@ export * from './TrackPlayerImage'
 
 export * from './SobyteMarquee'
 export * from './SobyteTextView'
+
+export * from './TrackControls'
