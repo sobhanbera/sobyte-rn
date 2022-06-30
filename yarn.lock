@@ -1399,6 +1399,15 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
+"@sobhanbera/react-native-sobyte-ytdl@^1.0.0":
+  version "1.0.0"
+  resolved "https://npm.pkg.github.com/download/@sobhanbera/react-native-sobyte-ytdl/1.0.0/fea76583d2ca1e1ede1363603a87ba38b48e975eaa8f00bfad617516332f0aa9#4ba1d0f938f2ee19bfeb3284b3191d743d6bc405"
+  integrity sha512-yTwFM6sTvAOSRx0qk6sNc4ZGT5kQZ8d7jIIcsV3TmGgpbORD5TGKLlPH0LWWyQHTYsObUSTwMhIs6aDkXonj4w==
+  dependencies:
+    querystring "^0.2.1"
+    url "~0.10.1"
+    whatwg-url-without-unicode "^8.0.0-3"
+
 "@tootallnate/once@1":
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/@tootallnate/once/-/once-1.1.2.tgz#ccb91445360179a04e7fe6aff78c00ffc1eeaf82"
@@ -6125,15 +6134,6 @@ react-native-track-player@^2.1.3:
   version "2.1.3"
   resolved "https://registry.yarnpkg.com/react-native-track-player/-/react-native-track-player-2.1.3.tgz#af8b4baa5b794ff1fe9acdf2443b530cbff40659"
   integrity sha512-JWKFRu+hr1ECN339RH+c+XDM7HfwvdvS4H1p4cJbhg/9b1CQGPJSrYXEhYkngN0msoxBxAjFyFIhjT2fWDCltA==
-
-react-native-ytdl@^4.8.3:
-  version "4.8.3"
-  resolved "https://registry.yarnpkg.com/react-native-ytdl/-/react-native-ytdl-4.8.3.tgz#e871c0423468997d10ffa0ba1f2b8fd577a94be7"
-  integrity sha512-BEoSEaERkkmaJwmm6rtig5yXmqArSG7QSF/F1xl91YyGmxO2HW/QyJ0f8uch645jiQ9US/6v2dRRJAp6PxXIqQ==
-  dependencies:
-    querystring "^0.2.1"
-    url "~0.10.1"
-    whatwg-url-without-unicode "^8.0.0-3"
 
 react-native@0.68.2:
   version "0.68.2"
