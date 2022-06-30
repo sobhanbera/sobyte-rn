@@ -9,7 +9,7 @@
  */
 
 import TrackPlayer from 'react-native-track-player'
-import getTrackURLModule from 'react-native-ytdl'
+import getTrackURLModule from '@sobhanbera/react-native-sobyte-ytdl'
 import {useDispatch, useSelector} from 'react-redux'
 
 import {
