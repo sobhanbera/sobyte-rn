@@ -34,6 +34,7 @@ import {
     PlayerTrackImage,
     BluredImageBackgroundRenderer,
     TrackPlayerDescriptionRenderer,
+    TrackControls,
 } from '@/components'
 
 export default function SobytePlayerInterface() {
@@ -184,6 +185,61 @@ export default function SobytePlayerInterface() {
     )
 
     /**
+     * this method handles what to do when the user pressed
+     * on play previous button in the UI
+     */
+    const onPlayPreviousTrack = () => {
+        /**
+         * cheking if the track is the first one
+         * return and do nothing
+         */
+        if (localCurrentTrackIndex === tracks.length - 1) {
+            return
+        } else {
+            // else decrement the currentIndex value by 1
+            setLocalCurrentTrackIndex(value => {
+                /**
+                 * here this is not needed
+                 * but let's say if any edge case got stuck in
+                 * just be safe from that, I have used this here too
+                 */
+                updatedCurrentlyActiveTrackIndex(value - 1)
+
+                return value
+            })
+        }
+    }
+
+    /**
+     * this method handles what to do when the user pressed
+     * on play next button in the UI
+     */
+    const onPlayNextTrack = () => {
+        /**
+         * cheking if the track is the last one
+         * in this case we can load more data
+         * or maybe not do the next operation and return
+         */
+        if (localCurrentTrackIndex === tracks.length - 1) {
+            return
+        } else {
+            // else increment the currentIndex value by 1
+            setLocalCurrentTrackIndex(value => {
+                /**
+                 * we are using this syntax to get the latest current value of this state var
+                 * we will not change/update the value here itself, but we are just using it to call
+                 * a method which can update this value more efficiently
+                 * without this, let's say the current value is not being changed yet and the track ended,
+                 * in this case the player will not go to the next track
+                 */
+                updatedCurrentlyActiveTrackIndex(value + 1)
+
+                return value
+            })
+        }
+    }
+
+    /**
      * responsible for rendering the list of all the tracks
      * this method eventually renders PlayerTrackImage which is its main task...
      */
@@ -209,6 +265,13 @@ export default function SobytePlayerInterface() {
 
     return (
         <View style={layouts.fill}>
+            {/**
+             * list of all the images of all tracks in form of full screen background image
+             * this should be rendered at the top so that it doesn't
+             * overlap any of the other components in the screen
+             */}
+            <BluredImageBackgroundRenderer scrollXAnimated={scrollXAnimated} />
+
             <FlingGestureHandler
                 key="left"
                 direction={Directions.LEFT}
@@ -237,20 +300,7 @@ export default function SobytePlayerInterface() {
                             )
                         }
                     }}>
-                    <View
-                        style={[
-                            layouts.fill,
-                            gutters.statusBarHeightPaddingTop,
-                        ]}>
-                        {/**
-                         * list of all the images of all tracks in form of full screen background image
-                         * this should be rendered at the top so that it doesn't
-                         * overlap any of the other components in the screen
-                         */}
-                        <BluredImageBackgroundRenderer
-                            scrollXAnimated={scrollXAnimated}
-                        />
-
+                    <View style={gutters.statusBarHeightPaddingTop}>
                         {/* the actual track's image list */}
                         <FlatList
                             data={tracks}
@@ -278,6 +328,11 @@ export default function SobytePlayerInterface() {
                     </View>
                 </FlingGestureHandler>
             </FlingGestureHandler>
+
+            <TrackControls
+                onPlayNextTrack={() => onPlayNextTrack()}
+                onPlayPreviousTrack={() => onPlayPreviousTrack()}
+            />
         </View>
     )
 }
