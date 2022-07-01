@@ -21,7 +21,10 @@ import {
     TRACK_ARTWORK_WIDTH_LARGE,
 } from '@/configs'
 
-const SobyteLogo = require('../assets/images/logos/named.png')
+/**
+ * sobyte white colored logo
+ */
+const SobyteLogo = require('../assets/images/logos/sobyte_white.png')
 
 export interface TrackPlayerHeaderProps {
     onPressSearch(): void
@@ -49,10 +52,13 @@ export const TrackPlayerHeader = ({onPressSearch}: TrackPlayerHeaderProps) => {
                 ]}>
                 <Image
                     source={SobyteLogo}
-                    style={{
-                        height: DEFAULT_LOGO_HEIGHT,
-                        width: DEFAULT_LOGO_WIDTH,
-                    }}
+                    style={[
+                        gutters.regularMarginHorizontal, // a few padding, horizontal but needed on left side...
+                        {
+                            height: DEFAULT_LOGO_HEIGHT,
+                            width: DEFAULT_LOGO_WIDTH,
+                        },
+                    ]}
                 />
 
                 {/**
@@ -68,7 +74,7 @@ export const TrackPlayerHeader = ({onPressSearch}: TrackPlayerHeaderProps) => {
                         onPress={onPressSearch}
                         style={[
                             gutters.tinyPadding,
-                            gutters.tinyMarginHorizontal,
+                            gutters.tinyMarginRight, // since this is the first icon
                         ]}>
                         <IoniconIcon
                             name="ios-search-outline"
@@ -85,7 +91,7 @@ export const TrackPlayerHeader = ({onPressSearch}: TrackPlayerHeaderProps) => {
                         onPress={showTrackOptionMenu}
                         style={[
                             gutters.tinyPadding,
-                            gutters.tinyMarginHorizontal,
+                            gutters.tinyMarginLeft, // since this is the last icon
                         ]}>
                         <IoniconIcon
                             name="ios-ellipsis-vertical"

@@ -171,13 +171,22 @@ export const DEFAULT_BORDER_RADIUS = 12 // the default border radius value for a
  * these are some heights and width of the logo images
  * these all are in the same ratio as of the image's aspect ratio
  */
-export const LOGO_ACTUAL_WIDTH = 1564 // the actual width of the "named.png" logo image
-export const LOGO_ACTUAL_HEIGHT = 511 // the actual height of the "named.png" logo image
-export const DEFAULT_LOGO_DIVISION_RATE = 20 // multiplier/divisor of the size of logo. the same multiplier will be multiplied by both height and width of actual logo
+export const NAMED_LOGO_ACTUAL_WIDTH = 1564 // the actual width of the "named.png" logo image
+export const NAMED_LOGO_ACTUAL_HEIGHT = 511 // the actual height of the "named.png" logo image
+export const LOGO_ACTUAL_WIDTH = 218 // the actual width of the "sobyte_white.png" logo image
+export const LOGO_ACTUAL_HEIGHT = 276 // the actual height of the "sobyte_white.png" logo image
 
-export const DEFAULT_LOGO_WIDTH = LOGO_ACTUAL_WIDTH / DEFAULT_LOGO_DIVISION_RATE // a small width version of the logo image
+export const DEFAULT_NAMED_LOGO_DIVISION_RATE = 20 // multiplier/divisor of the size of logo. the same multiplier will be multiplied by both height and width of actual logo
+export const DEFAULT_LOGO_DIVISION_RATE = 10 // multiplier/divisor of the size of logo. the same multiplier will be multiplied by both height and width of actual logo
+
+export const DEFAULT_NAMED_LOGO_WIDTH =
+    NAMED_LOGO_ACTUAL_WIDTH / DEFAULT_NAMED_LOGO_DIVISION_RATE // a small width version of the "named.png" logo image
+export const DEFAULT_NAMED_LOGO_HEIGHT =
+    NAMED_LOGO_ACTUAL_HEIGHT / DEFAULT_NAMED_LOGO_DIVISION_RATE // a small height version of the "named.png" logo image
+
+export const DEFAULT_LOGO_WIDTH = LOGO_ACTUAL_WIDTH / DEFAULT_LOGO_DIVISION_RATE // a small width version of the "sobyte_white.png" logo image
 export const DEFAULT_LOGO_HEIGHT =
-    LOGO_ACTUAL_HEIGHT / DEFAULT_LOGO_DIVISION_RATE // a small height version of the logo image
+    LOGO_ACTUAL_HEIGHT / DEFAULT_LOGO_DIVISION_RATE // a small height version of the "sobyte_white.png" logo image
 
 // user agent while making api request
 export const MUSIC_API_USER_AGENT =
