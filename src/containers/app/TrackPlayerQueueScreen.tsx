@@ -118,6 +118,7 @@ export default function TrackPlayerQueueScreen({
                 {tracks.slice(currentTrackIndex + 1).map(trackData => {
                     return (
                         <TrackPlayerQueueTrack
+                            key={trackData.musicId}
                             trackData={trackData}
                             onChangedTrackFromQueue={() =>
                                 onChangedTrackFromQueue(trackData.musicId)
