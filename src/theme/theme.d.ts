@@ -131,6 +131,7 @@ export interface MetricSizes {
  * for components
  */
 export type MarginDirections =
+    | 'Margin'
     | 'MarginBottom'
     | 'MarginTop'
     | 'MarginRight'
@@ -138,6 +139,7 @@ export type MarginDirections =
     | 'MarginVertical'
     | 'MarginHorizontal'
 export type PaddingDirections =
+    | 'Padding'
     | 'PaddingBottom'
     | 'PaddingTop'
     | 'PaddingRight'

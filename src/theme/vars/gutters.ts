@@ -41,6 +41,9 @@ export default function GetGutters({metrics}: CombinedThemeVariables): Gutters {
             (acc, [key, value]) => ({
                 ...acc,
                 /* Margins */
+                [`${key}Margin`]: {
+                    margin: value,
+                },
                 [`${key}MarginBottom`]: {
                     marginBottom: value,
                 },
@@ -60,6 +63,9 @@ export default function GetGutters({metrics}: CombinedThemeVariables): Gutters {
                     marginHorizontal: value,
                 },
                 /* Paddings */
+                [`${key}Padding`]: {
+                    padding: value,
+                },
                 [`${key}PaddingBottom`]: {
                     paddingBottom: value,
                 },
