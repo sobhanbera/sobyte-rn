@@ -8,7 +8,7 @@
  * Purpose - pop-menu to change track player's volume
  */
 
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {View} from 'react-native'
 import {Slider} from '@rneui/themed'
 import IoniconIcon from 'react-native-vector-icons/Ionicons'
@@ -66,7 +66,16 @@ export const TrackPlayerVolumeChangerMenu = withMenuContext(
          * and for high volume we are rendering a high volume icon with more wave in it
          * likewise...
          */
-        const [trackVolume, setTrackVolume] = useState<number>(0)
+        const [trackVolume, setTrackVolume] = useState<number>(1)
+
+        /**
+         * at first render just get the current volume and update the state
+         */
+        useEffect(() => {
+            TrackPlayer.getVolume().then((volume: number) => {
+                setTrackVolume(volume)
+            })
+        }, [])
 
         /**
          * changes the volume for track player
@@ -156,14 +165,14 @@ export const TrackPlayerVolumeChangerMenu = withMenuContext(
                                 fonts.textCenter,
                                 {width: 50}, // without this style the row flexbox will wobble at lot when the volume value changes
                             ]}>
-                            {(trackVolume * 20).toFixed(2)}
+                            {`${(trackVolume * 100).toFixed(0)}%`}
                         </SobyteTextView>
 
                         <Slider
                             style={{
                                 width: TRACK_ARTWORK_WIDTH_SMALL,
                             }}
-                            step={0.05}
+                            step={0.01}
                             minimumValue={0}
                             maximumValue={1}
                             value={trackVolume}
