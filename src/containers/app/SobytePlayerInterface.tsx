@@ -343,69 +343,70 @@ export default function SobytePlayerInterface(
              */}
             <BluredImageBackgroundRenderer scrollXAnimated={scrollXAnimated} />
 
-            {/* the top header, this is the first component which will be rendered */}
-            <TrackPlayerHeader onPressSearch={launchSearchTab} />
+            <LinearGradient
+                style={layouts.fill}
+                colors={getSmoothLinearGradient(variables.colors.black, true)}>
+                {/* the top header, this is the first component which will be rendered */}
+                <TrackPlayerHeader onPressSearch={launchSearchTab} />
 
-            <FlingGestureHandler
-                key="left"
-                direction={Directions.LEFT}
-                onHandlerStateChange={event => {
-                    // when the swipe is completed
-                    if (event.nativeEvent.state === State.END) {
-                        // checking if after a left swipe there is a next track available
-                        if (localCurrentTrackIndex === tracks.length - 1) return
-
-                        updatedCurrentlyActiveTrackIndex(
-                            localCurrentTrackIndex + 1,
-                        )
-                    }
-                }}>
                 <FlingGestureHandler
-                    key="right"
-                    direction={Directions.RIGHT}
+                    key="left"
+                    direction={Directions.LEFT}
                     onHandlerStateChange={event => {
-                        // when the swipe ended
+                        // when the swipe is completed
                         if (event.nativeEvent.state === State.END) {
-                            // checking if after a right swipe there is a next previous available
-                            if (localCurrentTrackIndex === 0) return
+                            // checking if after a left swipe there is a next track available
+                            if (localCurrentTrackIndex === tracks.length - 1)
+                                return
 
                             updatedCurrentlyActiveTrackIndex(
-                                localCurrentTrackIndex - 1,
+                                localCurrentTrackIndex + 1,
                             )
                         }
                     }}>
-                    <View>
-                        {/* the actual track's image list */}
-                        <FlatList
-                            data={tracks}
-                            horizontal
-                            renderItem={renderPlayerTrackImage}
-                            keyExtractor={keyExtractor}
-                            style={{
-                                minHeight:
-                                    MAX_DISPLAY_HEIGHT_OF_TRACK_ARTWORK_WRAPPER,
-                                maxHeight:
-                                    MAX_DISPLAY_HEIGHT_OF_TRACK_ARTWORK_WRAPPER,
-                            }}
-                            contentContainerStyle={{
-                                width: '100%',
-                                justifyContent: 'center',
-                            }}
-                            scrollEnabled={false}
-                            removeClippedSubviews={false}
-                        />
+                    <FlingGestureHandler
+                        key="right"
+                        direction={Directions.RIGHT}
+                        onHandlerStateChange={event => {
+                            // when the swipe ended
+                            if (event.nativeEvent.state === State.END) {
+                                // checking if after a right swipe there is a next previous available
+                                if (localCurrentTrackIndex === 0) return
 
-                        {/* track's title, artists, like button and more... */}
-                        <TrackPlayerDescriptionRenderer
-                            scrollXAnimated={scrollXAnimated}
-                        />
-                    </View>
+                                updatedCurrentlyActiveTrackIndex(
+                                    localCurrentTrackIndex - 1,
+                                )
+                            }
+                        }}>
+                        <View>
+                            {/* the actual track's image list */}
+                            <FlatList
+                                data={tracks}
+                                horizontal
+                                renderItem={renderPlayerTrackImage}
+                                keyExtractor={keyExtractor}
+                                style={{
+                                    minHeight:
+                                        MAX_DISPLAY_HEIGHT_OF_TRACK_ARTWORK_WRAPPER,
+                                    maxHeight:
+                                        MAX_DISPLAY_HEIGHT_OF_TRACK_ARTWORK_WRAPPER,
+                                }}
+                                contentContainerStyle={{
+                                    width: '100%',
+                                    justifyContent: 'center',
+                                }}
+                                scrollEnabled={false}
+                                removeClippedSubviews={false}
+                            />
+
+                            {/* track's title, artists, like button and more... */}
+                            <TrackPlayerDescriptionRenderer
+                                scrollXAnimated={scrollXAnimated}
+                            />
+                        </View>
+                    </FlingGestureHandler>
                 </FlingGestureHandler>
-            </FlingGestureHandler>
 
-            <LinearGradient
-                colors={getSmoothLinearGradient(variables.colors.black)}
-                style={layouts.fill}>
                 {/* normal track player related controls like - play/pause, next, previous, repeat mode and others... */}
                 <TrackControls
                     onPlayNextTrack={() => onPlayNextTrack()}
