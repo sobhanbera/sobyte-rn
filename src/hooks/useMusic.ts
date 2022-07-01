@@ -521,7 +521,7 @@ export function useMusic() {
         saveToLocalStorage: boolean = false,
         saveToCustomLocation: string = '',
         provideASubarray: number[] = [0, 100], // default list count would be less than 30 so for safe case we are using 100 items
-    ): any => {
+    ): Promise<any> => {
         var isOffline = false
         return new Promise((resolve, reject) => {
             /**
@@ -686,69 +686,57 @@ export function useMusic() {
         endpointName: PrimaryMusicApiEndpointsOptions = 'search',
         continuation: ContinuationObjectKeys,
         dataType: SearchOptions,
-    ) => {
-        if (
-            // continuation != [] &&
-            continuation instanceof Object &&
-            continuation.continuation &&
-            continuation.clickTrackingParams
-        ) {
-            return new Promise(resolve => {
-                _createApiRequest(
-                    endpointName,
-                    {},
-                    {
-                        ctoken: continuation.continuation,
-                        continuation: continuation.continuation,
-                        itct: continuation.clickTrackingParams,
-                        type: MUSIC_API_NEXT,
-                        key: MUSIC_API_KEY,
-                        alt: MUSIC_API_ALT,
-                    },
-                ).then(context => {
-                    // let parse:Date = new Date()
-                    let parsedData: any = {}
-                    try {
-                        switch (_.upperCase(dataType)) {
-                            case 'SONG':
-                                parsedData =
-                                    MusicParser.parseSongSearchResult(context)
-                                break
-                            case 'VIDEO':
-                                parsedData =
-                                    MusicParser.parseVideoSearchResult(context)
-                                break
-                            case 'ALBUM':
-                                parsedData =
-                                    MusicParser.parseAlbumSearchResult(context)
-                                break
-                            case 'ARTIST':
-                                parsedData =
-                                    MusicParser.parseArtistSearchResult(context)
-                                break
-                            case 'PLAYLIST':
-                                parsedData =
-                                    MusicParser.parsePlaylistSearchResult(
-                                        context,
-                                    )
-                                break
-                            default:
-                                parsedData =
-                                    MusicParser.parseSearchResult(context)
-                                break
-                        }
-                        resolve(parsedData)
-                    } catch (error) {
-                        return resolve({
-                            error: error.message,
-                        })
+    ): Promise<any> => {
+        return new Promise((resolve, _reject) => {
+            _createApiRequest(
+                endpointName,
+                {},
+                {
+                    ctoken: continuation.continuation,
+                    continuation: continuation.continuation,
+                    itct: continuation.clickTrackingParams,
+                    type: MUSIC_API_NEXT,
+                    key: MUSIC_API_KEY,
+                    alt: MUSIC_API_ALT,
+                },
+            ).then(context => {
+                // let parse:Date = new Date()
+                let parsedData: any = {}
+                try {
+                    switch (_.upperCase(dataType)) {
+                        case 'SONG':
+                            parsedData =
+                                MusicParser.parseSongSearchResult(context)
+                            break
+                        case 'VIDEO':
+                            parsedData =
+                                MusicParser.parseVideoSearchResult(context)
+                            break
+                        case 'ALBUM':
+                            parsedData =
+                                MusicParser.parseAlbumSearchResult(context)
+                            break
+                        case 'ARTIST':
+                            parsedData =
+                                MusicParser.parseArtistSearchResult(context)
+                            break
+                        case 'PLAYLIST':
+                            parsedData =
+                                MusicParser.parsePlaylistSearchResult(context)
+                            break
+                        default:
+                            parsedData = MusicParser.parseSearchResult(context)
+                            break
                     }
-                    // let o:number = new Date() - parse
-                })
+                    resolve(parsedData)
+                } catch (error) {
+                    return resolve({
+                        error: error.message,
+                    })
+                }
+                // let o:number = new Date() - parse
             })
-        } else {
-            return new Promise(() => {})
-        }
+        })
     }
 
     /**

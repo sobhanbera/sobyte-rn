@@ -102,6 +102,8 @@ export const MAX_DISPLAY_HEIGHT_OF_TRACK_ARTWORK_WRAPPER =
 
 export const ARTWORK_WIDTH_IN_QUEUE = 60
 
+export const LAST_TRACKS_REMAIN_TO_LOAD_MORE_TRACK = 3
+
 export const NEXT_TITLE_COLOR_ALPHA = 'B0' // the alpha value of text next to title
 
 export const DEFAULT_SLIDER_THUMB_SIZE = 8 // the width and height of the thumb in sliders

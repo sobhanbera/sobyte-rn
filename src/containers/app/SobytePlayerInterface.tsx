@@ -19,9 +19,11 @@ import {
     SobyteState,
     updatePlayerData,
     updateCurrentTrackIndex,
+    addMoreTracksToQueue,
 } from '@/state'
 import {
     DEFAULT_QUERY,
+    LAST_TRACKS_REMAIN_TO_LOAD_MORE_TRACK,
     MAX_DISPLAY_HEIGHT_OF_TRACK_ARTWORK_WRAPPER,
     MUSIC_PLAYER_SONGS_RESULT_STORAGE_KEY,
     SOBYTE_PLAYER_QUEUE_SCREEN,
@@ -51,10 +53,10 @@ export default function SobytePlayerInterface(
     props: SobytePlayerInterfaceProps,
 ) {
     const {layouts, variables} = useTheme()
-    const {search} = useMusic()
+    const {search, getContinuation} = useMusic()
     const {playTrack, getTrackURL} = useTrackPlayer()
 
-    const {tracks, currentTrackIndex} = useSelector(
+    const {tracks, currentTrackIndex, continuationData} = useSelector(
         (state: SobyteState) => state.playerdata,
     )
     const dispatch = useDispatch()
@@ -147,23 +149,52 @@ export default function SobytePlayerInterface(
                     }
                 }
             })
+
+            /**
+             * also check if the queue is about to end, if it is then
+             *
+             * get more tracks list data when the currently active track
+             * is among the end of the tracks list
+             *
+             * or when the queue is about to end
+             *
+             * here if the current track is the last 5th or so
+             * then we will load more tracks data to the queue
+             *
+             * TODO: limit data, like every time we are loading about 20 songs, which are very huge
+             * so to resolve this limit the data on getContinuation() method...
+             */
+            if (
+                localCurrentTrackIndex >=
+                tracks.length - LAST_TRACKS_REMAIN_TO_LOAD_MORE_TRACK
+            ) {
+                // final check if the continuation data is available
+                if (
+                    continuationData.clickTrackingParams &&
+                    continuationData.continuation
+                ) {
+                    getContinuation(
+                        'search',
+                        {
+                            clickTrackingParams:
+                                continuationData.clickTrackingParams,
+                            continuation: continuationData.continuation,
+                        },
+                        'SONG',
+                    ).then((result: FetchedSongObject) => {
+                        // console.log(result)
+
+                        dispatch(
+                            addMoreTracksToQueue({
+                                tracks: result.content,
+                                continuationData: result.continuation,
+                            }),
+                        )
+                    })
+                }
+            }
         }
     }, [currentTrackIndex])
-
-    /**
-     * get more tracks list data when the currently active track
-     * is among the end of the tracks list
-     *
-     * or when the queue is about to end
-     */
-    // useEffect(() => {
-    //     if (
-    //         currentTrackIndex ===
-    //         tracks.length - NUMBER_OF_VISIBLE_PLAYER_TRACKS - 1
-    //     ) {
-    //         // update new data to tracks
-    //     }
-    // }, [currentTrackIndex])
 
     /**
      * this use effect is responsible for the smooth

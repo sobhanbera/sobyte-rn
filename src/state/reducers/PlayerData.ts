@@ -120,9 +120,32 @@ const playerDataSlice = createSlice({
         },
 
         /**
-         * updates the current track index
+         * this action will add more tracks data to the list of tracks/queue
          * @param state initial state
-         * @param param1 updated current index
+         * @param param1 more track data which is to be added at the end of main "tracks"
+         */
+        addMoreTracksToQueue: (
+            state,
+            {
+                payload: {
+                    tracks = [],
+                    continuationData = initialState.continuationData,
+                },
+            }: {
+                payload: {
+                    tracks: Array<SongObject>
+                    continuationData: ContinuationObjectKeys
+                }
+            },
+        ) => {
+            state.tracks = [...state.tracks, ...tracks]
+            state.continuationData = continuationData
+        },
+
+        /**
+         * updates the current track
+         * @param state initial state
+         * @param param1 updated current
          */
         updateCurrentTrack: (
             state,
@@ -160,6 +183,7 @@ const playerDataSlice = createSlice({
 export const {
     updateTracksData,
     updatePlayerData,
+    addMoreTracksToQueue,
     updateCurrentTrack,
     updateCurrentTrackIndex,
     resetPlayerData,
