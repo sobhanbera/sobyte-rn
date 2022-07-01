@@ -128,6 +128,29 @@ export const LOW_AUDIO_MINIMUM_BITRATE = 33 // a minimal thresold for every qual
 export const REMOTE_ORIGIN_MUSIC_ID_MAXIMUM_LENGTH = 11
 export const SOBYTE_MUSIC_ID_MAXIMUM_LENGTH = 11
 
+/**
+ * colors related constants
+ */
+export const DEFUALT_LENGTH_OF_LINEAR_GRADIENT_COLORS = 7
+export const COLOR_SMOOTHNING_ALPHAS = [
+    '00',
+    '10',
+    '20',
+    '30',
+    '40',
+    '50',
+    '60',
+    '70',
+    '80',
+    '90',
+    'A0',
+    'B0',
+    'C0',
+    'D0',
+    'E0',
+    'F0',
+]
+
 // user agent while making api request
 export const MUSIC_API_USER_AGENT =
     'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36'

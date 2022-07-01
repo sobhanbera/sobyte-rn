@@ -8,7 +8,7 @@
  * Purpose - export file for all the util functions...
  */
 
-//  export * from './colors'
+export * from './colors'
 
 export * from './music'
 

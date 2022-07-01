@@ -11,6 +11,7 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react'
 import {Animated, FlatList, ListRenderItemInfo, View} from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
+import LinearGradient from 'react-native-linear-gradient'
 
 import {useMusic, useTheme, useTrackPlayer} from '@/hooks'
 import {
@@ -36,9 +37,10 @@ import {
     TrackPlayerDescriptionRenderer,
     TrackControls,
 } from '@/components'
+import {getSmoothLinearGradient} from '@/utils'
 
 export default function SobytePlayerInterface() {
-    const {gutters, layouts} = useTheme()
+    const {gutters, layouts, variables} = useTheme()
     const {search} = useMusic()
     const {playTrack, getTrackURL} = useTrackPlayer()
 
@@ -326,10 +328,19 @@ export default function SobytePlayerInterface() {
                 </FlingGestureHandler>
             </FlingGestureHandler>
 
-            <TrackControls
-                onPlayNextTrack={() => onPlayNextTrack()}
-                onPlayPreviousTrack={() => onPlayPreviousTrack()}
-            />
+            <LinearGradient
+                colors={getSmoothLinearGradient(variables.colors.black)}
+                style={{
+                    flex: 1,
+                }}>
+                {/* normal track player related controls like - play/pause, next, previous, repeat mode and others... */}
+                <TrackControls
+                    onPlayNextTrack={() => onPlayNextTrack()}
+                    onPlayPreviousTrack={() => onPlayPreviousTrack()}
+                />
+
+                {/* here will be controls which needs API requests and tracks data like - queue, playlist and more.. */}
+            </LinearGradient>
         </View>
     )
 }
