@@ -76,9 +76,9 @@ export const DefaultTheme: ThemeColors = {
     themecolor: '#000000',
     themecolorrevert: '#FFFFFF',
 
-    surface: '#050505',
-    surfacelight: '#21242b',
-    border: '#303030',
+    surface: '#21242b',
+    surfacelight: '#282B32',
+    border: '#373737',
     placeholder: '#CFCFCF',
     text: '#EFEFEF',
 
