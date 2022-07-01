@@ -9,5 +9,6 @@
  */
 
 import SobytePlayerScreen from './SobytePlayerInterface'
+import TrackPlayerQueueScreen from './TrackPlayerQueueScreen'
 
-export {SobytePlayerScreen}
+export {SobytePlayerScreen, TrackPlayerQueueScreen}

@@ -11,6 +11,8 @@
 export * from './BluredImageBackground'
 export * from './BluredImageBackgroundRenderer'
 
+export * from './BottomPaddingComponent'
+
 export * from './SobyteMarquee'
 export * from './SobyteTextView'
 
@@ -19,3 +21,5 @@ export * from './TrackPlayerDescription'
 export * from './TrackPlayerDescriptionRenderer'
 export * from './TrackPlayerHeader'
 export * from './TrackPlayerImage'
+export * from './TrackPlayerQueueTrack'
+export * from './TrackPlayerVolumeChangerMenu'

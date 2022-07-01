@@ -249,6 +249,22 @@ export default function SobytePlayerInterface(
     }, [])
 
     /**
+     * this method will change/update the track based on the musicID
+     * first we will itterate over all the tracks then find the track with exact music id and skip to it
+     * and play it
+     * @param musicID string denoting music ID
+     */
+    const onChangedTrackFromQueue = (musicID: string) => {
+        tracks.find((track, index) => {
+            if (track.musicId === musicID) {
+                updatedCurrentlyActiveTrackIndex(index)
+                return true
+            }
+            return false
+        })
+    }
+
+    /**
      * TODO:
      * this function will launch search songs/tracks, artists tab
      */
@@ -258,11 +274,9 @@ export default function SobytePlayerInterface(
      * open the queue list screen
      */
     const launchQueueScreen = () => {
-        console.log(
-            props.navigation.navigate(SOBYTE_PLAYER_QUEUE_SCREEN, {
-                updatedCurrentlyActiveTrackIndex,
-            }),
-        )
+        props.navigation.navigate(SOBYTE_PLAYER_QUEUE_SCREEN, {
+            onChangedTrackFromQueue,
+        })
     }
 
     /**
