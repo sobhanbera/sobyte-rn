@@ -124,6 +124,20 @@ const playerDataSlice = createSlice({
          * @param state initial state
          * @param param1 updated current index
          */
+        updateCurrentTrack: (
+            state,
+            {
+                payload: {currentTrack},
+            }: {payload: {currentTrack: TrackMetadataBase & SongObject}},
+        ) => {
+            state.currentTrack = currentTrack
+        },
+
+        /**
+         * updates the current track index
+         * @param state initial state
+         * @param param1 updated current index
+         */
         updateCurrentTrackIndex: (
             state,
             {payload: {index = 0}}: {payload: {index: number}},
@@ -146,6 +160,7 @@ const playerDataSlice = createSlice({
 export const {
     updateTracksData,
     updatePlayerData,
+    updateCurrentTrack,
     updateCurrentTrackIndex,
     resetPlayerData,
 } = playerDataSlice.actions

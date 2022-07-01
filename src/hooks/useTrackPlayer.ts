@@ -16,7 +16,7 @@ import {
     addTrackURL,
     resetPlayerData,
     SobyteState,
-    updatePlayerData,
+    updateCurrentTrack,
 } from '@/state'
 import {
     MusicDataFetchOptions,
@@ -142,7 +142,7 @@ export function useTrackPlayer() {
      */
     const resetPlayer = async () => {
         TrackPlayer.reset().then(_res => {
-            dispatch(resetPlayerData())
+            // dispatch(resetPlayerData()) // there is empty currentTrack data everytime, so commented
         })
     }
 
@@ -211,9 +211,16 @@ export function useTrackPlayer() {
                      * played outside of the music player
                      */
                     const track: TrackMetadataBase & SongObject = {
-                        ...trackData,
+                        // ...trackData, not working with spread operation
+
                         musicId: trackData.musicId, // just in case
                         playlistId: trackData.playlistId, // just in case
+
+                        artists: trackData.artists,
+                        artworks: trackData.artworks,
+                        album: trackData.album,
+                        params: trackData.params,
+                        type: trackData.type,
 
                         url: TrackURLData.url,
                         title: trackData.title,
@@ -247,7 +254,7 @@ export function useTrackPlayer() {
                      * properly, or else it will cause difficulties in many places
                      */
                     dispatch(
-                        updatePlayerData({
+                        updateCurrentTrack({
                             currentTrack: track,
                         }),
                     )
