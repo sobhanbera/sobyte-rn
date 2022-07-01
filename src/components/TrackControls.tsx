@@ -314,7 +314,6 @@ export const TrackControls = ({
                 style={[
                     layouts.rowCenter,
                     layouts.scrollSpaceBetween,
-                    gutters.regularPaddingVertical,
                     {
                         width: TRACK_ARTWORK_WIDTH,
                     },
