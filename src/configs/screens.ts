@@ -17,6 +17,7 @@ export const AUTH_OTP_SCREEN = 'AUTH_OTP_SCREEN'
 
 // APP screens which are not part of authentication
 export const SOBYTE_PLAYER_SCREEN = 'SOBYTE_PLAYER_SCREEN'
+export const SOBYTE_PLAYER_QUEUE_SCREEN = 'SOBYTE_PLAYER_QUEUE_SCREEN'
 
 // APP'S other screen except main player
 export const APP_SETTINGS_SCREEN = 'APP_SETTINGS_SCREEN'

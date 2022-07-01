@@ -18,7 +18,7 @@ import {
     AUTH_OTP_SCREEN,
     AUTH_SIGNIN_SCREEN,
     AUTH_SIGNUP_SCREEN,
-} from '@/configs/screens'
+} from '@/configs'
 import {useTheme} from '@/hooks'
 
 const AuthNavigationStack = createNativeStackNavigator()
