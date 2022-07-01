@@ -52,12 +52,7 @@ export default function TrackPlayerQueueScreen({
     }, [navigation])
 
     return (
-        <View
-            style={[
-                layouts.fill,
-                gutters.statusBarHeightMarginTop,
-                {backgroundColor: theme.surface},
-            ]}>
+        <View style={[layouts.fill, gutters.statusBarHeightMarginTop]}>
             {/* header of the queue screen */}
             <View
                 style={[
