@@ -24,6 +24,7 @@ import {
     DEFAULT_QUERY,
     MAX_DISPLAY_HEIGHT_OF_TRACK_ARTWORK_WRAPPER,
     MUSIC_PLAYER_SONGS_RESULT_STORAGE_KEY,
+    SOBYTE_PLAYER_QUEUE_SCREEN,
 } from '@/configs'
 import {FetchedSongObject, SongObject} from '@/schemas'
 import {
@@ -41,7 +42,14 @@ import {
 import {getSmoothLinearGradient} from '@/utils'
 import {TrackPlayerFooter} from '@/components/TrackPlayerFooter'
 
-export default function SobytePlayerInterface() {
+interface SobytePlayerInterfaceProps {
+    navigation: {
+        navigate(screenName: string, routeProps: any): void
+    }
+}
+export default function SobytePlayerInterface(
+    props: SobytePlayerInterfaceProps,
+) {
     const {layouts, variables} = useTheme()
     const {search} = useMusic()
     const {playTrack, getTrackURL} = useTrackPlayer()
@@ -247,6 +255,17 @@ export default function SobytePlayerInterface() {
     const launchSearchTab = () => {}
 
     /**
+     * open the queue list screen
+     */
+    const launchQueueScreen = () => {
+        console.log(
+            props.navigation.navigate(SOBYTE_PLAYER_QUEUE_SCREEN, {
+                updatedCurrentlyActiveTrackIndex,
+            }),
+        )
+    }
+
+    /**
      * responsible for rendering the list of all the tracks
      * this method eventually renders PlayerTrackImage which is its main task...
      */
@@ -348,7 +367,7 @@ export default function SobytePlayerInterface() {
                     onPlayPreviousTrack={() => onPlayPreviousTrack()}
                 />
 
-                <TrackPlayerFooter />
+                <TrackPlayerFooter onQueueButtonPressed={launchQueueScreen} />
 
                 {/* here will be controls which needs API requests and tracks data like - queue, playlist and more.. */}
             </LinearGradient>

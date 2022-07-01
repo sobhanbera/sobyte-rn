@@ -23,8 +23,20 @@ import {
 import {TrackPlayerVolumeChangerMenu} from './TrackPlayerVolumeChangerMenu'
 import {SobyteState} from '@/state'
 
-export interface TrackPlayerFooterProps {}
-export const TrackPlayerFooter = ({}: TrackPlayerFooterProps) => {
+export interface TrackPlayerFooterProps {
+    /**
+     * function will be triggered when a user has pressed on a track from the queue
+     * or want to change the track
+     * @param trackIndex an index among the tracks list
+     */
+    onQueueButtonPressed(): void
+    /**
+     * show a menu which contains all the tracks in the queue
+     */
+}
+export const TrackPlayerFooter = ({
+    onQueueButtonPressed,
+}: TrackPlayerFooterProps) => {
     const {gutters, layouts, variables} = useTheme()
 
     // current track data is needed for like, share and download feature
@@ -56,11 +68,6 @@ export const TrackPlayerFooter = ({}: TrackPlayerFooterProps) => {
      * that's all...
      */
     const onDownloadButtonPressed = () => {}
-
-    /**
-     * show a menu which contains all the tracks in the queue
-     */
-    const onQueueButtonPressed = () => {}
 
     return (
         <View
