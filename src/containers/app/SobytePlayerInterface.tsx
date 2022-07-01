@@ -27,6 +27,9 @@ import {
     MAX_DISPLAY_HEIGHT_OF_TRACK_ARTWORK_WRAPPER,
     MUSIC_PLAYER_SONGS_RESULT_STORAGE_KEY,
     SOBYTE_PLAYER_QUEUE_SCREEN,
+    TRACK_ARTWORK_HEIGHT,
+    TRACK_ARTWORK_PARENT_VERTICAL_PADDING,
+    TRACK_ARTWORK_WIDTH,
 } from '@/configs'
 import {FetchedSongObject, SongObject} from '@/schemas'
 import {
@@ -43,6 +46,7 @@ import {
 } from '@/components'
 import {getSmoothLinearGradient} from '@/utils'
 import {TrackPlayerFooter} from '@/components/TrackPlayerFooter'
+import {Skeleton} from '@rneui/themed'
 
 interface SobytePlayerInterfaceProps {
     navigation: {
@@ -52,7 +56,7 @@ interface SobytePlayerInterfaceProps {
 export default function SobytePlayerInterface(
     props: SobytePlayerInterfaceProps,
 ) {
-    const {layouts, variables} = useTheme()
+    const {gutters, layouts, variables} = useTheme()
     const {search, getContinuation} = useMusic()
     const {playTrack, getTrackURL} = useTrackPlayer()
 
@@ -378,32 +382,76 @@ export default function SobytePlayerInterface(
                                 )
                             }
                         }}>
-                        <View>
-                            {/* the actual track's image list */}
-                            <FlatList
-                                data={tracks}
-                                horizontal
-                                renderItem={renderPlayerTrackImage}
-                                keyExtractor={keyExtractor}
-                                style={{
-                                    minHeight:
-                                        MAX_DISPLAY_HEIGHT_OF_TRACK_ARTWORK_WRAPPER,
-                                    maxHeight:
-                                        MAX_DISPLAY_HEIGHT_OF_TRACK_ARTWORK_WRAPPER,
-                                }}
-                                contentContainerStyle={{
-                                    width: '100%',
-                                    justifyContent: 'center',
-                                }}
-                                scrollEnabled={false}
-                                removeClippedSubviews={false}
-                            />
+                        {tracks.length > 0 ? (
+                            <View>
+                                {/* the actual track's image list */}
+                                <FlatList
+                                    data={tracks}
+                                    horizontal
+                                    renderItem={renderPlayerTrackImage}
+                                    keyExtractor={keyExtractor}
+                                    style={{
+                                        minHeight:
+                                            MAX_DISPLAY_HEIGHT_OF_TRACK_ARTWORK_WRAPPER,
+                                        maxHeight:
+                                            MAX_DISPLAY_HEIGHT_OF_TRACK_ARTWORK_WRAPPER,
+                                    }}
+                                    contentContainerStyle={{
+                                        width: '100%',
+                                        justifyContent: 'center',
+                                    }}
+                                    scrollEnabled={false}
+                                    removeClippedSubviews={false}
+                                />
 
-                            {/* track's title, artists, like button and more... */}
-                            <TrackPlayerDescriptionRenderer
-                                scrollXAnimated={scrollXAnimated}
-                            />
-                        </View>
+                                {/* track's title, artists, like button and more... */}
+                                <TrackPlayerDescriptionRenderer
+                                    scrollXAnimated={scrollXAnimated}
+                                />
+                            </View>
+                        ) : (
+                            <View
+                                style={[
+                                    layouts.column,
+                                    layouts.alignItemsCenter,
+                                ]}>
+                                <Skeleton
+                                    style={{
+                                        marginVertical:
+                                            TRACK_ARTWORK_PARENT_VERTICAL_PADDING, // exactly same as the TrackImage
+                                    }}
+                                    animation="wave"
+                                    circle={false}
+                                    width={TRACK_ARTWORK_WIDTH}
+                                    height={TRACK_ARTWORK_HEIGHT}
+                                />
+
+                                <View
+                                    style={[
+                                        layouts.column,
+                                        layouts.alignItemsStart,
+                                        {
+                                            width: TRACK_ARTWORK_WIDTH, // to get the full width and align text skeletons to start
+                                        },
+                                    ]}>
+                                    <Skeleton
+                                        animation="wave"
+                                        circle={false}
+                                        width={TRACK_ARTWORK_WIDTH / 1.5} // this will be somewhat larger then the next one
+                                        height={22} // this and below text's height combines to make the total height of the text description, almost!
+                                        style={[gutters.extraTinyMarginBottom]} // from TrackPlayerDescription we get this value of the first text
+                                    />
+
+                                    <Skeleton
+                                        animation="wave"
+                                        circle={false}
+                                        width={TRACK_ARTWORK_WIDTH / 2}
+                                        height={18} // this and above text's height combines to make the total height of the text description, almost!
+                                        style={[gutters.extraTinyMarginTop]} // from TrackPlayerDescription we get this value of the 2nd text
+                                    />
+                                </View>
+                            </View>
+                        )}
                     </FlingGestureHandler>
                 </FlingGestureHandler>
 
