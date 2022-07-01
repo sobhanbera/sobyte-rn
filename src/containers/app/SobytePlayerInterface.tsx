@@ -36,11 +36,12 @@ import {
     BluredImageBackgroundRenderer,
     TrackPlayerDescriptionRenderer,
     TrackControls,
+    TrackPlayerHeader,
 } from '@/components'
 import {getSmoothLinearGradient} from '@/utils'
 
 export default function SobytePlayerInterface() {
-    const {gutters, layouts, variables} = useTheme()
+    const {layouts, variables} = useTheme()
     const {search} = useMusic()
     const {playTrack, getTrackURL} = useTrackPlayer()
 
@@ -239,6 +240,12 @@ export default function SobytePlayerInterface() {
     }, [])
 
     /**
+     * TODO:
+     * this function will launch search songs/tracks, artists tab
+     */
+    const launchSearchTab = () => {}
+
+    /**
      * responsible for rendering the list of all the tracks
      * this method eventually renders PlayerTrackImage which is its main task...
      */
@@ -271,6 +278,9 @@ export default function SobytePlayerInterface() {
              */}
             <BluredImageBackgroundRenderer scrollXAnimated={scrollXAnimated} />
 
+            {/* the top header, this is the first component which will be rendered */}
+            <TrackPlayerHeader onPressSearch={launchSearchTab} />
+
             <FlingGestureHandler
                 key="left"
                 direction={Directions.LEFT}
@@ -299,7 +309,7 @@ export default function SobytePlayerInterface() {
                             )
                         }
                     }}>
-                    <View style={gutters.statusBarHeightPaddingTop}>
+                    <View>
                         {/* the actual track's image list */}
                         <FlatList
                             data={tracks}

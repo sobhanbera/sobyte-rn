@@ -75,11 +75,14 @@ export const CircularLight = 'Circular-Light'
  * music player interface constants and vars...
  */
 export const TRACK_ARTWORK_SCREEN_WIDTH_OCCUPICATION = 0.82 // the artwork will take 82% of the available screen width
+export const TRACK_ARTWORK_SCREEN_WIDTH_LARGE_OCCUPICATION = 0.9 // the artwork will take 82% of the available screen width
 export const TRACK_DATA_OVERFLOW_HEIGHT = 70
 export const TRACK_ARTWORK_PARENT_VERTICAL_PADDING = 55
 export const TRACK_ARTWORK_WIDTH =
-    SCREEN_WIDTH * TRACK_ARTWORK_SCREEN_WIDTH_OCCUPICATION
-export const TRACK_ARTWORK_HEIGHT = TRACK_ARTWORK_WIDTH
+    SCREEN_WIDTH * TRACK_ARTWORK_SCREEN_WIDTH_OCCUPICATION // track artwork width
+export const TRACK_ARTWORK_HEIGHT = TRACK_ARTWORK_WIDTH // default track artwork height
+export const TRACK_ARTWORK_WIDTH_LARGE =
+    SCREEN_WIDTH * TRACK_ARTWORK_SCREEN_WIDTH_LARGE_OCCUPICATION // somewhat larger than default track artwork width
 export const TRACK_ARTWORK_SPACING = 10
 export const TRACK_ARTWORK_HORIZONAL_SPACING =
     (SCREEN_WIDTH - TRACK_ARTWORK_WIDTH) / 2 // divide by 2, since the padding will be on both sides...
@@ -153,6 +156,18 @@ export const COLOR_SMOOTHNING_ALPHAS = [
 
 export const DEFAULT_TRACK_PLAYER_RATE = 1 // this is the default rate of speed of every track, just nonsense... :)
 export const DEFAULT_BORDER_RADIUS = 12 // the default border radius value for any kind of card or so..
+
+/**
+ * these are some heights and width of the logo images
+ * these all are in the same ratio as of the image's aspect ratio
+ */
+export const LOGO_ACTUAL_WIDTH = 1564 // the actual width of the "named.png" logo image
+export const LOGO_ACTUAL_HEIGHT = 511 // the actual height of the "named.png" logo image
+export const DEFAULT_LOGO_DIVISION_RATE = 20 // multiplier/divisor of the size of logo. the same multiplier will be multiplied by both height and width of actual logo
+
+export const DEFAULT_LOGO_WIDTH = LOGO_ACTUAL_WIDTH / DEFAULT_LOGO_DIVISION_RATE // a small width version of the logo image
+export const DEFAULT_LOGO_HEIGHT =
+    LOGO_ACTUAL_HEIGHT / DEFAULT_LOGO_DIVISION_RATE // a small height version of the logo image
 
 // user agent while making api request
 export const MUSIC_API_USER_AGENT =

@@ -8,13 +8,14 @@
  * Purpose - component exports
  */
 
-export * from './BluredImageBackgroundRenderer'
 export * from './BluredImageBackground'
-export * from './TrackPlayerDescriptionRenderer'
-export * from './TrackPlayerDescription'
-export * from './TrackPlayerImage'
+export * from './BluredImageBackgroundRenderer'
 
 export * from './SobyteMarquee'
 export * from './SobyteTextView'
 
 export * from './TrackControls'
+export * from './TrackPlayerDescription'
+export * from './TrackPlayerDescriptionRenderer'
+export * from './TrackPlayerHeader'
+export * from './TrackPlayerImage'
