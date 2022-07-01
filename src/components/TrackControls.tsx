@@ -19,6 +19,13 @@ import TrackPlayer, {
 import {Slider} from '@rneui/themed'
 import IoniconIcon from 'react-native-vector-icons/Ionicons'
 import FeatherIcon from 'react-native-vector-icons/Feather'
+import {
+    Menu,
+    MenuOptions,
+    MenuOption,
+    MenuTrigger,
+    renderers,
+} from 'react-native-popup-menu'
 
 import {useTheme} from '@/hooks'
 import {
@@ -31,11 +38,53 @@ import {
     SMALL_ICON_SIZE,
     PLAY_PAUSE_ICON_SIZE,
     DEFAULT_TOUCHABLE_OPACITY_BUTTON_ACTIVE_OPACITY,
+    DEFAULT_TRACK_PLAYER_RATE,
+    DEFAULT_BORDER_RADIUS,
 } from '@/configs'
 import {useSelector} from 'react-redux'
 import {SobyteState} from '@/state'
 import {secondsToHms} from '@/utils'
 import {SobyteTextView} from './SobyteTextView'
+
+const {SlideInMenu} = renderers
+
+export interface RateObject {
+    rate: number
+    id: number
+    extraText: string
+}
+export const TrackPlayerRateOptions: Array<RateObject> = [
+    {
+        rate: 0.5,
+        id: DEFAULT_TRACK_PLAYER_RATE - 2,
+        extraText: 'Very Slow',
+    },
+    {
+        rate: 0.75,
+        id: DEFAULT_TRACK_PLAYER_RATE - 1,
+        extraText: 'Slow',
+    },
+    {
+        rate: 1,
+        id: DEFAULT_TRACK_PLAYER_RATE,
+        extraText: 'Normal',
+    },
+    {
+        rate: 1.25,
+        id: DEFAULT_TRACK_PLAYER_RATE + 1,
+        extraText: 'Bit Faster',
+    },
+    {
+        rate: 1.5,
+        id: DEFAULT_TRACK_PLAYER_RATE + 2,
+        extraText: 'Very Faster',
+    },
+    {
+        rate: 2,
+        id: DEFAULT_TRACK_PLAYER_RATE + 3,
+        extraText: 'Terribly Fast',
+    },
+]
 
 export interface TrackControlsProps {
     onPlayNextTrack(): void
@@ -48,7 +97,7 @@ export const TrackControls = ({
     /**
      * theme data for the app
      */
-    const {theme, layouts, gutters} = useTheme()
+    const {theme, layouts, gutters, fonts} = useTheme()
     /**
      * getting the number of tracks currently loaded
      * because this will be used to disable and enable the slider
@@ -69,6 +118,13 @@ export const TrackControls = ({
      * this state variable shows if the track is in repeat mode
      */
     const [isPlayerRepeating, setIsPlayerRepeating] = useState<boolean>(false)
+
+    /**
+     * current speed of tracks
+     */
+    const [trackPlayerRate, setTrackPlayerRate] = useState<number>(
+        DEFAULT_TRACK_PLAYER_RATE,
+    )
 
     /**
      * time in string format to show in the UI
@@ -176,6 +232,20 @@ export const TrackControls = ({
         })
     }
 
+    /**
+     * a simple function which changes the playing speed of the track player
+     * we can change this rate to anything but the current limits are let's say from 0.5 to 2 only
+     * just that the good experience of the user, haha :)
+     *
+     * @param rate a number between 0.5 & 2 inclusive
+     */
+    const updateTrackPlayerRate = (rateObject: RateObject) => {
+        TrackPlayer.setRate(rateObject.rate).then(res => {
+            console.log('changed', res)
+            setTrackPlayerRate(rateObject.id)
+        })
+    }
+
     return (
         <View style={[layouts.center]}>
             {/* track player seekbar */}
@@ -222,12 +292,15 @@ export const TrackControls = ({
                     layouts.row,
                     layouts.scrollSpaceBetween,
                 ]}>
+                {/* current position of the track */}
                 <SobyteTextView
                     style={{
                         color: `${theme.themecolorrevert}${NEXT_TITLE_COLOR_ALPHA}`,
                     }}>
                     {formattedPosition}
                 </SobyteTextView>
+
+                {/* total duration of the track */}
                 <SobyteTextView
                     style={{
                         color: `${theme.themecolorrevert}${NEXT_TITLE_COLOR_ALPHA}`,
@@ -236,6 +309,7 @@ export const TrackControls = ({
                 </SobyteTextView>
             </View>
 
+            {/* buttons for rate, previous, play/pause, next and repeat mode */}
             <View
                 style={[
                     layouts.rowCenter,
@@ -245,7 +319,81 @@ export const TrackControls = ({
                         width: TRACK_ARTWORK_WIDTH,
                     },
                 ]}>
-                <TouchableOpacity
+                <Menu renderer={SlideInMenu}>
+                    <MenuTrigger>
+                        <IoniconIcon
+                            name="ios-speedometer-outline"
+                            size={TINY_ICON_SIZE}
+                            color={theme.themecolorrevert + 'DF'}
+                        />
+                    </MenuTrigger>
+
+                    <MenuOptions
+                        optionsContainerStyle={{
+                            backgroundColor: theme.surfacelight,
+                            borderTopEndRadius: DEFAULT_BORDER_RADIUS,
+                            borderTopStartRadius: DEFAULT_BORDER_RADIUS,
+                        }}>
+                        {/* text about what to change */}
+                        <SobyteTextView
+                            style={[
+                                gutters.regularPaddingVertical,
+                                fonts.textCenter,
+                                fonts.boldFont,
+                                fonts.textRegular,
+                                {
+                                    borderBottomWidth: 1,
+                                    borderBottomColor: theme.border,
+                                },
+                            ]}>
+                            Change Track Speed
+                        </SobyteTextView>
+
+                        {TrackPlayerRateOptions.map(rateOption => {
+                            return (
+                                <MenuOption
+                                    key={rateOption.rate}
+                                    onSelect={() =>
+                                        updateTrackPlayerRate(rateOption)
+                                    }
+                                    style={[
+                                        layouts.row,
+                                        layouts.scrollSpaceBetween,
+                                        {
+                                            backgroundColor:
+                                                trackPlayerRate ===
+                                                rateOption.id
+                                                    ? theme.surface
+                                                    : theme.surfacelight,
+                                        },
+                                    ]}>
+                                    {/* the actual speed */}
+                                    <SobyteTextView
+                                        style={[
+                                            gutters.smallPaddingVertical,
+                                            gutters.smallPaddingHorizontal,
+                                        ]}>
+                                        {rateOption.rate + 'x'}
+                                    </SobyteTextView>
+
+                                    {/* a small detail about the speed */}
+                                    <SobyteTextView
+                                        style={[
+                                            gutters.smallPaddingVertical,
+                                            gutters.smallPaddingHorizontal,
+                                        ]}>
+                                        {rateOption.extraText}
+                                    </SobyteTextView>
+                                </MenuOption>
+                            )
+                        })}
+
+                        {/* an extra padding to overcome the screen below space */}
+                        <View style={gutters.regularPaddingVertical}></View>
+                    </MenuOptions>
+                </Menu>
+
+                {/* <TouchableOpacity
                     onPress={onPlayPreviousTrack}
                     activeOpacity={
                         DEFAULT_TOUCHABLE_OPACITY_BUTTON_ACTIVE_OPACITY
@@ -255,7 +403,7 @@ export const TrackControls = ({
                         size={TINY_ICON_SIZE}
                         color={theme.themecolorrevert}
                     />
-                </TouchableOpacity>
+                </TouchableOpacity> */}
 
                 <TouchableOpacity
                     onPress={onPlayPreviousTrack}

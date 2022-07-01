@@ -151,6 +151,9 @@ export const COLOR_SMOOTHNING_ALPHAS = [
     'F0',
 ]
 
+export const DEFAULT_TRACK_PLAYER_RATE = 1 // this is the default rate of speed of every track, just nonsense... :)
+export const DEFAULT_BORDER_RADIUS = 12 // the default border radius value for any kind of card or so..
+
 // user agent while making api request
 export const MUSIC_API_USER_AGENT =
     'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36'
