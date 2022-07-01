@@ -39,6 +39,7 @@ import {
     TrackPlayerHeader,
 } from '@/components'
 import {getSmoothLinearGradient} from '@/utils'
+import {TrackPlayerFooter} from '@/components/TrackPlayerFooter'
 
 export default function SobytePlayerInterface() {
     const {layouts, variables} = useTheme()
@@ -340,14 +341,14 @@ export default function SobytePlayerInterface() {
 
             <LinearGradient
                 colors={getSmoothLinearGradient(variables.colors.black)}
-                style={{
-                    flex: 1,
-                }}>
+                style={layouts.fill}>
                 {/* normal track player related controls like - play/pause, next, previous, repeat mode and others... */}
                 <TrackControls
                     onPlayNextTrack={() => onPlayNextTrack()}
                     onPlayPreviousTrack={() => onPlayPreviousTrack()}
                 />
+
+                <TrackPlayerFooter />
 
                 {/* here will be controls which needs API requests and tracks data like - queue, playlist and more.. */}
             </LinearGradient>
