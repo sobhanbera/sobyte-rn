@@ -18,12 +18,13 @@ export interface SobyteTextViewProps extends TextProps {
     children: React.ReactChild
 }
 const SobyteTextView = (props: SobyteTextViewProps) => {
-    const {theme} = useTheme()
+    const {theme, fonts} = useTheme()
 
     return (
         <Text
             {...props}
             style={[
+                fonts.textSmall,
                 {
                     fontFamily: CircularRegular,
                     color: theme.themecolorrevert,
