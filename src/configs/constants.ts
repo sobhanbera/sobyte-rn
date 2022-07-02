@@ -9,6 +9,7 @@
  */
 
 import {NativeModules, Dimensions} from 'react-native'
+import RNFetchBlob from 'rn-fetch-blob'
 
 /** App details */
 export const APP_NAME = 'Sobyte'
@@ -61,6 +62,7 @@ export const DEFAULT_NOTIFICATION_ARTWORK_QUALITY = 100 // the quality of the im
 export const TRACK_SHARE_ARTWORK_SIZE = 120 // the size of the image which will be used during sharing any track
 export const TRACK_SHARE_ARTWORK_QUALITY = 100 // the quality of the image which will be used during sharing any track
 
+export const SHARED_IMAGE_LOCATION = RNFetchBlob.fs.dirs.CacheDir // here "/" character is very important or the app will crash
 export const ANDROID_FILE_ACCESSOR = 'file://'
 
 export const MUSIC_PLAYER_BLUR = 25 // blur value of music player image background

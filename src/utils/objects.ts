@@ -8,7 +8,11 @@
  * Purpose - util functions for objects and all...
  */
 
-import {MAX_DISPLAY_TEXT_LENGTH, SOBYTE_URL} from '@/configs'
+import {
+    MAX_DISPLAY_TEXT_LENGTH,
+    SHARED_IMAGE_LOCATION,
+    SOBYTE_URL,
+} from '@/configs'
 import {
     ARTWORK_HEIGHT_WIDTH_PART_WITH_SIZE,
     BRACES_SURROUNDED_TEXT,
@@ -379,4 +383,17 @@ export function generateShareableMusicMessage(trackData: SongObject): string {
     return `Listen to ${trackTitle}${
         trackArtist ? ` by ${trackArtist} ` : ' '
     }on Sobyte - \n${shareableURL}`
+}
+
+/**
+ * this function returns the path where an image could be saved before sharing it
+ * @param musicID music id of the track
+ * @returns a path where the shareable image could be saved temprarily
+ */
+export function getShareableImagePath(musicID: string) {
+    if (musicID)
+        return `${SHARED_IMAGE_LOCATION}/sobyte_${endcrypt(musicID)}.jpg`
+
+    // if the music id is not provided, just save it in a safe location
+    return `${SHARED_IMAGE_LOCATION}/sobyte_share.jpg`
 }
