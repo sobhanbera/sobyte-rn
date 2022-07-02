@@ -13,15 +13,26 @@ import {TouchableOpacity, View} from 'react-native'
 import {useSelector} from 'react-redux'
 import IoniconIcon from 'react-native-vector-icons/Ionicons'
 import AntDesignIcon from 'react-native-vector-icons/AntDesign'
+import RNFetchBlob from 'rn-fetch-blob'
+import Share from 'react-native-share'
 
 import {useTheme} from '@/hooks'
 import {
+    ANDROID_FILE_ACCESSOR,
     DEFAULT_TOUCHABLE_OPACITY_BUTTON_ACTIVE_OPACITY,
+    MUSIC_SHARE_SUBJECT,
     TINY_ICON_SIZE,
     TRACK_ARTWORK_WIDTH,
+    TRACK_SHARE_ARTWORK_QUALITY,
+    TRACK_SHARE_ARTWORK_SIZE,
 } from '@/configs'
 import {TrackPlayerVolumeChangerMenu} from './TrackPlayerVolumeChangerMenu'
 import {SobyteState} from '@/state'
+import {
+    generateShareableMusicMessage,
+    getShareableImagePath,
+    updateArtworkQuality,
+} from '@/utils'
 
 export interface TrackPlayerFooterProps {
     /**
@@ -56,7 +67,54 @@ export const TrackPlayerFooter = ({
      * open/launch share menu of the android to share the link of the track
      * this method does exactly that
      */
-    const onShareButtonPressed = () => {}
+    const onShareButtonPressed = async () => {
+        if (currentTrack.musicId && currentTrack.playlistId) {
+            // getting an image to share
+            const shareableArtwork = updateArtworkQuality(
+                currentTrack.artworks[0],
+                TRACK_SHARE_ARTWORK_SIZE,
+                TRACK_SHARE_ARTWORK_QUALITY,
+            )
+
+            // fetching the image which could be shared with a message
+            RNFetchBlob.config({
+                fileCache: true, // this is needed for saving the file
+                overwrite: true, // if to overwrite the file if exists already...
+                path: getShareableImagePath(''), // directory where to save...
+            })
+                .fetch('GET', shareableArtwork, {
+                    'Content-Type': 'image/jpeg',
+                })
+                .then(async data => {
+                    // successfully fetched the image, now generate a message to share
+                    const message = generateShareableMusicMessage(currentTrack)
+                    /**
+                     * checking if the message is valid since the message also provides empty string on invalid musicID and playlistID
+                     * i know we are checking for music id and playlist id before this also
+                     * but to be in safe side, if we need to remove the above checks, this will be used
+                     */
+                    if (message) {
+                        await Share.open({
+                            subject: MUSIC_SHARE_SUBJECT,
+                            message: message,
+                            url: ANDROID_FILE_ACCESSOR + data.path(),
+                        })
+                            .then(_res => {
+                                // shared process completed successfully...
+                            })
+                            .catch(_err => {
+                                // not shared the message & image
+                                // this could be the user who cancled the sharing process
+                                // or anything else
+                                // but no major error
+                            })
+                    }
+                })
+                .catch(_err => {
+                    console.log('Cannot fetch the URI')
+                })
+        }
+    }
 
     /**
      * TODO:
