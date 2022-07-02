@@ -8,14 +8,14 @@
  * Purpose - util functions for objects and all...
  */
 
-import {MAX_DISPLAY_TEXT_LENGTH} from '@/configs'
+import {MAX_DISPLAY_TEXT_LENGTH, SOBYTE_URL} from '@/configs'
 import {
     ARTWORK_HEIGHT_WIDTH_PART_WITH_SIZE,
     BRACES_SURROUNDED_TEXT,
     BRACKETS_SURROUNDED_TEXT,
     PARATHESIS_SURROUNDED_TEXT,
 } from '@/configs/regex'
-import {ArtworkObject, SongArtistObject} from '@/schemas'
+import {ArtworkObject, SongArtistObject, SongObject} from '@/schemas'
 
 /**
  * get a changed quality image of any song object
@@ -82,6 +82,19 @@ export function formatArtistsListFromArray(
         if (i < artists.length - 1) str += ', ' // we are not adding comma after the last artist's name
     }
     return str
+}
+
+/**
+ * get the first artist from the artist's object as string
+ * @param artists the artist object
+ * @returns the first artist from the artist object
+ */
+export function getFirstArtistFromTrackData(
+    artists: Array<SongArtistObject>,
+): string {
+    // since some tracks don't have artist's name on them
+    if (artists.length >= 1) return artists[0].name
+    return ''
 }
 
 /**
@@ -316,4 +329,54 @@ export function endcrypt(ID: string): string {
     // and at last return the whole string
     return finalEncryptedID
     // finally after such a time of thinking this simple encrytion is implemented
+}
+
+/**
+ * get a share url from music id and playlistId
+ * @param musicID a string denoting music id
+ * @param playlistID string of playlist id
+ * @returns a full url containing encrypted ids which could be shared
+ */
+export function generateShareableURL(musicID: string, playlistID: string) {
+    // checking if the music Id and playlist ID both are provided or not
+    if (!musicID || !playlistID) return ''
+
+    const encryptedMusicID = endcrypt(musicID)
+    const encryptedPlaylistID = endcrypt(playlistID)
+
+    /**
+     * now also checking if the encrypted music id and playlist id are valid
+     * since the musicID and playlistID from parameter could be of length less than 11
+     */
+    if (encryptedMusicID && encryptedPlaylistID)
+        return `${SOBYTE_URL}/music?mi=${encryptedMusicID}&pi=${encryptedPlaylistID}`
+
+    return ''
+}
+
+/**
+ * get the full string message which is to be send to anybody
+ * this message will be in format below -
+ * `{title}{artist} {some data about app here} {url}`
+ * @param trackData data of the track
+ * @returns a message to share
+ */
+export function generateShareableMusicMessage(trackData: SongObject): string {
+    // check if the url can be generated
+    if (!trackData.musicId || !trackData.playlistId) return ''
+
+    // getting the track title in good format which can be shared
+    const trackTitle = formatTrackTitle(trackData.title)
+    // getting the first artist of the track
+    const trackArtist = getFirstArtistFromTrackData(trackData.artists)
+
+    // shareable url generation
+    const shareableURL = generateShareableURL(
+        trackData.musicId,
+        trackData.playlistId,
+    )
+
+    return `Listen to ${trackTitle}${
+        trackArtist ? ` by ${trackArtist} ` : ' '
+    }on Sobyte - \n${shareableURL}`
 }

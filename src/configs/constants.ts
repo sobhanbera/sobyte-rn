@@ -49,12 +49,19 @@ export const DEFAULT_LARGE_ARTWORK_QUALITY = 100 // default high quality image q
 export const DEFAULT_EXTRA_LARGE_ARTWORK_SIZE = 720 // default extra high/extreme quality image width and height in string...
 export const DEFAULT_EXTRA_LARGE_ARTWORK_QUALITY = 100 // default extra high/extreme quality image quality in string...
 
+// TODO: this value needs to be changed
 export const DEFAULT_PLAYER_ARTWORK_SIZE = DEFAULT_SMALL_ARTWORK_SIZE // this could be changed as per need during development
 export const DEFAULT_PLAYER_ARTWORK_QUALITY = DEFAULT_SMALL_ARTWORK_QUALITY // this could be changed as per need during development
 
 // below value should not be changed regarding the shades on notification panel
 export const DEFAULT_NOTIFICATION_ARTWORK_SIZE = 300 // the size (width/height) of the image which will be shown in the notification of when a track is played short size of image would take less time to load and play the song faster then previously...
 export const DEFAULT_NOTIFICATION_ARTWORK_QUALITY = 100 // the quality of the image which will be shown in the notification of when a track is played short size of image would take less time to load and play the song faster then previously...
+
+// TODO: this value needs to be changed
+export const TRACK_SHARE_ARTWORK_SIZE = 120 // the size of the image which will be used during sharing any track
+export const TRACK_SHARE_ARTWORK_QUALITY = 100 // the quality of the image which will be used during sharing any track
+
+export const ANDROID_FILE_ACCESSOR = 'file://'
 
 export const MUSIC_PLAYER_BLUR = 25 // blur value of music player image background
 
@@ -118,6 +125,14 @@ export const EXTRA_LARGE_ICON_SIZE = 45 // extra large icons size
 export const PLAY_PAUSE_ICON_SIZE = 80 // icon size for play/pause button
 
 export const DEFAULT_TOUCHABLE_OPACITY_BUTTON_ACTIVE_OPACITY = 0.6 // default active opacity value of the touchable opacity component
+
+/**
+ * urls related to the personal uscase of application
+ * like apps website, origin
+ * share url, etc
+ */
+export const SOBYTE_URL = 'https://sobyte.sobhanbera.com'
+export const MUSIC_SHARE_SUBJECT = 'Listen Music In Sobyte!'
 
 /**
  * music URL related constants
