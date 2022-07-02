@@ -6173,6 +6173,11 @@ react-native-screens@^3.13.1:
     react-freeze "^1.0.0"
     warn-once "^0.1.0"
 
+react-native-share@^7.6.4:
+  version "7.6.4"
+  resolved "https://registry.yarnpkg.com/react-native-share/-/react-native-share-7.6.4.tgz#98464ab54a685e156158a2f51e857f28373bc2a0"
+  integrity sha512-Evt6vM76QzHDOv+XYuNCJSDAJ74287FGLq0KlgUZVRlvmQD32gQD03yl6q2kuo0vrpQT67sj3GcVzHglizMfGA==
+
 react-native-size-matters@^0.4.0:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/react-native-size-matters/-/react-native-size-matters-0.4.0.tgz#01bfd0d59454318f4e0b13fe9c1eb0523d70f2e0"

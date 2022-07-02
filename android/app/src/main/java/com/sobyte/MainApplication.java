@@ -26,6 +26,7 @@ import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 import com.dylanvann.fastimage.FastImageViewPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
+import cl.json.RNSharePackage;
 
 public class MainApplication extends Application implements ReactApplication {
 
