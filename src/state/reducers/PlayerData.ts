@@ -45,7 +45,11 @@ export const BareCurrentTrack: TrackMetadataBase & SongObject = {
     artworks: [
         {
             url: '',
-            height: 0,
+            height: 60,
+        },
+        {
+            url: '',
+            height: 120,
         },
     ],
     album: {
@@ -143,6 +147,33 @@ const playerDataSlice = createSlice({
         },
 
         /**
+         * this method adds more tracks data to the queue but forgot/deletes all the remaining tracks in the queue except the last one
+         * this is because, while adding more tracks to the list (by the above @addMoreTracksToQueue method) the animation is lagging very much
+         * and the indexing and playing stucks sometimes...
+         * so to overcome that I have decided to delete all the tracks excecpt the last one while adding more tracks to the queue
+         *
+         * @param state initial state
+         * @param param1 tracks data and continuation data
+         */
+        addMoreTracksToQueueWhileKeepingTheLastTrack: (
+            state,
+            {
+                payload: {
+                    tracks = [],
+                    continuationData = initialState.continuationData,
+                },
+            }: {
+                payload: {
+                    tracks: Array<SongObject>
+                    continuationData: ContinuationObjectKeys
+                }
+            },
+        ) => {
+            state.tracks = [state.tracks[state.tracks.length - 1], ...tracks]
+            state.continuationData = continuationData
+        },
+
+        /**
          * updates the current track
          * @param state initial state
          * @param param1 updated current
@@ -184,6 +215,7 @@ export const {
     updateTracksData,
     updatePlayerData,
     addMoreTracksToQueue,
+    addMoreTracksToQueueWhileKeepingTheLastTrack,
     updateCurrentTrack,
     updateCurrentTrackIndex,
     resetPlayerData,

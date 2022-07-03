@@ -19,7 +19,8 @@ import {
     SobyteState,
     updatePlayerData,
     updateCurrentTrackIndex,
-    addMoreTracksToQueue,
+    // addMoreTracksToQueue,
+    addMoreTracksToQueueWhileKeepingTheLastTrack,
 } from '@/state'
 import {
     DEFAULT_QUERY,
@@ -74,6 +75,34 @@ export default function SobytePlayerInterface(
      * wierd right! that's why this state
      */
     const [localCurrentTrackIndex, setLocalCurrentTrackIndex] = useState(0)
+
+    /**
+     * this use effect is responsible for the smooth
+     * transition of the animation during left/right swipe of this UI
+     */
+    useEffect(() => {
+        Animated.spring(scrollXAnimated, {
+            toValue: scrollXIndex,
+            useNativeDriver: true,
+        }).start()
+    }, [scrollXIndex])
+
+    /**
+     * when a fling gesture is success this method is executed
+     * the main task of this function is to update the current index or current tracks data
+     */
+    const updatedCurrentlyActiveTrackIndex = useCallback(async activeIndex => {
+        if (activeIndex <= -1) return
+
+        scrollXIndex.setValue(activeIndex)
+        setLocalCurrentTrackIndex(activeIndex)
+
+        dispatch(
+            updateCurrentTrackIndex({
+                index: activeIndex,
+            }),
+        )
+    }, [])
 
     // getting the initial tracks data when the application is being loaded...
     const getInitialTracksData = useCallback(() => {
@@ -164,9 +193,6 @@ export default function SobytePlayerInterface(
              *
              * here if the current track is the last 5th or so
              * then we will load more tracks data to the queue
-             *
-             * TODO: limit data, like every time we are loading about 20 songs, which are very huge
-             * so to resolve this limit the data on getContinuation() method...
              */
             if (
                 localCurrentTrackIndex >=
@@ -177,6 +203,11 @@ export default function SobytePlayerInterface(
                     continuationData.clickTrackingParams &&
                     continuationData.continuation
                 ) {
+                    /**
+                     * TODO: while adding more data we can call search instead of getContinuation,
+                     * we can pass random trending queries while searching and than append those results
+                     * to the queue this will make the queue more elegent and managed
+                     */
                     getContinuation(
                         'search',
                         {
@@ -188,45 +219,31 @@ export default function SobytePlayerInterface(
                     ).then((result: FetchedSongObject) => {
                         // console.log(result)
 
+                        // dispatch(
+                        //     addMoreTracksToQueue({
+                        //         tracks: result.content,
+                        //         continuationData: result.continuation,
+                        //     }),
+                        // )
+
+                        /**
+                         * since we are deleting all the tracks from the queue except the last one
+                         *
+                         * so we have to change the index also from the last index to 0, so that the current song plays continously
+                         * without any intteruptions
+                         */
                         dispatch(
-                            addMoreTracksToQueue({
+                            addMoreTracksToQueueWhileKeepingTheLastTrack({
                                 tracks: result.content,
                                 continuationData: result.continuation,
                             }),
                         )
+                        updatedCurrentlyActiveTrackIndex(0)
                     })
                 }
             }
         }
     }, [currentTrackIndex])
-
-    /**
-     * this use effect is responsible for the smooth
-     * transition of the animation during left/right swipe of this UI
-     */
-    useEffect(() => {
-        Animated.spring(scrollXAnimated, {
-            toValue: scrollXIndex,
-            useNativeDriver: true,
-        }).start()
-    }, [scrollXIndex])
-
-    /**
-     * when a fling gesture is success this method is executed
-     * the main task of this function is to update the current index or current tracks data
-     */
-    const updatedCurrentlyActiveTrackIndex = useCallback(async activeIndex => {
-        if (activeIndex <= -1) return
-
-        scrollXIndex.setValue(activeIndex)
-        setLocalCurrentTrackIndex(activeIndex)
-
-        dispatch(
-            updateCurrentTrackIndex({
-                index: activeIndex,
-            }),
-        )
-    }, [])
 
     /**
      * this method handles what to do when the user pressed
