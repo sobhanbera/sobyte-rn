@@ -138,6 +138,10 @@ export type MarginDirections =
     | 'MarginLeft'
     | 'MarginVertical'
     | 'MarginHorizontal'
+    | 'MarginExceptTop'
+    | 'MarginExceptBotom'
+    | 'MarginExceptRight'
+    | 'MarginExceptLeft'
 export type PaddingDirections =
     | 'Padding'
     | 'PaddingBottom'
@@ -146,6 +150,10 @@ export type PaddingDirections =
     | 'PaddingLeft'
     | 'PaddingVertical'
     | 'PaddingHorizontal'
+    | 'PaddingExceptTop'
+    | 'PaddingExceptBotom'
+    | 'PaddingExceptRight'
+    | 'PaddingExceptLeft'
 
 /**
  * all types of properties which could be used throughout the codebase
