@@ -11,6 +11,7 @@
 import {
     DEFAULT_NOTIFICATION_ARTWORK_QUALITY,
     DEFAULT_NOTIFICATION_ARTWORK_SIZE,
+    FALLBACK_ARTIST_NAME,
     MAX_DISPLAY_TEXT_LENGTH,
     SHARED_IMAGE_LOCATION,
     SOBYTE_URL,
@@ -92,7 +93,8 @@ export function formatArtistsListFromArray(
         str += firstLetterCap(`${artists[i].name}`)
         if (i < artists.length - 1) str += ', ' // we are not adding comma after the last artist's name
     }
-    return str
+
+    return str || FALLBACK_ARTIST_NAME
 }
 
 /**

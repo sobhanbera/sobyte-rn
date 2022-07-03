@@ -229,3 +229,5 @@ export const MUSIC_LOCATION_MASTER_SWITCH_INDETERMINATE =
     'MUSIC_LOCATION_MASTER_SWITCH_INDETERMINATE'
 export const PWA_INSTALLABILITY_STATUS_UNKNOWN =
     'PWA_INSTALLABILITY_STATUS_UNKNOWN'
+
+export const FALLBACK_ARTIST_NAME = 'Sobyte Special' // I noticed many tracks don't have artist's name on them, I don't have time to patch the musicparser currently. but will try in future, for now we can show a fallback string btw.
