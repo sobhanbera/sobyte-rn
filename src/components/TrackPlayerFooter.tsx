@@ -139,7 +139,7 @@ export const TrackPlayerFooter = ({
                     layouts.row,
                     layouts.justifyContentBetween, // row but space between
                     layouts.alignItemsCenter, // centering vertically
-                    gutters.tinyPaddingVertical, // an extra margin on top to make a distance from statusbar
+                    // gutters.tinyPaddingVertical, // an extra margin on top to make a distance from statusbar
                     {width: TRACK_ARTWORK_WIDTH}, // somewhat larger than track artwork's width
                 ]}>
                 <View style={[layouts.row]}>
@@ -149,8 +149,10 @@ export const TrackPlayerFooter = ({
                             DEFAULT_TOUCHABLE_OPACITY_BUTTON_ACTIVE_OPACITY
                         }
                         onPress={onLikeButtonPressed}
-                        style={gutters.regularMarginRight} // since this is the first icon so right margin
-                    >
+                        style={[
+                            gutters.tinyMarginRight, // since this is the first icon so right margin
+                            gutters.smallPaddingExceptLeft, // since this is the first icon so padding all direction except left
+                        ]}>
                         <AntDesignIcon
                             name="hearto"
                             size={TINY_ICON_SIZE}
@@ -164,7 +166,10 @@ export const TrackPlayerFooter = ({
                             DEFAULT_TOUCHABLE_OPACITY_BUTTON_ACTIVE_OPACITY
                         }
                         onPress={onShareButtonPressed}
-                        style={gutters.regularMarginHorizontal}>
+                        style={[
+                            gutters.tinyMarginHorizontal,
+                            gutters.smallPadding,
+                        ]}>
                         <IoniconIcon
                             name="ios-share-social-outline"
                             size={TINY_ICON_SIZE}
@@ -178,7 +183,10 @@ export const TrackPlayerFooter = ({
                             DEFAULT_TOUCHABLE_OPACITY_BUTTON_ACTIVE_OPACITY
                         }
                         onPress={onDownloadButtonPressed}
-                        style={gutters.regularMarginHorizontal}>
+                        style={[
+                            gutters.tinyMarginHorizontal,
+                            gutters.smallPadding,
+                        ]}>
                         <AntDesignIcon
                             name="download"
                             size={TINY_ICON_SIZE}
@@ -197,10 +205,12 @@ export const TrackPlayerFooter = ({
                             DEFAULT_TOUCHABLE_OPACITY_BUTTON_ACTIVE_OPACITY
                         }
                         onPress={onQueueButtonPressed}
-                        style={gutters.largeMarginLeft} // last component so, left margin
-                    >
+                        style={[
+                            gutters.smallMarginLeft, // last component so, left margin
+                            gutters.smallPaddingExceptRight, // last component so, only on other side except right
+                        ]}>
                         <AntDesignIcon
-                            name="menufold"
+                            name="bars"
                             size={TINY_ICON_SIZE}
                             color={variables.colors.white}
                         />

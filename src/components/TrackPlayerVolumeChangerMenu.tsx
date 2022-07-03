@@ -106,7 +106,10 @@ export const TrackPlayerVolumeChangerMenu = withMenuContext(
 
         return (
             <Menu renderer={SlideInMenu}>
-                <MenuTrigger>
+                <MenuTrigger
+                    customStyles={{
+                        triggerOuterWrapper: gutters.smallPadding,
+                    }}>
                     {trackVolume <= 0 ? (
                         <IoniconIcon
                             name="ios-volume-mute-outline"
