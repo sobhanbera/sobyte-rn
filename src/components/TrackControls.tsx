@@ -209,28 +209,32 @@ export const TrackControls = ({
      * function which is play the track if pause and vice versa
      */
     const onTogglePlayStatus = () => {
-        TrackPlayer.getState().then(state => {
-            if (state === State.Paused) {
-                onPlayTrack()
-            } else if (state === State.Playing) {
-                onPauseTrack()
-            }
-        })
+        TrackPlayer.getState()
+            .then(state => {
+                if (state === State.Paused) {
+                    onPlayTrack()
+                } else if (state === State.Playing) {
+                    onPauseTrack()
+                }
+            })
+            .catch(_ERR => {})
     }
 
     /**
      * function to update the track's repeat mode
      */
     const onToggleRepeatStatus = () => {
-        TrackPlayer.getRepeatMode().then(isRepeatEnabled => {
-            if (isRepeatEnabled === RepeatMode.Off) {
-                TrackPlayer.setRepeatMode(RepeatMode.Track)
-                setIsPlayerRepeating(true)
-            } else {
-                TrackPlayer.setRepeatMode(RepeatMode.Off)
-                setIsPlayerRepeating(false)
-            }
-        })
+        TrackPlayer.getRepeatMode()
+            .then(isRepeatEnabled => {
+                if (isRepeatEnabled === RepeatMode.Off) {
+                    TrackPlayer.setRepeatMode(RepeatMode.Track)
+                    setIsPlayerRepeating(true)
+                } else {
+                    TrackPlayer.setRepeatMode(RepeatMode.Off)
+                    setIsPlayerRepeating(false)
+                }
+            })
+            .catch(_ERR => {})
     }
 
     /**
@@ -241,10 +245,12 @@ export const TrackControls = ({
      * @param rate a number between 0.5 & 2 inclusive
      */
     const updateTrackPlayerRate = (rateObject: RateObject) => {
-        TrackPlayer.setRate(rateObject.rate).then(res => {
-            console.log('changed', res)
-            setTrackPlayerRate(rateObject.id)
-        })
+        TrackPlayer.setRate(rateObject.rate)
+            .then(res => {
+                console.log('changed', res)
+                setTrackPlayerRate(rateObject.id)
+            })
+            .catch(_ERR => {})
     }
 
     return (

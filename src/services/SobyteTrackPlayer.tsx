@@ -136,18 +136,20 @@ export default function SobyteTrackPlayer(props: SobyteTrackPlayerProps) {
             })
             .catch(_error => {
                 // if any error occurs at least try once again to init the service
-                initMusicApi().then(_result => {
-                    // if passes this time then call it again, and we are done!
+                initMusicApi()
+                    .then(_result => {
+                        // if passes this time then call it again, and we are done!
 
-                    /**
-                     * we are searching for song because this will indirectly trigger the _createApiRequest function to call initialize once more...
-                     * then we can continue to make any other requests
-                     *
-                     * this makes sure that the api is up and running
-                     * with a status of 200 always...
-                     */
-                    search('any random query here', 'SONG')
-                })
+                        /**
+                         * we are searching for song because this will indirectly trigger the _createApiRequest function to call initialize once more...
+                         * then we can continue to make any other requests
+                         *
+                         * this makes sure that the api is up and running
+                         * with a status of 200 always...
+                         */
+                        search('any random query here', 'SONG')
+                    })
+                    .catch(_ERR => {})
             })
     }, [musicConfigError])
     useEffect(() => {

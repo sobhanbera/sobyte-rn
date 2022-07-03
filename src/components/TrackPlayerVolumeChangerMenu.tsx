@@ -72,9 +72,11 @@ export const TrackPlayerVolumeChangerMenu = withMenuContext(
          * at first render just get the current volume and update the state
          */
         useEffect(() => {
-            TrackPlayer.getVolume().then((volume: number) => {
-                setTrackVolume(volume)
-            })
+            TrackPlayer.getVolume()
+                .then((volume: number) => {
+                    setTrackVolume(volume)
+                })
+                .catch(_ERR => {})
         }, [])
 
         /**
@@ -84,10 +86,12 @@ export const TrackPlayerVolumeChangerMenu = withMenuContext(
         const updateTrackVolume = (volume: number) => {
             // checking for valid volume than updating the volume
             if (volume >= 0 && volume <= 1)
-                TrackPlayer.setVolume(volume).then(() => {
-                    // also updating in the state
-                    setTrackVolume(volume)
-                })
+                TrackPlayer.setVolume(volume)
+                    .then(() => {
+                        // also updating in the state
+                        setTrackVolume(volume)
+                    })
+                    .catch(_ERR => {})
         }
 
         /**

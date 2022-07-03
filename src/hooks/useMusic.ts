@@ -539,25 +539,29 @@ export function useMusic() {
              * then only we will procced to resolve with this data
              */
             if (saveToLocalStorage) {
-                NetInfo.fetch().then(state => {
-                    if (!state.isConnected) {
-                        isOffline = true
-                        AsyncStorage.getItem(
-                            saveToCustomLocation ||
-                                `${SEARCHED_SONG_OFFLINE_DATA_STORAGE_KEY}-${categoryName}-${query}`,
-                        )
-                            .then((res: any) => {
-                                // checking if the data exists in local storage or not...
-                                if (res !== null) {
-                                    // load data and provide it for rendering purpose...
-                                    return resolve(JSON.parse(res))
-                                }
-                            })
-                            .catch(_err => {})
-                    } else {
-                        // connected, do nothing and continue
-                    }
-                })
+                NetInfo.fetch()
+                    .then(state => {
+                        if (!state.isConnected) {
+                            isOffline = true
+                            AsyncStorage.getItem(
+                                saveToCustomLocation ||
+                                    `${SEARCHED_SONG_OFFLINE_DATA_STORAGE_KEY}-${categoryName}-${query}`,
+                            )
+                                .then((res: any) => {
+                                    // checking if the data exists in local storage or not...
+                                    if (res !== null) {
+                                        // load data and provide it for rendering purpose...
+                                        return resolve(JSON.parse(res))
+                                    }
+                                })
+                                .catch(_err => {})
+                        } else {
+                            // connected, do nothing and continue
+                        }
+                    })
+                    .catch(_ERR => {
+                        console.log('NETWORK', _ERR)
+                    })
             }
 
             /**
@@ -699,43 +703,50 @@ export function useMusic() {
                     key: MUSIC_API_KEY,
                     alt: MUSIC_API_ALT,
                 },
-            ).then(context => {
-                // let parse:Date = new Date()
-                let parsedData: any = {}
-                try {
-                    switch (_.upperCase(dataType)) {
-                        case 'SONG':
-                            parsedData =
-                                MusicParser.parseSongSearchResult(context)
-                            break
-                        case 'VIDEO':
-                            parsedData =
-                                MusicParser.parseVideoSearchResult(context)
-                            break
-                        case 'ALBUM':
-                            parsedData =
-                                MusicParser.parseAlbumSearchResult(context)
-                            break
-                        case 'ARTIST':
-                            parsedData =
-                                MusicParser.parseArtistSearchResult(context)
-                            break
-                        case 'PLAYLIST':
-                            parsedData =
-                                MusicParser.parsePlaylistSearchResult(context)
-                            break
-                        default:
-                            parsedData = MusicParser.parseSearchResult(context)
-                            break
+            )
+                .then(context => {
+                    // let parse:Date = new Date()
+                    let parsedData: any = {}
+                    try {
+                        switch (_.upperCase(dataType)) {
+                            case 'SONG':
+                                parsedData =
+                                    MusicParser.parseSongSearchResult(context)
+                                break
+                            case 'VIDEO':
+                                parsedData =
+                                    MusicParser.parseVideoSearchResult(context)
+                                break
+                            case 'ALBUM':
+                                parsedData =
+                                    MusicParser.parseAlbumSearchResult(context)
+                                break
+                            case 'ARTIST':
+                                parsedData =
+                                    MusicParser.parseArtistSearchResult(context)
+                                break
+                            case 'PLAYLIST':
+                                parsedData =
+                                    MusicParser.parsePlaylistSearchResult(
+                                        context,
+                                    )
+                                break
+                            default:
+                                parsedData =
+                                    MusicParser.parseSearchResult(context)
+                                break
+                        }
+                        resolve(parsedData)
+                    } catch (error) {
+                        return resolve({
+                            error: error.message,
+                        })
                     }
-                    resolve(parsedData)
-                } catch (error) {
-                    return resolve({
-                        error: error.message,
-                    })
-                }
-                // let o:number = new Date() - parse
-            })
+                    // let o:number = new Date() - parse
+                })
+                .catch(_ERR => {
+                    console.log('Cannot provide getContinuation()')
+                })
         })
     }
 
@@ -795,40 +806,48 @@ export function useMusic() {
                                         itct: params.continuation
                                             .clickTrackingParams,
                                     },
-                                ).then(context => {
-                                    const continuationResult =
-                                        MusicParser.parsePlaylistPage(context)
-                                    if (
-                                        Array.isArray(
-                                            continuationResult.content,
-                                        )
-                                    ) {
-                                        result.content = _.concat(
-                                            result.content,
-                                            continuationResult.content,
-                                        )
-                                        result.continuation =
-                                            continuationResult.continuation
-                                    }
-                                    if (
-                                        !Array.isArray(
-                                            continuationResult.continuation,
-                                        ) &&
-                                        result.continuation instanceof Object
-                                    ) {
-                                        if (
-                                            contentLimit > result.content.length
-                                        ) {
-                                            getContinuations(
-                                                continuationResult.continuation,
+                                )
+                                    .then(context => {
+                                        const continuationResult =
+                                            MusicParser.parsePlaylistPage(
+                                                context,
                                             )
+                                        if (
+                                            Array.isArray(
+                                                continuationResult.content,
+                                            )
+                                        ) {
+                                            result.content = _.concat(
+                                                result.content,
+                                                continuationResult.content,
+                                            )
+                                            result.continuation =
+                                                continuationResult.continuation
+                                        }
+                                        if (
+                                            !Array.isArray(
+                                                continuationResult.continuation,
+                                            ) &&
+                                            result.continuation instanceof
+                                                Object
+                                        ) {
+                                            if (
+                                                contentLimit >
+                                                result.content.length
+                                            ) {
+                                                getContinuations(
+                                                    continuationResult.continuation,
+                                                )
+                                            } else {
+                                                return resolve(result)
+                                            }
                                         } else {
                                             return resolve(result)
                                         }
-                                    } else {
-                                        return resolve(result)
-                                    }
-                                })
+                                    })
+                                    .catch(_ERR => {
+                                        console.log('CANOT PLAYLIST')
+                                    })
                             }
 
                             if (

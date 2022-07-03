@@ -21,7 +21,6 @@ import {
     updateCurrentTrackIndex,
     // addMoreTracksToQueue,
     addMoreTracksToQueueWhileKeepingTheLastTrack,
-    updateCurrentTrack,
 } from '@/state'
 import {
     DEFAULT_QUERY,
@@ -46,7 +45,7 @@ import {
     TrackControls,
     TrackPlayerHeader,
 } from '@/components'
-import {getSmoothLinearGradient, getTrackToPlay} from '@/utils'
+import {getSmoothLinearGradient} from '@/utils'
 import {TrackPlayerFooter} from '@/components/TrackPlayerFooter'
 import {Skeleton} from '@rneui/themed'
 
@@ -138,13 +137,17 @@ export default function SobytePlayerInterface(
                 const firstTrack = result.content[0]
 
                 // now in the process to play the song
-                playTrack(firstTrack, '', false).then(played => {
-                    if (played)
-                        if (result.content.length >= 1)
-                            // if there are more than or equal to 1 songs than load the 1st indexed song too
-                            // if there is a next song to the current one...
-                            getTrackURL(result.content[1].musicId)
-                })
+                playTrack(firstTrack, '', false)
+                    .then(played => {
+                        if (played)
+                            if (result.content.length >= 1)
+                                // if there are more than or equal to 1 songs than load the 1st indexed song too
+                                // if there is a next song to the current one...
+                                getTrackURL(result.content[1].musicId)
+                                    .then(_RES => {})
+                                    .catch(_ERR => {})
+                    })
+                    .catch(_ERR => {})
             })
             .catch((_error: any) => {
                 console.log('Error getting player songs...')
@@ -169,23 +172,26 @@ export default function SobytePlayerInterface(
         if (tracks.length >= 1) {
             const track = tracks[currentTrackIndex]
 
-            playTrack(track).then(played => {
-                if (played) {
-                    if (currentTrackIndex < tracks.length - 1) {
-                        // if there is a next song to the current one...
-                        getTrackURL(tracks[currentTrackIndex + 1].musicId).then(
-                            _notRequiredURL => {
-                                // if there is again a 2nd next song...
-                                if (currentTrackIndex < tracks.length - 2) {
-                                    getTrackURL(
-                                        tracks[currentTrackIndex + 2].musicId,
-                                    )
-                                }
-                            },
-                        )
+            playTrack(track)
+                .then(played => {
+                    if (played) {
+                        if (currentTrackIndex < tracks.length - 1) {
+                            // if there is a next song to the current one...
+                            getTrackURL(tracks[currentTrackIndex + 1].musicId)
+                                .then(_notRequiredURL => {
+                                    // if there is again a 2nd next song...
+                                    if (currentTrackIndex < tracks.length - 2) {
+                                        getTrackURL(
+                                            tracks[currentTrackIndex + 2]
+                                                .musicId,
+                                        ).catch(_ERR => {})
+                                    }
+                                })
+                                .catch(_ERR => {})
+                        }
                     }
-                }
-            })
+                })
+                .catch(_ERR => {})
             /**
              * also check if the queue is about to end, if it is then
              *
@@ -219,30 +225,32 @@ export default function SobytePlayerInterface(
                             continuation: continuationData.continuation,
                         },
                         'SONG',
-                    ).then((result: FetchedSongObject) => {
-                        // console.log(result)
+                    )
+                        .then((result: FetchedSongObject) => {
+                            // console.log(result)
 
-                        // dispatch(
-                        //     addMoreTracksToQueue({
-                        //         tracks: result.content,
-                        //         continuationData: result.continuation,
-                        //     }),
-                        // )
+                            // dispatch(
+                            //     addMoreTracksToQueue({
+                            //         tracks: result.content,
+                            //         continuationData: result.continuation,
+                            //     }),
+                            // )
 
-                        /**
-                         * since we are deleting all the tracks from the queue except the last one
-                         *
-                         * so we have to change the index also from the last index to 0, so that the current song plays continously
-                         * without any intteruptions
-                         */
-                        dispatch(
-                            addMoreTracksToQueueWhileKeepingTheLastTrack({
-                                tracks: result.content,
-                                continuationData: result.continuation,
-                            }),
-                        )
-                        updatedCurrentlyActiveTrackIndex(0)
-                    })
+                            /**
+                             * since we are deleting all the tracks from the queue except the last one
+                             *
+                             * so we have to change the index also from the last index to 0, so that the current song plays continously
+                             * without any intteruptions
+                             */
+                            dispatch(
+                                addMoreTracksToQueueWhileKeepingTheLastTrack({
+                                    tracks: result.content,
+                                    continuationData: result.continuation,
+                                }),
+                            )
+                            updatedCurrentlyActiveTrackIndex(0)
+                        })
+                        .catch(_ERR => {})
                 }
             }
         }
@@ -309,7 +317,7 @@ export default function SobytePlayerInterface(
      * and play it
      * @param musicID string denoting music ID
      */
-    const onQueueTrackSelected = (musicID: string) => {
+    const onQueueTrackSelected = useCallback((musicID: string) => {
         tracks.find((track, index) => {
             if (track.musicId === musicID) {
                 updatedCurrentlyActiveTrackIndex(index)
@@ -317,22 +325,22 @@ export default function SobytePlayerInterface(
             }
             return false
         })
-    }
+    }, [])
 
     /**
      * TODO:
      * this function will launch search songs/tracks, artists tab
      */
-    const launchSearchTab = () => {}
+    const launchSearchTab = useCallback(() => {}, [])
 
     /**
      * open the queue list screen
      */
-    const launchQueueScreen = () => {
+    const launchQueueScreen = useCallback(() => {
         props.navigation.navigate(SOBYTE_PLAYER_QUEUE_SCREEN, {
             onQueueTrackSelected: onQueueTrackSelected,
         })
-    }
+    }, [])
 
     /**
      * responsible for rendering the list of all the tracks

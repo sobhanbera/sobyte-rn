@@ -145,9 +145,11 @@ export function useTrackPlayer() {
      * this function reset the track player by clearing the queue...
      */
     const resetPlayer = async () => {
-        TrackPlayer.reset().then(_res => {
-            // dispatch(resetPlayerData()) // there is empty currentTrack data everytime, so commented
-        })
+        TrackPlayer.reset()
+            .then(_res => {
+                // dispatch(resetPlayerData()) // there is empty currentTrack data everytime, so commented
+            })
+            .catch(_ERR => {})
     }
 
     const playTrack = (
