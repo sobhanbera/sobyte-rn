@@ -37,6 +37,15 @@ export const TrackPlayerQueueTrack = ({
     const formattedTitle = formatTrackTitle(trackData.title)
     const formattedArtists = formatArtistsListFromArray(trackData.artists)
 
+    /**
+     * since there are no tracks which doesnot contains 2 types of sizes of artworks
+     * all of them instead
+     *
+     * so if any track contains only one artwork, that means the tracks data has not beed loaded yet
+     * and the TrackData passed is the currentTrack from reducer, the currently playing section of the queue
+     */
+    if (trackData.artworks.length === 1) return null
+
     return (
         <TouchableOpacity
             onPress={onQueueTrackSelected}
@@ -50,7 +59,7 @@ export const TrackPlayerQueueTrack = ({
             {/* queue track artwork */}
             <FastImage
                 source={{
-                    uri: trackData.artworks[1].url,
+                    uri: trackData.artworks[0].url,
                     cache: FastImage.cacheControl.immutable,
                     priority: FastImage.priority.normal,
                 }}
