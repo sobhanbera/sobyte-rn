@@ -7,9 +7,9 @@
         <!-- <item name="android:statusBarColor">@color/splash_screen_background_color</item> -->
 
         <item name="android:windowTranslucentStatus">true</item>
-        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:windowTranslucentNavigation">false</item>
 
-<!--        I personaly think we should disable this feature so that we can customize the UI with the power of android itself   -->
+<!--        I personally think we should disable this feature so that we can customize the UI with the power of android itself   -->
         <item name="android:forceDarkAllowed" tools:targetApi="Q">false</item> <!--  plan changed! sorry!! -->
 
 
