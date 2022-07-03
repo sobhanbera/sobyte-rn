@@ -23,7 +23,6 @@ import {
     addMoreTracksToQueueWhileKeepingTheLastTrack,
 } from '@/state'
 import {
-    DEFAULT_QUERY,
     LAST_TRACKS_REMAIN_TO_LOAD_MORE_TRACK,
     MAX_DISPLAY_HEIGHT_OF_TRACK_ARTWORK_WRAPPER,
     MUSIC_PLAYER_SONGS_RESULT_STORAGE_KEY,
@@ -45,7 +44,7 @@ import {
     TrackControls,
     TrackPlayerHeader,
 } from '@/components'
-import {getSmoothLinearGradient} from '@/utils'
+import {getARandomQuery, getSmoothLinearGradient} from '@/utils'
 import {TrackPlayerFooter} from '@/components/TrackPlayerFooter'
 import {Skeleton} from '@rneui/themed'
 
@@ -106,12 +105,9 @@ export default function SobytePlayerInterface(
 
     // getting the initial tracks data when the application is being loaded...
     const getInitialTracksData = useCallback(() => {
-        search(
-            DEFAULT_QUERY,
-            'SONG',
-            true,
-            MUSIC_PLAYER_SONGS_RESULT_STORAGE_KEY,
-        )
+        const query = getARandomQuery()
+        console.log(query)
+        search(query, 'SONG', true, MUSIC_PLAYER_SONGS_RESULT_STORAGE_KEY)
             .then((result: FetchedSongObject) => {
                 // now save or update this request data to the player data state
                 dispatch(

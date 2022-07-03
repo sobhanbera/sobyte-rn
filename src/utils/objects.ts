@@ -12,6 +12,7 @@ import {
     DEFAULT_NOTIFICATION_ARTWORK_QUALITY,
     DEFAULT_NOTIFICATION_ARTWORK_SIZE,
     FALLBACK_ARTIST_NAME,
+    GLOBAL_QUERIES,
     MAX_DISPLAY_TEXT_LENGTH,
     SHARED_IMAGE_LOCATION,
     SOBYTE_URL,
@@ -456,4 +457,16 @@ export function getShareableImagePath(musicID: string) {
 
     // if the music id is not provided, just save it in a safe location
     return `${SHARED_IMAGE_LOCATION}/sobyte_share.jpg`
+}
+
+/**
+ * this function is yet to be implemented, I am working on the language feature for the app,
+ * then only this funcction will be fully completed
+ *
+ * currently this method only provides a random query from GLOBAL_QUERIES array
+ *
+ * @returns {string} a query to search
+ */
+export function getARandomQuery() {
+    return GLOBAL_QUERIES[Math.floor(Math.random() * GLOBAL_QUERIES.length)]
 }
