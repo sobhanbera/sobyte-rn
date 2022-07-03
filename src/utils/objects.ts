@@ -9,6 +9,8 @@
  */
 
 import {
+    DEFAULT_NOTIFICATION_ARTWORK_QUALITY,
+    DEFAULT_NOTIFICATION_ARTWORK_SIZE,
     MAX_DISPLAY_TEXT_LENGTH,
     SHARED_IMAGE_LOCATION,
     SOBYTE_URL,
@@ -19,7 +21,12 @@ import {
     BRACKETS_SURROUNDED_TEXT,
     PARATHESIS_SURROUNDED_TEXT,
 } from '@/configs/regex'
-import {ArtworkObject, SongArtistObject, SongObject} from '@/schemas'
+import {
+    ArtworkObject,
+    SongArtistObject,
+    SongObject,
+    TrackMetadataBase,
+} from '@/schemas'
 
 /**
  * get a changed quality image of any song object
@@ -186,6 +193,57 @@ export function secondsToHms(seconds: number) {
     var secs = ('0' + sec).slice(-2)
 
     return `${min}:${secs}`
+}
+
+/**
+ * this method is specifically designed to update the state of the currently playing track and also to
+ * the play() method of the track player
+ *
+ * since when this data is passed in the parameter of play() method of track player, it takes sometime to load the track URL and play it
+ * and we can make the user to wait for the track to load but not wait for the track data to display
+ * we must immediately display the track's data as soon as it got changed
+ * so to display the data pre loading the track
+ * this method could be useful, since this method returns a empty string for the URL.
+ *
+ * NOTE: there must be provided with a URL with the data is used to play a track, else the track is not gonna play in entire life
+ *
+ * @param trackData songobject the track data
+ * @param extraDescription any description about the track
+ * @param URL URL of the sogn
+ * @returns a object which can be provided to track player's play() method to play tracks
+ */
+export function getTrackToPlay(
+    trackData: SongObject,
+    extraDescription: string = '',
+    URL: string = '',
+): TrackMetadataBase & SongObject {
+    const notificationArtwork = updateArtworkQuality(
+        trackData.artworks[0],
+        DEFAULT_NOTIFICATION_ARTWORK_SIZE,
+        DEFAULT_NOTIFICATION_ARTWORK_QUALITY,
+    )
+    const formattedArtist = formatArtistsListFromArray(trackData.artists)
+
+    return {
+        musicId: trackData.musicId, // just in case
+        playlistId: trackData.playlistId, // just in case
+
+        artists: trackData.artists,
+        artworks: trackData.artworks,
+        album: trackData.album,
+        params: trackData.params,
+        type: trackData.type,
+
+        url: URL,
+        title: trackData.title,
+        artist: formattedArtist,
+        artwork: notificationArtwork,
+        duration: trackData.duration,
+        description: extraDescription,
+        genre: '',
+
+        contentType: trackData.type,
+    }
 }
 
 /**

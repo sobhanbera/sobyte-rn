@@ -108,7 +108,10 @@ export const TrackControls = ({
     const numberOfTracks = useSelector(
         (state: SobyteState) => state.playerdata.tracks.length,
     )
-    const {position, duration} = useProgress() // getting realtime position and duration of the current track
+    const currentTrack = useSelector(
+        (state: SobyteState) => state.playerdata.currentTrack,
+    )
+    const {position} = useProgress() // getting realtime position and duration of the current track
 
     /**
      * state to get the data of playing status of the track like, play/pause/buffering etc...
@@ -132,7 +135,7 @@ export const TrackControls = ({
      * next is the total duration of the track
      */
     const formattedPosition = secondsToHms(position)
-    const formattedDuration = secondsToHms(duration)
+    const formattedDuration = secondsToHms(currentTrack.duration)
 
     // triggered when any state changes related to song from notification/lock-screen/other parts of the android
     useEffect(() => {
@@ -173,8 +176,6 @@ export const TrackControls = ({
             Event.PlaybackQueueEnded,
             (_trackEndingData: {position: number; track: number}) => {
                 onPlayNextTrack()
-                console.log(_trackEndingData)
-                console.log(onPlayNextTrack)
             },
         )
 
@@ -259,7 +260,7 @@ export const TrackControls = ({
                 disabled={numberOfTracks <= 0}
                 step={1}
                 minimumValue={0}
-                maximumValue={duration}
+                maximumValue={currentTrack.duration}
                 value={position}
                 allowTouchTrack
                 // debugTouchArea // to see the touch area of the slider

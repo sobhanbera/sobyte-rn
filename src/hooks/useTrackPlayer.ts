@@ -14,7 +14,7 @@ import {useDispatch, useSelector} from 'react-redux'
 
 import {
     addTrackURL,
-    resetPlayerData,
+    // resetPlayerData,
     SobyteState,
     updateCurrentTrack,
 } from '@/state'
@@ -32,7 +32,11 @@ import {
     LOW_AUDIO_MINIMUM_BITRATE,
     REMOTE_ORIGIN_MUSIC_ID_MAXIMUM_LENGTH,
 } from '@/configs'
-import {formatArtistsListFromArray, updateArtworkQuality} from '@/utils'
+import {
+    formatArtistsListFromArray,
+    getTrackToPlay,
+    updateArtworkQuality,
+} from '@/utils'
 
 /**
  *
@@ -213,24 +217,30 @@ export function useTrackPlayer() {
                     const track: TrackMetadataBase & SongObject = {
                         // ...trackData, not working with spread operation
 
-                        musicId: trackData.musicId, // just in case
-                        playlistId: trackData.playlistId, // just in case
+                        // musicId: trackData.musicId, // just in case
+                        // playlistId: trackData.playlistId, // just in case
+                        //
+                        // artists: trackData.artists,
+                        // artworks: trackData.artworks,
+                        // album: trackData.album,
+                        // params: trackData.params,
+                        // type: trackData.type,
 
-                        artists: trackData.artists,
-                        artworks: trackData.artworks,
-                        album: trackData.album,
-                        params: trackData.params,
-                        type: trackData.type,
+                        // url: TrackURLData.url,
+                        // title: trackData.title,
+                        // artist: formattedArtist,
+                        // artwork: notificationArtwork,
+                        // duration: trackData.duration,
+                        // description: extraDescription,
+                        // genre: '',
+                        //
+                        // contentType: trackData.type,
 
-                        url: TrackURLData.url,
-                        title: trackData.title,
-                        artist: formattedArtist,
-                        artwork: notificationArtwork,
-                        duration: trackData.duration,
-                        description: extraDescription,
-                        genre: '',
-
-                        contentType: trackData.type,
+                        ...getTrackToPlay(
+                            trackData,
+                            extraDescription,
+                            TrackURLData.url,
+                        ), // optional but why not, we can use the above object also to create this track data
                     }
 
                     /**
