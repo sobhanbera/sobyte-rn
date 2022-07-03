@@ -29,7 +29,7 @@ import {
 interface TrackPlayerQueueScreenProps extends CompositeScreenProps<any, any> {
     route: {
         params: {
-            onChangedTrackFromQueue(trackIndex: string): void
+            onQueueTrackSelected(trackIndex: string): void
         }
     }
 }
@@ -38,7 +38,7 @@ export default function TrackPlayerQueueScreen({
     navigation,
 }: TrackPlayerQueueScreenProps) {
     const {theme, gutters, fonts, layouts} = useTheme()
-    const {onChangedTrackFromQueue} = route.params
+    const {onQueueTrackSelected} = route.params
 
     // this data is needed to render the queue after the current track playing
     const {tracks, currentTrackIndex, currentTrack} = useSelector(
@@ -47,7 +47,7 @@ export default function TrackPlayerQueueScreen({
 
     useLayoutEffect(() => {
         navigation.setOptions({
-            onChangedTrackFromQueue: (_trackIndex: number) => {},
+            onQueueTrackSelected: (_trackIndex: number) => {},
         })
     }, [navigation])
 
@@ -100,7 +100,7 @@ export default function TrackPlayerQueueScreen({
                 {/* this component could return error in future, be safe */}
                 <TrackPlayerQueueTrack
                     trackData={currentTrack}
-                    onChangedTrackFromQueue={() => {}}
+                    onQueueTrackSelected={() => {}}
                 />
 
                 {/* next queue */}
@@ -120,8 +120,8 @@ export default function TrackPlayerQueueScreen({
                         <TrackPlayerQueueTrack
                             key={trackData.musicId}
                             trackData={trackData}
-                            onChangedTrackFromQueue={() =>
-                                onChangedTrackFromQueue(trackData.musicId)
+                            onQueueTrackSelected={() =>
+                                onQueueTrackSelected(trackData.musicId)
                             }
                         />
                     )

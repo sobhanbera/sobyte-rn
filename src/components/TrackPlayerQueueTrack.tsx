@@ -23,12 +23,12 @@ import {
 
 export interface TrackPlayerQueueTrackProps {
     trackData: SongObject
-    onChangedTrackFromQueue(): void
+    onQueueTrackSelected(): void
     containerStyle?: StyleProp<ViewStyle>
 }
 export const TrackPlayerQueueTrack = ({
     trackData,
-    onChangedTrackFromQueue,
+    onQueueTrackSelected,
     containerStyle,
 }: TrackPlayerQueueTrackProps) => {
     const {theme, gutters, fonts, layouts} = useTheme()
@@ -39,7 +39,7 @@ export const TrackPlayerQueueTrack = ({
 
     return (
         <TouchableOpacity
-            onPress={onChangedTrackFromQueue}
+            onPress={onQueueTrackSelected}
             activeOpacity={DEFAULT_TOUCHABLE_OPACITY_BUTTON_ACTIVE_OPACITY}
             style={[
                 layouts.row,

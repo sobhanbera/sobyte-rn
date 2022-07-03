@@ -289,7 +289,7 @@ export default function SobytePlayerInterface(
      * and play it
      * @param musicID string denoting music ID
      */
-    const onChangedTrackFromQueue = (musicID: string) => {
+    const onQueueTrackSelected = (musicID: string) => {
         tracks.find((track, index) => {
             if (track.musicId === musicID) {
                 updatedCurrentlyActiveTrackIndex(index)
@@ -310,7 +310,7 @@ export default function SobytePlayerInterface(
      */
     const launchQueueScreen = () => {
         props.navigation.navigate(SOBYTE_PLAYER_QUEUE_SCREEN, {
-            onChangedTrackFromQueue,
+            onQueueTrackSelected: onQueueTrackSelected,
         })
     }
 
