@@ -339,7 +339,7 @@ export function useMusic() {
             if (musicConfigData.DEVICE === undefined) {
                 initialize()
                     .then((musicConfigDataAfterManualInit: any) => {
-                        console.log('Successfully Manual Initialization')
+                        // console.log('Successfully Manual Initialization') // JUST_FOR_DEV
 
                         musicDataApiRequestor
                             .post(
