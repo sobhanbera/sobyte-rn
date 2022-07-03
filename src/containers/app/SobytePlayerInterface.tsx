@@ -136,20 +136,7 @@ export default function SobytePlayerInterface(
                  * the next song at index 1
                  */
                 const firstTrack = result.content[0]
-                /**
-                 * this dispatch is becuase I want till the track's URL is being loaded we can even show the
-                 * track's duration, which is only shown after the track has been loaded
-                 * now even if the track is not loaded but loading, we will show the duration of the track
-                 *
-                 * for that this dispatch is neccessary
-                 *
-                 * or else it will display 0:00 in the duration text
-                 */
-                dispatch(
-                    updateCurrentTrack({
-                        currentTrack: getTrackToPlay(firstTrack),
-                    }),
-                )
+
                 // now in the process to play the song
                 playTrack(firstTrack, '', false).then(played => {
                     if (played)
@@ -181,21 +168,7 @@ export default function SobytePlayerInterface(
     useEffect(() => {
         if (tracks.length >= 1) {
             const track = tracks[currentTrackIndex]
-            /**
-             * whenever the currentTrack changes
-             * this dispatch is becuase I want till the track's URL is being loaded we can even show the
-             * track's duration, which is only shown after the track has been loaded
-             * now even if the track is not loaded but loading, we will show the duration of the track
-             *
-             * for that this dispatch is neccessary
-             *
-             * or else it will display 0:00 in the duration text
-             */
-            dispatch(
-                updateCurrentTrack({
-                    currentTrack: getTrackToPlay(track),
-                }),
-            )
+
             playTrack(track).then(played => {
                 if (played) {
                     if (currentTrackIndex < tracks.length - 1) {

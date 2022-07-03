@@ -198,10 +198,24 @@ export function useTrackPlayer() {
              * next song the player will play the previous song for few second till the current song's URL is not loaded
              */
             TrackPlayer.pause()
+            resetPlayer()
+            /**
+             * whenever the currentTrack changes
+             * this dispatch is becuase I want till the track's URL is being loaded we can even show the
+             * track's duration, which is only shown after the track has been loaded
+             * now even if the track is not loaded but loading, we will show the duration of the track
+             *
+             * for that this dispatch is neccessary
+             *
+             * or else it will display 0:00 in the duration text
+             */
+            dispatch(
+                updateCurrentTrack({
+                    currentTrack: getTrackToPlay(trackData),
+                }),
+            )
             getTrackURL(trackData.musicId)
                 .then(TrackURLData => {
-                    resetPlayer()
-
                     const notificationArtwork = updateArtworkQuality(
                         trackData.artworks[0],
                         DEFAULT_NOTIFICATION_ARTWORK_SIZE,
