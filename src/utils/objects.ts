@@ -93,7 +93,7 @@ export function formatArtistsListFromArray(
 ): string {
     let str = ''
     for (let i = 0; i < artists.length; ++i) {
-        str += firstLetterCap(`${artists[i].name}`)
+        str += capitalizeWords(`${artists[i].name}`)
         if (i < artists.length - 1) str += ', ' // we are not adding comma after the last artist's name
     }
 
@@ -470,6 +470,6 @@ export function getShareableImagePath(musicID: string) {
  * @returns {string} a query to search
  */
 export function getARandomQuery() {
-    return 'most sad hindi songs 2022'
+    return 'khair mangda main teri'
     return GLOBAL_QUERIES[Math.floor(Math.random() * GLOBAL_QUERIES.length)]
 }

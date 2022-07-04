@@ -27,6 +27,7 @@ import {
     MUSIC_API_ALT,
 } from '@/configs'
 import {
+    ArtistDetailsObject,
     ContinuationObject,
     ContinuationObjectKeys,
     PrimaryMusicApiEndpointsOptions,
@@ -876,7 +877,7 @@ export function useMusic() {
      * @param browseId id of the artist
      * @returns the object with artist data
      */
-    const getArtist = (browseId: string) => {
+    const getArtist = (browseId: string): Promise<ArtistDetailsObject> => {
         if (_.startsWith(browseId, 'UC')) {
             return new Promise((resolve, reject) => {
                 _createApiRequest(
@@ -888,7 +889,7 @@ export function useMusic() {
                             const result = MusicParser.parseArtistPage(context)
                             resolve(result)
                         } catch (error) {
-                            resolve({
+                            reject({
                                 error: error.message,
                             })
                         }
