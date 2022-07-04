@@ -107,7 +107,7 @@ export const TrackPlayerQueueTrack = ({
                 </SobyteTextView>
             </View>
 
-            {draggable ? (
+            {draggable && onDrag ? (
                 <TouchableOpacity
                     onPressIn={onDrag}
                     style={[layouts.center, gutters.smallPaddingHorizontal]}>
