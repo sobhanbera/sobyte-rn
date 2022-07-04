@@ -38,7 +38,7 @@ export default function TrackPlayerQueueScreen({
     const {theme, gutters, fonts, layouts} = useTheme()
 
     // this data is needed to render the queue after the current track playing
-    const {tracks, currentTrackIndex, currentTrack} = useSelector(
+    const {tracks, currentTrackIndex} = useSelector(
         (state: SobyteState) => state.playerdata,
     )
     const dispatch = useDispatch()
@@ -127,34 +127,6 @@ export default function TrackPlayerQueueScreen({
                 </SobyteTextView>
             </View>
 
-            <SobyteTextView
-                style={[
-                    fonts.textRegular,
-                    gutters.mediumPaddingHorizontal,
-                    gutters.regularPaddingTop,
-                    gutters.smallPaddingBottom,
-                ]}>
-                Currently Playing...
-            </SobyteTextView>
-
-            {/* this component could return error in future, be safe */}
-            <TrackPlayerQueueTrack
-                trackData={currentTrack}
-                onQueueTrackSelected={() => {}}
-            />
-
-            {/* next queue */}
-            <SobyteTextView
-                style={[
-                    fonts.textRegular,
-                    gutters.mediumPaddingHorizontal,
-                    gutters.regularPaddingTop,
-                    gutters.smallPaddingBottom,
-                    gutters.mediumMarginTop,
-                ]}>
-                Next Up -
-            </SobyteTextView>
-
             <DraggableFlatList
                 data={tracks.slice(currentTrackIndex + 1)}
                 renderItem={({drag, item}) => {
@@ -175,9 +147,11 @@ export default function TrackPlayerQueueScreen({
                 }
                 keyExtractor={track => track.musicId}
                 showsVerticalScrollIndicator={false}
+                contentContainerStyle={[
+                    gutters.hugePaddingBottom,
+                    gutters.regularPaddingTop,
+                ]}
             />
-
-            <BottomPaddingComponent />
         </View>
     )
 }
