@@ -313,7 +313,7 @@ export default function SobytePlayerInterface(
      * and play it
      * @param musicID string denoting music ID
      */
-    const onQueueTrackSelected = useCallback((musicID: string) => {
+    function onQueueTrackSelected(musicID: string) {
         tracks.find((track, index) => {
             if (track.musicId === musicID) {
                 updatedCurrentlyActiveTrackIndex(index)
@@ -321,22 +321,22 @@ export default function SobytePlayerInterface(
             }
             return false
         })
-    }, [])
+    }
 
     /**
      * TODO:
      * this function will launch search songs/tracks, artists tab
      */
-    const launchSearchTab = useCallback(() => {}, [])
+    function launchSearchTab() {}
 
     /**
      * open the queue list screen
      */
-    const launchQueueScreen = useCallback(() => {
+    function launchQueueScreen() {
         props.navigation.navigate(SOBYTE_PLAYER_QUEUE_SCREEN, {
-            onQueueTrackSelected: onQueueTrackSelected,
+            onQueueTrackSelected,
         })
-    }, [])
+    }
 
     /**
      * responsible for rendering the list of all the tracks
