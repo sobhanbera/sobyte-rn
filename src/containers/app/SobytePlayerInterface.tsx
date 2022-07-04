@@ -224,7 +224,9 @@ export default function SobytePlayerInterface(
              */
             if (
                 localCurrentTrackIndex >=
-                tracks.length - LAST_TRACKS_REMAIN_TO_LOAD_MORE_TRACK
+                    tracks.length - LAST_TRACKS_REMAIN_TO_LOAD_MORE_TRACK ||
+                currentTrackIndex >=
+                    tracks.length - LAST_TRACKS_REMAIN_TO_LOAD_MORE_TRACK // since when updating the track from queue, everytime the localCurrentTrackIndex is updating a bit slower, so why not use this value from global state :)
             ) {
                 // final check if the continuation data is available
                 if (
