@@ -184,6 +184,46 @@ export interface SongObject {
 }
 
 /**
+ * artist have a different format for artworks
+ */
+export interface ArtistArtworkObject {
+    height: number
+    width: number
+    url: string
+}
+
+/**
+ * artist object when returned from api request
+ * whichever arttributes aren't used in the app they are optional in this interface (but not actually)
+ */
+export interface ArtistDetailsObject {
+    name: string
+    thumbnails: Array<ArtistArtworkObject>
+    description?: string
+    products?: {
+        albums: {
+            content: []
+        }
+        singles: {
+            browseId: string
+            content: []
+            params: string
+        }
+        songs: {
+            browseId: string
+            content: []
+            params: string
+        }
+        videos: {
+            browseId: string
+            content: []
+            params: string
+        }
+    }
+    views?: number
+}
+
+/**
  * metadata which every track contains...
  */
 export interface TrackMetadataBase {

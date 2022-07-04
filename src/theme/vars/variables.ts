@@ -34,10 +34,10 @@ export const MetricSizeTypes: MetricSizes = {
 export const FontSizeTypes: FontSizes = {
     tiny: 12,
     small: 16,
-    regular: 20,
-    medium: 30,
-    large: 36,
-    extraLarge: 48,
+    regular: 18,
+    medium: 22,
+    large: 26,
+    extraLarge: 30,
 }
 
 const CombinedVariables = {
