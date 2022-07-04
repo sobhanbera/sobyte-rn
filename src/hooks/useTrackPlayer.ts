@@ -286,15 +286,23 @@ export function useTrackPlayer() {
                     )
 
                     // and now play the song/track
-                    if (addAndPlayTrack) TrackPlayer.play()
-
-                    console.log(
-                        'Played',
-                        trackData.title,
-                        'in',
-                        new Date().getTime() - start,
-                        'milliseconds.',
-                    ) // JUST_FOR_DEV
+                    if (addAndPlayTrack)
+                        TrackPlayer.play()
+                            .then(res => {
+                                console.log(
+                                    'Played',
+                                    trackData.title,
+                                    'in',
+                                    new Date().getTime() - start,
+                                    'milliseconds.',
+                                ) // JUST_FOR_DEV
+                            })
+                            .catch(err => {
+                                console.log(
+                                    'Cannot play the song right now!',
+                                    err,
+                                )
+                            })
 
                     /**
                      * resolving a true value so that the caller function could procced furthur
