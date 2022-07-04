@@ -153,7 +153,7 @@ export const TrackPlayerVolumeChangerMenu = withMenuContext(
                             fonts.textRegular,
                             {
                                 borderBottomWidth: 1,
-                                borderBottomColor: theme.border,
+                                borderBottomColor: theme.surfacelightborder,
                             },
                         ]}>
                         Change Volume
