@@ -21,11 +21,7 @@ import {
     SobyteState,
     updateCurrentTrackIndex,
 } from '@/state'
-import {
-    BottomPaddingComponent,
-    SobyteTextView,
-    TrackPlayerQueueTrack,
-} from '@/components'
+import {SobyteTextView, TrackPlayerQueueTrack} from '@/components'
 import {
     DEFAULT_ICON_SIZE,
     DEFAULT_TOUCHABLE_OPACITY_BUTTON_ACTIVE_OPACITY,
@@ -134,7 +130,6 @@ export default function TrackPlayerQueueScreen({
                         <TrackPlayerQueueTrack
                             key={item.musicId}
                             trackData={item}
-                            draggable
                             onDrag={drag}
                             onQueueTrackSelected={() =>
                                 onQueueTrackSelected(item.musicId)

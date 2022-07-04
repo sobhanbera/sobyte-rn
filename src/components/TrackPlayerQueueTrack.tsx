@@ -26,18 +26,18 @@ import {
 export interface TrackPlayerQueueTrackProps {
     trackData: SongObject
     onQueueTrackSelected(): void
-    containerStyle?: StyleProp<ViewStyle>
 
-    draggable?: boolean
-    onDrag?: () => void
+    onDrag: () => void
+
+    containerStyle?: StyleProp<ViewStyle>
 }
 export const TrackPlayerQueueTrack = ({
     trackData,
     onQueueTrackSelected,
-    containerStyle,
 
-    draggable = false,
     onDrag,
+
+    containerStyle,
 }: TrackPlayerQueueTrackProps) => {
     const {theme, gutters, fonts, layouts} = useTheme()
 
@@ -107,16 +107,14 @@ export const TrackPlayerQueueTrack = ({
                 </SobyteTextView>
             </View>
 
-            {draggable && onDrag ? (
-                <TouchableOpacity
-                    onPressIn={onDrag}
-                    style={[layouts.center, gutters.smallPaddingHorizontal]}>
-                    <IoniconIcon
-                        name="ios-reorder-two-outline"
-                        size={SMALL_ICON_SIZE}
-                    />
-                </TouchableOpacity>
-            ) : null}
+            <TouchableOpacity
+                onPressIn={onDrag}
+                style={[layouts.center, gutters.smallPaddingHorizontal]}>
+                <IoniconIcon
+                    name="ios-reorder-two-outline"
+                    size={SMALL_ICON_SIZE}
+                />
+            </TouchableOpacity>
         </TouchableOpacity>
     )
 }
