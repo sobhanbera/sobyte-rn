@@ -88,19 +88,29 @@ export default function SobytePlayerInterface(
     /**
      * when a fling gesture is success this method is executed
      * the main task of this function is to update the current index or current tracks data
+     *
+     * @param activeIndex the index which is needed to be updated to
+     * @param updateInReduxToo a boolean value which says wheather to update the currentTrackIndex in the reducer's state or not...
+     *
+     * this second @param updateInReduxToo is required in some cases where we are calling this after updating the currentTrackIndex only, so why to update again
+     * that's why the default value if true (to update in the state) but when we have already updated the state (in some case maybe) then a false value should be provided
      */
-    const updatedCurrentlyActiveTrackIndex = useCallback(async activeIndex => {
-        if (activeIndex <= -1) return
+    const updatedCurrentlyActiveTrackIndex = useCallback(
+        async (activeIndex: number, updateInReduxToo: boolean = true) => {
+            if (activeIndex <= -1) return
 
-        scrollXIndex.setValue(activeIndex)
-        setLocalCurrentTrackIndex(activeIndex)
+            scrollXIndex.setValue(activeIndex)
+            setLocalCurrentTrackIndex(activeIndex)
 
-        dispatch(
-            updateCurrentTrackIndex({
-                index: activeIndex,
-            }),
-        )
-    }, [])
+            if (updateInReduxToo)
+                dispatch(
+                    updateCurrentTrackIndex({
+                        index: activeIndex,
+                    }),
+                )
+        },
+        [],
+    )
 
     // getting the initial tracks data when the application is being loaded...
     const getInitialTracksData = useCallback(() => {
@@ -170,9 +180,13 @@ export default function SobytePlayerInterface(
              * this is because, we are able to change the currentTrackIndex from any part of the app, irrespective of this component
              * so to detect that change
              * we must also change the value of the localCurrentTrackIndex so that the current song is displayed here in correct form...
+             *
+             * and a false value is provided which says do not update the state of currentTrackIndex from this method call
+             * because the currentTrackIndex change is responsible for the change of localCurrentTrackIndex change
+             * so why to change itself.. haha :)
              */
             if (localCurrentTrackIndex !== currentTrackIndex)
-                setLocalCurrentTrackIndex(currentTrackIndex)
+                updatedCurrentlyActiveTrackIndex(currentTrackIndex, false)
 
             // next up getting the tracks data which needs to be played after changing the current index
             const track = tracks[currentTrackIndex]
