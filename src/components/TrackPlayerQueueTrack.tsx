@@ -52,6 +52,7 @@ export const TrackPlayerQueueTrack = ({
             activeOpacity={DEFAULT_TOUCHABLE_OPACITY_BUTTON_ACTIVE_OPACITY}
             style={[
                 layouts.row,
+                layouts.justifyContentBetween,
                 gutters.mediumPaddingHorizontal,
                 gutters.tinyMarginVertical,
                 containerStyle, // extra styles
@@ -71,7 +72,12 @@ export const TrackPlayerQueueTrack = ({
                 }}
             />
 
-            <View style={[layouts.column, gutters.regularPaddingHorizontal]}>
+            <View
+                style={[
+                    layouts.column,
+                    layouts.fill,
+                    gutters.regularPaddingHorizontal,
+                ]}>
                 {/* queue track title */}
                 <SobyteTextView
                     style={[fonts.titleTiny, fonts.regularFont]}
