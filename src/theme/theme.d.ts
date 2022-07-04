@@ -70,7 +70,11 @@ export interface ThemeColors /* extends CommonColors */ {
     background: string
     surface: string
     surfacelight: string
+
     border: string
+    surfaceborder: string
+    surfacelightborder: string
+
     placeholder: string
     text: string
 

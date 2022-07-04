@@ -72,13 +72,17 @@ export const DefaultTheme: ThemeColors = {
         dark: '#EE7674',
     },
 
-    background: '#101010',
     themecolor: '#000000',
     themecolorrevert: '#FFFFFF',
 
+    background: '#101010',
     surface: '#21242b',
     surfacelight: '#282B32',
-    border: '#373737',
+
+    border: '#191919',
+    surfaceborder: '#31343b',
+    surfacelightborder: '#383B42',
+
     placeholder: '#CFCFCF',
     text: '#EFEFEF',
 
