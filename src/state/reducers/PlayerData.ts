@@ -124,7 +124,9 @@ const playerDataSlice = createSlice({
         },
 
         /**
+         * @deprecated
          * this action will add more tracks data to the list of tracks/queue
+         *
          * @param state initial state
          * @param param1 more track data which is to be added at the end of main "tracks"
          */

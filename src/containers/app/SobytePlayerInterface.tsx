@@ -19,7 +19,6 @@ import {
     SobyteState,
     updatePlayerData,
     updateCurrentTrackIndex,
-    // addMoreTracksToQueue,
     addMoreTracksToQueueWhileKeepingTheLastTrack,
 } from '@/state'
 import {
@@ -233,15 +232,6 @@ export default function SobytePlayerInterface(
                         'SONG',
                     )
                         .then((result: FetchedSongObject) => {
-                            // console.log(result)
-
-                            // dispatch(
-                            //     addMoreTracksToQueue({
-                            //         tracks: result.content,
-                            //         continuationData: result.continuation,
-                            //     }),
-                            // )
-
                             /**
                              * since we are deleting all the tracks from the queue except the last one
                              *
