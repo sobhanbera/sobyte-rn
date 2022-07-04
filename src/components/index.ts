@@ -17,6 +17,8 @@ export * from './SobyteMarquee'
 export * from './SobyteTextView'
 
 export * from './TrackControls'
+export * from './TrackOperationsMenu'
+export * from './TrackOperationsMenuArtist'
 export * from './TrackPlayerDescription'
 export * from './TrackPlayerDescriptionRenderer'
 export * from './TrackPlayerHeader'

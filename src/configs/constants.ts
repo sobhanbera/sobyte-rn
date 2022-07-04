@@ -109,6 +109,7 @@ export const MAX_DISPLAY_HEIGHT_OF_TRACK_ARTWORK_WRAPPER =
     TRACK_ARTWORK_SPACING + // this is also on both side as above, the difference is, this is just a extra padding
     TRACK_ARTWORK_SPACING // this is also on both side as above, the difference is, this is just a extra padding
 
+export const ARTWORK_WIDTH_IN_TRACK_MENU = 120
 export const ARTWORK_WIDTH_IN_QUEUE = 60
 
 export const LAST_TRACKS_REMAIN_TO_LOAD_MORE_TRACK = 1
