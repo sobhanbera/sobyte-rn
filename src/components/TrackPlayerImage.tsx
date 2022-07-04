@@ -72,11 +72,7 @@ export function PlayerTrackImage({
     })
 
     // a high quality image which will be rendered as the main image
-    const highQualityArtwork = updateArtworkQuality(
-        trackData.artworks[0],
-        DEFAULT_PLAYER_ARTWORK_SIZE,
-        DEFAULT_PLAYER_ARTWORK_QUALITY,
-    )
+    const highQualityArtwork = updateArtworkQuality(trackData.artworks[0])
 
     return (
         <Animated.View

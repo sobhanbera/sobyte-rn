@@ -11,6 +11,8 @@
 import {
     DEFAULT_NOTIFICATION_ARTWORK_QUALITY,
     DEFAULT_NOTIFICATION_ARTWORK_SIZE,
+    DEFAULT_PLAYER_ARTWORK_QUALITY,
+    DEFAULT_PLAYER_ARTWORK_SIZE,
     FALLBACK_ARTIST_NAME,
     GLOBAL_QUERIES,
     MAX_DISPLAY_TEXT_LENGTH,
@@ -41,8 +43,8 @@ import {
  */
 export function updateArtworkQuality(
     artwork: ArtworkObject,
-    wantedSize: number,
-    wantedQuality: number = 90,
+    wantedSize: number = DEFAULT_PLAYER_ARTWORK_SIZE,
+    wantedQuality: number = DEFAULT_PLAYER_ARTWORK_QUALITY,
 ): string {
     // demo url - https://lh3.googleusercontent.com/WP7l4p-2WhWzLM6lXJ0n2gXLK6u07eCejpybWzb-yhEyt9Y0aOkxMlLhpayO7PdXYOYy2NgkWu9hGBPy=w60-h60-l90-rj
     // here size is 60
@@ -468,6 +470,6 @@ export function getShareableImagePath(musicID: string) {
  * @returns {string} a query to search
  */
 export function getARandomQuery() {
-    return 'new bollywood movies romantic songs'
+    return 'most sad hindi songs 2022'
     return GLOBAL_QUERIES[Math.floor(Math.random() * GLOBAL_QUERIES.length)]
 }
