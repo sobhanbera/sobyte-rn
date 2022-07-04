@@ -22,6 +22,8 @@ export const MetricSizeTypes: MetricSizes = {
     medium: 5 * 3 * 1.5, // 22.5
     large: 5 * 3 * 2, // 30
     extraLarge: 5 * 4 * 2, // 40
+    massive: 5 * 4 * 5, // 100
+    huge: 3 * 5 * 5 * 2, // 150
 
     statusBarHeight: DEVICE_STATUSBAR_HEIGHT, // this special key contains the value of status bar's height
 }
