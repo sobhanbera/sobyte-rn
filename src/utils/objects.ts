@@ -64,7 +64,7 @@ export function updateArtworkQuality(
  * @returns returns the same string after capitalizing the first character
  */
 export function firstLetterCap(text: string): string {
-    return text.charAt(0).toUpperCase() + text.slice(1)
+    return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase()
 }
 
 /**
@@ -468,5 +468,6 @@ export function getShareableImagePath(musicID: string) {
  * @returns {string} a query to search
  */
 export function getARandomQuery() {
+    return 'new bollywood movies romantic songs'
     return GLOBAL_QUERIES[Math.floor(Math.random() * GLOBAL_QUERIES.length)]
 }
