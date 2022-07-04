@@ -50,7 +50,7 @@ import {Skeleton} from '@rneui/themed'
 
 interface SobytePlayerInterfaceProps {
     navigation: {
-        navigate(screenName: string, routeProps: any): void
+        navigate(screenName: string, routeProps?: any): void
     }
 }
 export default function SobytePlayerInterface(
@@ -166,6 +166,16 @@ export default function SobytePlayerInterface(
      */
     useEffect(() => {
         if (tracks.length >= 1) {
+            /**
+             * also check if the localCurrentTrackIndex variable and the currentTrackIndex variable hold the same value
+             * this is because, we are able to change the currentTrackIndex from any part of the app, irrespective of this component
+             * so to detect that change
+             * we must also change the value of the localCurrentTrackIndex so that the current song is displayed here in correct form...
+             */
+            if (localCurrentTrackIndex !== currentTrackIndex)
+                setLocalCurrentTrackIndex(currentTrackIndex)
+
+            // next up getting the tracks data which needs to be played after changing the current index
             const track = tracks[currentTrackIndex]
 
             playTrack(track)
@@ -308,37 +318,6 @@ export default function SobytePlayerInterface(
     }, [])
 
     /**
-     * this method will change/update the track based on the musicID
-     * first we will itterate over all the tracks then find the track with exact music id and skip to it
-     * and play it
-     * @param musicID string denoting music ID
-     */
-    function onQueueTrackSelected(musicID: string) {
-        tracks.find((track, index) => {
-            if (track.musicId === musicID) {
-                updatedCurrentlyActiveTrackIndex(index)
-                return true
-            }
-            return false
-        })
-    }
-
-    /**
-     * TODO:
-     * this function will launch search songs/tracks, artists tab
-     */
-    function launchSearchTab() {}
-
-    /**
-     * open the queue list screen
-     */
-    function launchQueueScreen() {
-        props.navigation.navigate(SOBYTE_PLAYER_QUEUE_SCREEN, {
-            onQueueTrackSelected,
-        })
-    }
-
-    /**
      * responsible for rendering the list of all the tracks
      * this method eventually renders PlayerTrackImage which is its main task...
      */
@@ -361,6 +340,19 @@ export default function SobytePlayerInterface(
         (item: SongObject, index: number) => `${item.musicId}-${index}`,
         [],
     )
+
+    /**
+     * TODO:
+     * this function will launch search songs/tracks, artists tab
+     */
+    function launchSearchTab() {}
+
+    /**
+     * open the queue list screen
+     */
+    function launchQueueScreen() {
+        props.navigation.navigate(SOBYTE_PLAYER_QUEUE_SCREEN)
+    }
 
     return (
         <View style={layouts.fill}>

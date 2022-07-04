@@ -8,14 +8,19 @@
  * Purpose - current queue screen....
  */
 
-import React, {useLayoutEffect} from 'react'
-import {ScrollView, TouchableOpacity, View} from 'react-native'
-import {useSelector} from 'react-redux'
+import React from 'react'
+import {TouchableOpacity, View} from 'react-native'
+import {useDispatch, useSelector} from 'react-redux'
 import {CompositeScreenProps} from '@react-navigation/native'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
+import DraggableFlatList from 'react-native-draggable-flatlist'
 
 import {useTheme} from '@/hooks'
-import {SobyteState} from '@/state'
+import {
+    changeTrackPositionInQueue,
+    SobyteState,
+    updateCurrentTrackIndex,
+} from '@/state'
 import {
     BottomPaddingComponent,
     SobyteTextView,
@@ -26,30 +31,66 @@ import {
     DEFAULT_TOUCHABLE_OPACITY_BUTTON_ACTIVE_OPACITY,
 } from '@/configs'
 
-interface TrackPlayerQueueScreenProps extends CompositeScreenProps<any, any> {
-    route: {
-        params: {
-            onQueueTrackSelected(trackIndex: string): void
-        }
-    }
-}
+interface TrackPlayerQueueScreenProps extends CompositeScreenProps<any, any> {}
 export default function TrackPlayerQueueScreen({
-    route,
     navigation,
 }: TrackPlayerQueueScreenProps) {
     const {theme, gutters, fonts, layouts} = useTheme()
-    const {onQueueTrackSelected} = route.params
 
     // this data is needed to render the queue after the current track playing
     const {tracks, currentTrackIndex, currentTrack} = useSelector(
         (state: SobyteState) => state.playerdata,
     )
+    const dispatch = useDispatch()
 
-    useLayoutEffect(() => {
-        navigation.setOptions({
-            onQueueTrackSelected: (_trackIndex: number) => {},
+    /**
+     * this method helps to change the index of track in the queue
+     *
+     * @param from a number where the user started moving track
+     * @param to where the user ended moving the track
+     */
+    function onChangeTrackPositionInQueue(from: number, to: number) {
+        /**
+         * I am adding @from and @to before providing them to the @changeTrackPositionInQueue method because
+         * when we are rendering the tracks in the queue, we are slicing them before rendering, which makes the
+         * mapping to form a new indexing system
+         * so we cannot get the exact index of the track which is moved
+         *
+         * but a solution for that could be to add @currentTrackIndex value to get the index (since we are rendering songs after currentTrackIndex only)
+         * and finally we are adding 1 to it because the indexing starts from 0 and if 1 is not added then it could replace the currently playing song's index
+         *
+         * that's it
+         */
+        dispatch(
+            changeTrackPositionInQueue({
+                from: currentTrackIndex + from + 1,
+                to: currentTrackIndex + to + 1,
+            }),
+        )
+    }
+
+    /**
+     * this method will change/update the track based on the musicID
+     * first we will itterate over all the tracks then find the track with exact music id and skip to it
+     * and play it
+     * @param musicID string denoting music ID
+     */
+    const onQueueTrackSelected = (musicID: string) => {
+        // using the musicID we are finding at which index does the music exists
+        // then play it finally.
+        tracks.find((track, index) => {
+            if (track.musicId === musicID) {
+                // found the track to play, just change the index
+                dispatch(
+                    updateCurrentTrackIndex({
+                        index: index,
+                    }),
+                )
+                return true
+            }
+            return false
         })
-    }, [navigation])
+    }
 
     return (
         <View style={[layouts.fill, gutters.statusBarHeightMarginTop]}>
@@ -86,49 +127,57 @@ export default function TrackPlayerQueueScreen({
                 </SobyteTextView>
             </View>
 
-            <ScrollView showsVerticalScrollIndicator={false}>
-                <SobyteTextView
-                    style={[
-                        fonts.textRegular,
-                        gutters.mediumPaddingHorizontal,
-                        gutters.regularPaddingTop,
-                        gutters.smallPaddingBottom,
-                    ]}>
-                    Currently Playing...
-                </SobyteTextView>
+            <SobyteTextView
+                style={[
+                    fonts.textRegular,
+                    gutters.mediumPaddingHorizontal,
+                    gutters.regularPaddingTop,
+                    gutters.smallPaddingBottom,
+                ]}>
+                Currently Playing...
+            </SobyteTextView>
 
-                {/* this component could return error in future, be safe */}
-                <TrackPlayerQueueTrack
-                    trackData={currentTrack}
-                    onQueueTrackSelected={() => {}}
-                />
+            {/* this component could return error in future, be safe */}
+            <TrackPlayerQueueTrack
+                trackData={currentTrack}
+                onQueueTrackSelected={() => {}}
+            />
 
-                {/* next queue */}
-                <SobyteTextView
-                    style={[
-                        fonts.textRegular,
-                        gutters.mediumPaddingHorizontal,
-                        gutters.regularPaddingTop,
-                        gutters.smallPaddingBottom,
-                        gutters.mediumMarginTop,
-                    ]}>
-                    Next Up -
-                </SobyteTextView>
+            {/* next queue */}
+            <SobyteTextView
+                style={[
+                    fonts.textRegular,
+                    gutters.mediumPaddingHorizontal,
+                    gutters.regularPaddingTop,
+                    gutters.smallPaddingBottom,
+                    gutters.mediumMarginTop,
+                ]}>
+                Next Up -
+            </SobyteTextView>
 
-                {tracks.slice(currentTrackIndex + 1).map(trackData => {
+            <DraggableFlatList
+                data={tracks.slice(currentTrackIndex + 1)}
+                renderItem={({drag, item}) => {
                     return (
                         <TrackPlayerQueueTrack
-                            key={trackData.musicId}
-                            trackData={trackData}
+                            key={item.musicId}
+                            trackData={item}
+                            draggable
+                            onDrag={drag}
                             onQueueTrackSelected={() =>
-                                onQueueTrackSelected(trackData.musicId)
+                                onQueueTrackSelected(item.musicId)
                             }
                         />
                     )
-                })}
+                }}
+                onDragEnd={({from, to}) =>
+                    onChangeTrackPositionInQueue(from, to)
+                }
+                keyExtractor={track => track.musicId}
+                showsVerticalScrollIndicator={false}
+            />
 
-                <BottomPaddingComponent />
-            </ScrollView>
+            <BottomPaddingComponent />
         </View>
     )
 }

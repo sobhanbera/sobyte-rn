@@ -206,6 +206,22 @@ const playerDataSlice = createSlice({
         resetPlayerData: state => {
             state.currentTrack = BareCurrentTrack
         },
+
+        /**
+         * this method changes the index of any track in the queue
+         * this method will be called when the user moves any track in the queue
+         *
+         * @param state initial state
+         * @param param1 two numbers (from and to) which says from which index to which index any track is moved
+         * @returns state
+         */
+        changeTrackPositionInQueue: (
+            state,
+            {payload: {from, to}}: {payload: {from: number; to: number}},
+        ) => {
+            if (from !== to && to < state.tracks.length)
+                state.tracks.splice(to, 0, state.tracks.splice(from, 1)[0])
+        },
     },
 
     extraReducers: {},
@@ -219,6 +235,7 @@ export const {
     updateCurrentTrack,
     updateCurrentTrackIndex,
     resetPlayerData,
+    changeTrackPositionInQueue,
 } = playerDataSlice.actions
 
 const {reducer} = playerDataSlice
