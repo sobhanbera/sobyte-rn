@@ -24,3 +24,5 @@ export const MUSIC_PLAYER_SONGS_RESULT_STORAGE_KEY =
  */
 export const SEARCHED_SONG_OFFLINE_DATA_STORAGE_KEY =
     '@APP:SEARCHED_SONG_OFFLINE_DATA:' // the storage key where the fallbacks searched songs results will be stored this method is available in main music api under api/index.tsx in search method
+export const SEARCHED_ARTIST_OFFLINE_DATA_STORAGE_KEY =
+    '@APP:SEARCHED_ARTIST_OFFLINE_DATA' // the storage key alias where the artists data could be saved locally

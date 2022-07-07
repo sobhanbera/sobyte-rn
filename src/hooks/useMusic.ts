@@ -42,6 +42,7 @@ import {
     updateMusicConfigState,
     updateMusicConfigStatus,
 } from '@/state'
+import {getDataFromLocalStorage, setDataToLocalStorage} from '@/utils'
 
 export function useMusic() {
     // state for the music config and more...
@@ -875,11 +876,46 @@ export function useMusic() {
 
     /**
      * @param browseId id of the artist
+     * @param saveToLocalStorage if the artist's data should be saved to the local storage or not
      * @returns the object with artist data
      */
-    const getArtist = (browseId: string): Promise<ArtistDetailsObject> => {
+    const getArtist = (
+        browseId: string,
+        saveToLocalStorage?: boolean,
+    ): Promise<ArtistDetailsObject> => {
         if (_.startsWith(browseId, 'UC')) {
-            return new Promise((resolve, reject) => {
+            return new Promise(async (resolve, reject) => {
+                /**
+                 * since we are first checking if the data is in local storage so this var is needed
+                 * if the data is returned from the local storage then this variable will be true and we
+                 * will not fetch the remote data again after that
+                 */
+                let resolvedData = false // default value false
+
+                /**
+                 * getting the data from the local storage
+                 * and after getting the data we will check if the needed data is available, like the name, thumbnail
+                 * if it is available then set @resolvedData to true and resolve the data
+                 */
+                await getDataFromLocalStorage(
+                    SEARCHED_SONG_OFFLINE_DATA_STORAGE_KEY,
+                    'ARTIST',
+                    browseId,
+                ).then((res: ArtistDetailsObject | any) => {
+                    if (res !== null)
+                        if (
+                            res?.name.length > 0 &&
+                            res?.thumbnails.length >= 2
+                        ) {
+                            resolvedData = true
+                            console.log('PROVIDED')
+                            resolve(res)
+                        }
+                })
+
+                if (resolvedData) return
+                console.log('PROVIDED 1')
+
                 _createApiRequest(
                     PRIMARY_MUSIC_API_ENDPOINTS.browse,
                     MusicUtils.buildEndpointContext('ARTIST', browseId),
@@ -887,6 +923,16 @@ export function useMusic() {
                     .then(context => {
                         try {
                             const result = MusicParser.parseArtistPage(context)
+
+                            if (saveToLocalStorage) {
+                                setDataToLocalStorage(
+                                    SEARCHED_SONG_OFFLINE_DATA_STORAGE_KEY,
+                                    'ARTIST',
+                                    browseId,
+                                    JSON.stringify(result),
+                                )
+                            }
+
                             resolve(result)
                         } catch (error) {
                             reject({
