@@ -44,13 +44,13 @@ export const TrackPlayerDescription = ({
                 paddingHorizontal: TRACK_ARTWORK_HORIZONAL_SPACING,
             }}>
             <SobyteMarquee
-                style={[fonts.titleSmall, gutters.extraTinyMarginBottom]}>
+                style={[fonts.titleRegular, gutters.extraTinyMarginBottom]}>
                 {formattedTitle}
             </SobyteMarquee>
 
             <SobyteMarquee
                 style={[
-                    fonts.titleTiny,
+                    fonts.titleSmall,
                     gutters.extraTinyMarginTop,
                     {
                         color: `${theme.themecolorrevert}${NEXT_TITLE_COLOR_ALPHA}`,

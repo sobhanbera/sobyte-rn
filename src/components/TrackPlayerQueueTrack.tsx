@@ -97,6 +97,7 @@ export const TrackPlayerQueueTrack = ({
                 <SobyteTextView
                     style={[
                         gutters.tinyPaddingVertical,
+                        fonts.textRegular,
                         {
                             color:
                                 theme.themecolorrevert + NEXT_TITLE_COLOR_ALPHA,

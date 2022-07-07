@@ -15,13 +15,13 @@ import {DEVICE_STATUSBAR_HEIGHT} from '@/configs'
  * all constants for Metrics Sizes
  */
 export const MetricSizeTypes: MetricSizes = {
-    extraTiny: 3, // 3
-    tiny: 5, // 5
-    small: 5 * 2, // 10
-    regular: 5 * 3, // 15
-    medium: 5 * 3 * 1.5, // 22.5
-    large: 5 * 3 * 2, // 30
-    extraLarge: 5 * 4 * 2, // 40
+    extraTiny: 3,
+    tiny: 5,
+    small: 10,
+    regular: 15,
+    medium: 20,
+    large: 26,
+    extraLarge: 32,
     massive: 5 * 4 * 5, // 100
     huge: 3 * 5 * 5 * 2, // 150
 
@@ -33,11 +33,11 @@ export const MetricSizeTypes: MetricSizes = {
  */
 export const FontSizeTypes: FontSizes = {
     tiny: 12,
-    small: 16,
-    regular: 18,
-    medium: 22,
-    large: 26,
-    extraLarge: 30,
+    small: 14,
+    regular: 16,
+    medium: 18,
+    large: 22,
+    extraLarge: 26,
 }
 
 const CombinedVariables = {
