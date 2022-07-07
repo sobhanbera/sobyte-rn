@@ -354,7 +354,7 @@ const SobytePlayerInterface = withMenuContext(
          * function to close the menu
          * this will be provided to the menu, so that it could disable the menu by a cancel button or so
          */
-        const closeTrackAristsMenu = () => {
+        const closeAllMenu = () => {
             ctx.menuActions.closeMenu()
         }
 
@@ -527,6 +527,7 @@ const SobytePlayerInterface = withMenuContext(
                     <TrackControls
                         onPlayNextTrack={() => onPlayNextTrack()}
                         onPlayPreviousTrack={() => onPlayPreviousTrack()}
+                        closeAllMenu={closeAllMenu}
                     />
 
                     <TrackPlayerFooter
@@ -536,7 +537,7 @@ const SobytePlayerInterface = withMenuContext(
                     {/* a global menu for displaying artist's data about the current track */}
                     <TrackDetailsMenu
                         menuName={TRACK_ARTIST_MENU_NAME}
-                        closeMenu={closeTrackAristsMenu}
+                        closeMenu={closeAllMenu}
                     />
 
                     {/* here will be controls which needs API requests and tracks data like - queue, playlist and more.. */}

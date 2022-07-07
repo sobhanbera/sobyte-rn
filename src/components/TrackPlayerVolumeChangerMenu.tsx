@@ -9,7 +9,7 @@
  */
 
 import React, {useEffect, useState} from 'react'
-import {View} from 'react-native'
+import {TouchableOpacity, View} from 'react-native'
 import {Slider} from '@rneui/themed'
 import IoniconIcon from 'react-native-vector-icons/Ionicons'
 
@@ -27,6 +27,7 @@ import {
     DEFAULT_ICON_SIZE,
     DEFAULT_SLIDER_THUMB_SIZE,
     DEFAULT_SLIDER_TRACK_HEIGHT,
+    DEFAULT_TOUCHABLE_OPACITY_BUTTON_ACTIVE_OPACITY,
     TRACK_ARTWORK_WIDTH_SMALL,
 } from '@/configs'
 import {useTheme} from '@/hooks'
@@ -139,7 +140,7 @@ export const TrackPlayerVolumeChangerMenu = withMenuContext(
 
                 <MenuOptions
                     optionsContainerStyle={{
-                        backgroundColor: theme.surfacelight,
+                        backgroundColor: theme.surface,
                         borderTopEndRadius: DEFAULT_BORDER_RADIUS,
                         borderTopStartRadius: DEFAULT_BORDER_RADIUS,
                     }}>
@@ -153,7 +154,7 @@ export const TrackPlayerVolumeChangerMenu = withMenuContext(
                             fonts.textRegular,
                             {
                                 borderBottomWidth: 1,
-                                borderBottomColor: theme.surfacelightborder,
+                                borderBottomColor: theme.surfaceborder,
                             },
                         ]}>
                         Change Volume
@@ -164,7 +165,7 @@ export const TrackPlayerVolumeChangerMenu = withMenuContext(
                             layouts.row,
                             layouts.justifyContentAround,
                             layouts.alignItemsCenter,
-                            gutters.regularPaddingVertical,
+                            gutters.mediumPaddingVertical,
                         ]}>
                         <SobyteTextView
                             style={[
@@ -207,8 +208,25 @@ export const TrackPlayerVolumeChangerMenu = withMenuContext(
                         />
                     </View>
 
-                    {/* an extra padding to overcome the screen below space */}
-                    <View style={gutters.regularPaddingVertical}></View>
+                    <TouchableOpacity
+                        onPress={closeVolumeChangerMenu}
+                        activeOpacity={
+                            DEFAULT_TOUCHABLE_OPACITY_BUTTON_ACTIVE_OPACITY
+                        }>
+                        <SobyteTextView
+                            style={[
+                                layouts.fullWidth,
+                                gutters.regularPaddingVertical,
+                                fonts.textMedium,
+                                {
+                                    backgroundColor: theme.surfacelight,
+                                    color: theme.text,
+                                    textAlign: 'center',
+                                },
+                            ]}>
+                            Cancel
+                        </SobyteTextView>
+                    </TouchableOpacity>
                 </MenuOptions>
             </Menu>
         )

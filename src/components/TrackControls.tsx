@@ -89,10 +89,12 @@ export const TrackPlayerRateOptions: Array<RateObject> = [
 export interface TrackControlsProps {
     onPlayNextTrack(): void
     onPlayPreviousTrack(): void
+    closeAllMenu(): void
 }
 export const TrackControls = ({
     onPlayNextTrack,
     onPlayPreviousTrack,
+    closeAllMenu,
 }: TrackControlsProps) => {
     /**
      * theme data for the app
@@ -336,7 +338,7 @@ export const TrackControls = ({
 
                     <MenuOptions
                         optionsContainerStyle={{
-                            backgroundColor: theme.surfacelight,
+                            backgroundColor: theme.surface,
                             borderTopEndRadius: DEFAULT_BORDER_RADIUS,
                             borderTopStartRadius: DEFAULT_BORDER_RADIUS,
                         }}>
@@ -349,7 +351,7 @@ export const TrackControls = ({
                                 fonts.textRegular,
                                 {
                                     borderBottomWidth: 1,
-                                    borderBottomColor: theme.border,
+                                    borderBottomColor: theme.surfaceborder,
                                 },
                             ]}>
                             Change Track Speed
@@ -369,8 +371,8 @@ export const TrackControls = ({
                                             backgroundColor:
                                                 trackPlayerRate ===
                                                 rateOption.id
-                                                    ? theme.surface
-                                                    : theme.surfacelight,
+                                                    ? theme.surfacelight
+                                                    : theme.surface,
                                         },
                                     ]}>
                                     {/* the actual speed */}
@@ -394,8 +396,25 @@ export const TrackControls = ({
                             )
                         })}
 
-                        {/* an extra padding to overcome the screen below space */}
-                        <View style={gutters.regularPaddingVertical}></View>
+                        <TouchableOpacity
+                            onPress={closeAllMenu}
+                            activeOpacity={
+                                DEFAULT_TOUCHABLE_OPACITY_BUTTON_ACTIVE_OPACITY
+                            }>
+                            <SobyteTextView
+                                style={[
+                                    layouts.fullWidth,
+                                    gutters.regularPaddingVertical,
+                                    fonts.textMedium,
+                                    {
+                                        backgroundColor: theme.surfacelight,
+                                        color: theme.text,
+                                        textAlign: 'center',
+                                    },
+                                ]}>
+                                Cancel
+                            </SobyteTextView>
+                        </TouchableOpacity>
                     </MenuOptions>
                 </Menu>
 
