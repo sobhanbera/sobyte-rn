@@ -18,12 +18,12 @@ import {ArtistDetailsObject, SongArtistObject} from '@/schemas'
 import {Skeleton} from '@rneui/themed'
 import {ARTIST_ARTWORK_WIDTH_SMALL} from '@/configs'
 
-export interface TrackOperationsMenuArtistProps {
+export interface TrackDetailsMenuArtistProps {
     artistData: SongArtistObject
 }
-export const TrackOperationsMenuArtist = ({
+export const TrackDetailsMenuArtist = ({
     artistData,
-}: TrackOperationsMenuArtistProps) => {
+}: TrackDetailsMenuArtistProps) => {
     const {gutters, fonts, layouts} = useTheme()
     const {getArtist} = useMusic()
 
@@ -49,7 +49,7 @@ export const TrackOperationsMenuArtist = ({
             })
             .catch(_ERR => {
                 setLoading(false)
-                console.log('TrackOperationsMenuArtist', _ERR)
+                console.log('TrackDetailsMenuArtist', _ERR)
             })
     }, [artistData])
 

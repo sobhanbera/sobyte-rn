@@ -22,15 +22,15 @@ import {DEFAULT_BORDER_RADIUS} from '@/configs'
 import {useTheme} from '@/hooks'
 import {useSelector} from 'react-redux'
 import {SobyteState} from '@/state'
-import {TrackOperationsMenuArtist} from './TrackOperationsMenuArtist'
+import {TrackDetailsMenuArtist} from './TrackDetailsMenuArtist'
 import {SobyteTextView} from './SobyteTextView'
 
 const {SlideInMenu} = renderers
 
-export interface TrackOperationsMenuProps {
+export interface TrackDetailsMenuProps {
     menuName: string
 }
-export const TrackOperationsMenu = ({menuName}: TrackOperationsMenuProps) => {
+export const TrackDetailsMenu = ({menuName}: TrackDetailsMenuProps) => {
     const {theme, gutters, fonts, layouts} = useTheme()
 
     const currentTrack = useSelector(
@@ -78,7 +78,7 @@ export const TrackOperationsMenu = ({menuName}: TrackOperationsMenuProps) => {
                             ]}>
                             {currentTrack.artists.map(artist => {
                                 return (
-                                    <TrackOperationsMenuArtist
+                                    <TrackDetailsMenuArtist
                                         artistData={artist}
                                         key={artist.browseId + artist.name}
                                     />
