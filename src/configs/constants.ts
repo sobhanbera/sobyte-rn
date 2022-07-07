@@ -232,3 +232,5 @@ export const PWA_INSTALLABILITY_STATUS_UNKNOWN =
     'PWA_INSTALLABILITY_STATUS_UNKNOWN'
 
 export const FALLBACK_ARTIST_NAME = '✔  Sobyte Special' // I noticed many tracks don't have artist's name on them, I don't have time to patch the musicparser currently. but will try in future, for now we can show a fallback string btw.
+
+export const TRACK_ARTIST_MENU_NAME = 'TRACK_ARTIST_MENU_NAME' // a menu id for the menu of player track's data

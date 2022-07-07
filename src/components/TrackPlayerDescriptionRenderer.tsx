@@ -18,9 +18,11 @@ import {TrackPlayerDescription} from './TrackPlayerDescription'
 
 interface TrackPlayerDescriptionRendererProps {
     scrollXAnimated: Animated.Value
+    onShowTrackMenu(): void
 }
 export function TrackPlayerDescriptionRenderer({
     scrollXAnimated,
+    onShowTrackMenu,
 }: TrackPlayerDescriptionRendererProps) {
     const {tracks} = useSelector((state: SobyteState) => state.playerdata)
 
@@ -44,6 +46,7 @@ export function TrackPlayerDescriptionRenderer({
                             key={index}
                             track={track}
                             index={index}
+                            onShowTrackMenu={onShowTrackMenu}
                         />
                     )
                 })}
