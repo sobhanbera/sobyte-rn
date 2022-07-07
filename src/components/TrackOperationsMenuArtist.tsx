@@ -16,6 +16,7 @@ import {SobyteTextView} from './SobyteTextView'
 import FastImage from 'react-native-fast-image'
 import {ArtistDetailsObject, SongArtistObject} from '@/schemas'
 import {Skeleton} from '@rneui/themed'
+import {ARTIST_ARTWORK_WIDTH_SMALL} from '@/configs'
 
 export interface TrackOperationsMenuArtistProps {
     artistData: SongArtistObject
@@ -41,7 +42,7 @@ export const TrackOperationsMenuArtist = ({
      */
     useEffect(() => {
         setLoading(true)
-        getArtist(artistData.browseId)
+        getArtist(artistData.browseId, true)
             .then((artistResult: ArtistDetailsObject) => {
                 setArtistDetails(artistResult)
                 setLoading(false)
@@ -66,8 +67,8 @@ export const TrackOperationsMenuArtist = ({
                     <Skeleton
                         animation="wave"
                         circle={true}
-                        width={55}
-                        height={55}
+                        width={ARTIST_ARTWORK_WIDTH_SMALL}
+                        height={ARTIST_ARTWORK_WIDTH_SMALL}
                         style={[gutters.tinyMarginVertical]}
                     />
 
@@ -94,9 +95,9 @@ export const TrackOperationsMenuArtist = ({
                         style={[
                             gutters.tinyMarginVertical,
                             {
-                                borderRadius: 55,
-                                width: 55,
-                                height: 55,
+                                borderRadius: ARTIST_ARTWORK_WIDTH_SMALL,
+                                width: ARTIST_ARTWORK_WIDTH_SMALL,
+                                height: ARTIST_ARTWORK_WIDTH_SMALL,
                             },
                         ]}
                     />
@@ -105,7 +106,7 @@ export const TrackOperationsMenuArtist = ({
                         style={[
                             gutters.tinyMarginVertical,
                             gutters.mediumMarginHorizontal,
-                            fonts.textRegular,
+                            fonts.textMedium,
                         ]}>
                         {artistDetails?.name}
                     </SobyteTextView>
