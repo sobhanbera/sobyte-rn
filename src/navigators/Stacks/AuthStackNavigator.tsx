@@ -22,7 +22,7 @@ import {
 import {useTheme} from '@/hooks'
 
 const AuthNavigationStack = createNativeStackNavigator()
-export default function AuthStackNavigator() {
+export function AuthStackNavigator() {
     const {theme} = useTheme()
 
     return (

@@ -18,7 +18,7 @@ import {MenuProvider} from 'react-native-popup-menu'
 
 import ErrorBoundary from '@/error/ErrorBoundary'
 import {store, persistor} from '@/state/store'
-import AppNavigator from '@/navigators/AppNavigator'
+import {AppNavigator} from '@/navigators'
 import SobyteTrackPlayer from '@/services/SobyteTrackPlayer'
 
 export function AppEntryPoint() {

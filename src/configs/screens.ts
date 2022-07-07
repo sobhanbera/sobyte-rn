@@ -8,6 +8,14 @@
  * Purpose - navigation screen names....
  */
 
+// root and main bottom bar navigation
+export const ROOT_BOTTOM_BAR_TRACK_PLAYER_SCREEN_STACK =
+    'ROOT_BOTTOM_BAR_TRACK_PLAYER_SCREEN_STACK'
+export const ROOT_BOTTOM_BAR_SEARCH_SCREEN_STACK =
+    'ROOT_BOTTOM_BAR_SEARCH_SCREEN_STACK'
+export const ROOT_BOTTOM_BAR_EXPLORE_SCREEN_STACK =
+    'ROOT_BOTTOM_BAR_EXPLORE_SCREEN_STACK'
+
 // authentication related screens name
 export const AUTH_LANDING_SCREEN = 'AUTH_LANDING_SCREEN'
 export const AUTH_SIGNUP_SCREEN = 'AUTH_SIGNUP_SCREEN'

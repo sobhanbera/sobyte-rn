@@ -5,8 +5,7 @@
  * @other_editors :
  * @file : Typescript
  *
- * Purpose - navigation....
+ * Purpose - exports related to bottom tab bars....
  */
 
-export * from './AppNavigator'
-export * from './Stacks'
+export * from './RootBottomBar'

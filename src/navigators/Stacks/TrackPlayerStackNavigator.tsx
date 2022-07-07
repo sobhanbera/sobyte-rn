@@ -5,7 +5,7 @@
  * @other_editors :
  * @file : TypescriptReact
  *
- * Purpose - app screens navigator....
+ * Purpose - Track Player's screens navigator....
  */
 
 import React from 'react'
@@ -15,12 +15,12 @@ import {SOBYTE_PLAYER_QUEUE_SCREEN, SOBYTE_PLAYER_SCREEN} from '@/configs'
 import {SobytePlayerScreen, TrackPlayerQueueScreen} from '@/containers/app'
 import {useTheme} from '@/hooks'
 
-const AppNavigationStack = createNativeStackNavigator()
-export default function AppStackNavigator() {
+const TrackPlayerNavigationStack = createNativeStackNavigator()
+export function TrackPlayerStackNavigator() {
     const {theme} = useTheme()
 
     return (
-        <AppNavigationStack.Navigator
+        <TrackPlayerNavigationStack.Navigator
             screenOptions={{
                 headerShown: false,
 
@@ -36,16 +36,16 @@ export default function AppStackNavigator() {
                 },
             }}>
             {/* main music player screen */}
-            <AppNavigationStack.Screen
+            <TrackPlayerNavigationStack.Screen
                 name={SOBYTE_PLAYER_SCREEN}
                 component={SobytePlayerScreen}
             />
 
             {/* queue screen */}
-            <AppNavigationStack.Screen
+            <TrackPlayerNavigationStack.Screen
                 name={SOBYTE_PLAYER_QUEUE_SCREEN}
                 component={TrackPlayerQueueScreen}
             />
-        </AppNavigationStack.Navigator>
+        </TrackPlayerNavigationStack.Navigator>
     )
 }
