@@ -18,7 +18,10 @@ import {
     renderers,
 } from 'react-native-popup-menu'
 
-import {DEFAULT_BORDER_RADIUS} from '@/configs'
+import {
+    DEFAULT_BORDER_RADIUS,
+    DEFAULT_TOUCHABLE_OPACITY_BUTTON_ACTIVE_OPACITY,
+} from '@/configs'
 import {useTheme} from '@/hooks'
 import {useSelector} from 'react-redux'
 import {SobyteState} from '@/state'
@@ -29,8 +32,12 @@ const {SlideInMenu} = renderers
 
 export interface TrackDetailsMenuProps {
     menuName: string
+    closeMenu(): void
 }
-export const TrackDetailsMenu = ({menuName}: TrackDetailsMenuProps) => {
+export const TrackDetailsMenu = ({
+    menuName,
+    closeMenu,
+}: TrackDetailsMenuProps) => {
     const {theme, gutters, fonts, layouts} = useTheme()
 
     const currentTrack = useSelector(
@@ -88,7 +95,11 @@ export const TrackDetailsMenu = ({menuName}: TrackDetailsMenuProps) => {
                     </View>
                 ) : null}
 
-                <TouchableOpacity>
+                <TouchableOpacity
+                    onPress={closeMenu}
+                    activeOpacity={
+                        DEFAULT_TOUCHABLE_OPACITY_BUTTON_ACTIVE_OPACITY
+                    }>
                     <SobyteTextView
                         style={[
                             layouts.fullWidth,

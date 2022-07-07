@@ -54,6 +54,13 @@ export const TrackPlayerDescription = withMenuContext(
         const showTrackOptionMenu = () => {
             ctx.menuActions.openMenu(TRACK_ARTIST_MENU_NAME)
         }
+        /**
+         * function to close the menu
+         * this will be provided to the menu, so that it could disable the menu by a cancel button or so
+         */
+        const closeTrackOptionMenu = () => {
+            ctx.menuActions.closeMenu()
+        }
 
         return (
             <View
@@ -80,7 +87,10 @@ export const TrackPlayerDescription = withMenuContext(
                     {formattedArtist}
                 </SobyteMarquee>
 
-                <TrackDetailsMenu menuName={TRACK_ARTIST_MENU_NAME} />
+                <TrackDetailsMenu
+                    menuName={TRACK_ARTIST_MENU_NAME}
+                    closeMenu={closeTrackOptionMenu}
+                />
             </View>
         )
     },
