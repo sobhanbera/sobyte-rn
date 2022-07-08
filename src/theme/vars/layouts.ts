@@ -114,5 +114,15 @@ export default function GetLayouts() {
         rotate90Inverse: {
             transform: [{rotate: '-90deg'}],
         },
+
+        hiddenOverflow: {
+            overflow: 'hidden',
+        },
+        scrollOverflow: {
+            overflow: 'scroll',
+        },
+        visibleOverflow: {
+            overflow: 'visible',
+        },
     })
 }
