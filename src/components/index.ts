@@ -16,6 +16,8 @@ export * from './BottomPaddingComponent'
 export * from './SobyteMarquee'
 export * from './SobyteTextView'
 
+export * from './TouchableScalable'
+
 export * from './TrackControls'
 export * from './TrackDetailsMenu'
 export * from './TrackDetailsMenuArtist'
