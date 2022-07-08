@@ -13,5 +13,6 @@ import TrackPlayerQueueScreen from './TrackPlayerQueueScreen'
 
 export * from './SearchScreen'
 export * from './ExploreScreen'
+export * from './UserProfileScreen'
 
 export {SobytePlayerScreen, TrackPlayerQueueScreen}
