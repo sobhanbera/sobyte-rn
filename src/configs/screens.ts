@@ -27,6 +27,12 @@ export const AUTH_OTP_SCREEN = 'AUTH_OTP_SCREEN'
 export const SOBYTE_PLAYER_SCREEN = 'SOBYTE_PLAYER_SCREEN'
 export const SOBYTE_PLAYER_QUEUE_SCREEN = 'SOBYTE_PLAYER_QUEUE_SCREEN'
 
+// search stack sub screens..
+export const SEARCH_SCREEN = 'SEARCH_SCREEN'
+
+// explore screen's sub navigation screens'
+export const EXPLORE_SCREEN = 'EXPLORE_SCREEN'
+
 // APP'S other screen except main player
 export const APP_SETTINGS_SCREEN = 'APP_SETTINGS_SCREEN'
 export const APP_SEARCH_SCREEN = 'APP_SEARCH_SCREEN'
