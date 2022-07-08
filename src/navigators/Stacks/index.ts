@@ -10,3 +10,5 @@
 
 export * from './TrackPlayerStackNavigator'
 export * from './AuthStackNavigator'
+export * from './SearchNavigation'
+export * from './ExploreNavigation'
