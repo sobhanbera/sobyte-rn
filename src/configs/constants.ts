@@ -87,7 +87,7 @@ export const TRACK_ARTWORK_SCREEN_WIDTH_OCCUPICATION = 0.82 // the artwork will 
 export const TRACK_ARTWORK_SCREEN_WIDTH_SMALL_OCCUPICATION = 0.7 // the artwork will take 82% of the available screen width
 export const TRACK_ARTWORK_SCREEN_WIDTH_LARGE_OCCUPICATION = 0.9 // the artwork will take 82% of the available screen width
 export const TRACK_DATA_OVERFLOW_HEIGHT = 70
-export const TRACK_ARTWORK_PARENT_VERTICAL_PADDING = 50
+export const TRACK_ARTWORK_PARENT_VERTICAL_PADDING = 35
 export const TRACK_ARTWORK_WIDTH =
     SCREEN_WIDTH * TRACK_ARTWORK_SCREEN_WIDTH_OCCUPICATION // track artwork width
 export const TRACK_ARTWORK_HEIGHT = TRACK_ARTWORK_WIDTH // default track artwork height
@@ -106,8 +106,9 @@ export const MAX_DISPLAY_HEIGHT_OF_TRACK_ARTWORK_WRAPPER =
     TRACK_ARTWORK_PARENT_VERTICAL_PADDING + // since vertical padding would be on both side, top & bottom
     TRACK_ARTWORK_PARENT_VERTICAL_PADDING + // since vertical padding would be on both side, top & bottom
     TRACK_ARTWORK_HEIGHT +
-    TRACK_ARTWORK_SPACING + // this is also on both side as above, the difference is, this is just a extra padding
-    TRACK_ARTWORK_SPACING // this is also on both side as above, the difference is, this is just a extra padding
+    SCREEN_HEIGHT * 0.02 // 2% of the screen's height available
+// TRACK_ARTWORK_SPACING // this is also on both side as above, the difference is, this is just a extra padding
+// commented for now since it is covering a huge height // + TRACK_ARTWORK_SPACING // this is also on both side as above, the difference is, this is just a extra padding
 
 export const ARTWORK_WIDTH_IN_QUEUE = 60
 export const ARTIST_ARTWORK_WIDTH_SMALL = 50
