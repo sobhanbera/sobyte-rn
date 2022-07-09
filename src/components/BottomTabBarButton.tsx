@@ -71,6 +71,7 @@ export function BottomTabBarButton(props: TabBarButtonProps) {
 
                     <Animatable.Text
                         animation="pulse"
+                        useNativeDriver={true}
                         style={[
                             fonts.regularFont,
                             fonts.textTiny,

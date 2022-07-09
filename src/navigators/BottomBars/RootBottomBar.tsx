@@ -26,7 +26,7 @@ import {
 import {useTheme} from '@/hooks'
 import {getFocusedRouteNameFromRoute} from '@react-navigation/native'
 import {getCustomTabBarStyles, getDefaultTabBarStyles} from '@/utils'
-import {BottomTabBarButton} from '@/components'
+import {BottomTabBarButton, BottomTabBarPlayerButton} from '@/components'
 
 import {
     TrackPlayerStackNavigator,
@@ -68,7 +68,7 @@ export function RootBottomBarNavigator() {
                     tabBarShowLabel: false,
                     tabBarLabel: 'Music',
                     tabBarButton: props => (
-                        <BottomTabBarButton
+                        <BottomTabBarPlayerButton
                             {...props}
                             ActiveIconComponentType={MaterialIcons}
                             InactiveIconComponentType={MaterialIcons}

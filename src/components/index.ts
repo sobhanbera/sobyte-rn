@@ -13,6 +13,7 @@ export * from './BluredImageBackgroundRenderer'
 
 export * from './BottomPaddingComponent'
 export * from './BottomTabBarButton'
+export * from './BottomTabBarPlayerButton'
 
 export * from './SobyteMarquee'
 export * from './SobyteTextView'
