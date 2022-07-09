@@ -103,7 +103,11 @@ export function BottomTabBarPlayerButton({
                     {anyTrackIsPlaying ? (
                         <LottieView
                             source={require('@/assets/anims/rythm.json')}
-                            loop={true}
+                            loop
+                            autoPlay
+                            style={{
+                                height: TINY_ICON_SIZE,
+                            }}
                             // changing all the keypath's color when the tab is being changed
                             colorFilters={[
                                 {
@@ -131,11 +135,6 @@ export function BottomTabBarPlayerButton({
                                     keypath: 'bar4',
                                 },
                             ]}
-                            autoPlay={true}
-                            style={{
-                                width: 22,
-                                height: 22,
-                            }}
                         />
                     ) : selected ? (
                         // else render the simple icon on selected
