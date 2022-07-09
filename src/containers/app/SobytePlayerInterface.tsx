@@ -10,6 +10,7 @@
 
 import React, {useCallback, useEffect, useRef, useState} from 'react'
 import {Animated, FlatList, ListRenderItemInfo, View} from 'react-native'
+import {NavigationHelpers} from '@react-navigation/native'
 import {withMenuContext} from 'react-native-popup-menu'
 import {useDispatch, useSelector} from 'react-redux'
 import LinearGradient from 'react-native-linear-gradient'
@@ -26,6 +27,7 @@ import {
     LAST_TRACKS_REMAIN_TO_LOAD_MORE_TRACK,
     MAX_DISPLAY_HEIGHT_OF_TRACK_ARTWORK_WRAPPER,
     MUSIC_PLAYER_SONGS_RESULT_STORAGE_KEY,
+    ROOT_BOTTOM_BAR_SEARCH_SCREEN_STACK,
     SOBYTE_PLAYER_QUEUE_SCREEN,
     TRACK_ARTIST_MENU_NAME,
     TRACK_ARTWORK_HEIGHT,
@@ -51,9 +53,7 @@ import {TrackPlayerFooter} from '@/components/TrackPlayerFooter'
 import {Skeleton} from '@rneui/themed'
 
 interface SobytePlayerInterfaceProps {
-    navigation: {
-        navigate(screenName: string, routeProps?: any): void
-    }
+    navigation: NavigationHelpers<any> // the main navigation of this screen
     // extra data we get from menu component
     ctx: {
         menuActions: {
@@ -383,10 +383,17 @@ const SobytePlayerInterface = withMenuContext(
         )
 
         /**
-         * TODO:
          * this function will launch search songs/tracks, artists tab
          */
-        function launchSearchTab() {}
+        function changeNavigationToSearchTab() {
+            /**
+             * getting the parent navigator which is the bottom tab bar
+             * and then navigating to the search stack navigator
+             */
+            navigation
+                .getParent()
+                ?.navigate(ROOT_BOTTOM_BAR_SEARCH_SCREEN_STACK)
+        }
 
         /**
          * open the queue list screen
@@ -413,7 +420,9 @@ const SobytePlayerInterface = withMenuContext(
                         true,
                     )}>
                     {/* the top header, this is the first component which will be rendered */}
-                    <TrackPlayerHeader onPressSearch={launchSearchTab} />
+                    <TrackPlayerHeader
+                        onPressSearch={changeNavigationToSearchTab}
+                    />
 
                     <FlingGestureHandler
                         key="left"
