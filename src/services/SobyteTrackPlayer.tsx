@@ -12,7 +12,7 @@ import React, {useCallback, useEffect, useState} from 'react'
 import {useSelector} from 'react-redux'
 import TrackPlayer, {Capability, RatingType} from 'react-native-track-player'
 
-import {useMusic} from '@/hooks'
+import {useMusic, useTheme} from '@/hooks'
 import {SobyteState} from '@/state'
 
 const SobyteTrackPlayerContext = React.createContext<boolean>(false)
@@ -21,6 +21,8 @@ interface SobyteTrackPlayerProps {
 }
 export default function SobyteTrackPlayer(props: SobyteTrackPlayerProps) {
     const {initMusicApi, search} = useMusic()
+    const {assets} = useTheme()
+
     const musicConfigError = useSelector(
         (state: SobyteState) => state.musicconfig.error,
     )
@@ -34,16 +36,16 @@ export default function SobyteTrackPlayer(props: SobyteTrackPlayerProps) {
          * or configs..
          */
         TrackPlayer.updateOptions({
-            icon: require('@/assets/images/logos/sobyte_white.png'),
+            icon: assets.images.logos.sobyte_white,
 
-            playIcon: require('@/assets/images/icons/play.png'),
-            pauseIcon: require('@/assets/images/icons/pause.png'),
+            playIcon: assets.images.icons.play, // require('@/assets/images/icons/play.png'),
+            pauseIcon: assets.images.icons.pause, // require('@/assets/images/icons/pause.png'),
 
-            rewindIcon: require('@/assets/images/icons/backward.png'),
-            forwardIcon: require('@/assets/images/icons/forward.png'),
+            rewindIcon: assets.images.icons.backward, // require('@/assets/images/icons/backward.png'),
+            forwardIcon: assets.images.icons.forward, // require('@/assets/images/icons/forward.png'),
 
-            nextIcon: require('@/assets/images/icons/forwardb.png'),
-            previousIcon: require('@/assets/images/icons/backwardb.png'),
+            nextIcon: assets.images.icons.forwardb, // require('@/assets/images/icons/forwardb.png'),
+            previousIcon: assets.images.icons.backwardb, // require('@/assets/images/icons/backwardb.png'),
             // stopIcon: require(''),
 
             stopWithApp: false,

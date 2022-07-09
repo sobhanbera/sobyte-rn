@@ -167,23 +167,23 @@ export type PaddingDirections =
  */
 export interface SobyteAssets {
     animations: {
-        dancing_logo: string
-        rythm: string
+        dancing_logo: any
+        rythm: any
     }
     audios: {}
     fonts: {}
     images: {
         logos: {
-            named: string
-            sobyte_white: string
+            named: any
+            sobyte_white: any
         }
         icons: {
-            backward: string
-            backwardb: string
-            forward: string
-            forwardb: string
-            pause: string
-            play: string
+            backward: any
+            backwardb: any
+            forward: any
+            forwardb: any
+            pause: any
+            play: any
         }
     }
     videos: {}

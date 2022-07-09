@@ -43,7 +43,7 @@ export function BottomTabBarPlayerButton({
 }: BottomTabBarPlayerButtonProps) {
     const selected = accessibilityState?.selected
 
-    const {layouts, fonts, gutters, variables} = useTheme()
+    const {layouts, fonts, gutters, variables, assets} = useTheme()
 
     /**
      * state to get the data of playing status of the track like, play/pause/buffering etc...
@@ -102,7 +102,7 @@ export function BottomTabBarPlayerButton({
                      */}
                     {anyTrackIsPlaying ? (
                         <LottieView
-                            source={require('@/assets/anims/rythm.json')}
+                            source={assets.animations.rythm}
                             loop
                             autoPlay
                             style={{
