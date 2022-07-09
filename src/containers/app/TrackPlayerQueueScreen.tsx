@@ -11,7 +11,7 @@
 import React from 'react'
 import {TouchableOpacity, View} from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
-import {CompositeScreenProps} from '@react-navigation/native'
+import {NavigationHelpers} from '@react-navigation/native'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import DraggableFlatList from 'react-native-draggable-flatlist'
 
@@ -27,7 +27,9 @@ import {
     DEFAULT_TOUCHABLE_OPACITY_BUTTON_ACTIVE_OPACITY,
 } from '@/configs'
 
-interface TrackPlayerQueueScreenProps extends CompositeScreenProps<any, any> {}
+interface TrackPlayerQueueScreenProps {
+    navigation: NavigationHelpers<any>
+}
 export default function TrackPlayerQueueScreen({
     navigation,
 }: TrackPlayerQueueScreenProps) {
