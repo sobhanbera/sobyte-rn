@@ -36,14 +36,15 @@ export default function SobyteTrackPlayer(props: SobyteTrackPlayerProps) {
         TrackPlayer.updateOptions({
             icon: require('@/assets/images/logos/sobyte_white.png'),
 
-            rewindIcon: require('@/assets/images/icons/backward.png'),
-            forwardIcon: require('@/assets/images/icons/forward.png'),
             playIcon: require('@/assets/images/icons/play.png'),
             pauseIcon: require('@/assets/images/icons/pause.png'),
 
-            // nextIcon: require(''), maybe
-            // previousIcon: require(''), maybe
-            // stopIcon: require(''), maybe
+            rewindIcon: require('@/assets/images/icons/backward.png'),
+            forwardIcon: require('@/assets/images/icons/forward.png'),
+
+            nextIcon: require('@/assets/images/icons/forwardb.png'),
+            previousIcon: require('@/assets/images/icons/backwardb.png'),
+            // stopIcon: require(''),
 
             stopWithApp: false,
             forwardJumpInterval: 5,
@@ -55,34 +56,32 @@ export default function SobyteTrackPlayer(props: SobyteTrackPlayerProps) {
                 Capability.Pause,
                 Capability.Stop,
                 Capability.SeekTo,
+
                 Capability.JumpForward,
                 Capability.JumpBackward,
 
-                // Capability.Skip,
-                // Capability.SkipToNext,
-                // Capability.SkipToPrevious,
+                Capability.Skip,
+                Capability.SkipToNext,
+                Capability.SkipToPrevious,
             ],
             notificationCapabilities: [
                 Capability.Play,
                 Capability.Pause,
                 Capability.SeekTo,
+
                 Capability.JumpBackward,
                 Capability.JumpForward,
-                Capability.SetRating,
 
-                // Capability.Skip,
-                // Capability.SkipToPrevious,
+                Capability.SkipToNext,
+                Capability.SkipToPrevious,
             ],
             compactCapabilities: [
                 Capability.Play,
                 Capability.Pause,
                 Capability.SeekTo,
+
                 Capability.JumpBackward,
                 Capability.JumpForward,
-                Capability.SetRating,
-
-                // Capability.Skip,
-                // Capability.SkipToPrevious,
             ],
             alwaysPauseOnInterruption: true,
             ratingType: RatingType.Heart,
@@ -110,6 +109,14 @@ export default function SobyteTrackPlayer(props: SobyteTrackPlayerProps) {
     }
     useEffect(() => {
         initializeAppTrackPlayer()
+
+        /**
+         * destroying the track player
+         * so that no duplicate track player instances are created
+         */
+        return () => {
+            TrackPlayer.destroy()
+        }
     }, [])
 
     /**

@@ -14,6 +14,7 @@ import {NavigationHelpers} from '@react-navigation/native'
 import {withMenuContext} from 'react-native-popup-menu'
 import {useDispatch, useSelector} from 'react-redux'
 import LinearGradient from 'react-native-linear-gradient'
+import TrackPlayer, {Event} from 'react-native-track-player'
 
 import {useMusic, useTheme, useTrackPlayer} from '@/hooks'
 import {
@@ -47,9 +48,9 @@ import {
     TrackControls,
     TrackPlayerHeader,
     TrackDetailsMenu,
+    TrackPlayerFooter,
 } from '@/components'
 import {getARandomQuery, getSmoothLinearGradient} from '@/utils'
-import {TrackPlayerFooter} from '@/components/TrackPlayerFooter'
 import {Skeleton} from '@rneui/themed'
 
 interface SobytePlayerInterfaceProps {
@@ -339,6 +340,37 @@ const SobytePlayerInterface = withMenuContext(
 
                     return value + 1 // plan changed after 2 hours, we are now updating the state here only, but only for next track event
                 })
+            }
+        }, [])
+
+        /**
+         * this useEffect is responsible to change the track when the user
+         * presses next/previous button in the notification
+         * this will be controlled using events of TrackPlayer
+         */
+        useEffect(() => {
+            const trackNextEvent = TrackPlayer.addEventListener(
+                Event.RemoteNext,
+                __nextTrackData => {
+                    onPlayNextTrack()
+                },
+            )
+
+            const trackPreviousEvent = TrackPlayer.addEventListener(
+                Event.RemotePrevious,
+                __previousTrackData => {
+                    onPlayPreviousTrack()
+                },
+            )
+
+            /**
+             * cleanup of the events
+             * so that the events could be start again or disabled again
+             * and doesn't cause any duplicates of itself
+             */
+            return () => {
+                trackNextEvent.remove()
+                trackPreviousEvent.remove()
             }
         }, [])
 
