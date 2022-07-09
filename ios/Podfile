@@ -43,6 +43,8 @@ target 'sobyte' do
 
   pod 'RNCMaskedView', :path => '../node_modules/@react-native-masked-view/masked-view'
 
+  pod 'lottie-react-native', :path => '../node_modules/lottie-react-native'
+
   target 'sobyteTests' do
     inherit! :complete
     # Pods for testing

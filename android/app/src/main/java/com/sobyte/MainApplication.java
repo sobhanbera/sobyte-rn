@@ -29,6 +29,7 @@ import com.BV.LinearGradient.LinearGradientPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import cl.json.RNSharePackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
+import com.airbnb.android.react.lottie.LottiePackage;
 
 public class MainApplication extends Application implements ReactApplication {
 

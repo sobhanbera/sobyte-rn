@@ -49,6 +49,10 @@ project(':react-native-share').projectDir = new File(rootProject.projectDir, '..
 include ':rn-fetch-blob'
 project(':rn-fetch-blob').projectDir = new File(rootProject.projectDir, '../node_modules/rn-fetch-blob/android')
 
+/** lottie JSON animation library */
+include ':lottie-react-native'
+project(':lottie-react-native').projectDir = new File(rootProject.projectDir, '../node_modules/lottie-react-native/src/android')
+
 /**  */
 
 if (settings.hasProperty("newArchEnabled") && settings.newArchEnabled == "true") {
