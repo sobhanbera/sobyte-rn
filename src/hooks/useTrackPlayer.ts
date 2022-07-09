@@ -34,6 +34,7 @@ import {
 } from '@/configs'
 import {
     formatArtistsListFromArray,
+    formatTrackTitle,
     getTrackToPlay,
     updateArtworkQuality,
 } from '@/utils'
@@ -223,6 +224,9 @@ export function useTrackPlayer() {
                         DEFAULT_NOTIFICATION_ARTWORK_SIZE,
                         DEFAULT_NOTIFICATION_ARTWORK_QUALITY,
                     )
+                    const formattedTrackTitle = formatTrackTitle(
+                        trackData.title,
+                    )
                     const formattedArtist = formatArtistsListFromArray(
                         trackData.artists,
                     )
@@ -264,7 +268,7 @@ export function useTrackPlayer() {
                      */
                     TrackPlayer.add({
                         url: TrackURLData.url,
-                        title: trackData.title,
+                        title: formattedTrackTitle,
                         artist: formattedArtist,
                         artwork: notificationArtwork,
                         duration: trackData.duration,

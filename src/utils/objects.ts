@@ -186,6 +186,7 @@ export function formatTrackTitle(trackTitle: string): string {
     return capitalizeWords(
         removeUnnecessaryCharacters(
             trackTitle
+                .replace('/', '-') // replace / character with a hyphen (-)
                 .replace(BRACES_SURROUNDED_TEXT, '')
                 .replace(BRACKETS_SURROUNDED_TEXT, '')
                 .replace(PARATHESIS_SURROUNDED_TEXT, ''),
