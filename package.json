@@ -21,9 +21,7 @@
         "tree": "tree app",
         "prepare": "husky install",
         "lines": "find . -regex \".*\\.\\(js\\|jsx\\|ts\\|tsx\\|json\\)\" ! -path \"./node_modules/*\" | xargs wc -l",
-        "tslines": "find . -name '*.js*' ! -path \"./node_modules/*\" ! -path \"./android/*\" ! -path \"./ios/*\" | xargs wc -l",
-        "jslines": "find . -name '*.ts*' ! -path \"./node_modules/*\" ! -path \"./android/*\" ! -path \"./ios/*\" | xargs wc -l",
-        "tjslines": "find . -regex \".*\\.\\(js\\|jsx\\|ts\\|tsx\\|json\\)\" ! -path \"./node_modules/*\" ! -path \"./android/*\" ! -path \"./ios/*\" | xargs wc -l"
+        "alllines": "find . -regex \".*\\.\\(js\\|jsx\\|ts\\|tsx\\|json\\|md\\|yml\\|sh\\|lua\\|java\\)\" ! -path \"./node_modules/*\" | xargs wc -l"
     },
     "dependencies": {
         "@react-native-async-storage/async-storage": "^1.17.6",
