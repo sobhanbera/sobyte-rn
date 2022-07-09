@@ -41,3 +41,14 @@ export const USER_PROFILE_SCREEN = 'USER_PROFILE_SCREEN'
 // APP'S other screen except main player
 export const APP_SETTINGS_SCREEN = 'APP_SETTINGS_SCREEN'
 export const APP_SEARCH_SCREEN = 'APP_SEARCH_SCREEN'
+
+/**
+ * ID's of all the screens, tabs, navigators, bottom tab bars, top tab bars, etc
+ * this is a indented hierarchy of all the stack and tab navigators...
+ */
+export const ROOT_BOTTOM_TAB_BAR_NAVIGATOR_ID =
+    'ROOT_BOTTOM_TAB_BAR_NAVIGATOR_ID' // the main bottom tab bar
+export const TRACK_PLAYER_STACK_NAVIGATOR_ID = 'TRACK_PLAYER_STACK_NAVIGATOR_ID' // the stack where player, queue exists
+export const SEARCH_STACK_NAVIGATOR_ID = 'SEARCH_STACK_NAVIGATOR_ID' // the stack where player, queue exists
+export const EXPLORE_STACK_NAVIGATOR_ID = 'EXPLORE_STACK_NAVIGATOR_ID' // the stack where player, queue exists
+export const USER_PROFILE_STACK_NAVIGATOR_ID = 'USER_PROFILE_STACK_NAVIGATOR_ID' // the stack where player, queue exists

@@ -11,7 +11,7 @@
 import React from 'react'
 import {createNativeStackNavigator} from '@react-navigation/native-stack'
 
-import {EXPLORE_SCREEN} from '@/configs'
+import {EXPLORE_SCREEN, EXPLORE_STACK_NAVIGATOR_ID} from '@/configs'
 import {ExploreScreen} from '@/containers/app'
 import {useTheme} from '@/hooks'
 
@@ -21,6 +21,7 @@ export function ExploreStackNavigator() {
 
     return (
         <StackNavigator.Navigator
+            id={EXPLORE_STACK_NAVIGATOR_ID}
             screenOptions={{
                 headerShown: false,
 

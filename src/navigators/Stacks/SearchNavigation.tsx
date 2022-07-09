@@ -11,7 +11,7 @@
 import React from 'react'
 import {createNativeStackNavigator} from '@react-navigation/native-stack'
 
-import {SEARCH_SCREEN} from '@/configs'
+import {SEARCH_SCREEN, SEARCH_STACK_NAVIGATOR_ID} from '@/configs'
 import {SearchScreen} from '@/containers/app'
 import {useTheme} from '@/hooks'
 
@@ -21,6 +21,7 @@ export function SearchStackNavigator() {
 
     return (
         <StackNavigator.Navigator
+            id={SEARCH_STACK_NAVIGATOR_ID}
             screenOptions={{
                 headerShown: false,
 

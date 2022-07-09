@@ -11,7 +11,7 @@
 import React from 'react'
 import {createNativeStackNavigator} from '@react-navigation/native-stack'
 
-import {USER_PROFILE_SCREEN} from '@/configs'
+import {USER_PROFILE_SCREEN, USER_PROFILE_STACK_NAVIGATOR_ID} from '@/configs'
 import {UserProfileScreen} from '@/containers/app'
 import {useTheme} from '@/hooks'
 
@@ -21,6 +21,7 @@ export function UserProfileStackNavigator() {
 
     return (
         <StackNavigator.Navigator
+            id={USER_PROFILE_STACK_NAVIGATOR_ID}
             screenOptions={{
                 headerShown: false,
 
