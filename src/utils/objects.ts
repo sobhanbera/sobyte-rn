@@ -8,6 +8,8 @@
  * Purpose - util functions for objects and all...
  */
 
+import {Animated, StyleProp, ViewStyle} from 'react-native'
+
 import {
     DEFAULT_NOTIFICATION_ARTWORK_QUALITY,
     DEFAULT_NOTIFICATION_ARTWORK_SIZE,
@@ -141,6 +143,16 @@ export function capitalizeWords(string: string): string {
              * this will be helpful to show artist name
              * like - a.r. rahman will be A.r. Rahman without this function
              * and with this function it will be A.R. Rahman
+             * which is the correct format of the artists to show in the UI
+             */
+            return character.toUpperCase()
+        })
+        .replace(/(?:\-)\S/g, function (character) {
+            /**
+             * uppercase character after every hyphen
+             * this will be helpful to show artist name
+             * like - tu jo mila-raabta will be Tu Jo Mila-Raabta without this function
+             * and with this function it will be Tu Jo Mila-Raabta
              * which is the correct format of the artists to show in the UI
              */
             return character.toUpperCase()
@@ -472,4 +484,39 @@ export function getShareableImagePath(musicID: string) {
 export function getARandomQuery() {
     return 't-series mixtape'
     return GLOBAL_QUERIES[Math.floor(Math.random() * GLOBAL_QUERIES.length)]
+}
+
+/**
+ *
+ * @returns the default style for bottom tab bar
+ */
+export function getDefaultTabBarStyles(): Animated.WithAnimatedValue<
+    StyleProp<ViewStyle>
+> {
+    return {
+        height: 58,
+        position: 'absolute',
+        elevation: 0, // the default elevation is 8, that's why the whole bottom tab bar is somewhat elevated
+        backgroundColor: 'transparent', // no colors for the background
+        borderTopWidth: 0, // this is rendering a default border on top, so removing it
+    }
+}
+
+/**
+ * this method provides the style for bottom tab bar depending on the background color and more
+ * this could be used to display diff background color on diff screens and more...
+ *
+ * @param backgroundColor any optional color for the background color of the tab bar
+ * @returns a style for the bottom tab bar
+ */
+export function getCustomTabBarStyles(
+    backgroundColor: string = 'transparent',
+): Animated.WithAnimatedValue<StyleProp<ViewStyle>> {
+    return {
+        height: 58,
+        position: 'absolute',
+        elevation: 0, // the default elevation is 8, that's why the whole bottom tab bar is somewhat elevated
+        backgroundColor: backgroundColor || 'transparent', // no colors for the background
+        borderTopWidth: 0, // this is rendering a default border on top, so removing it
+    }
 }
