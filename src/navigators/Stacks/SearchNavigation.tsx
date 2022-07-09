@@ -25,12 +25,14 @@ export function SearchStackNavigator() {
             screenOptions={{
                 headerShown: false,
 
-                animation: 'fade',
-
-                statusBarAnimation: 'slide',
-                statusBarStyle: 'auto',
+                animation: 'slide_from_bottom',
+                animationTypeForReplace: 'push',
 
                 orientation: 'portrait_up',
+
+                gestureEnabled: true,
+                customAnimationOnGesture: true,
+                fullScreenGestureEnabled: true,
 
                 contentStyle: {
                     backgroundColor: theme.background, // default bg color for all screens
