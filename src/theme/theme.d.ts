@@ -9,7 +9,7 @@
  */
 
 import {RequiredCommonColors} from '.'
-import {fontStyles, gutterStyles, layoutStyles} from './vars'
+import {fontStyles, gutterStyles, layoutStyles, appAssets} from './vars'
 import CombinedVariables from './vars/variables'
 
 /**
@@ -115,7 +115,7 @@ export interface FontSizes {
 }
 
 /**
- * types of metrics avilable
+ * types of metrics available
  * this might be padding, margin or anything like that...
  */
 export interface MetricSizes {
@@ -162,6 +162,34 @@ export type PaddingDirections =
     | 'PaddingExceptLeft'
 
 /**
+ * all the assets available in the application
+ * this is the blueprint of assets in the app
+ */
+export interface SobyteAssets {
+    animations: {
+        dancing_logo: string
+        rythm: string
+    }
+    audios: {}
+    fonts: {}
+    images: {
+        logos: {
+            named: string
+            sobyte_white: string
+        }
+        icons: {
+            backward: string
+            backwardb: string
+            forward: string
+            forwardb: string
+            pause: string
+            play: string
+        }
+    }
+    videos: {}
+}
+
+/**
  * all types of properties which could be used throughout the codebase
  * like fontsize, colors, metrics etc
  * this is the type for that
@@ -176,12 +204,13 @@ export type CombinedThemeVariables = {
  * seperate type of theme which will contain all the parameters
  * like font, gutter, layouts etc
  */
-export type ThemeType<T, C, F, G, L, CV> = {
+export type ThemeType<T, C, F, G, L, A, CV> = {
     theme: T
     colorscheme: C
     fonts: F
     gutters: G
     layouts: L
+    assets: A
     variables: CV
 }
 
@@ -195,7 +224,14 @@ export type ThemeCombinationParams = Pick<
         typeof fontStyles,
         typeof gutterStyles,
         typeof layoutStyles,
+        typeof appAssets,
         CombinedThemeVariables
     >,
-    'theme' | 'colorscheme' | 'fonts' | 'gutters' | 'layouts' | 'variables'
+    | 'theme'
+    | 'colorscheme'
+    | 'fonts'
+    | 'gutters'
+    | 'layouts'
+    | 'assets'
+    | 'variables'
 >
