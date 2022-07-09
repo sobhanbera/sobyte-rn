@@ -51,6 +51,15 @@ export const TrackDetailsMenuArtist = ({
                 setLoading(false)
                 console.log('TrackDetailsMenuArtist', _ERR)
             })
+
+        // to overcome state unmounting and overflow
+        return () => {
+            setArtistDetails({
+                name: '',
+                thumbnails: [{height: 0, url: '', width: 0}],
+            })
+            setLoading(true)
+        }
     }, [artistData])
 
     /**
