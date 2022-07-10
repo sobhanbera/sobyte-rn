@@ -13,7 +13,7 @@
  */
 export interface GenreData {
     id: string | number
-    name: string
+    title: string
     artwork: string
     hqArtwork: string
     color: string

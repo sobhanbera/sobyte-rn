@@ -18,7 +18,7 @@ import {GenreData} from '@/schemas'
 export const GenreList: Array<GenreData> = [
     {
         id: 0,
-        name: 'Pop',
+        title: 'Pop',
         artwork: '',
         hqArtwork: '',
         color: '',
@@ -26,7 +26,7 @@ export const GenreList: Array<GenreData> = [
     },
     {
         id: 1,
-        name: 'Rock',
+        title: 'Rock',
         artwork: '',
         hqArtwork: '',
         color: '',
@@ -34,7 +34,7 @@ export const GenreList: Array<GenreData> = [
     },
     {
         id: 2,
-        name: 'Hip Hop',
+        title: 'Hip Hop',
         artwork: '',
         hqArtwork: '',
         color: '',
@@ -42,7 +42,7 @@ export const GenreList: Array<GenreData> = [
     },
     {
         id: 3,
-        name: 'EDM',
+        title: 'EDM',
         artwork: '',
         hqArtwork: '',
         color: '',
@@ -50,7 +50,7 @@ export const GenreList: Array<GenreData> = [
     },
     {
         id: 4,
-        name: 'R&B',
+        title: 'R&B',
         artwork: '',
         hqArtwork: '',
         color: '',
@@ -58,7 +58,7 @@ export const GenreList: Array<GenreData> = [
     },
     {
         id: 5,
-        name: 'Country',
+        title: 'Country',
         artwork: '',
         hqArtwork: '',
         color: '',
@@ -66,7 +66,7 @@ export const GenreList: Array<GenreData> = [
     },
     {
         id: 6,
-        name: 'Folk',
+        title: 'Folk',
         artwork: '',
         hqArtwork: '',
         color: '',
@@ -74,7 +74,7 @@ export const GenreList: Array<GenreData> = [
     },
     {
         id: 7,
-        name: 'Classical',
+        title: 'Classical',
         artwork: '',
         hqArtwork: '',
         color: '',
@@ -82,7 +82,7 @@ export const GenreList: Array<GenreData> = [
     },
     {
         id: 8,
-        name: 'Romance',
+        title: 'Romance',
         artwork: '',
         hqArtwork: '',
         color: '',
@@ -90,7 +90,7 @@ export const GenreList: Array<GenreData> = [
     },
     {
         id: 9,
-        name: 'K-Pop',
+        title: 'K-Pop',
         artwork: '',
         hqArtwork: '',
         color: '',
@@ -98,7 +98,7 @@ export const GenreList: Array<GenreData> = [
     },
     {
         id: 10,
-        name: 'Metal',
+        title: 'Metal',
         artwork: '',
         hqArtwork: '',
         color: '',
@@ -106,7 +106,7 @@ export const GenreList: Array<GenreData> = [
     },
     {
         id: 11,
-        name: 'Jazz',
+        title: 'Jazz',
         artwork: '',
         hqArtwork: '',
         color: '',
@@ -114,7 +114,7 @@ export const GenreList: Array<GenreData> = [
     },
     {
         id: 12,
-        name: 'World',
+        title: 'World',
         artwork: '',
         hqArtwork: '',
         color: '',
@@ -122,7 +122,7 @@ export const GenreList: Array<GenreData> = [
     },
     {
         id: 13,
-        name: 'Latin',
+        title: 'Latin',
         artwork: '',
         hqArtwork: '',
         color: '',
@@ -130,7 +130,7 @@ export const GenreList: Array<GenreData> = [
     },
     {
         id: 14,
-        name: 'Dance',
+        title: 'Dance',
         artwork: '',
         hqArtwork: '',
         color: '',
@@ -138,7 +138,7 @@ export const GenreList: Array<GenreData> = [
     },
     {
         id: 15,
-        name: 'Orchestra',
+        title: 'Orchestra',
         artwork: '',
         hqArtwork: '',
         color: '',
@@ -146,7 +146,7 @@ export const GenreList: Array<GenreData> = [
     },
     {
         id: 16,
-        name: 'Indie',
+        title: 'Indie',
         artwork: '',
         hqArtwork: '',
         color: '',
@@ -154,7 +154,7 @@ export const GenreList: Array<GenreData> = [
     },
     {
         id: 17,
-        name: 'Soul',
+        title: 'Soul',
         artwork: '',
         hqArtwork: '',
         color: '',
@@ -162,7 +162,7 @@ export const GenreList: Array<GenreData> = [
     },
     {
         id: 18,
-        name: 'Blues',
+        title: 'Blues',
         artwork: '',
         hqArtwork: '',
         color: '',
@@ -177,7 +177,7 @@ export const GenreList: Array<GenreData> = [
 export const LanguagesList: Array<GenreData> = [
     {
         id: 0,
-        name: 'Bollywood',
+        title: 'Bollywood',
         artwork: '',
         hqArtwork: '',
         color: '',
@@ -185,7 +185,7 @@ export const LanguagesList: Array<GenreData> = [
     },
     {
         id: 1,
-        name: 'Hindi',
+        title: 'Hindi',
         artwork: '',
         hqArtwork: '',
         color: '',
@@ -193,7 +193,7 @@ export const LanguagesList: Array<GenreData> = [
     },
     {
         id: 2,
-        name: 'Punjabi',
+        title: 'Punjabi',
         artwork: '',
         hqArtwork: '',
         color: '',
@@ -201,7 +201,7 @@ export const LanguagesList: Array<GenreData> = [
     },
     {
         id: 3,
-        name: 'Bengali',
+        title: 'Bengali',
         artwork: '',
         hqArtwork: '',
         color: '',
@@ -209,7 +209,7 @@ export const LanguagesList: Array<GenreData> = [
     },
     {
         id: 4,
-        name: 'Bollywood Retro',
+        title: 'Bollywood Retro',
         artwork: '',
         hqArtwork: '',
         color: '',
@@ -217,7 +217,7 @@ export const LanguagesList: Array<GenreData> = [
     },
     {
         id: 5,
-        name: 'Tamil',
+        title: 'Tamil',
         artwork: '',
         hqArtwork: '',
         color: '',
@@ -225,7 +225,7 @@ export const LanguagesList: Array<GenreData> = [
     },
     {
         id: 6,
-        name: 'Telugu',
+        title: 'Telugu',
         artwork: '',
         hqArtwork: '',
         color: '',
@@ -233,7 +233,7 @@ export const LanguagesList: Array<GenreData> = [
     },
     {
         id: 7,
-        name: 'Marathi',
+        title: 'Marathi',
         artwork: '',
         hqArtwork: '',
         color: '',
@@ -241,7 +241,7 @@ export const LanguagesList: Array<GenreData> = [
     },
     {
         id: 8,
-        name: 'Gujrati',
+        title: 'Gujrati',
         artwork: '',
         hqArtwork: '',
         color: '',
@@ -249,7 +249,7 @@ export const LanguagesList: Array<GenreData> = [
     },
     {
         id: 9,
-        name: 'Kannada',
+        title: 'Kannada',
         artwork: '',
         hqArtwork: '',
         color: '',
@@ -257,7 +257,7 @@ export const LanguagesList: Array<GenreData> = [
     },
     {
         id: 10,
-        name: 'Haryanvi',
+        title: 'Haryanvi',
         artwork: '',
         hqArtwork: '',
         color: '',
@@ -265,7 +265,7 @@ export const LanguagesList: Array<GenreData> = [
     },
     {
         id: 11,
-        name: 'Malayalam',
+        title: 'Malayalam',
         artwork: '',
         hqArtwork: '',
         color: '',
@@ -279,7 +279,7 @@ export const LanguagesList: Array<GenreData> = [
 export const MoodsList: Array<GenreData> = [
     {
         id: 0,
-        name: 'Romance',
+        title: 'Romance',
         artwork: '',
         hqArtwork: '',
         color: '',
@@ -287,7 +287,7 @@ export const MoodsList: Array<GenreData> = [
     },
     {
         id: 1,
-        name: 'Happy',
+        title: 'Happy',
         artwork: '',
         hqArtwork: '',
         color: '',
@@ -295,7 +295,7 @@ export const MoodsList: Array<GenreData> = [
     },
     {
         id: 2,
-        name: 'Energetic',
+        title: 'Energetic',
         artwork: '',
         hqArtwork: '',
         color: '',
@@ -303,7 +303,7 @@ export const MoodsList: Array<GenreData> = [
     },
     {
         id: 3,
-        name: 'Sad',
+        title: 'Sad',
         artwork: '',
         hqArtwork: '',
         color: '',
@@ -311,7 +311,7 @@ export const MoodsList: Array<GenreData> = [
     },
     {
         id: 4,
-        name: 'Calm',
+        title: 'Calm',
         artwork: '',
         hqArtwork: '',
         color: '',
@@ -319,7 +319,7 @@ export const MoodsList: Array<GenreData> = [
     },
     {
         id: 5,
-        name: 'Relax',
+        title: 'Relax',
         artwork: '',
         hqArtwork: '',
         color: '',
@@ -327,7 +327,7 @@ export const MoodsList: Array<GenreData> = [
     },
     {
         id: 6,
-        name: 'Lo-Fi',
+        title: 'Lo-Fi',
         artwork: '',
         hqArtwork: '',
         color: '',
@@ -335,7 +335,7 @@ export const MoodsList: Array<GenreData> = [
     },
     {
         id: 7,
-        name: 'Lo-Fi',
+        title: 'Lo-Fi',
         artwork: '',
         hqArtwork: '',
         color: '',
@@ -343,7 +343,7 @@ export const MoodsList: Array<GenreData> = [
     },
     {
         id: 8,
-        name: 'Devotional',
+        title: 'Devotional',
         artwork: '',
         hqArtwork: '',
         color: '',
@@ -358,7 +358,7 @@ export const MoodsList: Array<GenreData> = [
 export const MusicTimesList: Array<GenreData> = [
     {
         id: 0,
-        name: 'Party',
+        title: 'Party',
         artwork: '',
         hqArtwork: '',
         color: '',
@@ -366,7 +366,7 @@ export const MusicTimesList: Array<GenreData> = [
     },
     {
         id: 1,
-        name: 'Sleep',
+        title: 'Sleep',
         artwork: '',
         hqArtwork: '',
         color: '',
@@ -374,7 +374,7 @@ export const MusicTimesList: Array<GenreData> = [
     },
     {
         id: 2,
-        name: 'Workout',
+        title: 'Workout',
         artwork: '',
         hqArtwork: '',
         color: '',
@@ -382,7 +382,7 @@ export const MusicTimesList: Array<GenreData> = [
     },
     {
         id: 3,
-        name: 'Drive',
+        title: 'Drive',
         artwork: '',
         hqArtwork: '',
         color: '',
@@ -390,7 +390,7 @@ export const MusicTimesList: Array<GenreData> = [
     },
     {
         id: 4,
-        name: 'Study',
+        title: 'Study',
         artwork: '',
         hqArtwork: '',
         color: '',
@@ -398,7 +398,7 @@ export const MusicTimesList: Array<GenreData> = [
     },
     {
         id: 5,
-        name: 'Morning',
+        title: 'Morning',
         artwork: '',
         hqArtwork: '',
         color: '',
@@ -406,7 +406,7 @@ export const MusicTimesList: Array<GenreData> = [
     },
     {
         id: 6,
-        name: 'Friends',
+        title: 'Friends',
         artwork: '',
         hqArtwork: '',
         color: '',
@@ -414,7 +414,7 @@ export const MusicTimesList: Array<GenreData> = [
     },
     {
         id: 7,
-        name: 'Alone',
+        title: 'Alone',
         artwork: '',
         hqArtwork: '',
         color: '',
@@ -422,7 +422,7 @@ export const MusicTimesList: Array<GenreData> = [
     },
     {
         id: 8,
-        name: 'Gaming',
+        title: 'Gaming',
         artwork: '',
         hqArtwork: '',
         color: '',
@@ -433,7 +433,7 @@ export const MusicTimesList: Array<GenreData> = [
 export const ExtraMusicTypesList: Array<GenreData> = [
     {
         id: 0,
-        name: 'New Releases',
+        title: 'New Releases',
         artwork: '',
         hqArtwork: '',
         color: '',
@@ -441,7 +441,7 @@ export const ExtraMusicTypesList: Array<GenreData> = [
     },
     {
         id: 1,
-        name: 'Summer',
+        title: 'Summer',
         artwork: '',
         hqArtwork: '',
         color: '',
@@ -449,7 +449,7 @@ export const ExtraMusicTypesList: Array<GenreData> = [
     },
     {
         id: 2,
-        name: 'Travel',
+        title: 'Travel',
         artwork: '',
         hqArtwork: '',
         color: '',
@@ -457,7 +457,7 @@ export const ExtraMusicTypesList: Array<GenreData> = [
     },
     {
         id: 3,
-        name: 'Netflix',
+        title: 'Netflix',
         artwork: '',
         hqArtwork: '',
         color: '',
@@ -465,7 +465,7 @@ export const ExtraMusicTypesList: Array<GenreData> = [
     },
     {
         id: 4,
-        name: 'Focus',
+        title: 'Focus',
         artwork: '',
         hqArtwork: '',
         color: '',
@@ -473,7 +473,7 @@ export const ExtraMusicTypesList: Array<GenreData> = [
     },
     {
         id: 5,
-        name: 'Kids',
+        title: 'Kids',
         artwork: '',
         hqArtwork: '',
         color: '',
@@ -481,7 +481,7 @@ export const ExtraMusicTypesList: Array<GenreData> = [
     },
     {
         id: 6,
-        name: 'Instrumental',
+        title: 'Instrumental',
         artwork: '',
         hqArtwork: '',
         color: '',
@@ -489,7 +489,7 @@ export const ExtraMusicTypesList: Array<GenreData> = [
     },
     {
         id: 7,
-        name: 'Holidays',
+        title: 'Holidays',
         artwork: '',
         hqArtwork: '',
         color: '',
@@ -497,7 +497,7 @@ export const ExtraMusicTypesList: Array<GenreData> = [
     },
     {
         id: 8,
-        name: '90s',
+        title: '90s',
         artwork: '',
         hqArtwork: '',
         color: '',
@@ -505,7 +505,7 @@ export const ExtraMusicTypesList: Array<GenreData> = [
     },
     {
         id: 9,
-        name: '80s',
+        title: '80s',
         artwork: '',
         hqArtwork: '',
         color: '',
@@ -513,7 +513,7 @@ export const ExtraMusicTypesList: Array<GenreData> = [
     },
     {
         id: 10,
-        name: "Feelin' Good",
+        title: "Feelin' Good",
         artwork: '',
         hqArtwork: '',
         color: '',
@@ -521,7 +521,7 @@ export const ExtraMusicTypesList: Array<GenreData> = [
     },
     {
         id: 11,
-        name: 'Ambient',
+        title: 'Ambient',
         artwork: '',
         hqArtwork: '',
         color: '',
@@ -529,7 +529,7 @@ export const ExtraMusicTypesList: Array<GenreData> = [
     },
     {
         id: 12,
-        name: 'Good Vibes',
+        title: 'Good Vibes',
         artwork: '',
         hqArtwork: '',
         color: '',
@@ -537,7 +537,7 @@ export const ExtraMusicTypesList: Array<GenreData> = [
     },
     {
         id: 13,
-        name: 'Slowed + Reverbed',
+        title: 'Slowed + Reverbed',
         artwork: '',
         hqArtwork: '',
         color: '',
