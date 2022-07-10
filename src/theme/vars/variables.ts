@@ -15,7 +15,7 @@ import {DEVICE_STATUSBAR_HEIGHT} from '@/configs'
  * all constants for Metrics Sizes
  */
 export const MetricSizeTypes: MetricSizes = {
-    extraTiny: 3,
+    extraTiny: 2,
     tiny: 5,
     small: 10,
     regular: 15,
