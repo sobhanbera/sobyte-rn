@@ -15,7 +15,9 @@ export * from './BottomPaddingComponent'
 export * from './BottomTabBarButton'
 export * from './BottomTabBarPlayerButton'
 
+export * from './SearchInputHeader'
 export * from './SobyteMarquee'
+export * from './SobyteTextInput'
 export * from './SobyteTextView'
 
 export * from './TouchableScalable'
