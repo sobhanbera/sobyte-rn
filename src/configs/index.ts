@@ -27,3 +27,5 @@ export * from './searchqueries'
 export * from './storage'
 
 export * from './tempmail'
+
+export * from './vars'
