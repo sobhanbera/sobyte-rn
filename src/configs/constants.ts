@@ -240,3 +240,5 @@ export const APP_INFINITE = 100000000 // a random large number which could act a
 export const ANIMATION_ITERATION_DELAY = 1000 // a delay between lottie animation iteration
 
 export const DEFAULT_HEADER_HEIGHT = 55 // the default header's height
+
+export const DEFAULT_SCALE_VALUE_FOR_TOUCHABLE_SCALABLE = 0.98 // the default value of the scaler touchable to scale when hovered

@@ -8,8 +8,6 @@
  * Purpose - a button wrapper that scales when hovered and
  */
 
-import {DEFAULT_TOUCHABLE_OPACITY_BUTTON_ACTIVE_OPACITY} from '@/configs'
-import {useTheme} from '@/hooks'
 import React, {useEffect} from 'react'
 import {
     Animated,
@@ -18,6 +16,12 @@ import {
     TouchableOpacityProps,
     ViewStyle,
 } from 'react-native'
+
+import {
+    DEFAULT_SCALE_VALUE_FOR_TOUCHABLE_SCALABLE,
+    DEFAULT_TOUCHABLE_OPACITY_BUTTON_ACTIVE_OPACITY,
+} from '@/configs'
+import {useTheme} from '@/hooks'
 
 export interface TouchableScalableProps extends TouchableOpacityProps {
     buttonStyle?: StyleProp<any> // custom button styles
@@ -32,7 +36,10 @@ export function TouchableScalable(props: TouchableScalableProps) {
     const animation = React.useRef(new Animated.Value(0)).current
     const scale = animation.interpolate({
         inputRange: [0, 1],
-        outputRange: [1, props.scale ?? 0.95],
+        outputRange: [
+            1,
+            props.scale ?? DEFAULT_SCALE_VALUE_FOR_TOUCHABLE_SCALABLE,
+        ],
     })
 
     /**
