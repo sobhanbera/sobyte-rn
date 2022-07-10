@@ -86,19 +86,14 @@ export function SearchSuggestionsRenderer({
 
     if (isNoSearchSuggestionsFound)
         return (
-            <View
-                style={[
-                    layouts.fullHeight,
-                    layouts.center,
-                    {
-                        backgroundColor: 'lightpink',
-                    },
-                ]}>
+            <View style={[layouts.fullHeight, layouts.center]}>
                 <SobyteTextView
                     style={[
                         gutters.smallPaddingVertical,
+                        gutters.regularPaddingHorizontal,
                         fonts.textMedium,
                         fonts.mediumFont,
+                        fonts.textCenter,
                     ]}>
                     {`Could not find results for "${searchQuery}"`}
                 </SobyteTextView>
@@ -114,6 +109,11 @@ export function SearchSuggestionsRenderer({
             data={suggestions}
             renderItem={renderSearchSuggestionItem}
             keyExtractor={keyExtractor}
+            style={[
+                {
+                    backgroundColor: theme.surface,
+                },
+            ]}
         />
     )
 }
