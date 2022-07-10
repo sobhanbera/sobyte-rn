@@ -45,6 +45,10 @@ target 'sobyte' do
 
   pod 'lottie-react-native', :path => '../node_modules/lottie-react-native'
 
+  pod 'RNReanimated', :path => '../node_modules/react-native-reanimated'
+
+  pod 'react-native-safe-area-context', :path => '../node_modules/react-native-safe-area-context'
+
   target 'sobyteTests' do
     inherit! :complete
     # Pods for testing

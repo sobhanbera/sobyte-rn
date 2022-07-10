@@ -4,7 +4,6 @@ import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
-import org.reactnative.maskedview.RNCMaskedViewPackage;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -29,7 +28,10 @@ import com.BV.LinearGradient.LinearGradientPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import cl.json.RNSharePackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
+import org.reactnative.maskedview.RNCMaskedViewPackage;
 import com.airbnb.android.react.lottie.LottiePackage;
+import com.th3rdwave.safeareacontext.SafeAreaContextPackage;
+import com.swmansion.reanimated.ReanimatedPackage;
 
 public class MainApplication extends Application implements ReactApplication {
 
