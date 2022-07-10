@@ -905,16 +905,14 @@ export function useMusic() {
                     if (res !== null)
                         if (
                             res?.name.length > 0 &&
-                            res?.thumbnails.length >= 2
+                            res?.thumbnails?.length >= 1
                         ) {
                             resolvedData = true
-                            console.log('PROVIDED')
                             resolve(res)
                         }
                 })
 
                 if (resolvedData) return
-                console.log('PROVIDED 1')
 
                 _createApiRequest(
                     PRIMARY_MUSIC_API_ENDPOINTS.browse,

@@ -67,7 +67,8 @@ export const TrackDetailsMenuArtist = ({
      * so for them if the data is loaded, but we got nothing to show, then
      * we will render nothing as a component
      */
-    if (!loading && !artistDetails?.name) return null
+    if (!loading && (!artistDetails?.name || !artistDetails?.thumbnails))
+        return null
 
     return (
         <View style={[gutters.tinyMarginVertical]}>
