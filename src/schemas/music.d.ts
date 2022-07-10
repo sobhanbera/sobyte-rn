@@ -124,7 +124,7 @@ export interface MusicFormats {
     }
 }
 
-export interface VideoDetails {
+export interface MusicTrackAsVideoDetails {
     videoDetails: {
         // type: SearchOptions
         // musicId: string
@@ -157,7 +157,7 @@ export interface SongArtistObject {
 }
 
 /**
- * thumbnail data for songs
+ * artwork data for songs
  */
 export interface ArtworkObject {
     height: number
@@ -165,10 +165,19 @@ export interface ArtworkObject {
 }
 
 /**
+ * default artwork modal
+ */
+export interface Artwork {
+    height: number
+    width: number
+    url: string
+}
+
+/**
  * content of songs which are returned when making a request to get songs list
  */
 export interface SongObject {
-    type?: string
+    type?: 'song'
     title: string
     musicId: string
     playlistId: string
@@ -180,16 +189,43 @@ export interface SongObject {
     duration: number
     artworks: Array<ArtworkObject>
     params?: string
-    [key: string]: any
 }
 
 /**
- * artist have a different format for artworks
+ * playlist object when returned from api request
+ * whichever arttributes aren't used in the app they are optional in this interface (but not actually)
  */
-export interface ArtistArtworkObject {
-    height: number
-    width: number
-    url: string
+export interface PlaylistObject {
+    type: 'playlist'
+    browseId: string
+    title: string
+    trackCount: number
+    artworks: Array<Artwork>
+    author?: string
+}
+
+/**
+ * album object when returned from api request
+ * whichever arttributes aren't used in the app they are optional in this interface (but not actually)
+ */
+export interface AlbumObject {
+    type: 'album'
+    browseId: string
+    playlistId: string
+    name: string
+    year: string
+    artworks: Array<Artwork>
+    artist?: string
+}
+
+export interface ArtistObject {
+    type: 'artist'
+    browseId: string
+    playlistId: string
+    name: string
+    year: string
+    artworks: Array<Artwork>
+    artist?: string
 }
 
 /**
@@ -198,7 +234,7 @@ export interface ArtistArtworkObject {
  */
 export interface ArtistDetailsObject {
     name: string
-    thumbnails: Array<ArtistArtworkObject>
+    thumbnails: Array<Artwork>
     description?: string
     products?: {
         albums: {
