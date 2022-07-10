@@ -10,7 +10,7 @@
 
 import lodash from 'lodash'
 
-import {VideoDetails} from '@/schemas'
+import {MusicTrackAsVideoDetails} from '@/schemas'
 import MusicUtils from './music'
 
 export const parseSearchResult = (context: any) => {
@@ -54,7 +54,7 @@ export const parseSearchResult = (context: any) => {
                             sectionContext,
                             'playNavigationEndpoint:playlistId',
                         ),
-                        name: MusicUtils.fv(
+                        title: MusicUtils.fv(
                             lodash.nth(flexColumn, 0),
                             'runs:text',
                         ),
@@ -118,7 +118,7 @@ export const parseSearchResult = (context: any) => {
                                 6,
                             ),
                         ),
-                        thumbnails: MusicUtils.fv(
+                        artworks: MusicUtils.fv(
                             sectionContext,
                             'musicThumbnailRenderer:thumbnails',
                         ),
@@ -149,7 +149,7 @@ export const parseSearchResult = (context: any) => {
                             sectionContext,
                             'playNavigationEndpoint:playlistId',
                         ),
-                        name: MusicUtils.fv(
+                        title: MusicUtils.fv(
                             lodash.nth(flexColumn, 0),
                             'runs:text',
                         ),
@@ -176,7 +176,7 @@ export const parseSearchResult = (context: any) => {
                                 6,
                             ),
                         ),
-                        thumbnails: MusicUtils.fv(
+                        artworks: MusicUtils.fv(
                             sectionContext,
                             'musicThumbnailRenderer:thumbnails',
                         ),
@@ -203,11 +203,11 @@ export const parseSearchResult = (context: any) => {
                             lodash.at(sectionContext, 'navigationEndpoint'),
                             'browseEndpoint:browseId',
                         ),
-                        name: MusicUtils.fv(
+                        title: MusicUtils.fv(
                             lodash.nth(flexColumn, 0),
                             'runs:text',
                         ),
-                        thumbnails: MusicUtils.fv(
+                        artworks: MusicUtils.fv(
                             sectionContext,
                             'musicThumbnailRenderer:thumbnails',
                         ),
@@ -236,7 +236,7 @@ export const parseSearchResult = (context: any) => {
                             sectionContext,
                             'playNavigationEndpoint:playlistId',
                         ),
-                        name: MusicUtils.fv(
+                        title: MusicUtils.fv(
                             lodash.nth(flexColumn, 0),
                             'runs:text',
                         ),
@@ -254,7 +254,7 @@ export const parseSearchResult = (context: any) => {
                             ),
                             4,
                         ),
-                        thumbnails: MusicUtils.fv(
+                        artworks: MusicUtils.fv(
                             sectionContext,
                             'musicThumbnailRenderer:thumbnails',
                         ),
@@ -299,7 +299,7 @@ export const parseSearchResult = (context: any) => {
                                 0,
                             ),
                         ),
-                        thumbnails: MusicUtils.fv(
+                        artworks: MusicUtils.fv(
                             sectionContext,
                             'musicThumbnailRenderer:thumbnails',
                         ),
@@ -444,7 +444,7 @@ export const parseVideoSearchResult = (context: any) => {
                     sectionContext,
                     'playNavigationEndpoint:playlistId',
                 ),
-                name: MusicUtils.fv(lodash.nth(flexColumn, 0), 'runs:text'),
+                title: MusicUtils.fv(lodash.nth(flexColumn, 0), 'runs:text'),
                 author: lodash.nth(
                     MusicUtils.fv(lodash.nth(flexColumn, 1), 'runs:text'),
                     0,
@@ -458,7 +458,7 @@ export const parseVideoSearchResult = (context: any) => {
                         MusicUtils.fv(lodash.nth(flexColumn, 1), 'runs:text'),
                     ),
                 ),
-                thumbnails: MusicUtils.fv(
+                artworks: MusicUtils.fv(
                     sectionContext,
                     'musicThumbnailRenderer:thumbnails',
                 ),
@@ -505,7 +505,7 @@ export const parseAlbumSearchResult = (context: any) => {
                     'toggledServiceEndpoint:playlistId',
                     true,
                 ),
-                name: MusicUtils.fv(lodash.nth(flexColumn, 0), 'runs:text'),
+                title: MusicUtils.fv(lodash.nth(flexColumn, 0), 'runs:text'),
                 artist: lodash.join(
                     lodash.filter(
                         MusicUtils.fv(
@@ -519,7 +519,7 @@ export const parseAlbumSearchResult = (context: any) => {
                 year: lodash.last(
                     MusicUtils.fv(lodash.nth(flexColumn, 1), 'runs:text'),
                 ),
-                thumbnails: MusicUtils.fv(
+                artworks: MusicUtils.fv(
                     sectionContext,
                     'musicThumbnailRenderer:thumbnails',
                 ),
@@ -560,8 +560,8 @@ export const parseArtistSearchResult = (context: any) => {
                     lodash.at(sectionContext, 'navigationEndpoint'),
                     'browseEndpoint:browseId',
                 ),
-                name: MusicUtils.fv(lodash.nth(flexColumn, 0), 'runs:text'),
-                thumbnails: MusicUtils.fv(
+                title: MusicUtils.fv(lodash.nth(flexColumn, 0), 'runs:text'),
+                artworks: MusicUtils.fv(
                     sectionContext,
                     'musicThumbnailRenderer:thumbnails',
                 ),
@@ -612,7 +612,7 @@ export const parsePlaylistSearchResult = (context: any) => {
                         0,
                     ),
                 ),
-                thumbnails: MusicUtils.fv(
+                artworks: MusicUtils.fv(
                     sectionContext,
                     'musicThumbnailRenderer:thumbnails',
                 ),
@@ -1255,14 +1255,12 @@ export const parseNextPanel = (context: any) => {
 }
 
 export const parseSongDetailsPlayer = (
-    data: VideoDetails,
+    data: MusicTrackAsVideoDetails,
     musicId: string,
     playlistId: string,
 ) => {
     // TODO: there are more fields in this videoDetails
     const {videoDetails} = data
-
-    console.log('CONSOLER', data)
 
     return {
         type: 'SONG',
@@ -1275,7 +1273,7 @@ export const parseSongDetailsPlayer = (
             browseId: '', // this two properties must be handled by the player controller and music player UI
         },
         duration: Number(videoDetails.lengthSeconds) * 1000, // converting the duration from seconds to milliseconds
-        thumbnails: [
+        artworks: [
             {
                 height: 60,
                 url: videoDetails.thumbnail.thumbnails[0].url,
