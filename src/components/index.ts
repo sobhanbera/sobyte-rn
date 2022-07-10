@@ -15,6 +15,7 @@ export * from './BottomPaddingComponent'
 export * from './BottomTabBarButton'
 export * from './BottomTabBarPlayerButton'
 
+export * from './SearchGenreListRenderer'
 export * from './SearchSuggestionsRenderer'
 export * from './SearchInputHeader'
 export * from './SobyteMarquee'
