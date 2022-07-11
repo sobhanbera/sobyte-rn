@@ -8,9 +8,11 @@
  * Purpose - this screen renders search history, genres, etc. and also is a path to the actual search screen..
  */
 
-import React, {useEffect, useState} from 'react'
+import React, {useEffect} from 'react'
 import {ScrollView, View} from 'react-native'
 import {NavigationHelpers} from '@react-navigation/native'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import {useDispatch, useSelector} from 'react-redux'
 
 import {useTheme} from '@/hooks'
 import {
@@ -28,19 +30,21 @@ import {
     AppSearchSuggestions,
     ACTUAL_SEARCH_SCREEN,
 } from '@/configs'
-import AsyncStorage from '@react-native-async-storage/async-storage'
-
+import {SobyteState, updateSearchHistories} from '@/state'
 export interface SearchScreenProps {
     navigation: NavigationHelpers<any>
 }
 export function SearchScreen({navigation}: SearchScreenProps) {
     const {layouts, variables} = useTheme()
 
-    // list of search queries which were done successfully recently
-    const [searchHistory, setSearchHistory] = useState<string[]>([])
+    // redux store related to search historyy
+    const searchHistory = useSelector(
+        (state: SobyteState) => state.searchresults.searchHistory,
+    )
+    const dispatch = useDispatch()
 
     /**
-     * this method updates search history in the local as well as in the current component's state
+     * this method updates search history in the local as well as in the global redux store
      */
     function getSearchHistory() {
         AsyncStorage.getItem(SEARCH_HISTORY_STORAGE_KEY).then(
@@ -49,42 +53,10 @@ export function SearchScreen({navigation}: SearchScreenProps) {
                     // if any such search query is saved then update state
                     // after re-checking its and array or not
                     const histories: string[] = JSON.parse(res)
-                    if (Array.isArray(histories)) setSearchHistory(histories)
-                }
-            },
-        )
-    }
-    /**
-     * this method adds new search history to the local storage
-     **/
-    function addNewSearchHistory(query: string = '') {
-        AsyncStorage.getItem(SEARCH_HISTORY_STORAGE_KEY).then(
-            (res: string | any) => {
-                if (res) {
-                    // if any such search query is saved then update state
-                    // after re-checking its and array or not
-                    const histories: string[] = JSON.parse(res)
-                    if (Array.isArray(histories)) setSearchHistory(histories)
-
-                    if (query.length <= 0) return
-                    // since we are not saving more than 10 queries locally.
-                    // because it is not neccessary to show all the queries only 5 to 10 are sufficient...
-                    let whatToSave: string[] = []
-
-                    // since the search history limit is 15
-                    if (searchHistory.length > 15)
-                        whatToSave = searchHistory.slice(0, 15)
-                    else whatToSave = searchHistory
-
-                    whatToSave.push(query.toLowerCase())
-
-                    const finalSavingData: string[] = [...new Set(whatToSave)] // trimming duplicate data
-                    // finally saving all the queries...
-                    AsyncStorage.setItem(
-                        SEARCH_HISTORY_STORAGE_KEY,
-                        JSON.stringify(finalSavingData),
-                    )
-                    setSearchHistory(finalSavingData)
+                    if (Array.isArray(histories))
+                        dispatch(
+                            updateSearchHistories({searchHistory: histories}),
+                        )
                 }
             },
         )
@@ -92,13 +64,14 @@ export function SearchScreen({navigation}: SearchScreenProps) {
     /**
      * delete all the search histories
      * in the local storage
+     * and updates the redux store with []
      */
     function clearSearchHistory() {
         AsyncStorage.setItem(SEARCH_HISTORY_STORAGE_KEY, '[]')
-        setSearchHistory([])
+        dispatch(updateSearchHistories({searchHistory: []}))
     }
     useEffect(() => {
-        getSearchHistory() // getting all the search history from local storage
+        getSearchHistory() // getting all the search history from local storage, using redux
     }, [])
 
     /**
@@ -108,7 +81,6 @@ export function SearchScreen({navigation}: SearchScreenProps) {
     const openActualSearchTab = (queryString: string = '') => {
         navigation.navigate(ACTUAL_SEARCH_SCREEN, {
             searchQuery: queryString,
-            addNewSearchHistory: addNewSearchHistory,
         })
     }
 
