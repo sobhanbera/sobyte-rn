@@ -11,12 +11,12 @@
 import {GenreData} from '@/schemas'
 
 export const AppSearchSuggestions: string[] = [
-    'romantic tracks',
-    'arijit singh',
-    'jubin nautiyal',
-    'bollywood hits',
-    'hindi lo-fi',
-    'hindi mashups',
+    'Romantic tracks',
+    'Arijit Singh',
+    'Shreya Ghosal',
+    'Bollywood Hits',
+    'Hindi Lo-Fi',
+    'Hindi Mashups',
 ]
 
 /**
