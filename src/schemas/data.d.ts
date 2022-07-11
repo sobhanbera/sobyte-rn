@@ -19,8 +19,3 @@ export interface GenreData {
     color: string
     searchQuery: string
 }
-
-export interface SearchHistory {
-    query: string
-    timestamp: string | number
-}
