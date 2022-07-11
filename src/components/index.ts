@@ -16,6 +16,7 @@ export * from './BottomTabBarButton'
 export * from './BottomTabBarPlayerButton'
 
 export * from './SearchGenreListRenderer'
+export * from './SearchHistoryRenderer'
 export * from './SearchSuggestionsRenderer'
 export * from './SearchInputHeader'
 export * from './SobyteMarquee'
