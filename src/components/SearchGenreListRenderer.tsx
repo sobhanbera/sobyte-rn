@@ -17,6 +17,7 @@ import {GenreData} from '@/schemas'
 import {SobyteTextView} from './SobyteTextView'
 import {TouchableScalable} from './TouchableScalable'
 import {SEARCH_CATEGORY_CARD_HEIGHT} from '@/configs'
+import {Title} from './Title'
 
 export interface SearchGenreListRendererProps {
     title: string
@@ -32,15 +33,7 @@ export function SearchGenreListRenderer({
 
     return (
         <View style={[]}>
-            <SobyteTextView
-                style={[
-                    fonts.titleTiny,
-                    gutters.smallPadding,
-                    gutters.regularMarginTop,
-                    {color: variables.colors.white},
-                ]}>
-                {title}
-            </SobyteTextView>
+            <Title>{title}</Title>
 
             <View
                 style={[

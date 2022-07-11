@@ -16,7 +16,7 @@ import {useTheme} from '@/hooks'
 
 import {SobyteTextView} from './SobyteTextView'
 import {TouchableScalable} from './TouchableScalable'
-import {TINY_ICON_SIZE} from '@/configs'
+import {TitleIcon} from './TitleIcon'
 
 export interface SearchHistoryRendererProps {
     title: string
@@ -51,31 +51,13 @@ export function SearchHistoryRenderer({
 
     return (
         <View style={[]}>
-            <View
-                style={[
-                    layouts.row,
-                    layouts.alignItemsCenter,
-                    layouts.justifyContentBetween,
-                    gutters.regularMarginTop,
-                    gutters.tinyMarginBottom,
-                ]}>
-                <SobyteTextView style={[fonts.titleTiny, gutters.smallPadding]}>
-                    {title}
-                </SobyteTextView>
-
-                {showDeleteSearchHistoryButton ? (
-                    <EvilIcons
-                        name={'trash'}
-                        size={TINY_ICON_SIZE}
-                        color={theme.themecolorrevert}
-                        style={[
-                            gutters.regularMarginRight,
-                            gutters.tinyPadding,
-                        ]}
-                        onPress={onPressOnDeleteSearchHistoryButton}
-                    />
-                ) : null}
-            </View>
+            <TitleIcon
+                showIcon={showDeleteSearchHistoryButton}
+                IconComponentType={EvilIcons}
+                iconName={'trash'}
+                onPressIcon={onPressOnDeleteSearchHistoryButton}>
+                {title}
+            </TitleIcon>
 
             <View
                 style={[
