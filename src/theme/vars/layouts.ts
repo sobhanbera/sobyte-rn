@@ -77,6 +77,9 @@ export default function GetLayouts() {
         justifyContentBetween: {
             justifyContent: 'space-between',
         },
+        justifyContentEvenly: {
+            justifyContent: 'space-evenly',
+        },
         scrollSpaceAround: {
             flexGrow: 1,
             justifyContent: 'space-around',
