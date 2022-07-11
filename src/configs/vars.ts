@@ -11,13 +11,12 @@
 import {GenreData} from '@/schemas'
 
 export const AppSearchSuggestions: string[] = [
+    'romantic tracks',
     'arijit singh',
     'jubin nautiyal',
     'bollywood hits',
-    'trending songs',
-    'top lo-fi tracks',
-    'remix',
-    'romantic songs',
+    'hindi lo-fi',
+    'hindi mashups',
 ]
 
 /**
@@ -31,7 +30,7 @@ export const GenreList: Array<GenreData> = [
         title: 'Pop',
         artwork: '',
         hqArtwork: '',
-        color: '#2E3532',
+        color: '#203870',
         searchQuery: '',
     },
     {
@@ -63,7 +62,7 @@ export const GenreList: Array<GenreData> = [
         title: 'R&B',
         artwork: '',
         hqArtwork: '',
-        color: '#673C4F',
+        color: '#A01800',
         searchQuery: '',
     },
     {
@@ -87,7 +86,7 @@ export const GenreList: Array<GenreData> = [
         title: 'Classical',
         artwork: '',
         hqArtwork: '',
-        color: '#5B5B5B',
+        color: '#0C73EC',
         searchQuery: '',
     },
     {
@@ -103,7 +102,7 @@ export const GenreList: Array<GenreData> = [
         title: 'K-Pop',
         artwork: '',
         hqArtwork: '',
-        color: '#08415C',
+        color: '#B95D06',
         searchQuery: '',
     },
     {
@@ -119,7 +118,7 @@ export const GenreList: Array<GenreData> = [
         title: 'Jazz',
         artwork: '',
         hqArtwork: '',
-        color: '#087CA7',
+        color: '#5AA0F6',
         searchQuery: '',
     },
     {
@@ -127,7 +126,7 @@ export const GenreList: Array<GenreData> = [
         title: 'World',
         artwork: '',
         hqArtwork: '',
-        color: '#416165',
+        color: '#483868',
         searchQuery: '',
     },
     {
@@ -143,7 +142,7 @@ export const GenreList: Array<GenreData> = [
         title: 'Dance',
         artwork: '',
         hqArtwork: '',
-        color: '#6B818C',
+        color: '#284878',
         searchQuery: '',
     },
     {
@@ -151,7 +150,7 @@ export const GenreList: Array<GenreData> = [
         title: 'Orchestra',
         artwork: '',
         hqArtwork: '',
-        color: '#3F292B',
+        color: '#E8B848',
         searchQuery: '',
     },
     {
@@ -159,7 +158,7 @@ export const GenreList: Array<GenreData> = [
         title: 'Indie',
         artwork: '',
         hqArtwork: '',
-        color: '#D34F73',
+        color: '#582820',
         searchQuery: '',
     },
     {
@@ -175,7 +174,7 @@ export const GenreList: Array<GenreData> = [
         title: 'Blues',
         artwork: '',
         hqArtwork: '',
-        color: '#2B9720',
+        color: '#385080',
         searchQuery: '',
     },
 ]
@@ -230,7 +229,7 @@ export const LanguagesList: Array<GenreData> = [
         title: 'Tamil',
         artwork: '',
         hqArtwork: '',
-        color: '#4D6770',
+        color: '#F59B23',
         searchQuery: '',
     },
     {
@@ -238,7 +237,7 @@ export const LanguagesList: Array<GenreData> = [
         title: 'Telugu',
         artwork: '',
         hqArtwork: '',
-        color: '#772333',
+        color: '#5AA0F6',
         searchQuery: '',
     },
     {
@@ -246,7 +245,7 @@ export const LanguagesList: Array<GenreData> = [
         title: 'Marathi',
         artwork: '',
         hqArtwork: '',
-        color: '#64336B',
+        color: '#0C73EC',
         searchQuery: '',
     },
     {
@@ -254,7 +253,7 @@ export const LanguagesList: Array<GenreData> = [
         title: 'Gujrati',
         artwork: '',
         hqArtwork: '',
-        color: '#CC6246',
+        color: '#8C67AC',
         searchQuery: '',
     },
     {
@@ -262,7 +261,7 @@ export const LanguagesList: Array<GenreData> = [
         title: 'Kannada',
         artwork: '',
         hqArtwork: '',
-        color: '#147F85',
+        color: '#A83000',
         searchQuery: '',
     },
     {
@@ -270,7 +269,7 @@ export const LanguagesList: Array<GenreData> = [
         title: 'Haryanvi',
         artwork: '',
         hqArtwork: '',
-        color: '#517B2E',
+        color: '#681038',
         searchQuery: '',
     },
     {
@@ -278,7 +277,7 @@ export const LanguagesList: Array<GenreData> = [
         title: 'Malayalam',
         artwork: '',
         hqArtwork: '',
-        color: '#E1764E',
+        color: '#206870',
         searchQuery: '',
     },
 ]
@@ -300,7 +299,7 @@ export const MoodsList: Array<GenreData> = [
         title: 'Happy',
         artwork: '',
         hqArtwork: '',
-        color: '#3C5C45',
+        color: '#1E3264',
         searchQuery: '',
     },
     {
@@ -308,7 +307,7 @@ export const MoodsList: Array<GenreData> = [
         title: 'Energetic',
         artwork: '',
         hqArtwork: '',
-        color: '#0C3B58',
+        color: '#5AA0F6',
         searchQuery: '',
     },
     {
@@ -316,7 +315,7 @@ export const MoodsList: Array<GenreData> = [
         title: 'Sad',
         artwork: '',
         hqArtwork: '',
-        color: '#DA9449',
+        color: '#784840',
         searchQuery: '',
     },
     {
@@ -324,7 +323,7 @@ export const MoodsList: Array<GenreData> = [
         title: 'Calm',
         artwork: '',
         hqArtwork: '',
-        color: '#F05561',
+        color: '#A04008',
         searchQuery: '',
     },
     {
@@ -340,7 +339,7 @@ export const MoodsList: Array<GenreData> = [
         title: 'Dark',
         artwork: '',
         hqArtwork: '',
-        color: '#7D161A',
+        color: '#0C73EC',
         searchQuery: '',
     },
     {
@@ -348,7 +347,7 @@ export const MoodsList: Array<GenreData> = [
         title: 'Lo-Fi',
         artwork: '',
         hqArtwork: '',
-        color: '#9D4528',
+        color: '#5AA0F6',
         searchQuery: '',
     },
     {
@@ -356,7 +355,7 @@ export const MoodsList: Array<GenreData> = [
         title: 'Devotional',
         artwork: '',
         hqArtwork: '',
-        color: '#32DD82',
+        color: '#7D161A',
         searchQuery: '',
     },
 ]
@@ -451,10 +450,10 @@ export const ExtraMusicTypesList: Array<GenreData> = [
     },
     {
         id: 1,
-        title: 'Summer',
+        title: 'Eng x Hind',
         artwork: '',
         hqArtwork: '',
-        color: '#477D95',
+        color: '#8B9A46',
         searchQuery: '',
     },
     {
@@ -462,7 +461,7 @@ export const ExtraMusicTypesList: Array<GenreData> = [
         title: 'Travel',
         artwork: '',
         hqArtwork: '',
-        color: '#3C5C45',
+        color: '#C84B31',
         searchQuery: '',
     },
     {
@@ -494,12 +493,12 @@ export const ExtraMusicTypesList: Array<GenreData> = [
         title: 'Holidays',
         artwork: '',
         hqArtwork: '',
-        color: '#DA9449',
+        color: '#712B75',
         searchQuery: '',
     },
     {
         id: 8,
-        title: '90s',
+        title: '90s Times',
         artwork: '',
         hqArtwork: '',
         color: '#0C73EC',
@@ -507,7 +506,7 @@ export const ExtraMusicTypesList: Array<GenreData> = [
     },
     {
         id: 9,
-        title: '80s',
+        title: '80s Times',
         artwork: '',
         hqArtwork: '',
         color: '#7D161A',
@@ -542,7 +541,103 @@ export const ExtraMusicTypesList: Array<GenreData> = [
         title: 'Slowed + Reverbed',
         artwork: '',
         hqArtwork: '',
-        color: '#FE5F55',
+        color: '#B85C38',
+        searchQuery: '',
+    },
+    {
+        id: 14,
+        title: 'Folk',
+        artwork: '',
+        hqArtwork: '',
+        color: '#6E85B7',
+        searchQuery: '',
+    },
+    {
+        id: 15,
+        title: 'Indian Classical',
+        artwork: '',
+        hqArtwork: '',
+        color: '#FF9933',
+        searchQuery: '',
+    },
+    {
+        id: 16,
+        title: 'DJs',
+        artwork: '',
+        hqArtwork: '',
+        color: '#F37878',
+        searchQuery: '',
+    },
+    {
+        id: 17,
+        title: 'Remix',
+        artwork: '',
+        hqArtwork: '',
+        color: '#516BEB',
+        searchQuery: '',
+    },
+    {
+        id: 18,
+        title: 'Mixtape',
+        artwork: '',
+        hqArtwork: '',
+        color: '#354259',
+        searchQuery: '',
+    },
+    {
+        id: 19,
+        title: 'Chill',
+        artwork: '',
+        hqArtwork: '',
+        color: '#748DA6',
+        searchQuery: '',
+    },
+    {
+        id: 20,
+        title: 'Top Hits',
+        artwork: '',
+        hqArtwork: '',
+        color: '#65C18C',
+        searchQuery: '',
+    },
+    {
+        id: 21,
+        title: 'Remakes',
+        artwork: '',
+        hqArtwork: '',
+        color: '#5E454B',
+        searchQuery: '',
+    },
+    {
+        id: 22,
+        title: 'T-Series',
+        artwork: '',
+        hqArtwork: '',
+        color: '#4C4C6D',
+        searchQuery: '',
+    },
+    {
+        id: 23,
+        title: 'Today',
+        artwork: '',
+        hqArtwork: '',
+        color: '#1C6DD0',
+        searchQuery: '',
+    },
+    {
+        id: 23,
+        title: 'Mashups',
+        artwork: '',
+        hqArtwork: '',
+        color: '#3797A4',
+        searchQuery: '',
+    },
+    {
+        id: 24,
+        title: 'Random',
+        artwork: '',
+        hqArtwork: '',
+        color: '#7868E6',
         searchQuery: '',
     },
 ]
