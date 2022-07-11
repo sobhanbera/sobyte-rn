@@ -10,12 +10,33 @@
 
 import React, {useEffect, useState} from 'react'
 import {BackHandler, Keyboard, ScrollView, View} from 'react-native'
+import {useDispatch, useSelector} from 'react-redux'
+import EvilIcons from 'react-native-vector-icons/EvilIcons'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import {NavigationHelpers, RouteProp} from '@react-navigation/native'
 
 import {useMusic, useTheme} from '@/hooks'
-import {SearchInputHeader} from '@/components'
-import {SCREEN_HEIGHT} from '@/configs'
+import {SearchInputHeader, TitleTextIcon} from '@/components'
+import {
+    SCREEN_HEIGHT,
+    SEARCH_HISTORY_COUNT_LIMIT,
+    SEARCH_HISTORY_STORAGE_KEY,
+} from '@/configs'
 import {SearchSuggestionsRenderer} from '@/components'
+import {
+    AlbumObject,
+    ArtistObject,
+    FetchedData,
+    PlaylistObject,
+    SongObject,
+} from '@/schemas'
+import {
+    updateSearchHistories,
+    SobyteState,
+    updateSearchResultData,
+    updateSearchSuggestions,
+    updateSearchQueryText,
+} from '@/state'
 
 /**
  * the type of data passed through routes
@@ -23,7 +44,6 @@ import {SearchSuggestionsRenderer} from '@/components'
  */
 export interface ActualSearchScreenRouteParams {
     searchQuery: string // a optional string which could be passed to this screen
-    addNewSearchHistory(queryString: string): void // when the user searches we will update the history
 }
 export interface ActualSearchScreenProps {
     navigation: NavigationHelpers<any>
@@ -34,34 +54,55 @@ export function ActualSearchScreen({
     route,
 }: ActualSearchScreenProps) {
     const {layouts, variables} = useTheme()
-    const {getSearchSuggestions} = useMusic()
-    const {addNewSearchHistory, searchQuery} = route.params
+    const {getSearchSuggestions, search} = useMusic()
+    const {searchQuery} = route.params
 
-    // the value of the search text input component
-    const [searchInputValue, setSearchInputValue] = useState<string>('')
+    // redux store related to search history
+    const {searchQueryText, searchHistory, searchSuggestions} = useSelector(
+        (state: SobyteState) => state.searchresults,
+    )
+    const dispatch = useDispatch()
 
     // if to show the search suggestions list or not
     const [showSearchSuggestions, setShowSearchSuggestions] =
         useState<boolean>(false)
-    // the realtime search suggestion's string list
-    const [searchSuggestions, setSearchSuggestions] = useState<Array<string>>(
-        [],
-    )
     // this variable denotes wheather there are search suggestions found or not, after doing the api request
     const [searchSuggestionsFound, setSearchSuggestionsFound] =
-        useState<boolean>(false)
+        useState<boolean>(true)
 
     /**
-     * we are not making a seperate redux store to save the search results
-     * because if we do so, we have to do it for all the screens which searches and displays results
-     *
-     * and it we did this, we have to overwrite the state and it will cause to display same data in different screens
-     * and also we would like to get separate data for every screen, Right!
-     */
-    const [loading, setLoading] = useState()
+     * this method adds new search history to the local storage
+     * and updates the redux store
+     **/
+    function addNewSearchHistory(query: string = '') {
+        if (query.length >= 1) {
+            /**
+             * since we are not saving more than 20 queries locally.
+             * because it is not neccessary to show all the queries only 5 to 20 are sufficient...
+             *
+             * since array indexing starts from 0 and slice will give us uprange-1 elements
+             * so to save SEARCH_HISTORY_COUNT_LIMIT histories we have to filter SEARCH_HISTORY_COUNT_LIMIT - 1 first history already there
+             */
+            let whatToSave: string[] = searchHistory.slice(
+                0,
+                SEARCH_HISTORY_COUNT_LIMIT - 1,
+            )
+            whatToSave.push(query.toLowerCase()) // adding the new data to be loaded in locally
+
+            const finalSavingData: string[] = [...new Set(whatToSave)] // trimming duplicate data
+            // finally saving all the queries...
+            AsyncStorage.setItem(
+                SEARCH_HISTORY_STORAGE_KEY,
+                JSON.stringify(finalSavingData),
+            )
+
+            // finally updating the app store
+            dispatch(updateSearchHistories({searchHistory: finalSavingData}))
+        }
+    }
 
     /**
-     * this method updates both the variable @searchInputValue and @showSearchSuggestions
+     * this method updates both the variable @searchQueryText in store and @showSearchSuggestions
      * based on the arguments passed
      *
      * default value of @updateSearchTextInputValue is true because we want to show the suggestions...
@@ -73,7 +114,8 @@ export function ActualSearchScreen({
         value: string,
         showSuggestions: boolean = true,
     ) => {
-        setSearchInputValue(value)
+        console.log(value)
+        dispatch(updateSearchQueryText({query: value}))
 
         /**
          * if value string is valid then only show suggestions
@@ -108,7 +150,11 @@ export function ActualSearchScreen({
                             ...res,
                         ]
 
-                        setSearchSuggestions(finalSearchSuggestions)
+                        dispatch(
+                            updateSearchSuggestions({
+                                suggestions: finalSearchSuggestions,
+                            }),
+                        )
                         setSearchSuggestionsFound(true)
                     } else {
                         setSearchSuggestionsFound(false)
@@ -123,8 +169,8 @@ export function ActualSearchScreen({
         }
     }
     useEffect(() => {
-        udpateSearchSuggestions(searchInputValue)
-    }, [searchInputValue])
+        udpateSearchSuggestions(searchQueryText)
+    }, [searchQueryText])
 
     /**
      * if the search query is passed from the previous screen
@@ -195,15 +241,15 @@ export function ActualSearchScreen({
      * this method performs the search operation
      * this method searches tracks, artists, albums and playlists...
      *
-     * this method will also update the @searchInputValue value if a true is passed to @param updateActualInputValue
+     * this method will also update the @searchQueryText in store value if a true is passed to @param updateActualInputValue
      * this will be useful when the query is pressed from the search suggestion list,
      * since they can differ from the actual value
      *
      * @param {string} query a query to search
-     * @param {boolean} updateActualInputValue if to update the @searchInputValue
+     * @param {boolean} updateActualInputValue if to update the @searchQueryText in redux store
      */
     function performSearch(
-        query: string = searchInputValue,
+        query: string = searchQueryText,
         updateActualInputValue: boolean = false,
     ) {
         if (updateActualInputValue) updateSearchTextInputValue(query, false)
@@ -211,40 +257,82 @@ export function ActualSearchScreen({
          * if the suggestions are found then search for the songs
          * else return from this method
          */
-        if (searchSuggestionsFound) return
+        if (!searchSuggestionsFound) return
 
         // adding the query to search history
         addNewSearchHistory(query)
 
-        //         search(query, 'SONG')
-        //             .then(data => {
-        //             })
-        //             .catch(_ERR => {})
-        //         search(query, 'PLAYLIST')
-        //             .then(data => {
-        //             })
-        //             .catch(_ERR => {})
-        //         search(query, 'ALBUM')
-        //             .then(data => {
-        //             })
-        //             .catch(_ERR => {})
-        //         search(query, 'ARTIST')
-        //             .then(data => {
-        //             })
-        //             .catch(_ERR => {})
-        //
-        //         search(query, 'VIDEO')
-        //             .then(data => {
-        //             })
-        //             .catch(_ERR => {})
+        /**
+         * getting data for songs/tracks
+         */
+        search(query, 'SONG')
+            .then((data: FetchedData<SongObject>) => {
+                dispatch(
+                    updateSearchResultData({
+                        songsData: data.content,
+                        songsContinuationData: data.continuation,
+                    }),
+                )
+            })
+            .catch(_ERR => {
+                console.log('SONG_ERR', _ERR)
+            })
+
+        /**
+         * getting data of artists
+         */
+        search(query, 'ARTIST')
+            .then((data: FetchedData<ArtistObject>) => {
+                dispatch(
+                    updateSearchResultData({
+                        artistsData: data.content,
+                        artistsContinuationData: data.continuation,
+                    }),
+                )
+            })
+            .catch(_ERR => {
+                console.log('ARTIST_ERR', _ERR)
+            })
+
+        /**
+         * getting data of playlists
+         */
+        search(query, 'PLAYLIST')
+            .then((data: FetchedData<PlaylistObject>) => {
+                dispatch(
+                    updateSearchResultData({
+                        playlistsData: data.content,
+                        playlistsContinuationData: data.continuation,
+                    }),
+                )
+            })
+            .catch(_ERR => {
+                console.log('PLAYLIST_ERR', _ERR)
+            })
+
+        /**
+         * getting data for albums
+         */
+        search(query, 'ALBUM')
+            .then((data: FetchedData<AlbumObject>) => {
+                dispatch(
+                    updateSearchResultData({
+                        albumsData: data.content,
+                        albumsContinuationData: data.continuation,
+                    }),
+                )
+            })
+            .catch(_ERR => {
+                console.log('ALBUM_ERR', _ERR)
+            })
     }
 
     return (
-        <View style={[layouts.fill]}>
+        <View>
             {/* the search input field */}
             <SearchInputHeader
                 textInputProps={{
-                    value: searchInputValue,
+                    value: searchQueryText,
                     onChangeText: (changedSearchValue: string) =>
                         updateSearchTextInputValue(changedSearchValue),
                     onSubmitEditing: () => performSearch(),
@@ -255,20 +343,30 @@ export function ActualSearchScreen({
                     autoFocus: searchQuery.length <= 0,
                 }}
                 onClearSearchInput={() => updateSearchTextInputValue('')}
-                showBackButton={searchInputValue.length > 0}
+                showBackButton={searchQueryText.length > 0}
                 onBackButtonPress={onHeaderBackButtonPressed}
             />
 
             <ScrollView
+                horizontal
                 keyboardShouldPersistTaps="handled"
                 showsVerticalScrollIndicator={false}
-                style={[{position: 'relative'}]}
                 contentContainerStyle={[
+                    layouts.fullWidth,
                     {
                         paddingBottom:
                             variables.metrics.massive + variables.metrics.huge,
                     },
-                ]}></ScrollView>
+                ]}>
+                <TitleTextIcon
+                    text="More"
+                    onPressTextOrIcon={() => {}}
+                    showIcon={true}
+                    IconComponentType={EvilIcons}
+                    iconName={'chevron-right'}>
+                    {'Songs'}
+                </TitleTextIcon>
+            </ScrollView>
 
             {showSearchSuggestions ? (
                 <View
@@ -282,7 +380,7 @@ export function ActualSearchScreen({
                     <SearchSuggestionsRenderer
                         suggestions={searchSuggestions}
                         searchSuggestionsFound={searchSuggestionsFound}
-                        searchQuery={searchInputValue}
+                        searchQuery={searchQueryText}
                         onQueryPressed={query => performSearch(query, true)}
                     />
                 </View>
