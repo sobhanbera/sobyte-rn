@@ -22,9 +22,7 @@ export * from './SearchInputHeader'
 export * from './SobyteMarquee'
 export * from './SobyteTextInput'
 export * from './SobyteTextView'
-export * from './Title'
-export * from './TitleIcon'
-export * from './TitleText'
+export * from './TitleTextIcon'
 
 export * from './TouchableScalable'
 
