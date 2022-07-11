@@ -76,28 +76,6 @@ export function ActualSearchScreen({
     }
 
     /**
-     * if the search query is passed from the previous screen
-     * then we will searched for that query
-     *
-     * and also we will not auto focus the search text input
-     *
-     * else we have to also focus the input bar so that the user don't have to tap the input again
-     * since the user have pressed on the input on the previous screen (in most cases) to come here
-     */
-    useEffect(() => {
-        if (searchQuery.length > 0) {
-            /**
-             * this could be because the search is triggered by pressing on the search history
-             * then update the value of search input
-             * and also make sure that no search suggestions are shown in this case...
-             */
-            updateSearchTextInputValue(searchQuery, false)
-
-            Keyboard.dismiss() // and also dismiss the keyboard so the it does not annoy the user #UX
-        }
-    }, [])
-
-    /**
      * this method helps to search the search suggestions of some query
      * @param searchQuery string for the query to search for
      */
@@ -138,6 +116,69 @@ export function ActualSearchScreen({
     useEffect(() => {
         udpateSearchSuggestions(searchInputValue)
     }, [searchInputValue])
+
+    /**
+     * if the search query is passed from the previous screen
+     * then we will searched for that query
+     *
+     * and also we will not auto focus the search text input
+     *
+     * else we have to also focus the input bar so that the user don't have to tap the input again
+     * since the user have pressed on the input on the previous screen (in most cases) to come here
+     */
+    useEffect(() => {
+        if (searchQuery.length > 0) {
+            /**
+             * this could be because the search is triggered by pressing on the search history
+             * then update the value of search input
+             * and also make sure that no search suggestions are shown in this case...
+             */
+            updateSearchTextInputValue(searchQuery, false)
+
+            Keyboard.dismiss() // and also dismiss the keyboard so the it does not annoy the user #UX
+        }
+    }, [])
+
+    /**
+     * when the user presses back we are tracking if the search suggestions are being shown
+     * if they are shown then set them to false
+     * else goBack
+     */
+    useEffect(() => {
+        const useBackButtonPressHandler = BackHandler.addEventListener(
+            'hardwareBackPress',
+            () => {
+                if (showSearchSuggestions) {
+                    setShowSearchSuggestions(false)
+
+                    /**
+                     * When true is returned the event will not be bubbled up
+                     * & no other back action will execute
+                     */
+                    return true
+                }
+
+                /**
+                 * Returning false will let the event to bubble up & let other event listeners
+                 * or the system's default back action to be executed.
+                 */
+                return false
+            },
+        )
+
+        /**
+         * removing the events
+         * when the component end its rendering
+         */
+        return () => {
+            useBackButtonPressHandler.remove()
+        }
+    }, [])
+    /**
+     * when back button is pressed in the header
+     * this method will navigate to the previous screen
+     */
+    const onHeaderBackButtonPressed = () => navigation.goBack()
 
     /**
      * this method performs the search operation
@@ -186,47 +227,6 @@ export function ActualSearchScreen({
         //             })
         //             .catch(_ERR => {})
     }
-
-    /**
-     * when the user presses back we are tracking if the search suggestions are being shown
-     * if they are shown then set them to false
-     * else goBack
-     */
-    useEffect(() => {
-        const useBackButtonPressHandler = BackHandler.addEventListener(
-            'hardwareBackPress',
-            () => {
-                if (showSearchSuggestions) {
-                    setShowSearchSuggestions(false)
-
-                    /**
-                     * When true is returned the event will not be bubbled up
-                     * & no other back action will execute
-                     */
-                    return true
-                }
-
-                /**
-                 * Returning false will let the event to bubble up & let other event listeners
-                 * or the system's default back action to be executed.
-                 */
-                return false
-            },
-        )
-
-        /**
-         * removing the events
-         * when the component end its rendering
-         */
-        return () => {
-            useBackButtonPressHandler.remove()
-        }
-    }, [])
-    /**
-     * when back button is pressed in the header
-     * this method will navigate to the previous screen
-     */
-    const onHeaderBackButtonPressed = () => navigation.goBack()
 
     return (
         <View style={[layouts.fill]}>
