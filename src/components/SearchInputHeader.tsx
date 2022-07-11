@@ -19,17 +19,17 @@ import {TouchableScalable} from './TouchableScalable'
 
 export interface SearchInputHeaderProps {
     textInputProps?: TextInputProps
-    onClearSearchInput: () => void
+    onClearSearchInput?: () => void
 
-    showBackButton: boolean // this is to cancel all the search results
-    onBackButtonPress: () => void // method which will cancel the search results
+    showBackButton?: boolean // this is to cancel all the search results
+    onBackButtonPress?: () => void // method which will cancel the search results
 }
 export function SearchInputHeader({
     textInputProps,
-    onClearSearchInput,
+    onClearSearchInput = () => {},
 
-    showBackButton,
-    onBackButtonPress,
+    showBackButton = false,
+    onBackButtonPress = () => {},
 }: SearchInputHeaderProps) {
     const {theme, gutters, fonts, layouts} = useTheme()
     const searchInputRef = useRef<TextInput>(null)
