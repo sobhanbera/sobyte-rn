@@ -108,13 +108,14 @@ export function RootBottomBarNavigator() {
                             label="Explore"
                         />
                     ),
+                    tabBarStyle: getCustomTabBarStyles(theme.background),
                 }}
             />
             {/* search sceens */}
             <BottomBar.Screen
                 name={ROOT_BOTTOM_BAR_SEARCH_SCREEN_STACK}
                 component={SearchStackNavigator}
-                options={{
+                options={({}) => ({
                     tabBarShowLabel: false,
                     tabBarLabel: 'Search',
                     tabBarButton: props => (
@@ -127,7 +128,8 @@ export function RootBottomBarNavigator() {
                             label="Search"
                         />
                     ),
-                }}
+                    tabBarStyle: getCustomTabBarStyles(theme.background),
+                })}
             />
             {/* search sceens */}
             <BottomBar.Screen
@@ -146,6 +148,7 @@ export function RootBottomBarNavigator() {
                             label="You"
                         />
                     ),
+                    tabBarStyle: getCustomTabBarStyles(theme.background),
                 }}
             />
         </BottomBar.Navigator>
