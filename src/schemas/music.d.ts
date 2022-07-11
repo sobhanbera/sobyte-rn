@@ -192,6 +192,17 @@ export interface SongObject {
 }
 
 /**
+ * artist object when returned from api request
+ * whichever arttributes aren't used in the app they are optional in this interface (but not actually)
+ */
+export interface ArtistObject {
+    type: 'artist'
+    browseId: string
+    title: string
+    artworks: Array<Artwork>
+}
+
+/**
  * playlist object when returned from api request
  * whichever arttributes aren't used in the app they are optional in this interface (but not actually)
  */
@@ -212,25 +223,14 @@ export interface AlbumObject {
     type: 'album'
     browseId: string
     playlistId: string
-    name: string
-    year: string
-    artworks: Array<Artwork>
-    artist?: string
-}
-
-export interface ArtistObject {
-    type: 'artist'
-    browseId: string
-    playlistId: string
-    name: string
+    title: string
     year: string
     artworks: Array<Artwork>
     artist?: string
 }
 
 /**
- * artist object when returned from api request
- * whichever arttributes aren't used in the app they are optional in this interface (but not actually)
+ * this is the artist's page data we get after quering using browseId
  */
 export interface ArtistDetailsObject {
     name: string
@@ -260,20 +260,6 @@ export interface ArtistDetailsObject {
 }
 
 /**
- * metadata which every track contains...
- */
-export interface TrackMetadataBase {
-    url: string
-    artist: string
-    artwork: string
-    description: string
-    genre?: string
-    contentType?: string
-
-    [key: string]: any
-}
-
-/**
  * this is the object which could be used to get any search data infinitely
  */
 export interface ContinuationObject {
@@ -300,6 +286,30 @@ export interface ContinuationObjectKeys {
 export interface FetchedSongObject {
     content: Array<SongObject>
     continuation: ContinuationObjectKeys
+}
+
+/**
+ * this type could be used for any type of fetched data
+ * like song, playlist, artists, albums
+ * just provide the data type in the generics
+ */
+export type FetchedData<DataObject> = {
+    content: Array<DataObject>
+    continuation: ContinuationObjectKeys
+}
+
+/**
+ * metadata which every track contains...
+ */
+export interface TrackMetadataBase {
+    url: string
+    artist: string
+    artwork: string
+    description: string
+    genre?: string
+    contentType?: string
+
+    [key: string]: any
 }
 
 /**
