@@ -11,8 +11,12 @@
 import React from 'react'
 import {createNativeStackNavigator} from '@react-navigation/native-stack'
 
-import {SEARCH_SCREEN, SEARCH_STACK_NAVIGATOR_ID} from '@/configs'
-import {SearchScreen} from '@/containers/app'
+import {
+    ACTUAL_SEARCH_SCREEN,
+    SEARCH_SCREEN,
+    SEARCH_STACK_NAVIGATOR_ID,
+} from '@/configs'
+import {SearchScreen, ActualSearchScreen} from '@/containers/app'
 import {useTheme} from '@/hooks'
 
 const StackNavigator = createNativeStackNavigator()
@@ -25,7 +29,7 @@ export function SearchStackNavigator() {
             screenOptions={{
                 headerShown: false,
 
-                animation: 'slide_from_bottom',
+                animation: 'simple_push',
                 animationTypeForReplace: 'push',
 
                 orientation: 'portrait_up',
@@ -42,6 +46,12 @@ export function SearchStackNavigator() {
             <StackNavigator.Screen
                 name={SEARCH_SCREEN}
                 component={SearchScreen}
+            />
+
+            {/* the actual screen where the queries will be done */}
+            <StackNavigator.Screen
+                name={ACTUAL_SEARCH_SCREEN}
+                component={ActualSearchScreen}
             />
         </StackNavigator.Navigator>
     )

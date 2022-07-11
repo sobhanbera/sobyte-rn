@@ -11,6 +11,7 @@
 import SobytePlayerScreen from './SobytePlayerInterface'
 import TrackPlayerQueueScreen from './TrackPlayerQueueScreen'
 
+export * from './ActualSearchScreen'
 export * from './SearchScreen'
 export * from './ExploreScreen'
 export * from './UserProfileScreen'
