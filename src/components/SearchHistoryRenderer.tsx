@@ -16,7 +16,7 @@ import {useTheme} from '@/hooks'
 
 import {SobyteTextView} from './SobyteTextView'
 import {TouchableScalable} from './TouchableScalable'
-import {TitleIcon} from './TitleIcon'
+import {TitleTextIcon} from './TitleTextIcon'
 
 export interface SearchHistoryRendererProps {
     title: string
@@ -50,20 +50,21 @@ export function SearchHistoryRenderer({
     if (searchHistoryList.length <= 0) return null
 
     return (
-        <View style={[]}>
-            <TitleIcon
+        <View>
+            <TitleTextIcon
                 showIcon={showDeleteSearchHistoryButton}
                 IconComponentType={EvilIcons}
                 iconName={'trash'}
-                onPressIcon={onPressOnDeleteSearchHistoryButton}>
+                onPressTextOrIcon={onPressOnDeleteSearchHistoryButton}>
                 {title}
-            </TitleIcon>
+            </TitleTextIcon>
 
             <View
                 style={[
                     layouts.row,
                     layouts.alignItemsCenter,
                     layouts.alignItemsStart,
+                    gutters.smallPaddingHorizontal,
                     {flexWrap: 'wrap'},
                 ]}>
                 {searchHistoryList.map((history, index) => {
