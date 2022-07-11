@@ -242,3 +242,4 @@ export const ANIMATION_ITERATION_DELAY = 1000 // a delay between lottie animatio
 export const DEFAULT_HEADER_HEIGHT = 55 // the default header's height
 
 export const DEFAULT_SCALE_VALUE_FOR_TOUCHABLE_SCALABLE = 0.98 // the default value of the scaler touchable to scale when hovered
+export const SEARCH_CATEGORY_CARD_HEIGHT = 120

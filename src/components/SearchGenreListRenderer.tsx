@@ -16,6 +16,7 @@ import {GenreData} from '@/schemas'
 
 import {SobyteTextView} from './SobyteTextView'
 import {TouchableScalable} from './TouchableScalable'
+import {SEARCH_CATEGORY_CARD_HEIGHT} from '@/configs'
 
 export interface SearchGenreListRendererProps {
     title: string
@@ -57,7 +58,7 @@ export function SearchGenreListRenderer({
                                 gutters.smallPadding,
                                 {
                                     width: '50%',
-                                    height: 110,
+                                    height: SEARCH_CATEGORY_CARD_HEIGHT,
                                 },
                             ]}>
                             <TouchableScalable
