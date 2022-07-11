@@ -238,6 +238,7 @@ export const TRACK_ARTIST_MENU_NAME = 'TRACK_ARTIST_MENU_NAME' // a menu id for 
 
 export const APP_INFINITE = 100000000 // a random large number which could act as infinite, this constant could be used in place of loop iteration counts, since the number is so huge, till that no user will open the app, I guess so!
 export const ANIMATION_ITERATION_DELAY = 1000 // a delay between lottie animation iteration
+export const DEFAULT_LOTTIE_LOGO_ANIMATION_HEIGHT = 40
 
 export const DEFAULT_HEADER_HEIGHT = 55 // the default header's height
 

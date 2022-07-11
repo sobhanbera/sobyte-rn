@@ -14,10 +14,12 @@ import {useDispatch, useSelector} from 'react-redux'
 import EvilIcons from 'react-native-vector-icons/EvilIcons'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import {NavigationHelpers, RouteProp} from '@react-navigation/native'
+import AnimatedLottieView from 'lottie-react-native'
 
 import {useMusic, useTheme} from '@/hooks'
 import {SearchInputHeader, TitleTextIcon} from '@/components'
 import {
+    DEFAULT_LOTTIE_LOGO_ANIMATION_HEIGHT,
     SCREEN_HEIGHT,
     SEARCH_HISTORY_COUNT_LIMIT,
     SEARCH_HISTORY_STORAGE_KEY,
@@ -53,15 +55,24 @@ export function ActualSearchScreen({
     navigation,
     route,
 }: ActualSearchScreenProps) {
-    const {layouts, variables} = useTheme()
+    const {layouts, variables, assets, gutters, theme} = useTheme()
     const {getSearchSuggestions, search} = useMusic()
-    const {searchQuery} = route.params
+
+    const {searchQuery} = route.params // data we got from previous screen
 
     // redux store related to search history
-    const {searchQueryText, searchHistory, searchSuggestions} = useSelector(
-        (state: SobyteState) => state.searchresults,
-    )
+    const {
+        searchQueryText,
+        searchHistory,
+        searchSuggestions,
+        songsData,
+        artistsData,
+        playlistsData,
+        albumsData,
+    } = useSelector((state: SobyteState) => state.searchresults)
     const dispatch = useDispatch()
+
+    const [isLoading, setIsLoading] = useState<boolean>(false)
 
     // if to show the search suggestions list or not
     const [showSearchSuggestions, setShowSearchSuggestions] =
@@ -114,7 +125,6 @@ export function ActualSearchScreen({
         value: string,
         showSuggestions: boolean = true,
     ) => {
-        console.log(value)
         dispatch(updateSearchQueryText({query: value}))
 
         /**
@@ -123,7 +133,7 @@ export function ActualSearchScreen({
          *
          * that's why we are checking for it and then setting it to the @showSearchSuggestions value
          */
-        setShowSearchSuggestions(showSuggestions ? value.length > 0 : false)
+        setShowSearchSuggestions(showSuggestions && value.length > 0)
     }
 
     /**
@@ -215,6 +225,8 @@ export function ActualSearchScreen({
                     return true
                 }
 
+                // set the search query text to empty string
+                dispatch(updateSearchQueryText({query: ''}))
                 /**
                  * Returning false will let the event to bubble up & let other event listeners
                  * or the system's default back action to be executed.
@@ -235,7 +247,13 @@ export function ActualSearchScreen({
      * when back button is pressed in the header
      * this method will navigate to the previous screen
      */
-    const onHeaderBackButtonPressed = () => navigation.goBack()
+    const onHeaderBackButtonPressed = () => {
+        // set the search query text to empty string
+        // and then move back to the previous screen
+        // so that next time when the user get to this screen a search query is not shown already
+        dispatch(updateSearchQueryText({query: ''}))
+        navigation.goBack()
+    }
 
     /**
      * this method performs the search operation
@@ -248,87 +266,86 @@ export function ActualSearchScreen({
      * @param {string} query a query to search
      * @param {boolean} updateActualInputValue if to update the @searchQueryText in redux store
      */
-    function performSearch(
-        query: string = searchQueryText,
-        updateActualInputValue: boolean = false,
-    ) {
-        if (updateActualInputValue) updateSearchTextInputValue(query, false)
+    function performSearch(query: string = searchQueryText) {
+        updateSearchTextInputValue(query, false)
         /**
          * if the suggestions are found then search for the songs
          * else return from this method
          */
         if (!searchSuggestionsFound) return
 
-        // adding the query to search history
+        /**
+         * start loading
+         * dismiss the keyboard
+         * and add the query to history
+         *
+         * then get data for songs, aritists, playlists, albums and more
+         * then update them to the store as well
+         */
+        setIsLoading(true)
+        Keyboard.dismiss()
         addNewSearchHistory(query)
 
         /**
-         * getting data for songs/tracks
+         * we are getting the datas from one promise
+         * this will be helpful do perform same type of operations
+         * for all the data fetching method
          */
-        search(query, 'SONG')
-            .then((data: FetchedData<SongObject>) => {
+        Promise.all([
+            // getting songs data
+            search(query, 'SONG').then((data: FetchedData<SongObject>) => {
                 dispatch(
                     updateSearchResultData({
                         songsData: data.content,
                         songsContinuationData: data.continuation,
                     }),
                 )
-            })
-            .catch(_ERR => {
-                console.log('SONG_ERR', _ERR)
-            })
-
-        /**
-         * getting data of artists
-         */
-        search(query, 'ARTIST')
-            .then((data: FetchedData<ArtistObject>) => {
+                // console.log('SONG', data.content.length)
+                setIsLoading(false)
+            }),
+            // getting artists data
+            search(query, 'ARTIST').then((data: FetchedData<ArtistObject>) => {
                 dispatch(
                     updateSearchResultData({
                         artistsData: data.content,
                         artistsContinuationData: data.continuation,
                     }),
                 )
-            })
-            .catch(_ERR => {
-                console.log('ARTIST_ERR', _ERR)
-            })
-
-        /**
-         * getting data of playlists
-         */
-        search(query, 'PLAYLIST')
-            .then((data: FetchedData<PlaylistObject>) => {
-                dispatch(
-                    updateSearchResultData({
-                        playlistsData: data.content,
-                        playlistsContinuationData: data.continuation,
-                    }),
-                )
-            })
-            .catch(_ERR => {
-                console.log('PLAYLIST_ERR', _ERR)
-            })
-
-        /**
-         * getting data for albums
-         */
-        search(query, 'ALBUM')
-            .then((data: FetchedData<AlbumObject>) => {
+                // console.log('ARTIST', data.content.length)
+                setIsLoading(false)
+            }),
+            // getting playlists data
+            search(query, 'PLAYLIST').then(
+                (data: FetchedData<PlaylistObject>) => {
+                    dispatch(
+                        updateSearchResultData({
+                            playlistsData: data.content,
+                            playlistsContinuationData: data.continuation,
+                        }),
+                    )
+                    // console.log('PLAYLIST', data.content.length)
+                    setIsLoading(false)
+                },
+            ),
+            // getting albums data
+            search(query, 'ALBUM').then((data: FetchedData<AlbumObject>) => {
                 dispatch(
                     updateSearchResultData({
                         albumsData: data.content,
                         albumsContinuationData: data.continuation,
                     }),
                 )
-            })
-            .catch(_ERR => {
-                console.log('ALBUM_ERR', _ERR)
-            })
+                // console.log('ALBUM', data.content.length)
+                setIsLoading(false)
+            }),
+        ]).catch(_ERR => {
+            console.log('Promise.all', _ERR)
+            setIsLoading(false)
+        })
     }
 
     return (
-        <View>
+        <View style={[layouts.fill]}>
             {/* the search input field */}
             <SearchInputHeader
                 textInputProps={{
@@ -348,24 +365,74 @@ export function ActualSearchScreen({
             />
 
             <ScrollView
-                horizontal
                 keyboardShouldPersistTaps="handled"
                 showsVerticalScrollIndicator={false}
-                contentContainerStyle={[
-                    layouts.fullWidth,
-                    {
-                        paddingBottom:
-                            variables.metrics.massive + variables.metrics.huge,
-                    },
-                ]}>
-                <TitleTextIcon
-                    text="More"
-                    onPressTextOrIcon={() => {}}
-                    showIcon={true}
-                    IconComponentType={EvilIcons}
-                    iconName={'chevron-right'}>
-                    {'Songs'}
-                </TitleTextIcon>
+                contentContainerStyle={[layouts.fullWidth, layouts.fill]}>
+                {/* rendering loading when any data is not being loaded */}
+                {isLoading ? (
+                    <View style={[layouts.fullHeight, layouts.center]}>
+                        <AnimatedLottieView
+                            loop
+                            autoPlay
+                            source={assets.animations.dancing_logo}
+                            style={[
+                                {
+                                    height: DEFAULT_LOTTIE_LOGO_ANIMATION_HEIGHT,
+                                    alignSelf: 'center',
+                                    position: 'relative',
+                                },
+                            ]}
+                        />
+                    </View>
+                ) : null}
+
+                {/* songs data */}
+                {songsData.length > 0 ? (
+                    <TitleTextIcon
+                        text="More"
+                        onPressTextOrIcon={() => {}}
+                        showIcon={true}
+                        IconComponentType={EvilIcons}
+                        iconName={'chevron-right'}>
+                        {'Songs'}
+                    </TitleTextIcon>
+                ) : null}
+
+                {/* artists data */}
+                {artistsData.length > 0 ? (
+                    <TitleTextIcon
+                        text="More"
+                        onPressTextOrIcon={() => {}}
+                        showIcon={true}
+                        IconComponentType={EvilIcons}
+                        iconName={'chevron-right'}>
+                        {'Artists'}
+                    </TitleTextIcon>
+                ) : null}
+
+                {/* playlists data */}
+                {playlistsData.length > 0 ? (
+                    <TitleTextIcon
+                        text="More"
+                        onPressTextOrIcon={() => {}}
+                        showIcon={true}
+                        IconComponentType={EvilIcons}
+                        iconName={'chevron-right'}>
+                        {'Playlists'}
+                    </TitleTextIcon>
+                ) : null}
+
+                {/* albums data */}
+                {albumsData.length > 0 ? (
+                    <TitleTextIcon
+                        text="More"
+                        onPressTextOrIcon={() => {}}
+                        showIcon={true}
+                        IconComponentType={EvilIcons}
+                        iconName={'chevron-right'}>
+                        {'Albums'}
+                    </TitleTextIcon>
+                ) : null}
             </ScrollView>
 
             {showSearchSuggestions ? (
@@ -381,7 +448,7 @@ export function ActualSearchScreen({
                         suggestions={searchSuggestions}
                         searchSuggestionsFound={searchSuggestionsFound}
                         searchQuery={searchQueryText}
-                        onQueryPressed={query => performSearch(query, true)}
+                        onQueryPressed={query => performSearch(query)}
                     />
                 </View>
             ) : null}
