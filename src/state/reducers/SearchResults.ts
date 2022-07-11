@@ -128,7 +128,7 @@ const searchResultsDataSlice = createSlice({
             state,
             {payload}: SearchResultsDataPayload,
         ) => {
-            state = {
+            return {
                 ...state,
                 ...payload,
             }
