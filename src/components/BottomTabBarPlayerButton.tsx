@@ -80,8 +80,8 @@ export function BottomTabBarPlayerButton({
 
     return (
         <LinearGradient
-            colors={['#00000000', '#00000050']}
-            locations={[0, 1]}
+            colors={['#00000005', '#00000030', '#00000050', '#0000007F']}
+            locations={[0, 0.33, 0.66, 1]}
             style={layouts.fill}>
             <TouchableScalable
                 onPress={onPress}
