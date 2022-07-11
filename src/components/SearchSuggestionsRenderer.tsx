@@ -27,12 +27,12 @@ import {SobyteTextView} from './SobyteTextView'
 type SearchSuggestionsRendererProps = {
     suggestions: string[]
     searchQuery: string // the search query
-    isNoSearchSuggestionsFound: boolean // if any search suggestions are not found
+    searchSuggestionsFound: boolean // if any search suggestions are found and could be displayed
     onQueryPressed(query: string): void // this method will be executed when a query item component is being pressed
 }
 export function SearchSuggestionsRenderer({
     suggestions,
-    isNoSearchSuggestionsFound,
+    searchSuggestionsFound,
     searchQuery,
     onQueryPressed,
 }: SearchSuggestionsRendererProps) {
@@ -84,7 +84,13 @@ export function SearchSuggestionsRenderer({
         [],
     )
 
-    if (isNoSearchSuggestionsFound)
+    /**
+     * if no search suggestions could be rendered
+     * render a propmpt text
+     *
+     * which say we could not found suggestions for the query
+     */
+    if (!searchSuggestionsFound)
         return (
             <View style={[layouts.fullHeight, layouts.center]}>
                 <SobyteTextView

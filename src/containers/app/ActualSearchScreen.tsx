@@ -48,8 +48,17 @@ export function ActualSearchScreen({
         [],
     )
     // this variable denotes wheather there are search suggestions found or not, after doing the api request
-    const [noSearchSuggestionsFound, setNoSearchSuggestionsFound] =
+    const [searchSuggestionsFound, setSearchSuggestionsFound] =
         useState<boolean>(false)
+
+    /**
+     * we are not making a seperate redux store to save the search results
+     * because if we do so, we have to do it for all the screens which searches and displays results
+     *
+     * and it we did this, we have to overwrite the state and it will cause to display same data in different screens
+     * and also we would like to get separate data for every screen, Right!
+     */
+    const [loading, setLoading] = useState()
 
     /**
      * this method updates both the variable @searchInputValue and @showSearchSuggestions
@@ -87,7 +96,7 @@ export function ActualSearchScreen({
                      * if the length of the searched search suggestion's list is valid
                      * than update the list and also set the available data to true
                      *
-                     * else set suggestions could not be found to be true
+                     * if no search suggestion could be found set the value of getting search suggestions to false
                      */
                     if (res.length > 0) {
                         /**
@@ -100,16 +109,16 @@ export function ActualSearchScreen({
                         ]
 
                         setSearchSuggestions(finalSearchSuggestions)
-                        setNoSearchSuggestionsFound(false)
+                        setSearchSuggestionsFound(true)
                     } else {
-                        setNoSearchSuggestionsFound(true)
+                        setSearchSuggestionsFound(false)
                     }
                 })
                 .catch(_ERR => {
                     /**
-                     * when any error occurs set the value of the suggestions could not be found to true
+                     * setting that we don't got search suggestions
                      */
-                    setNoSearchSuggestionsFound(true)
+                    setSearchSuggestionsFound(false)
                 })
         }
     }
@@ -134,6 +143,8 @@ export function ActualSearchScreen({
              * and also make sure that no search suggestions are shown in this case...
              */
             updateSearchTextInputValue(searchQuery, false)
+
+            performSearch(searchQuery) // now also search for the results
 
             Keyboard.dismiss() // and also dismiss the keyboard so the it does not annoy the user #UX
         }
@@ -191,16 +202,16 @@ export function ActualSearchScreen({
      * @param {string} query a query to search
      * @param {boolean} updateActualInputValue if to update the @searchInputValue
      */
-    const performSearch = (
+    function performSearch(
         query: string = searchInputValue,
         updateActualInputValue: boolean = false,
-    ) => {
+    ) {
         if (updateActualInputValue) updateSearchTextInputValue(query, false)
         /**
          * if the suggestions are found then search for the songs
          * else return from this method
          */
-        if (noSearchSuggestionsFound) return
+        if (searchSuggestionsFound) return
 
         // adding the query to search history
         addNewSearchHistory(query)
@@ -270,7 +281,7 @@ export function ActualSearchScreen({
                     ]}>
                     <SearchSuggestionsRenderer
                         suggestions={searchSuggestions}
-                        isNoSearchSuggestionsFound={noSearchSuggestionsFound}
+                        searchSuggestionsFound={searchSuggestionsFound}
                         searchQuery={searchInputValue}
                         onQueryPressed={query => performSearch(query, true)}
                     />
