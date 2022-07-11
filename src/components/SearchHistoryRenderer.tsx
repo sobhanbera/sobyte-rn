@@ -59,14 +59,7 @@ export function SearchHistoryRenderer({
                     gutters.regularMarginTop,
                     gutters.tinyMarginBottom,
                 ]}>
-                <SobyteTextView
-                    style={[
-                        fonts.titleTiny,
-                        gutters.smallPadding,
-                        {
-                            color: theme.themecolorrevert,
-                        },
-                    ]}>
+                <SobyteTextView style={[fonts.titleTiny, gutters.smallPadding]}>
                     {title}
                 </SobyteTextView>
 
