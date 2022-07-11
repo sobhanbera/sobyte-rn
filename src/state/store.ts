@@ -28,11 +28,13 @@ import {
     ThemeReducer,
     PlayerDataReducer,
     TrackURLDataReducer,
+    SearchResultsDataReducer,
 } from './reducers'
 import {SobyteState} from '.'
 import {
     MUSIC_CONFIG_SLICE_NAME,
     PLAYER_DATA_SLICE_NAME,
+    SEARCH_RESULTS_DATA_SLICE_NAME,
     THEME_SLICE_NAME,
     TRACK_URL_DATA_SLICE_NAME,
 } from '@/configs'
@@ -57,6 +59,7 @@ const rootReducers = combineReducers<SobyteState>({
     [MUSIC_CONFIG_SLICE_NAME]: MusicConfigReducer, // music api data
     [PLAYER_DATA_SLICE_NAME]: PlayerDataReducer,
     [TRACK_URL_DATA_SLICE_NAME]: TrackURLDataReducer,
+    [SEARCH_RESULTS_DATA_SLICE_NAME]: SearchResultsDataReducer,
 })
 
 // persisted reducers

@@ -10,5 +10,6 @@
 
 export * from './MusicConfig'
 export * from './PlayerData'
+export * from './SearchResults'
 export * from './Theme'
 export * from './TrackURLData'
