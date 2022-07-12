@@ -113,6 +113,8 @@ export const MAX_DISPLAY_HEIGHT_OF_TRACK_ARTWORK_WRAPPER =
 export const ARTWORK_WIDTH_IN_QUEUE = 60
 export const ARTIST_ARTWORK_WIDTH_SMALL = 50
 
+export const DEFAULT_SONG_LIST_TRACK_ARTWORK_WIDTH = 50 // this is the default width and height of the artwork in song's list
+
 export const LAST_TRACKS_REMAIN_TO_LOAD_MORE_TRACK = 1
 
 export const NEXT_TITLE_COLOR_ALPHA = 'B0' // the alpha value of text next to title
