@@ -22,6 +22,7 @@ import {
     SearchSuggestionsRenderer,
     ListRendererSongs,
     TitleTextIcon,
+    ListRendererPlaylists,
 } from '@/components'
 import {
     DEFAULT_LOTTIE_LOGO_ANIMATION_HEIGHT,
@@ -36,6 +37,7 @@ import {
     updateSearchResultData,
     updateSearchSuggestions,
     updateSearchQueryText,
+    resetSearchResults,
 } from '@/state'
 
 /**
@@ -223,7 +225,9 @@ export function ActualSearchScreen({
                 }
 
                 // set the search query text to empty string
-                dispatch(updateSearchQueryText({query: ''}))
+                // dispatch(updateSearchQueryText({query: ''}))
+                dispatch(resetSearchResults())
+
                 /**
                  * Returning false will let the event to bubble up & let other event listeners
                  * or the system's default back action to be executed.
@@ -248,7 +252,8 @@ export function ActualSearchScreen({
         // set the search query text to empty string
         // and then move back to the previous screen
         // so that next time when the user get to this screen a search query is not shown already
-        dispatch(updateSearchQueryText({query: ''}))
+        // dispatch(updateSearchQueryText({query: ''}))
+        dispatch(resetSearchResults())
         navigation.goBack()
     }
 
@@ -320,7 +325,7 @@ export function ActualSearchScreen({
                             playlistsContinuationData: data.continuation,
                         }),
                     )
-                    // console.log('PLAYLIST', data.content.length)
+                    // console.log('PLAYLIST', JSON.stringify(data.content))
                     setIsLoading(false)
                 },
             ),
@@ -401,14 +406,18 @@ export function ActualSearchScreen({
 
                 {/* playlists data */}
                 {playlistsData.length > 0 ? (
-                    <TitleTextIcon
-                        text="More"
-                        onPressTextOrIcon={() => {}}
-                        showIcon={true}
-                        IconType={'EvilIcons'}
-                        iconName={'chevron-right'}>
-                        {'Playlists'}
-                    </TitleTextIcon>
+                    <View>
+                        <TitleTextIcon
+                            text="More"
+                            onPressTextOrIcon={() => {}}
+                            showIcon={true}
+                            IconType={'EvilIcons'}
+                            iconName={'chevron-right'}>
+                            {'Playlists'}
+                        </TitleTextIcon>
+
+                        <ListRendererPlaylists playlistList={playlistsData} />
+                    </View>
                 ) : null}
                 <BottomPaddingComponent />
             </ScrollView>
