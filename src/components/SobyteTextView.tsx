@@ -11,13 +11,14 @@
 import React from 'react'
 import {Text, TextProps} from 'react-native'
 
-import {CircularRegular} from '@/configs'
+import {CircularRegular, NEXT_TITLE_COLOR_ALPHA} from '@/configs'
 import {useTheme} from '@/hooks'
 
 export interface SobyteTextViewProps extends TextProps {
     children: React.ReactChild
+    subTitle?: boolean
 }
-const SobyteTextView = (props: SobyteTextViewProps) => {
+const SobyteTextView = ({subTitle, ...props}: SobyteTextViewProps) => {
     const {theme, fonts} = useTheme()
 
     return (
@@ -27,7 +28,9 @@ const SobyteTextView = (props: SobyteTextViewProps) => {
                 fonts.textSmall,
                 {
                     fontFamily: CircularRegular,
-                    color: theme.themecolorrevert,
+                    color: subTitle
+                        ? theme.themecolorrevert + NEXT_TITLE_COLOR_ALPHA
+                        : theme.themecolorrevert,
                 },
                 props.style, // this style should be at last, so that our styles could be overwritten by parent component
             ]}>

@@ -62,7 +62,6 @@ export function TouchableScalable(props: TouchableScalableProps) {
             Animated.spring(animation, {
                 toValue: 0,
                 useNativeDriver: true,
-                mass: 2,
             }).start()
         }
     }

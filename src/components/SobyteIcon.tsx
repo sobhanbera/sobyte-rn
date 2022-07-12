@@ -52,8 +52,9 @@ export type IconTypeOptions = keyof typeof IconOptions
 
 export interface SobyteIconProps extends IconProps {
     IconType: keyof typeof IconOptions
+    rotate?: number
 }
-export const SobyteIcon = ({IconType, ...props}: SobyteIconProps) => {
+export const SobyteIcon = ({IconType, rotate, ...props}: SobyteIconProps) => {
     const {theme} = useTheme()
     const IconComponent = IconOptions[IconType] // getting the icon to render from the prop
 
@@ -63,6 +64,12 @@ export const SobyteIcon = ({IconType, ...props}: SobyteIconProps) => {
             // some defaults
             color={props.color ?? theme.themecolorrevert}
             size={props.size ?? DEFAULT_ICON_SIZE}
+            style={[
+                {
+                    transform: [{rotateZ: `${rotate ?? 0}deg`}], // a style to rotate, some icons are oriented, why to call style everytime, just do it with props! why not
+                },
+                props.style,
+            ]}
         />
     )
 }
