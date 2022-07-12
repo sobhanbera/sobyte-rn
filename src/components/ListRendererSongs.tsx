@@ -12,17 +12,17 @@ import React from 'react'
 import {View} from 'react-native'
 
 import {SongObject} from '@/schemas'
-import {SongsListObject} from './SongsListObject'
+import {ListObjectSong} from './ListObjectSong'
 
-export interface SongsListRendererProps {
+export interface ListRendererSongsProps {
     songsList: Array<SongObject>
 }
-export const SongsListRenderer = ({songsList}: SongsListRendererProps) => {
+export const ListRendererSongs = ({songsList}: ListRendererSongsProps) => {
     return (
         <View>
             {songsList.map((song, index) => {
                 return (
-                    <SongsListObject
+                    <ListObjectSong
                         songData={song}
                         key={`${song.musicId}${index}`}
                     />

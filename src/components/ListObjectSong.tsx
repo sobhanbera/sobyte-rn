@@ -25,10 +25,10 @@ import {SobyteTextView} from './SobyteTextView'
 import {TouchableScalable} from './TouchableScalable'
 import {SobyteIcon} from './SobyteIcon'
 
-export interface SongsListObjectProps {
+export interface ListObjectSongProps {
     songData: SongObject
 }
-export const SongsListObject = ({songData}: SongsListObjectProps) => {
+export const ListObjectSong = ({songData}: ListObjectSongProps) => {
     const {theme, fonts, layouts, gutters} = useTheme()
 
     // data to display in the screen like title,artist and image
