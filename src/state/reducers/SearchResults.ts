@@ -12,7 +12,6 @@ import {createSlice} from '@reduxjs/toolkit'
 
 import {SEARCH_RESULTS_DATA_SLICE_NAME} from '@/configs'
 import {
-    AlbumObject,
     ArtistObject,
     ContinuationObjectKeys,
     PlaylistObject,
@@ -32,12 +31,10 @@ export interface SearchResultsDataState {
     songsData: Array<SongObject>
     artistsData: Array<ArtistObject>
     playlistsData: Array<PlaylistObject>
-    albumsData: Array<AlbumObject>
 
     songsContinuationData: ContinuationObjectKeys
     artistsContinuationData: ContinuationObjectKeys
     playlistsContinuationData: ContinuationObjectKeys
-    albumsContinuationData: ContinuationObjectKeys
 }
 export interface SearchResultsDataPayload {
     payload: Partial<SearchResultsDataState>
@@ -59,7 +56,6 @@ const searchResultsDataSlice = createSlice({
         songsData: [],
         artistsData: [],
         playlistsData: [],
-        albumsData: [],
 
         songsContinuationData: {
             clickTrackingParams: '',
@@ -70,10 +66,6 @@ const searchResultsDataSlice = createSlice({
             continuation: '',
         },
         playlistsContinuationData: {
-            clickTrackingParams: '',
-            continuation: '',
-        },
-        albumsContinuationData: {
             clickTrackingParams: '',
             continuation: '',
         },

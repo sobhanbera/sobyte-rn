@@ -753,6 +753,8 @@ export function useMusic() {
     }
 
     /**
+     * @deprecated feature not provided for now
+     *
      * @param browseId id of the album
      * @returns the object with album data
      */
@@ -786,9 +788,10 @@ export function useMusic() {
      * @returns the object with playlist data
      */
     const getPlaylist = (browseId: string, contentLimit = 100) => {
-        if (_.startsWith(browseId, 'VL') || _.startsWith(browseId, 'PL')) {
-            _.startsWith(browseId, 'PL') && (browseId = 'VL' + browseId)
-            return new Promise((resolve, reject) => {
+        return new Promise((resolve, reject) => {
+            if (_.startsWith(browseId, 'VL') || _.startsWith(browseId, 'PL')) {
+                _.startsWith(browseId, 'PL') && (browseId = 'VL' + browseId)
+
                 _createApiRequest(
                     PRIMARY_MUSIC_API_ENDPOINTS.browse,
                     MusicUtils.buildEndpointContext('PLAYLIST', browseId),
@@ -868,10 +871,10 @@ export function useMusic() {
                         }
                     })
                     .catch(error => reject(error))
-            })
-        } else {
-            throw new Error('invalid playlist id.')
-        }
+            } else {
+                reject('invalid playlist id.')
+            }
+        })
     }
 
     /**
@@ -1034,7 +1037,7 @@ export function useMusic() {
 
         search: search,
 
-        getAlbum: getAlbum,
+        // getAlbum: getAlbum,
         getPlaylist: getPlaylist,
         getArtist: getArtist,
         getPlayer: getPlayer,

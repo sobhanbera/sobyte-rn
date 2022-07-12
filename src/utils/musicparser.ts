@@ -472,6 +472,12 @@ export const parseVideoSearchResult = (context: any) => {
     return result
 }
 
+/**
+ * @deprecated we are not providing this feature currently
+ *
+ * @param context the album's fetched results
+ * @returns album data
+ */
 export const parseAlbumSearchResult = (context: any) => {
     const result: any = {
         content: [],
@@ -1126,85 +1132,118 @@ export const parsePlaylistPage = (context: any) => {
     return result
 }
 
+/**
+ * @deprecated this feature is not for now...
+ *
+ * @param context the albums data
+ * @returns parsed albums data
+ */
 export const parseAlbumPage = (context: any) => {
     const result: any = {
         title: '',
-        description: '',
-        trackCount: 0,
-        date: {
-            year: 0,
-            month: 0,
-            day: 0,
-        },
-        duration: 0,
-        artist: [],
-        tracks: [],
-        thumbnails: [],
+        type: '',
+        // description: '',
+        // trackCount: 0,
+        // date: {
+        //     year: 0,
+        //     month: 0,
+        //     day: 0,
+        // },
+        // duration: 0,
+        // artist: [],
+        // tracks: [],
+        // thumbnails: [],
     }
 
-    const albumRelease = MusicUtils.fv(context, 'musicAlbumRelease')
-    result.title = albumRelease.title
-    result.trackCount = parseInt(albumRelease.trackCount)
-    result.date = albumRelease.releaseDate
-    result.duration = parseInt(albumRelease.durationMs)
-    result.playlistId = albumRelease.audioPlaylistId
-    result.thumbnails = MusicUtils.fv(
-        albumRelease,
-        'thumbnailDetails:thumbnails',
+    const albumData = MusicUtils.fv(context, 'header:musicDetailHeaderRenderer')
+    result.title = MusicUtils.fv(albumData, 'title:runs:text')[0]
+    result.type = MusicUtils.fv(albumData, 'subtitle:runs:text')[0]
+    result.artworks = MusicUtils.fv(
+        albumData,
+        'thumbnail:croppedSquareThumbnailRenderer:thumbnail:thumbnails',
+    )
+    result.artist = {
+        name: MusicUtils.fv(albumData, 'subtitle:runs:text')[2],
+        browseId: MusicUtils.fv(
+            albumData,
+            'subtitle:runs:navigationEndpoint:browseEndpoint:browseId',
+        ),
+    }
+    result.date = MusicUtils.fv(albumData, 'subtitle:runs:text')[4]
+
+    const albumSecondSubtitle: string[] = MusicUtils.fv(
+        albumData,
+        'secondSubtitle:runs',
     )
 
-    const albumReleaseDetail = MusicUtils.fv(context, 'musicAlbumReleaseDetail')
-    result.description = albumReleaseDetail.description
-
-    const albumArtist = MusicUtils.fv(context, 'musicArtist')
-    if (albumArtist instanceof Array) {
-        for (let i = 0; i < albumArtist.length; i++) {
-            result.artist.push({
-                name: albumArtist[i].name,
-                browseId: albumArtist[i].externalChannelId,
-                thumbnails: MusicUtils.fv(
-                    albumArtist[i],
-                    'thumbnailDetails:thumbnails',
-                ),
-            })
-        }
-    } else if (albumArtist instanceof Object) {
-        result.artist.push({
-            name: albumArtist.name,
-            browseId: albumArtist.externalChannelId,
-            thumbnails: MusicUtils.fv(
-                albumArtist,
-                'thumbnailDetails:thumbnails',
-            ),
-        })
+    if (albumSecondSubtitle.length > 1) {
+        result.trackCount = albumSecondSubtitle[0]
+        result.duration = albumSecondSubtitle[2]
+    } else {
+        result.duration = albumSecondSubtitle[0]
     }
 
-    const albumTrack = MusicUtils.fv(context, 'musicTrack')
-    if (albumTrack instanceof Array) {
-        for (let i = 0; i < albumTrack.length; i++) {
-            result.tracks.push({
-                name: albumTrack[i].title,
-                musicId: albumTrack[i].videoId,
-                artistNames: albumTrack[i].artistNames,
-                duration: parseInt(albumTrack[i].lengthMs),
-                thumbnails: MusicUtils.fv(
-                    albumTrack[i],
-                    'thumbnailDetails:thumbnails',
-                ),
-            })
-        }
-    } else if (albumTrack instanceof Object) {
-        result.tracks.push({
-            name: albumTrack.title,
-            musicId: albumTrack.videoId,
-            artistNames: albumTrack.artistNames,
-            duration: parseInt(albumTrack.lengthMs),
-            thumbnails: MusicUtils.fv(
-                albumTrack,
-                'thumbnailDetails:thumbnails',
-            ),
-        })
-    }
+    // // result.trackCount = MusicUtils.fv(albumData, 'subtitle:runs:text')
+    // // result.date = albumRelease.releaseDate
+    // // result.duration = parseInt(albumRelease.durationMs)
+    // result.playlistId = albumRelease.audioPlaylistId
+    // // result.thumbnails = MusicUtils.fv(
+    //     albumRelease,
+    //     'thumbnailDetails:thumbnails',
+    // )
+
+    //     const albumReleaseDetail = MusicUtils.fv(context, 'musicAlbumReleaseDetail')
+    //     result.description = albumReleaseDetail.description
+    //
+    //     const albumArtist = MusicUtils.fv(context, 'musicArtist')
+    //     if (albumArtist instanceof Array) {
+    //         for (let i = 0; i < albumArtist.length; i++) {
+    //             result.artist.push({
+    //                 name: albumArtist[i].name,
+    //                 browseId: albumArtist[i].externalChannelId,
+    //                 thumbnails: MusicUtils.fv(
+    //                     albumArtist[i],
+    //                     'thumbnailDetails:thumbnails',
+    //                 ),
+    //             })
+    //         }
+    //     } else if (albumArtist instanceof Object) {
+    //         result.artist.push({
+    //             name: albumArtist.name,
+    //             browseId: albumArtist.externalChannelId,
+    //             thumbnails: MusicUtils.fv(
+    //                 albumArtist,
+    //                 'thumbnailDetails:thumbnails',
+    //             ),
+    //         })
+    //     }
+    //
+    //     const albumTrack = MusicUtils.fv(context, 'musicTrack')
+    //     if (albumTrack instanceof Array) {
+    //         for (let i = 0; i < albumTrack.length; i++) {
+    //             result.tracks.push({
+    //                 name: albumTrack[i].title,
+    //                 musicId: albumTrack[i].videoId,
+    //                 artistNames: albumTrack[i].artistNames,
+    //                 duration: parseInt(albumTrack[i].lengthMs),
+    //                 thumbnails: MusicUtils.fv(
+    //                     albumTrack[i],
+    //                     'thumbnailDetails:thumbnails',
+    //                 ),
+    //             })
+    //         }
+    //     } else if (albumTrack instanceof Object) {
+    //         result.tracks.push({
+    //             name: albumTrack.title,
+    //             musicId: albumTrack.videoId,
+    //             artistNames: albumTrack.artistNames,
+    //             duration: parseInt(albumTrack.lengthMs),
+    //             thumbnails: MusicUtils.fv(
+    //                 albumTrack,
+    //                 'thumbnailDetails:thumbnails',
+    //             ),
+    //         })
+    //     }
     return result
 }
 

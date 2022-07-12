@@ -10,8 +10,9 @@
 /**
  * this is the all types of data which could be fetched
  * from the backend api
+ * 'ALBUM' is also one option but we are not providing it currently
  */
-export type SearchOptions = 'SONG' | 'ALBUM' | 'ARTIST' | 'PLAYLIST' | 'VIDEO'
+export type SearchOptions = 'SONG' | 'ARTIST' | 'PLAYLIST' | 'VIDEO'
 
 /**
  * all the endpoints we are supporting right now
@@ -216,11 +217,13 @@ export interface PlaylistObject {
 }
 
 /**
+ * @deprecated
+ *
  * album object when returned from api request
  * whichever arttributes aren't used in the app they are optional in this interface (but not actually)
  */
 export interface AlbumObject {
-    type: 'album'
+    type: 'album' | 'single'
     browseId: string
     playlistId: string
     title: string

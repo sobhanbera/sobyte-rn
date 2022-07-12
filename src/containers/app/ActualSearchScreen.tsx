@@ -11,27 +11,25 @@
 import React, {useEffect, useState} from 'react'
 import {BackHandler, Keyboard, ScrollView, View} from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
-import EvilIcons from 'react-native-vector-icons/EvilIcons'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import {NavigationHelpers, RouteProp} from '@react-navigation/native'
 import AnimatedLottieView from 'lottie-react-native'
 
 import {useMusic, useTheme} from '@/hooks'
-import {SearchInputHeader, TitleTextIcon} from '@/components'
+import {
+    BottomPaddingComponent,
+    SearchInputHeader,
+    SearchSuggestionsRenderer,
+    ListRendererSongs,
+    TitleTextIcon,
+} from '@/components'
 import {
     DEFAULT_LOTTIE_LOGO_ANIMATION_HEIGHT,
     SCREEN_HEIGHT,
     SEARCH_HISTORY_COUNT_LIMIT,
     SEARCH_HISTORY_STORAGE_KEY,
 } from '@/configs'
-import {SearchSuggestionsRenderer} from '@/components'
-import {
-    AlbumObject,
-    ArtistObject,
-    FetchedData,
-    PlaylistObject,
-    SongObject,
-} from '@/schemas'
+import {ArtistObject, FetchedData, PlaylistObject, SongObject} from '@/schemas'
 import {
     updateSearchHistories,
     SobyteState,
@@ -55,7 +53,7 @@ export function ActualSearchScreen({
     navigation,
     route,
 }: ActualSearchScreenProps) {
-    const {layouts, variables, assets, gutters, theme} = useTheme()
+    const {layouts, assets} = useTheme()
     const {getSearchSuggestions, search} = useMusic()
 
     const {searchQuery} = route.params // data we got from previous screen
@@ -68,7 +66,6 @@ export function ActualSearchScreen({
         songsData,
         artistsData,
         playlistsData,
-        albumsData,
     } = useSelector((state: SobyteState) => state.searchresults)
     const dispatch = useDispatch()
 
@@ -327,17 +324,6 @@ export function ActualSearchScreen({
                     setIsLoading(false)
                 },
             ),
-            // getting albums data
-            search(query, 'ALBUM').then((data: FetchedData<AlbumObject>) => {
-                dispatch(
-                    updateSearchResultData({
-                        albumsData: data.content,
-                        albumsContinuationData: data.continuation,
-                    }),
-                )
-                // console.log('ALBUM', data.content.length)
-                setIsLoading(false)
-            }),
         ]).catch(_ERR => {
             console.log('Promise.all', _ERR)
             setIsLoading(false)
@@ -366,8 +352,7 @@ export function ActualSearchScreen({
 
             <ScrollView
                 keyboardShouldPersistTaps="handled"
-                showsVerticalScrollIndicator={false}
-                contentContainerStyle={[layouts.fullWidth, layouts.fill]}>
+                showsVerticalScrollIndicator={false}>
                 {/* rendering loading when any data is not being loaded */}
                 {isLoading ? (
                     <View style={[layouts.fullHeight, layouts.center]}>
@@ -388,14 +373,18 @@ export function ActualSearchScreen({
 
                 {/* songs data */}
                 {songsData.length > 0 ? (
-                    <TitleTextIcon
-                        text="More"
-                        onPressTextOrIcon={() => {}}
-                        showIcon={true}
-                        IconComponentType={EvilIcons}
-                        iconName={'chevron-right'}>
-                        {'Songs'}
-                    </TitleTextIcon>
+                    <View>
+                        <TitleTextIcon
+                            text="More"
+                            onPressTextOrIcon={() => {}}
+                            showIcon={true}
+                            IconType={'EvilIcons'}
+                            iconName={'chevron-right'}>
+                            {'Songs'}
+                        </TitleTextIcon>
+
+                        <ListRendererSongs songsList={songsData} />
+                    </View>
                 ) : null}
 
                 {/* artists data */}
@@ -404,7 +393,7 @@ export function ActualSearchScreen({
                         text="More"
                         onPressTextOrIcon={() => {}}
                         showIcon={true}
-                        IconComponentType={EvilIcons}
+                        IconType={'EvilIcons'}
                         iconName={'chevron-right'}>
                         {'Artists'}
                     </TitleTextIcon>
@@ -416,23 +405,12 @@ export function ActualSearchScreen({
                         text="More"
                         onPressTextOrIcon={() => {}}
                         showIcon={true}
-                        IconComponentType={EvilIcons}
+                        IconType={'EvilIcons'}
                         iconName={'chevron-right'}>
                         {'Playlists'}
                     </TitleTextIcon>
                 ) : null}
-
-                {/* albums data */}
-                {albumsData.length > 0 ? (
-                    <TitleTextIcon
-                        text="More"
-                        onPressTextOrIcon={() => {}}
-                        showIcon={true}
-                        IconComponentType={EvilIcons}
-                        iconName={'chevron-right'}>
-                        {'Albums'}
-                    </TitleTextIcon>
-                ) : null}
+                <BottomPaddingComponent />
             </ScrollView>
 
             {showSearchSuggestions ? (
