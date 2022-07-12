@@ -30,7 +30,7 @@ export interface TitleTextIconProps extends TextProps {
     showIcon?: boolean
 
     iconName?: string
-    IconType: IconTypeOptions
+    IconType?: IconTypeOptions
     onPressTextOrIcon?(): void
 }
 export const TitleTextIcon = ({
