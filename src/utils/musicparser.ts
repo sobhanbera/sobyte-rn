@@ -117,6 +117,7 @@ export const parseSearchResult = (context: any) => {
                                 ),
                                 6,
                             ),
+                            true, // now in seconds
                         ),
                         artworks: MusicUtils.fv(
                             sectionContext,
@@ -175,6 +176,7 @@ export const parseSearchResult = (context: any) => {
                                 ),
                                 6,
                             ),
+                            true, // now in seconds
                         ),
                         artworks: MusicUtils.fv(
                             sectionContext,
@@ -400,7 +402,7 @@ export const parseSongSearchResult = (context: any) => {
             // now in seconds...
             duration: MusicUtils.hms2ms(
                 lodash.last(MusicUtils.fv(flexColumn[1], 'runs:text', true)),
-                true,
+                true, // now in seconds
             ),
             artworks: MusicUtils.fv(
                 sectionContext,
@@ -457,6 +459,7 @@ export const parseVideoSearchResult = (context: any) => {
                     lodash.last(
                         MusicUtils.fv(lodash.nth(flexColumn, 1), 'runs:text'),
                     ),
+                    true, // now in seconds
                 ),
                 artworks: MusicUtils.fv(
                     sectionContext,
@@ -594,6 +597,20 @@ export const parsePlaylistSearchResult = (context: any) => {
                 'musicResponsiveListItemFlexColumnRenderer',
             ),
         )
+        /**
+         * since sometime there is only one artwork
+         * to resolve that we have to parser artwork to array everytime
+         * not just an object (when there is one artwork)
+         */
+        const artworks: any[] = MusicUtils.fv(
+            sectionContext,
+            'musicThumbnailRenderer:thumbnails',
+        )
+        let finalArtworks = []
+        // if it is a object not a array then
+        if (!artworks.length) finalArtworks.push(artworks)
+        else finalArtworks = artworks
+
         result.content.push(
             Object.freeze({
                 type: 'playlist',
@@ -618,10 +635,7 @@ export const parsePlaylistSearchResult = (context: any) => {
                         0,
                     ),
                 ),
-                artworks: MusicUtils.fv(
-                    sectionContext,
-                    'musicThumbnailRenderer:thumbnails',
-                ),
+                artworks: finalArtworks,
             }),
         )
     })
@@ -1034,12 +1048,13 @@ export const parsePlaylistPage = (context: any) => {
                 true,
             )
             result.content.push({
+                type: 'song',
                 musicId: MusicUtils.fv(
                     itemContext[i],
                     'playNavigationEndpoint:videoId',
                 ),
-                name: MusicUtils.fv(lodash.nth(flexColumn, 0), 'runs:text'),
-                author: (function () {
+                title: MusicUtils.fv(lodash.nth(flexColumn, 0), 'runs:text'),
+                artists: (function () {
                     var a = [],
                         c = MusicUtils.fv(lodash.nth(flexColumn, 1), 'runs')
                     if (Array.isArray(c)) {
@@ -1064,7 +1079,8 @@ export const parsePlaylistPage = (context: any) => {
                             ),
                         })
                     }
-                    return 1 < a.length ? a : 0 < a.length ? a[0] : a
+                    return a
+                    // return 1 < a.length ? a : 0 < a.length ? a[0] : a
                 })(),
                 duration: MusicUtils.hms2ms(
                     MusicUtils.fv(
@@ -1072,8 +1088,9 @@ export const parsePlaylistPage = (context: any) => {
                         'musicResponsiveListItemFixedColumnRenderer:runs:text',
                         true,
                     ),
+                    true, // now in seconds
                 ),
-                thumbnails: MusicUtils.fv(
+                artworks: MusicUtils.fv(
                     itemContext[i],
                     'musicThumbnailRenderer:thumbnails',
                 ),
@@ -1086,12 +1103,13 @@ export const parsePlaylistPage = (context: any) => {
             true,
         )
         result.content.push({
+            type: 'song',
             musicId: MusicUtils.fv(
                 itemContext,
                 'playNavigationEndpoint:videoId',
             ),
-            name: MusicUtils.fv(lodash.nth(flexColumn, 0), 'runs:text'),
-            author: (function () {
+            title: MusicUtils.fv(lodash.nth(flexColumn, 0), 'runs:text'),
+            artists: (function () {
                 var a = [],
                     c = MusicUtils.fv(lodash.nth(flexColumn, 1), 'runs')
                 if (Array.isArray(c)) {
@@ -1121,8 +1139,9 @@ export const parsePlaylistPage = (context: any) => {
                     'musicResponsiveListItemFixedColumnRenderer:runs:text',
                     true,
                 ),
+                true, // now in seconds
             ),
-            thumbnails: MusicUtils.fv(
+            artworks: MusicUtils.fv(
                 itemContext,
                 'musicThumbnailRenderer:thumbnails',
                 true,
@@ -1305,13 +1324,13 @@ export const parseSongDetailsPlayer = (
         type: 'SONG',
         musicId: videoDetails.videoId,
         playlistId: playlistId,
-        name: videoDetails.title,
-        artist: videoDetails.author,
+        title: videoDetails.title,
+        artists: videoDetails.author,
         album: {
             name: '', // not album is provided
             browseId: '', // this two properties must be handled by the player controller and music player UI
         },
-        duration: Number(videoDetails.lengthSeconds) * 1000, // converting the duration from seconds to milliseconds
+        duration: Number(videoDetails.lengthSeconds), // now in seconds not in ms
         artworks: [
             {
                 height: 60,
