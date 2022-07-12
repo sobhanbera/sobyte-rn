@@ -24,7 +24,9 @@ export * from './SobyteMarquee'
 export * from './SobyteTextInput'
 export * from './SobyteTextView'
 
+export * from './ListObjectPlaylist'
 export * from './ListObjectSong'
+export * from './ListRendererPlaylists'
 export * from './ListRendererSongs'
 
 export * from './TitleTextIcon'

@@ -114,6 +114,7 @@ export const ARTWORK_WIDTH_IN_QUEUE = 60
 export const ARTIST_ARTWORK_WIDTH_SMALL = 50
 
 export const DEFAULT_SONG_LIST_TRACK_ARTWORK_WIDTH = 50 // this is the default width and height of the artwork in song's list
+export const DEFAULT_PLAYLIST_LIST_TRACK_ARTWORK_MIN_WIDTH = SCREEN_WIDTH * 0.41 // this is the default width and height of the artwork in playlist's list 41% of the screen's width
 
 export const LAST_TRACKS_REMAIN_TO_LOAD_MORE_TRACK = 1
 
