@@ -12,7 +12,6 @@ import React from 'react'
 import {TouchableOpacity, View} from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
 import {NavigationHelpers} from '@react-navigation/native'
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import DraggableFlatList from 'react-native-draggable-flatlist'
 
 import {useTheme} from '@/hooks'
@@ -21,7 +20,7 @@ import {
     SobyteState,
     updateCurrentTrackIndex,
 } from '@/state'
-import {SobyteTextView, TrackPlayerQueueTrack} from '@/components'
+import {SobyteTextView, TrackPlayerQueueTrack, SobyteIcon} from '@/components'
 import {
     DEFAULT_ICON_SIZE,
     DEFAULT_TOUCHABLE_OPACITY_BUTTON_ACTIVE_OPACITY,
@@ -111,7 +110,8 @@ export default function TrackPlayerQueueScreen({
                     }
                     onPress={() => navigation.goBack()}
                     style={gutters.smallPadding}>
-                    <MaterialIcons
+                    <SobyteIcon
+                        IconType="MaterialIcons"
                         name="keyboard-backspace"
                         color={theme.themecolorrevert}
                         size={DEFAULT_ICON_SIZE}

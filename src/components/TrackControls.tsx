@@ -17,8 +17,6 @@ import TrackPlayer, {
     RepeatMode,
 } from 'react-native-track-player'
 import {Slider} from '@rneui/themed'
-import IoniconIcon from 'react-native-vector-icons/Ionicons'
-import FeatherIcon from 'react-native-vector-icons/Feather'
 import {
     Menu,
     MenuOptions,
@@ -44,7 +42,9 @@ import {
 import {useSelector} from 'react-redux'
 import {SobyteState} from '@/state'
 import {secondsToHms} from '@/utils'
+
 import {SobyteTextView} from './SobyteTextView'
+import {SobyteIcon} from './SobyteIcon'
 
 const {SlideInMenu} = renderers
 
@@ -329,7 +329,8 @@ export const TrackControls = ({
                 ]}>
                 <Menu renderer={SlideInMenu}>
                     <MenuTrigger>
-                        <IoniconIcon
+                        <SobyteIcon
+                            IconType="Ionicons"
                             name="ios-speedometer-outline"
                             size={TINY_ICON_SIZE}
                             color={theme.themecolorrevert + 'DF'}
@@ -423,7 +424,8 @@ export const TrackControls = ({
                     activeOpacity={
                         DEFAULT_TOUCHABLE_OPACITY_BUTTON_ACTIVE_OPACITY
                     }>
-                    <IoniconIcon
+                    <SobyteIcon
+                    IconType='Ionicons'
                         name="ios-heart"
                         size={TINY_ICON_SIZE}
                         color={theme.themecolorrevert}
@@ -435,7 +437,8 @@ export const TrackControls = ({
                     activeOpacity={
                         DEFAULT_TOUCHABLE_OPACITY_BUTTON_ACTIVE_OPACITY
                     }>
-                    <IoniconIcon
+                    <SobyteIcon
+                        IconType="Ionicons"
                         name="ios-play-skip-back-sharp"
                         size={SMALL_ICON_SIZE}
                         color={theme.themecolorrevert}
@@ -444,14 +447,16 @@ export const TrackControls = ({
 
                 <TouchableOpacity onPress={onTogglePlayStatus}>
                     {isPlaying ? (
-                        <IoniconIcon
+                        <SobyteIcon
+                            IconType="Ionicons"
                             name="ios-pause-circle"
                             size={PLAY_PAUSE_ICON_SIZE}
                             style={{}}
                             color={theme.themecolorrevert}
                         />
                     ) : (
-                        <IoniconIcon
+                        <SobyteIcon
+                            IconType="Ionicons"
                             name="ios-play-circle"
                             size={PLAY_PAUSE_ICON_SIZE}
                             color={theme.themecolorrevert}
@@ -464,7 +469,8 @@ export const TrackControls = ({
                     activeOpacity={
                         DEFAULT_TOUCHABLE_OPACITY_BUTTON_ACTIVE_OPACITY
                     }>
-                    <IoniconIcon
+                    <SobyteIcon
+                        IconType="Ionicons"
                         name="ios-play-skip-forward-sharp"
                         size={SMALL_ICON_SIZE}
                         color={theme.themecolorrevert}
@@ -476,7 +482,8 @@ export const TrackControls = ({
                     activeOpacity={
                         DEFAULT_TOUCHABLE_OPACITY_BUTTON_ACTIVE_OPACITY
                     }>
-                    <FeatherIcon
+                    <SobyteIcon
+                        IconType="Feather"
                         name="repeat"
                         size={TINY_ICON_SIZE}
                         color={

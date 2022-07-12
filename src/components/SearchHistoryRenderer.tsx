@@ -10,7 +10,6 @@
 
 import React from 'react'
 import {View} from 'react-native'
-import EvilIcons from 'react-native-vector-icons/EvilIcons'
 
 import {useTheme} from '@/hooks'
 
@@ -53,7 +52,7 @@ export function SearchHistoryRenderer({
         <View>
             <TitleTextIcon
                 showIcon={showDeleteSearchHistoryButton}
-                IconComponentType={EvilIcons}
+                IconType={'EvilIcons'}
                 iconName={'trash'}
                 onPressTextOrIcon={onPressOnDeleteSearchHistoryButton}>
                 {title}

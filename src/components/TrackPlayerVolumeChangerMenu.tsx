@@ -11,7 +11,7 @@
 import React, {useEffect, useState} from 'react'
 import {TouchableOpacity, View} from 'react-native'
 import {Slider} from '@rneui/themed'
-import IoniconIcon from 'react-native-vector-icons/Ionicons'
+import TrackPlayer from 'react-native-track-player'
 
 import {
     Menu,
@@ -31,8 +31,9 @@ import {
     TRACK_ARTWORK_WIDTH_SMALL,
 } from '@/configs'
 import {useTheme} from '@/hooks'
+
 import {SobyteTextView} from './SobyteTextView'
-import TrackPlayer from 'react-native-track-player'
+import {SobyteIcon} from './SobyteIcon'
 
 const {SlideInMenu} = renderers
 
@@ -112,25 +113,29 @@ export const TrackPlayerVolumeChangerMenu = withMenuContext(
                         triggerOuterWrapper: gutters.smallPadding,
                     }}>
                     {trackVolume <= 0 ? (
-                        <IoniconIcon
+                        <SobyteIcon
+                            IconType="Ionicons"
                             name="ios-volume-mute-outline"
                             size={DEFAULT_ICON_SIZE} // this icon is small in the fonts, so I have made it 2 unit large than other icons in the same parent component @see components/TrackPlayerFooter.tsx
                             color={theme.themecolorrevert + 'DF'}
                         />
                     ) : trackVolume <= 0.3 ? (
-                        <IoniconIcon
+                        <SobyteIcon
+                            IconType="Ionicons"
                             name="ios-volume-low-outline"
                             size={DEFAULT_ICON_SIZE} // this icon is small in the fonts, so I have made it 2 unit large than other icons in the same parent component @see components/TrackPlayerFooter.tsx
                             color={theme.themecolorrevert + 'DF'}
                         />
                     ) : trackVolume <= 0.6 ? (
-                        <IoniconIcon
+                        <SobyteIcon
+                            IconType="Ionicons"
                             name="ios-volume-medium-outline"
                             size={DEFAULT_ICON_SIZE} // this icon is small in the fonts, so I have made it 2 unit large than other icons in the same parent component @see components/TrackPlayerFooter.tsx
                             color={theme.themecolorrevert + 'DF'}
                         />
                     ) : (
-                        <IoniconIcon
+                        <SobyteIcon
+                            IconType="Ionicons"
                             name="ios-volume-high-outline"
                             size={DEFAULT_ICON_SIZE} // this icon is small in the fonts, so I have made it 2 unit large than other icons in the same parent component @see components/TrackPlayerFooter.tsx
                             color={theme.themecolorrevert + 'DF'}

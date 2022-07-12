@@ -15,14 +15,15 @@ import {
     View,
 } from 'react-native'
 import React, {useCallback} from 'react'
-import EvilIcon from 'react-native-vector-icons/EvilIcons'
 
 import {useTheme} from '@/hooks'
 import {
     DEFAULT_TOUCHABLE_OPACITY_BUTTON_ACTIVE_OPACITY,
     SMALL_ICON_SIZE,
 } from '@/configs'
+
 import {SobyteTextView} from './SobyteTextView'
+import {SobyteIcon} from './SobyteIcon'
 
 type SearchSuggestionsRendererProps = {
     suggestions: string[]
@@ -55,7 +56,8 @@ export function SearchSuggestionsRenderer({
                     ]}
                     onPress={() => onQueryPressed(item)}>
                     <>
-                        <EvilIcon
+                        <SobyteIcon
+                            IconType="EvilIcons"
                             name={'search'}
                             size={SMALL_ICON_SIZE}
                             color={theme.themecolorrevert}

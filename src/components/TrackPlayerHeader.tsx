@@ -10,7 +10,6 @@
 
 import React from 'react'
 import {Image, TouchableOpacity, View} from 'react-native'
-import IoniconIcon from 'react-native-vector-icons/Ionicons'
 
 import {useTheme} from '@/hooks'
 import {
@@ -20,6 +19,8 @@ import {
     DEFAULT_TOUCHABLE_OPACITY_BUTTON_ACTIVE_OPACITY,
     TRACK_ARTWORK_WIDTH_LARGE,
 } from '@/configs'
+
+import {SobyteIcon} from './SobyteIcon'
 
 /**
  * sobyte white colored logo
@@ -72,7 +73,8 @@ export const TrackPlayerHeader = ({onPressSearch}: TrackPlayerHeaderProps) => {
                             gutters.tinyPadding,
                             gutters.tinyMarginRight, // since this is the first icon
                         ]}>
-                        <IoniconIcon
+                        <SobyteIcon
+                            IconType="Ionicons"
                             name="ios-search-outline"
                             size={DEFAULT_ICON_SIZE}
                             color={variables.colors.white}

@@ -12,16 +12,17 @@ import React from 'react'
 import {SongObject} from '@/schemas'
 import {StyleProp, TouchableOpacity, View, ViewStyle} from 'react-native'
 import FastImage from 'react-native-fast-image'
-import IoniconIcon from 'react-native-vector-icons/Ionicons'
 
 import {useTheme} from '@/hooks'
-import {SobyteTextView} from '.'
 import {formatArtistsListFromArray, formatTrackTitle} from '@/utils'
 import {
     DEFAULT_TOUCHABLE_OPACITY_BUTTON_ACTIVE_OPACITY,
     NEXT_TITLE_COLOR_ALPHA,
     SMALL_ICON_SIZE,
 } from '@/configs'
+
+import {SobyteTextView} from './SobyteTextView'
+import {SobyteIcon} from './SobyteIcon'
 
 export interface TrackPlayerQueueTrackProps {
     trackData: SongObject
@@ -111,7 +112,8 @@ export const TrackPlayerQueueTrack = ({
             <TouchableOpacity
                 onPressIn={onDrag}
                 style={[layouts.center, gutters.smallPaddingHorizontal]}>
-                <IoniconIcon
+                <SobyteIcon
+                    IconType="Ionicons"
                     name="ios-reorder-two-outline"
                     size={SMALL_ICON_SIZE}
                 />

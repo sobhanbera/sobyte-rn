@@ -11,10 +11,6 @@
 import React from 'react'
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 
-import IoniconIcon from 'react-native-vector-icons/Ionicons'
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
-import AntDesignIcons from 'react-native-vector-icons/AntDesign'
-
 import {
     ROOT_BOTTOM_BAR_SEARCH_SCREEN_STACK,
     ROOT_BOTTOM_BAR_TRACK_PLAYER_SCREEN_STACK,
@@ -70,8 +66,8 @@ export function RootBottomBarNavigator() {
                     tabBarButton: props => (
                         <BottomTabBarPlayerButton
                             {...props}
-                            ActiveIconComponentType={MaterialIcons}
-                            InactiveIconComponentType={MaterialIcons}
+                            ActiveIconComponentType={'MaterialIcons'}
+                            InactiveIconComponentType={'MaterialIcons'}
                             activeIconName="audiotrack"
                             inactiveIconName="audiotrack"
                             label="Music"
@@ -101,8 +97,8 @@ export function RootBottomBarNavigator() {
                     tabBarButton: props => (
                         <BottomTabBarButton
                             {...props}
-                            ActiveIconComponentType={AntDesignIcons}
-                            InactiveIconComponentType={AntDesignIcons}
+                            ActiveIconComponentType={'AntDesign'}
+                            InactiveIconComponentType={'AntDesign'}
                             activeIconName="appstore1"
                             inactiveIconName="appstore-o"
                             label="Explore"
@@ -121,8 +117,8 @@ export function RootBottomBarNavigator() {
                     tabBarButton: props => (
                         <BottomTabBarButton
                             {...props}
-                            ActiveIconComponentType={IoniconIcon}
-                            InactiveIconComponentType={IoniconIcon}
+                            ActiveIconComponentType={'Ionicons'}
+                            InactiveIconComponentType={'Ionicons'}
                             activeIconName="ios-search"
                             inactiveIconName="ios-search-outline"
                             label="Search"
@@ -141,8 +137,8 @@ export function RootBottomBarNavigator() {
                     tabBarButton: props => (
                         <BottomTabBarButton
                             {...props}
-                            ActiveIconComponentType={IoniconIcon}
-                            InactiveIconComponentType={IoniconIcon}
+                            ActiveIconComponentType={'Ionicons'}
+                            InactiveIconComponentType={'Ionicons'}
                             activeIconName="ios-person-sharp"
                             inactiveIconName="ios-person-outline"
                             label="You"

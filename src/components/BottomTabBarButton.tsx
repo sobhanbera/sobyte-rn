@@ -11,12 +11,13 @@
 import React from 'react'
 import {BottomTabBarButtonProps} from '@react-navigation/bottom-tabs'
 import * as Animatable from 'react-native-animatable'
-import {IconProps} from 'react-native-vector-icons/Icon'
 import LinearGradient from 'react-native-linear-gradient'
 
 import {TouchableScalable} from '@/components'
 import {useTheme} from '@/hooks'
 import {TINY_ICON_SIZE} from '@/configs'
+
+import {IconTypeOptions, SobyteIcon} from './SobyteIcon'
 
 /**
  * @param props all the props related to the bottom tab bar button
@@ -24,17 +25,21 @@ import {TINY_ICON_SIZE} from '@/configs'
  */
 export interface TabBarButtonProps extends BottomTabBarButtonProps {
     label: string
+
     activeIconName: string // the actual icon's name
     inactiveIconName: string
-    ActiveIconComponentType: React.ComponentClass<IconProps> // type of icon to render, this could be Ionicons, MaterialIcons etc
-    InactiveIconComponentType: React.ComponentClass<IconProps>
+
+    ActiveIconComponentType: IconTypeOptions // type of icon to render, this could be Ionicons, MaterialIcons etc
+    InactiveIconComponentType: IconTypeOptions
 }
 export function BottomTabBarButton(props: TabBarButtonProps) {
     const {
         ActiveIconComponentType,
         InactiveIconComponentType,
+
         activeIconName,
         inactiveIconName,
+
         accessibilityState,
         onPress,
         label,
@@ -56,13 +61,15 @@ export function BottomTabBarButton(props: TabBarButtonProps) {
                     animation={'bounceIn'}
                     style={[layouts.center]}>
                     {selected ? (
-                        <ActiveIconComponentType
+                        <SobyteIcon
+                            IconType={ActiveIconComponentType}
                             name={activeIconName}
                             color={variables.colors.white}
                             size={TINY_ICON_SIZE}
                         />
                     ) : (
-                        <InactiveIconComponentType
+                        <SobyteIcon
+                            IconType={InactiveIconComponentType}
                             name={inactiveIconName}
                             color={variables.colors.white + 'A0'}
                             size={TINY_ICON_SIZE}

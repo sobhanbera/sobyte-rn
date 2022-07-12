@@ -11,8 +11,6 @@
 import React from 'react'
 import {TouchableOpacity, View} from 'react-native'
 import {useSelector} from 'react-redux'
-import IoniconIcon from 'react-native-vector-icons/Ionicons'
-import AntDesignIcon from 'react-native-vector-icons/AntDesign'
 import RNFetchBlob from 'rn-fetch-blob'
 import Share from 'react-native-share'
 
@@ -26,13 +24,15 @@ import {
     TRACK_SHARE_ARTWORK_QUALITY,
     TRACK_SHARE_ARTWORK_SIZE,
 } from '@/configs'
-import {TrackPlayerVolumeChangerMenu} from './TrackPlayerVolumeChangerMenu'
 import {SobyteState} from '@/state'
 import {
     generateShareableMusicMessage,
     getShareableImagePath,
     updateArtworkQuality,
 } from '@/utils'
+
+import {TrackPlayerVolumeChangerMenu} from './TrackPlayerVolumeChangerMenu'
+import {SobyteIcon} from './SobyteIcon'
 
 export interface TrackPlayerFooterProps {
     /**
@@ -153,7 +153,8 @@ export const TrackPlayerFooter = ({
                             gutters.tinyMarginRight, // since this is the first icon so right margin
                             gutters.smallPaddingExceptLeft, // since this is the first icon so padding all direction except left
                         ]}>
-                        <AntDesignIcon
+                        <SobyteIcon
+                            IconType="AntDesign"
                             name="hearto"
                             size={TINY_ICON_SIZE}
                             color={variables.colors.white}
@@ -170,7 +171,8 @@ export const TrackPlayerFooter = ({
                             gutters.tinyMarginHorizontal,
                             gutters.smallPadding,
                         ]}>
-                        <IoniconIcon
+                        <SobyteIcon
+                            IconType="Ionicons"
                             name="ios-share-social-outline"
                             size={TINY_ICON_SIZE}
                             color={variables.colors.white}
@@ -187,7 +189,8 @@ export const TrackPlayerFooter = ({
                             gutters.tinyMarginHorizontal,
                             gutters.smallPadding,
                         ]}>
-                        <AntDesignIcon
+                        <SobyteIcon
+                            IconType="AntDesign"
                             name="download"
                             size={TINY_ICON_SIZE}
                             color={variables.colors.white}
@@ -209,7 +212,8 @@ export const TrackPlayerFooter = ({
                             gutters.smallMarginLeft, // last component so, left margin
                             gutters.smallPaddingExceptRight, // last component so, only on other side except right
                         ]}>
-                        <AntDesignIcon
+                        <SobyteIcon
+                            IconType="AntDesign"
                             name="bars"
                             size={TINY_ICON_SIZE}
                             color={variables.colors.white}

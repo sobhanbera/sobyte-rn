@@ -10,12 +10,12 @@
 
 import React from 'react'
 import {TextProps, View} from 'react-native'
-import {IconProps} from 'react-native-vector-icons/Icon'
 
 import {useTheme} from '@/hooks'
 import {SobyteTextView} from './SobyteTextView'
 import {TINY_ICON_SIZE} from '@/configs'
 import {TouchableScalable} from './TouchableScalable'
+import {IconTypeOptions, SobyteIcon} from './SobyteIcon'
 
 export interface TitleTextIconProps extends TextProps {
     children: React.ReactChild
@@ -28,8 +28,9 @@ export interface TitleTextIconProps extends TextProps {
      */
     text?: string
     showIcon?: boolean
+
     iconName?: string
-    IconComponentType?: React.ComponentClass<IconProps> // type of icon
+    IconType: IconTypeOptions
     onPressTextOrIcon?(): void
 }
 export const TitleTextIcon = ({
@@ -37,7 +38,8 @@ export const TitleTextIcon = ({
 
     showIcon = false,
     onPressTextOrIcon = () => {},
-    IconComponentType,
+
+    IconType,
     iconName,
 
     ...props
@@ -81,8 +83,9 @@ export const TitleTextIcon = ({
                     </SobyteTextView>
                 ) : null}
 
-                {showIcon && IconComponentType && iconName ? (
-                    <IconComponentType
+                {showIcon && IconType && iconName ? (
+                    <SobyteIcon
+                        IconType={IconType}
                         name={iconName}
                         size={TINY_ICON_SIZE}
                         color={theme.themecolorrevert}

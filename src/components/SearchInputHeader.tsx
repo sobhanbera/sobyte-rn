@@ -10,12 +10,12 @@
 
 import React, {useRef} from 'react'
 import {TextInput, TextInputProps, View} from 'react-native'
-import AntDesignIcon from 'react-native-vector-icons/AntDesign'
-import EvilIcon from 'react-native-vector-icons/EvilIcons'
 
 import {useTheme} from '@/hooks'
 import {CircularRegular, DEFAULT_HEADER_HEIGHT, TINY_ICON_SIZE} from '@/configs'
+
 import {TouchableScalable} from './TouchableScalable'
+import {SobyteIcon} from './SobyteIcon'
 
 export interface SearchInputHeaderProps {
     textInputProps?: TextInputProps
@@ -66,7 +66,8 @@ export function SearchInputHeader({
                             ? onBackButtonPress()
                             : searchInputRef.current?.focus()
                     }>
-                    <AntDesignIcon
+                    <SobyteIcon
+                        IconType="AntDesign"
                         name={showBackButton ? 'arrowleft' : 'search1'} // we are replacing the search icon with the back button
                         size={TINY_ICON_SIZE - 4}
                         color={theme.themecolorrevert}
@@ -98,7 +99,8 @@ export function SearchInputHeader({
                     <TouchableScalable
                         style={[gutters.smallPadding]}
                         onPress={onClearSearchInput}>
-                        <EvilIcon
+                        <SobyteIcon
+                            IconType="EvilIcons"
                             name={'close'}
                             size={TINY_ICON_SIZE}
                             color={theme.themecolorrevert}
