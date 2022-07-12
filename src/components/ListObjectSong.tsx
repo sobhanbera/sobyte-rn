@@ -81,13 +81,15 @@ export const ListObjectSong = ({songData}: ListObjectSongProps) => {
                         fonts.mediumFont,
                         fonts.textRegular,
                         gutters.extraTinyPaddingVertical,
-                    ]}>
+                    ]}
+                    numberOfLines={1}>
                     {trackTitle}
                 </SobyteTextView>
 
                 <SobyteTextView
                     style={[gutters.extraTinyPaddingVertical]}
-                    subTitle>
+                    subTitle
+                    numberOfLines={1}>
                     {trackArtist}
                 </SobyteTextView>
             </View>

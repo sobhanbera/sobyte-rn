@@ -23,8 +23,10 @@ export * from './SearchInputHeader'
 export * from './SobyteMarquee'
 export * from './SobyteTextInput'
 export * from './SobyteTextView'
+
 export * from './ListObjectSong'
 export * from './ListRendererSongs'
+
 export * from './TitleTextIcon'
 
 export * from './TouchableScalable'
