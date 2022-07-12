@@ -40,36 +40,38 @@ export interface SearchResultsDataPayload {
     payload: Partial<SearchResultsDataState>
 }
 
+export const BareSearchResultsDataState: SearchResultsDataState = {
+    searchQueryText: '',
+
+    searchHistory: [],
+
+    searchSuggestions: [],
+
+    songsData: [],
+    artistsData: [],
+    playlistsData: [],
+
+    songsContinuationData: {
+        clickTrackingParams: '',
+        continuation: '',
+    },
+    artistsContinuationData: {
+        clickTrackingParams: '',
+        continuation: '',
+    },
+    playlistsContinuationData: {
+        clickTrackingParams: '',
+        continuation: '',
+    },
+}
+
 /**
  * reducers, state, name, and slices imp
  */
 const searchResultsDataSlice = createSlice({
     name: SEARCH_RESULTS_DATA_SLICE_NAME,
 
-    initialState: {
-        searchQueryText: '',
-
-        searchHistory: [],
-
-        searchSuggestions: [],
-
-        songsData: [],
-        artistsData: [],
-        playlistsData: [],
-
-        songsContinuationData: {
-            clickTrackingParams: '',
-            continuation: '',
-        },
-        artistsContinuationData: {
-            clickTrackingParams: '',
-            continuation: '',
-        },
-        playlistsContinuationData: {
-            clickTrackingParams: '',
-            continuation: '',
-        },
-    } as SearchResultsDataState,
+    initialState: BareSearchResultsDataState,
 
     reducers: {
         /**
@@ -125,6 +127,25 @@ const searchResultsDataSlice = createSlice({
                 ...payload,
             }
         },
+
+        /**
+         * thie method resets all the search result's data like the songs, artists, playlists
+         * and also the serach suggestions and search query text
+         * this method will be called when the user presses the back button or navigates to previous screen
+         * we will reset all the fields
+         *
+         * this is imp because without this operation the results will be shown when the user gets back to the result's screen again
+         *
+         * only the search histories will not get removed, since it is needed in more that one screens
+         * @param _state initial state
+         * @param param1 nothing
+         */
+        resetSearchResults: state => {
+            return {
+                ...BareSearchResultsDataState,
+                searchHistory: state.searchHistory,
+            }
+        },
     },
 })
 
@@ -133,6 +154,7 @@ export const {
     updateSearchHistories,
     updateSearchSuggestions,
     updateSearchResultData,
+    resetSearchResults,
 } = searchResultsDataSlice.actions
 
 const {reducer} = searchResultsDataSlice
