@@ -11,6 +11,7 @@
 import {Animated, StyleProp, ViewStyle} from 'react-native'
 
 import {
+    DEFAULT_MAXIMUM_CHARACTERS_IN_TITLE,
     DEFAULT_NOTIFICATION_ARTWORK_QUALITY,
     DEFAULT_NOTIFICATION_ARTWORK_SIZE,
     DEFAULT_PLAYER_ARTWORK_QUALITY,
@@ -176,16 +177,32 @@ export function removeUnnecessaryCharacters(trackTitle: string): string {
  * but the change is this function replaces text between (), [] and {} to null/empty
  */
 export function formatTrackTitle(trackTitle: string): string {
-    // we are checking if the trackTitle contain only one word
-    // in that case we will return the full uppercase of the word...
-    // if (trackTitle.split(' ').length - 1 <= 0) {
-    //     return capitalizeWords(
-    //         trackTitle.replace(ENCLOSURES_SURROUNDED_TEXT, ''),
-    //     ).toUpperCase()
-    // }
     return capitalizeWords(
         removeUnnecessaryCharacters(
             trackTitle
+                .replace('/', '-') // replace / character with a hyphen (-)
+                .replace(BRACES_SURROUNDED_TEXT, '')
+                .replace(BRACKETS_SURROUNDED_TEXT, '')
+                .replace(PARATHESIS_SURROUNDED_TEXT, ''),
+        ),
+    )
+}
+
+/**
+ * this method is same as the above one
+ * but the catch is here we can limit the character count
+ *
+ * @param {string} the name or the string of the song
+ * @returns the capitalized words string
+ * but the change is this function replaces text between (), [] and {} to null/empty
+ */
+export function formatTitle(
+    title: string,
+    characterLimit: number = DEFAULT_MAXIMUM_CHARACTERS_IN_TITLE,
+): string {
+    return capitalizeWords(
+        removeUnnecessaryCharacters(
+            title
                 .replace('/', '-') // replace / character with a hyphen (-)
                 .replace(BRACES_SURROUNDED_TEXT, '')
                 .replace(BRACKETS_SURROUNDED_TEXT, '')
