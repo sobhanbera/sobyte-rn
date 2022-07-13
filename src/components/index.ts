@@ -24,6 +24,8 @@ export * from './SobyteMarquee'
 export * from './SobyteTextInput'
 export * from './SobyteTextView'
 
+export * from './ListCardArtist'
+export * from './ListCardRendererArtists'
 export * from './ListObjectPlaylist'
 export * from './ListObjectSong'
 export * from './ListRendererPlaylists'
