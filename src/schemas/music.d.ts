@@ -302,13 +302,24 @@ export type FetchedData<DataObject> = {
 }
 
 /**
+ * data about from where does a track/song is being played
+ * a song could be loaded in the music player's UI at initial app's launch
+ * or either it can be played from other screens as well
+ *
+ * so this is the type which describes it
+ *
+ * here 'player' is the only way that the song is played from the player's interface
+ */
+export type TrackPlayedFrom = 'player' | 'explore' | 'search' | 'other' | ''
+
+/**
  * metadata which every track contains...
  */
 export interface TrackMetadataBase {
     url: string
     artist: string
     artwork: string
-    description: string
+    description: TrackPlayedFrom
     genre?: string
     contentType?: string
 

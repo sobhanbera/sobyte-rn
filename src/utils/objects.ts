@@ -36,6 +36,7 @@ import {
     SongArtistObject,
     SongObject,
     TrackMetadataBase,
+    TrackPlayedFrom,
 } from '@/schemas'
 
 /**
@@ -331,7 +332,7 @@ export function secondsToHms(seconds: number) {
  */
 export function getTrackToPlay(
     trackData: SongObject,
-    extraDescription: string = '',
+    extraDescription: TrackPlayedFrom,
     URL: string = '',
 ): TrackMetadataBase & SongObject {
     const notificationArtwork = updateArtworkQuality(
