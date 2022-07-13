@@ -23,12 +23,15 @@ import {
     SOBYTE_URL,
 } from '@/configs'
 import {
+    ARTWORK_HEIGHT_WIDTH_PART_WITH_CHARACTER_IN_BETWEEN,
     ARTWORK_HEIGHT_WIDTH_PART_WITH_SIZE,
+    ARTWORK_HEIGHT_WIDTH_PART,
     BRACES_SURROUNDED_TEXT,
     BRACKETS_SURROUNDED_TEXT,
     PARATHESIS_SURROUNDED_TEXT,
 } from '@/configs/regex'
 import {
+    Artwork,
     ArtworkObject,
     SongArtistObject,
     SongObject,
@@ -50,17 +53,96 @@ export function updateArtworkQuality(
     wantedQuality: number = DEFAULT_PLAYER_ARTWORK_QUALITY,
 ): string {
     // demo url - https://lh3.googleusercontent.com/WP7l4p-2WhWzLM6lXJ0n2gXLK6u07eCejpybWzb-yhEyt9Y0aOkxMlLhpayO7PdXYOYy2NgkWu9hGBPy=w60-h60-l90-rj
+    // demo url - https://lh3.googleusercontent.com/WP7l4p-2WhWzLM6lXJ0n2gXLK6u07eCejpybWzb-yhEyt9Y0aOkxMlLhpayO7PdXYOYy2NgkWu9hGBPy=w60-s-h60-l90-rj
+    // demo url - https://lh3.googleusercontent.com/WP7l4p-2WhWzLM6lXJ0n2gXLK6u07eCejpybWzb-yhEyt9Y0aOkxMlLhpayO7PdXYOYy2NgkWu9hGBPy=w60-p-h60-l90-rj
+    // demo url - https://lh3.googleusercontent.com/WP7l4p-2WhWzLM6lXJ0n2gXLK6u07eCejpybWzb-yhEyt9Y0aOkxMlLhpayO7PdXYOYy2NgkWu9hGBPy=w60-r-h60-l90-rj
     // here size is 60
     const {height, url} = artwork
 
     if (artwork.url.match(ARTWORK_HEIGHT_WIDTH_PART_WITH_SIZE)) {
         const qualityPartOfURL = `w${height}-h${height}-s-l90-rj`
         const updatedQuality = `w${wantedSize}-h${wantedSize}-s-l${wantedQuality}-rj`
+
         return url.replace(qualityPartOfURL, updatedQuality)
-    } else {
+    } else if (artwork.url.match(ARTWORK_HEIGHT_WIDTH_PART)) {
         const qualityPartOfURL = `w${height}-h${height}-l90-rj`
         const updatedQuality = `w${wantedSize}-h${wantedSize}-l${wantedQuality}-rj`
+
         return url.replace(qualityPartOfURL, updatedQuality)
+    } else if (
+        artwork.url.match(ARTWORK_HEIGHT_WIDTH_PART_WITH_CHARACTER_IN_BETWEEN)
+    ) {
+        // getting to know which character is used in the URL of artwork
+        const charBetweenHeightAndQuality =
+            ARTWORK_HEIGHT_WIDTH_PART_WITH_CHARACTER_IN_BETWEEN.exec(
+                artwork.url,
+            )
+
+        const qualityPartOfURL = `w${height}-h${height}-${charBetweenHeightAndQuality}-l90-rj`
+        const updatedQuality = `w${wantedSize}-h${wantedSize}-${charBetweenHeightAndQuality}-l${wantedQuality}-rj`
+
+        return url.replace(qualityPartOfURL, updatedQuality)
+    } else {
+        return '' // return empty string if the url doesn't matches any of the above condition
+        // this is the case when the artwork might be a invalid one (in most cases)
+        // this is the artwork of artist's, playlist's which are added customly by Y users...
+    }
+}
+
+/**
+ * this method is same as the above, the change is the above method works for tracks/songs
+ * and this method works for artists, playlist etc
+ * BTW the above method is Universal not this one, since it excepts less data then this method
+ * so every type of artwork is excepted through the above method
+ * but let it be. currently it gives me more clearity
+ *
+ * get a changed quality image of any song object
+ * using its existing artwork data
+ *
+ * @param {Artwork} artwork any artwork object from song object or else
+ * @param {number} wantedSize the height and width to update
+ * @param {number} wantedQuality optional, the quality of the image
+ * @returns a URL with high quality of the image
+ */
+export function updateArtworkQualityUniversal(
+    artwork: Artwork,
+    wantedSize: number = DEFAULT_PLAYER_ARTWORK_SIZE,
+    wantedQuality: number = DEFAULT_PLAYER_ARTWORK_QUALITY,
+): string {
+    // demo url - https://lh3.googleusercontent.com/WP7l4p-2WhWzLM6lXJ0n2gXLK6u07eCejpybWzb-yhEyt9Y0aOkxMlLhpayO7PdXYOYy2NgkWu9hGBPy=w60-h60-l90-rj
+    // demo url - https://lh3.googleusercontent.com/WP7l4p-2WhWzLM6lXJ0n2gXLK6u07eCejpybWzb-yhEyt9Y0aOkxMlLhpayO7PdXYOYy2NgkWu9hGBPy=w60-s-h60-l90-rj
+    // demo url - https://lh3.googleusercontent.com/WP7l4p-2WhWzLM6lXJ0n2gXLK6u07eCejpybWzb-yhEyt9Y0aOkxMlLhpayO7PdXYOYy2NgkWu9hGBPy=w60-p-h60-l90-rj
+    // demo url - https://lh3.googleusercontent.com/WP7l4p-2WhWzLM6lXJ0n2gXLK6u07eCejpybWzb-yhEyt9Y0aOkxMlLhpayO7PdXYOYy2NgkWu9hGBPy=w60-r-h60-l90-rj
+    // here size is 60
+    const {height, url} = artwork
+
+    if (artwork.url.match(ARTWORK_HEIGHT_WIDTH_PART_WITH_SIZE)) {
+        const qualityPartOfURL = `w${height}-h${height}-s-l90-rj`
+        const updatedQuality = `w${wantedSize}-h${wantedSize}-s-l${wantedQuality}-rj`
+
+        return url.replace(qualityPartOfURL, updatedQuality)
+    } else if (artwork.url.match(ARTWORK_HEIGHT_WIDTH_PART)) {
+        const qualityPartOfURL = `w${height}-h${height}-l90-rj`
+        const updatedQuality = `w${wantedSize}-h${wantedSize}-l${wantedQuality}-rj`
+
+        return url.replace(qualityPartOfURL, updatedQuality)
+    } else if (
+        artwork.url.match(ARTWORK_HEIGHT_WIDTH_PART_WITH_CHARACTER_IN_BETWEEN)
+    ) {
+        // getting to know which character is used in the URL of artwork
+        const charBetweenHeightAndQuality =
+            ARTWORK_HEIGHT_WIDTH_PART_WITH_CHARACTER_IN_BETWEEN.exec(
+                artwork.url,
+            )
+
+        const qualityPartOfURL = `w${height}-h${height}-${charBetweenHeightAndQuality}-l90-rj`
+        const updatedQuality = `w${wantedSize}-h${wantedSize}-${charBetweenHeightAndQuality}-l${wantedQuality}-rj`
+
+        return url.replace(qualityPartOfURL, updatedQuality)
+    } else {
+        return '' // return empty string if the url doesn't matches any of the above condition
+        // this is the case when the artwork might be a invalid one (in most cases)
+        // this is the artwork of artist's, playlist's which are added customly by Y users...
     }
 }
 
