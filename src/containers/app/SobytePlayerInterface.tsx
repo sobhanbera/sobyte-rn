@@ -35,7 +35,7 @@ import {
     TRACK_ARTWORK_PARENT_VERTICAL_PADDING,
     TRACK_ARTWORK_WIDTH,
 } from '@/configs'
-import {FetchedSongObject, SongObject} from '@/schemas'
+import {FetchedSongObject, SongObject, TrackMetadataBase} from '@/schemas'
 import {
     Directions,
     FlingGestureHandler,
@@ -154,7 +154,7 @@ const SobytePlayerInterface = withMenuContext(
                     const firstTrack = result.content[0]
 
                     // now in the process to play the song
-                    playTrack(firstTrack, '', false)
+                    playTrack(firstTrack, 'player', false)
                         .then(played => {
                             if (played)
                                 if (result.content.length >= 1)
@@ -203,7 +203,7 @@ const SobytePlayerInterface = withMenuContext(
                 // next up getting the tracks data which needs to be played after changing the current index
                 const track = tracks[currentTrackIndex]
 
-                playTrack(track)
+                playTrack(track, 'player')
                     .then(played => {
                         if (played) {
                             if (currentTrackIndex < tracks.length - 1) {
@@ -364,6 +364,46 @@ const SobytePlayerInterface = withMenuContext(
             )
 
             /**
+             * this event is very very important, since this event is the reponsible method which
+             * loads up the next/continuos data when a song is being played from other screens
+             *
+             * remember that we are adding an extraDescription while adding tracks to the queue
+             * that description will help us to detect wheather the track is being played from outside of the player or not
+             *
+             * let's do it!!
+             */
+            const trackPlayedFromOtherScreen = TrackPlayer.addEventListener(
+                Event.PlaybackTrackChanged,
+                __trackData => {
+                    TrackPlayer.getTrack(0) // since we are only having one track in the queue always
+                        .then(
+                            (
+                                trackData:
+                                    | (TrackMetadataBase & SongObject)
+                                    | any,
+                            ) => {
+                                if (
+                                    trackData === null ||
+                                    trackData === undefined
+                                ) {
+                                    // if the track is not found or not being loaded yet
+                                    // in being loading in the track player itself
+                                    return
+                                } else if ((trackData.description = 'player')) {
+                                    // the song is changed from player's interface only
+                                    return
+                                } else {
+                                    // the song is being played from outside of the player's interface.
+                                    // this might be a good chance to update the songs list in the interface
+                                    // TODO
+                                }
+                            },
+                        )
+                        .catch(_err => {})
+                },
+            )
+
+            /**
              * cleanup of the events
              * so that the events could be start again or disabled again
              * and doesn't cause any duplicates of itself
@@ -371,6 +411,7 @@ const SobytePlayerInterface = withMenuContext(
             return () => {
                 trackNextEvent.remove()
                 trackPreviousEvent.remove()
+                trackPlayedFromOtherScreen.remove()
             }
         }, [])
 

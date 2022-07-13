@@ -17,12 +17,15 @@ import {
     // resetPlayerData,
     SobyteState,
     updateCurrentTrack,
+    updateCurrentTrackIndex,
+    updateTracksData,
 } from '@/state'
 import {
     MusicDataFetchOptions,
     MusicFormats,
     SongObject,
     TrackMetadataBase,
+    TrackPlayedFrom,
     TrackURLDataModal,
 } from '@/schemas'
 import {
@@ -153,9 +156,18 @@ export function useTrackPlayer() {
             .catch(_ERR => {})
     }
 
+    /**
+     * this method does a very important task
+     * this method is responsible to play every song only using the song's data
+     *
+     * @param trackData the full song object data of the track (optional) since this function is also used to just play the song if track is paused
+     * @param extraDescription the screen data from where the track is being played
+     * @param addAndPlayTrack if the track should be played just after adding it to the queue
+     * @returns a promise when the track is loaded/played
+     */
     const playTrack = (
         trackData?: SongObject,
-        extraDescription: string = '',
+        extraDescription: TrackPlayedFrom = 'player',
         addAndPlayTrack: boolean = true,
     ): Promise<boolean> => {
         return new Promise((resolve, _reject) => {
@@ -214,9 +226,22 @@ export function useTrackPlayer() {
              */
             dispatch(
                 updateCurrentTrack({
-                    currentTrack: getTrackToPlay(trackData),
+                    currentTrack: getTrackToPlay(trackData, extraDescription),
                 }),
             )
+            if (extraDescription !== 'player') {
+                // now update the new song data from the outside we got
+                dispatch(
+                    updateTracksData({
+                        tracks: [getTrackToPlay(trackData, extraDescription)],
+                        continuationData: {
+                            clickTrackingParams: '',
+                            continuation: '',
+                        },
+                    }),
+                )
+                dispatch(updateCurrentTrackIndex({index: 0}))
+            }
             getTrackURL(trackData.musicId)
                 .then(TrackURLData => {
                     const notificationArtwork = updateArtworkQuality(
@@ -288,6 +313,20 @@ export function useTrackPlayer() {
                             currentTrack: track,
                         }),
                     )
+
+                    if (extraDescription !== 'player') {
+                        // now update the new song data from the outside we got
+                        dispatch(
+                            updateTracksData({
+                                tracks: [trackData],
+                                continuationData: {
+                                    clickTrackingParams: '',
+                                    continuation: '',
+                                },
+                            }),
+                        )
+                        dispatch(updateCurrentTrackIndex({index: 0}))
+                    }
 
                     // and now play the song/track
                     if (addAndPlayTrack)

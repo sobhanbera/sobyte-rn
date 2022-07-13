@@ -12,7 +12,7 @@ import React from 'react'
 import {View} from 'react-native'
 import FastImage from 'react-native-fast-image'
 
-import {useTheme} from '@/hooks'
+import {useTheme, useTrackPlayer} from '@/hooks'
 import {SongObject} from '@/schemas'
 import {formatArtistsListFromArray, formatTrackTitle} from '@/utils'
 import {
@@ -30,10 +30,15 @@ export interface ListObjectSongProps {
 }
 export const ListObjectSong = ({songData}: ListObjectSongProps) => {
     const {theme, fonts, layouts, gutters} = useTheme()
+    const {playTrack} = useTrackPlayer()
 
     // data to display in the screen like title,artist and image
     const trackTitle = formatTrackTitle(songData.title)
     const trackArtist = formatArtistsListFromArray(songData.artists)
+
+    const playThisTrack = () => {
+        playTrack(songData, 'search')
+    }
 
     /**
      * since there are no tracks which doesnot contains 2 types of sizes of artworks
@@ -46,7 +51,7 @@ export const ListObjectSong = ({songData}: ListObjectSongProps) => {
 
     return (
         <TouchableScalable
-            onPress={() => {}}
+            onPress={playThisTrack}
             style={[
                 layouts.row,
                 layouts.justifyContentBetween,
