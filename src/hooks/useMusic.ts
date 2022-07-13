@@ -593,10 +593,10 @@ export function useMusic() {
                                 result =
                                     MusicParser.parseVideoSearchResult(context)
                                 break
-                            case 'ALBUM':
-                                result =
-                                    MusicParser.parseAlbumSearchResult(context)
-                                break
+                            // case 'ALBUM':
+                            //     result =
+                            //         MusicParser.parseAlbumSearchResult(context)
+                            //     break
                             case 'ARTIST':
                                 result =
                                     MusicParser.parseArtistSearchResult(context)
@@ -747,7 +747,7 @@ export function useMusic() {
                     // let o:number = new Date() - parse
                 })
                 .catch(_ERR => {
-                    console.log('Cannot provide getContinuation()')
+                    console.log('Cannot provide getContinuation()', _ERR)
                 })
         })
     }
@@ -758,29 +758,29 @@ export function useMusic() {
      * @param browseId id of the album
      * @returns the object with album data
      */
-    const getAlbum = (browseId: string) => {
-        if (_.startsWith(browseId, 'MPREb')) {
-            return new Promise((resolve, reject) => {
-                _createApiRequest(
-                    PRIMARY_MUSIC_API_ENDPOINTS.browse,
-                    MusicUtils.buildEndpointContext('ALBUM', browseId),
-                )
-                    .then(context => {
-                        try {
-                            const result = MusicParser.parseAlbumPage(context)
-                            resolve(result)
-                        } catch (error) {
-                            return resolve({
-                                error: error.message,
-                            })
-                        }
-                    })
-                    .catch(error => reject(error))
-            })
-        } else {
-            throw new Error('invalid album browse id.')
-        }
-    }
+    // const getAlbum = (browseId: string) => {
+    //     if (_.startsWith(browseId, 'MPREb')) {
+    //         return new Promise((resolve, reject) => {
+    //             _createApiRequest(
+    //                 PRIMARY_MUSIC_API_ENDPOINTS.browse,
+    //                 MusicUtils.buildEndpointContext('ALBUM', browseId),
+    //             )
+    //                 .then(context => {
+    //                     try {
+    //                         const result = MusicParser.parseAlbumPage(context)
+    //                         resolve(result)
+    //                     } catch (error) {
+    //                         return resolve({
+    //                             error: error.message,
+    //                         })
+    //                     }
+    //                 })
+    //                 .catch(error => reject(error))
+    //         })
+    //     } else {
+    //         throw new Error('invalid album browse id.')
+    //     }
+    // }
 
     /**
      * @param browseId id of the playlist
