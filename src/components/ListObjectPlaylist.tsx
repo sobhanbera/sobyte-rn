@@ -36,7 +36,7 @@ export const ListObjectPlaylist = ({playlistData}: ListObjectPlaylistProps) => {
      * so if any playlist contains only one artwork, that means the playlists data has not beed loaded yet
      * and the playlistData passed is the current playlist from reducer, the currently playing section of the queue
      */
-    if (playlistData.artworks.length === 1) return null
+    if (playlistData.artworks.length < 1) return null
 
     return (
         <View
