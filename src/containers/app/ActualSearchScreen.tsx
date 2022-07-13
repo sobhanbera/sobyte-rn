@@ -23,6 +23,7 @@ import {
     ListRendererSongs,
     TitleTextIcon,
     ListRendererPlaylists,
+    ListCardRendererArtists,
 } from '@/components'
 import {
     DEFAULT_LOTTIE_LOGO_ANIMATION_HEIGHT,
@@ -357,7 +358,8 @@ export function ActualSearchScreen({
 
             <ScrollView
                 keyboardShouldPersistTaps="handled"
-                showsVerticalScrollIndicator={false}>
+                showsVerticalScrollIndicator={false}
+                nestedScrollEnabled>
                 {/* rendering loading when any data is not being loaded */}
                 {isLoading ? (
                     <View style={[layouts.fullHeight, layouts.center]}>
@@ -394,14 +396,18 @@ export function ActualSearchScreen({
 
                 {/* artists data */}
                 {artistsData.length > 0 ? (
-                    <TitleTextIcon
-                        text="More"
-                        onPressTextOrIcon={() => {}}
-                        showIcon={true}
-                        IconType={'EvilIcons'}
-                        iconName={'chevron-right'}>
-                        {'Artists'}
-                    </TitleTextIcon>
+                    <View>
+                        <TitleTextIcon
+                            text=""
+                            onPressTextOrIcon={() => {}}
+                            showIcon={false} // since we don't provide to see more artists again
+                            IconType={'EvilIcons'}
+                            iconName={'chevron-right'}>
+                            {'Artists'}
+                        </TitleTextIcon>
+
+                        <ListCardRendererArtists artistList={artistsData} />
+                    </View>
                 ) : null}
 
                 {/* playlists data */}
