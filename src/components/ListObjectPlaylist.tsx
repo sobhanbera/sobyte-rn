@@ -75,7 +75,7 @@ export const ListObjectPlaylist = ({playlistData}: ListObjectPlaylistProps) => {
                             lineHeight: 20,
                         },
                     ]}
-                    numberOfLines={2}>
+                    numberOfLines={1}>
                     {playlistTitle}
                 </SobyteTextView>
 
