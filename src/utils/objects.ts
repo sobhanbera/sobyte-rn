@@ -36,7 +36,7 @@ import {
     SongArtistObject,
     SongObject,
     TrackMetadataBase,
-    TrackPlayedFrom,
+    TrackDescription,
 } from '@/schemas'
 
 /**
@@ -281,7 +281,7 @@ export function formatTrackTitle(trackTitle: string): string {
  */
 export function formatTitle(
     title: string,
-    characterLimit: number = DEFAULT_MAXIMUM_CHARACTERS_IN_TITLE,
+    _characterLimit: number = DEFAULT_MAXIMUM_CHARACTERS_IN_TITLE,
 ): string {
     return capitalizeWords(
         removeUnnecessaryCharacters(
@@ -332,7 +332,7 @@ export function secondsToHms(seconds: number) {
  */
 export function getTrackToPlay(
     trackData: SongObject,
-    extraDescription: TrackPlayedFrom,
+    extraDescription: TrackDescription,
     URL: string = '',
 ): TrackMetadataBase & SongObject {
     const notificationArtwork = updateArtworkQuality(
@@ -357,7 +357,7 @@ export function getTrackToPlay(
         artist: formattedArtist,
         artwork: notificationArtwork,
         duration: trackData.duration,
-        description: extraDescription,
+        description: JSON.stringify(extraDescription),
         genre: '',
 
         contentType: trackData.type,
@@ -583,7 +583,7 @@ export function getShareableImagePath(musicID: string) {
  * @returns {string} a query to search
  */
 export function getARandomQuery() {
-    return 't-series mixtape'
+    return 'hindi romantic sad songs'
     return GLOBAL_QUERIES[Math.floor(Math.random() * GLOBAL_QUERIES.length)]
 }
 

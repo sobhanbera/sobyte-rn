@@ -16,14 +16,19 @@ import {ListObjectSong} from './ListObjectSong'
 
 export interface ListRendererSongsProps {
     songsList: Array<SongObject>
+    searchQuery: string // this is needed description to play any song
 }
-export const ListRendererSongs = ({songsList}: ListRendererSongsProps) => {
+export const ListRendererSongs = ({
+    songsList,
+    searchQuery,
+}: ListRendererSongsProps) => {
     return (
         <View>
             {songsList.map((song, index) => {
                 return (
                     <ListObjectSong
                         songData={song}
+                        searchQuery={searchQuery}
                         key={`${song.musicId}${index}`}
                     />
                 )

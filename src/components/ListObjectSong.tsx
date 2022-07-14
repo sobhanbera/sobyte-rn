@@ -8,7 +8,7 @@
  * Purpose - this main component inside list of songs renderer (imp - vertical scrollview only)
  */
 
-import React from 'react'
+import React, {useCallback} from 'react'
 import {View} from 'react-native'
 import FastImage from 'react-native-fast-image'
 
@@ -27,8 +27,12 @@ import {SobyteIcon} from './SobyteIcon'
 
 export interface ListObjectSongProps {
     songData: SongObject
+    searchQuery: string // this is needed description to play any song
 }
-export const ListObjectSong = ({songData}: ListObjectSongProps) => {
+export const ListObjectSong = ({
+    songData,
+    searchQuery,
+}: ListObjectSongProps) => {
     const {theme, fonts, layouts, gutters} = useTheme()
     const {playTrack} = useTrackPlayer()
 
@@ -36,9 +40,16 @@ export const ListObjectSong = ({songData}: ListObjectSongProps) => {
     const trackTitle = formatTrackTitle(songData.title)
     const trackArtist = formatArtistsListFromArray(songData.artists)
 
-    const playThisTrack = () => {
-        playTrack(songData, 'search')
-    }
+    /**
+     * this method is used to play the track from the songs results
+     * this method is also capable to provide all the metadata while playing the song
+     */
+    const playThisTrack = useCallback(() => {
+        playTrack(songData, {
+            context: 'search',
+            query: searchQuery,
+        })
+    }, [searchQuery])
 
     /**
      * since there are no tracks which doesnot contains 2 types of sizes of artworks

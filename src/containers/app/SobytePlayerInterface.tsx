@@ -23,6 +23,7 @@ import {
     updatePlayerData,
     updateCurrentTrackIndex,
     addMoreTracksToQueueWhileKeepingTheLastTrack,
+    addMoreTracksToQueue,
 } from '@/state'
 import {
     LAST_TRACKS_REMAIN_TO_LOAD_MORE_TRACK,
@@ -35,7 +36,12 @@ import {
     TRACK_ARTWORK_PARENT_VERTICAL_PADDING,
     TRACK_ARTWORK_WIDTH,
 } from '@/configs'
-import {FetchedSongObject, SongObject, TrackMetadataBase} from '@/schemas'
+import {
+    FetchedSongObject,
+    SongObject,
+    TrackDescription,
+    TrackMetadataBase,
+} from '@/schemas'
 import {
     Directions,
     FlingGestureHandler,
@@ -127,7 +133,7 @@ const SobytePlayerInterface = withMenuContext(
         // getting the initial tracks data when the application is being loaded...
         const getInitialTracksData = useCallback(() => {
             const query = getARandomQuery()
-            console.log(query)
+            console.log('Query -', query)
             search(query, 'SONG', true, MUSIC_PLAYER_SONGS_RESULT_STORAGE_KEY)
                 .then((result: FetchedSongObject) => {
                     // now save or update this request data to the player data state
@@ -154,7 +160,7 @@ const SobytePlayerInterface = withMenuContext(
                     const firstTrack = result.content[0]
 
                     // now in the process to play the song
-                    playTrack(firstTrack, 'player', false)
+                    playTrack(firstTrack, {context: 'player', query}, false)
                         .then(played => {
                             if (played)
                                 if (result.content.length >= 1)
@@ -203,7 +209,7 @@ const SobytePlayerInterface = withMenuContext(
                 // next up getting the tracks data which needs to be played after changing the current index
                 const track = tracks[currentTrackIndex]
 
-                playTrack(track, 'player')
+                playTrack(track)
                     .then(played => {
                         if (played) {
                             if (currentTrackIndex < tracks.length - 1) {
@@ -382,6 +388,15 @@ const SobytePlayerInterface = withMenuContext(
                                     | (TrackMetadataBase & SongObject)
                                     | any,
                             ) => {
+                                /**
+                                 * the song is being played from outside of the player's interface.
+                                 * in this case, search for the query which is provided in description of the track before playing
+                                 * its a string containing the screen data from where the track is being played
+                                 * and data about the query to get the tracks list
+                                 */
+                                const parsedDescription: TrackDescription =
+                                    JSON.parse(trackData.description)
+
                                 if (
                                     trackData === null ||
                                     trackData === undefined
@@ -389,13 +404,41 @@ const SobytePlayerInterface = withMenuContext(
                                     // if the track is not found or not being loaded yet
                                     // in being loading in the track player itself
                                     return
-                                } else if ((trackData.description = 'player')) {
-                                    // the song is changed from player's interface only
-                                    return
-                                } else {
-                                    // the song is being played from outside of the player's interface.
-                                    // this might be a good chance to update the songs list in the interface
-                                    // TODO
+                                } else if (
+                                    parsedDescription.context &&
+                                    parsedDescription.context !== 'player'
+                                ) {
+                                    // if the songs is not played from the player itself
+
+                                    search(parsedDescription.query)
+                                        .then(
+                                            (
+                                                newSearchedResults: FetchedSongObject,
+                                            ) => {
+                                                /**
+                                                 * since one song is already being added or updated by the user from other screens
+                                                 * so we are filtering that song, and adding all remaining songs after it in the queue
+                                                 * so that the songs list remains quite well to scroll later
+                                                 */
+                                                const tracksList =
+                                                    newSearchedResults.content.filter(
+                                                        songData =>
+                                                            songData.musicId !==
+                                                            parsedDescription
+                                                                .trackData
+                                                                ?.musicId, // description also contains data about the musicId
+                                                    )
+
+                                                dispatch(
+                                                    addMoreTracksToQueue({
+                                                        tracks: tracksList,
+                                                        continuationData:
+                                                            newSearchedResults.continuation,
+                                                    }),
+                                                )
+                                            },
+                                        )
+                                        .catch(_ERR => {})
                                 }
                             },
                         )

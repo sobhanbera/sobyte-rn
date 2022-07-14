@@ -24,8 +24,8 @@ import {
     MusicDataFetchOptions,
     MusicFormats,
     SongObject,
+    TrackDescription,
     TrackMetadataBase,
-    TrackPlayedFrom,
     TrackURLDataModal,
 } from '@/schemas'
 import {
@@ -167,7 +167,10 @@ export function useTrackPlayer() {
      */
     const playTrack = (
         trackData?: SongObject,
-        extraDescription: TrackPlayedFrom = 'player',
+        extraDescription: TrackDescription = {
+            context: 'player',
+            query: '',
+        },
         addAndPlayTrack: boolean = true,
     ): Promise<boolean> => {
         return new Promise((resolve, _reject) => {
@@ -214,6 +217,34 @@ export function useTrackPlayer() {
              */
             TrackPlayer.pause()
             resetPlayer()
+
+            /**
+             * if the song is being played not from music player
+             * then immediately update the tracks list in the reducer
+             * so that it is shown immediately aftre pressing
+             * even if the song is not being loaded yet
+             *
+             * this will give a sense of non-laging experience
+             */
+            if (extraDescription.context !== 'player') {
+                // now update the new song data from the outside we got
+                dispatch(
+                    updateTracksData({
+                        tracks: [
+                            getTrackToPlay(trackData, {
+                                ...extraDescription,
+                                trackData: trackData,
+                            }),
+                        ],
+                        continuationData: {
+                            clickTrackingParams: '',
+                            continuation: '',
+                        },
+                    }),
+                )
+                dispatch(updateCurrentTrackIndex({index: 0}))
+            }
+
             /**
              * whenever the currentTrack changes
              * this dispatch is becuase I want till the track's URL is being loaded we can even show the
@@ -226,22 +257,13 @@ export function useTrackPlayer() {
              */
             dispatch(
                 updateCurrentTrack({
-                    currentTrack: getTrackToPlay(trackData, extraDescription),
+                    currentTrack: getTrackToPlay(trackData, {
+                        ...extraDescription,
+                        trackData: trackData,
+                    }),
                 }),
             )
-            if (extraDescription !== 'player') {
-                // now update the new song data from the outside we got
-                dispatch(
-                    updateTracksData({
-                        tracks: [getTrackToPlay(trackData, extraDescription)],
-                        continuationData: {
-                            clickTrackingParams: '',
-                            continuation: '',
-                        },
-                    }),
-                )
-                dispatch(updateCurrentTrackIndex({index: 0}))
-            }
+
             getTrackURL(trackData.musicId)
                 .then(TrackURLData => {
                     const notificationArtwork = updateArtworkQuality(
@@ -283,7 +305,10 @@ export function useTrackPlayer() {
 
                         ...getTrackToPlay(
                             trackData,
-                            extraDescription,
+                            {
+                                ...extraDescription,
+                                trackData: trackData,
+                            }, // we need this in string format, and the function will do this itself
                             TrackURLData.url,
                         ), // optional but why not, we can use the above object also to create this track data
                     }
@@ -297,7 +322,10 @@ export function useTrackPlayer() {
                         artist: formattedArtist,
                         artwork: notificationArtwork,
                         duration: trackData.duration,
-                        description: extraDescription,
+                        description: JSON.stringify({
+                            ...extraDescription, // and this must be spread operator, else the descriptions will not be scatered in this object
+                            trackData: trackData, // this data contains music id which is important or else the filter process after searching could not be done, when the track is played from another screen and a query is being searched for
+                        }), // we need this in string format
                         genre: '',
 
                         contentType: trackData.type,
@@ -314,7 +342,7 @@ export function useTrackPlayer() {
                         }),
                     )
 
-                    if (extraDescription !== 'player') {
+                    if (extraDescription.context !== 'player') {
                         // now update the new song data from the outside we got
                         dispatch(
                             updateTracksData({

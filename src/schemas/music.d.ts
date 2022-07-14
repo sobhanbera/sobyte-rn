@@ -309,8 +309,19 @@ export type FetchedData<DataObject> = {
  * so this is the type which describes it
  *
  * here 'player' is the only way that the song is played from the player's interface
+ *
+ * here context is the position of screen from where the track is been played
+ * musicId is the current music's id
+ * musicId is the current music's playlist's id
+ * query is the query executed to get the song's list
+ * this query will be executed again to get the rest of songs
+ * which will be pushed after the song which is being played/changed
  */
-export type TrackPlayedFrom = 'player' | 'explore' | 'search' | 'other' | ''
+export interface TrackDescription {
+    context: 'player' | 'explore' | 'search' | 'other' | ''
+    trackData?: SongObject
+    query: string
+}
 
 /**
  * metadata which every track contains...
@@ -319,7 +330,7 @@ export interface TrackMetadataBase {
     url: string
     artist: string
     artwork: string
-    description: TrackPlayedFrom
+    description: string // actual type is string, we need to parse the JSON from this string, if we want to use
     genre?: string
     contentType?: string
 

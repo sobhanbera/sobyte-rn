@@ -390,7 +390,10 @@ export function ActualSearchScreen({
                             {'Songs'}
                         </TitleTextIcon>
 
-                        <ListRendererSongs songsList={songsData} />
+                        <ListRendererSongs
+                            songsList={songsData}
+                            searchQuery={searchQueryText}
+                        />
                     </View>
                 ) : null}
 
