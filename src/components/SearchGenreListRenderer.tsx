@@ -9,7 +9,7 @@
  */
 
 import React from 'react'
-import {View} from 'react-native'
+import {ImageBackground, View} from 'react-native'
 
 import {useTheme} from '@/hooks'
 import {GenreData} from '@/schemas'
@@ -48,7 +48,6 @@ export function SearchGenreListRenderer({
                         <View
                             key={`${genre.id}-${index}`}
                             style={[
-                                // gutters.tinyMarginVertical,
                                 gutters.smallPadding,
                                 {
                                     width: '50%',
@@ -58,23 +57,34 @@ export function SearchGenreListRenderer({
                             <TouchableScalable
                                 onPress={() =>
                                     onPressGenreCard(genre.searchQuery)
-                                }
-                                style={[
-                                    gutters.smallPadding,
-                                    {
-                                        borderRadius: variables.metrics.tiny,
-                                        backgroundColor: genre.color,
-                                        height: '100%',
-                                    },
-                                ]}>
-                                <SobyteTextView
+                                }>
+                                <ImageBackground
                                     style={[
-                                        fonts.textMedium,
-                                        fonts.mediumFont,
-                                        {color: variables.colors.white},
-                                    ]}>
-                                    {genre.title}
-                                </SobyteTextView>
+                                        layouts.center,
+
+                                        {
+                                            borderRadius:
+                                                variables.metrics.tiny,
+                                            overflow: 'hidden',
+
+                                            backgroundColor: genre.color,
+                                            height: '100%',
+                                        },
+                                    ]}
+                                    imageStyle={{
+                                        opacity: 0.15,
+                                    }}
+                                    source={genre.artwork}>
+                                    <SobyteTextView
+                                        style={[
+                                            fonts.textMedium,
+                                            fonts.mediumFont,
+                                            gutters.smallPadding,
+                                            {color: variables.colors.white},
+                                        ]}>
+                                        {genre.title}
+                                    </SobyteTextView>
+                                </ImageBackground>
                             </TouchableScalable>
                         </View>
                     )
