@@ -251,3 +251,8 @@ export const SEARCH_CATEGORY_CARD_HEIGHT = 120
 export const SEARCH_HISTORY_COUNT_LIMIT = 15 // maximum number of search history to save in local storage
 
 export const DEFAULT_MAXIMUM_CHARACTERS_IN_TITLE = 35 // the default number of characters a title can have...
+
+export const TRACK_URL_EXPIRATION_PERIOD = 18000 // the time after which every track url will get expire, NOTE: in seconds
+export const TRACK_URL_MINIMUM_LENGTH = 700 // every track's url is more than 1000 characters, but for now to be in the safe side let take this as the minimum length of the track's url
+
+export const DEFAULT_TIME_FORMAT = 'YYYY-MM-DD HH:MM:ss A' // the default string format for datetime

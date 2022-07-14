@@ -27,20 +27,27 @@ import {
     TrackDescription,
     TrackMetadataBase,
     TrackURLDataModal,
+    TrackURLLocalStorageData,
 } from '@/schemas'
 import {
     DEFAULT_NOTIFICATION_ARTWORK_QUALITY,
     DEFAULT_NOTIFICATION_ARTWORK_SIZE,
-    EXTREME_QUALITY_AUDIO_MINIMUM_BITRATE,
+    // EXTREME_QUALITY_AUDIO_MINIMUM_BITRATE,
     LOW_AUDIO_MINIMUM_BITRATE,
     REMOTE_ORIGIN_MUSIC_ID_MAXIMUM_LENGTH,
+    TRACK_URL_EXPIRATION_PERIOD,
+    TRACK_URL_MINIMUM_LENGTH,
+    TRACK_URL_STORAGE_KEY,
 } from '@/configs'
 import {
     formatArtistsListFromArray,
     formatTrackTitle,
+    getItemFromLocalStorage,
     getTrackToPlay,
+    setItemToLocalStorage,
     updateArtworkQuality,
 } from '@/utils'
+import dayjs from 'dayjs'
 
 /**
  *
@@ -53,44 +60,28 @@ export function useTrackPlayer() {
 
     /**
      * get the tracks origin URL using this function
+     *
      * @param musicID the music ID
      * @param options other specific details that need to be checked before providing the actual final data
      * providing options in optional and also not recommended, please use it wisely
      * @returns tracks data with URL...
      */
-    async function getTrackURL(
+    async function getTrackURLFromOrigin(
         musicID: string,
         options: MusicDataFetchOptions = {},
     ): Promise<TrackURLDataModal> {
-        /**
-         * the actual option the outer code may provide some arttributes
-         * we are setting some default attribute and then we are ovveriding some of them which are provided through
-         * the argument of this function
-         */
-        const finalOptions: MusicDataFetchOptions = {
-            audioQuality: 'auto',
-            ...options,
-            // below two fields should be exactly same and should not be overloaded
-            hasAudio: true,
-            hasVideo: false,
-        }
-
         return new Promise(async (resolve, _reject) => {
             /**
-             * if the URL is already fetched once than return it
-             *
-             * TODO: we need to update this feature... because
-             * let's say the person has pinned our App to there recent and now,
-             * the app could be opened for more than 6 hours
-             * but our URLs are only valid for upto 6 hours
-             *
-             * so to resolve this we can have a time field along with the URL in trackURLs reducer
-             * so that we can check if the URL was generated under 3 hours (our thresold) and then procced to use it...
+             * the actual option the outer code may provide some arttributes
+             * we are setting some default attribute and then we are ovveriding some of them which are provided through
+             * the argument of this function
              */
-            if (musicID in trackURLs) {
-                resolve({
-                    url: trackURLs[musicID],
-                })
+            const finalOptions: MusicDataFetchOptions = {
+                audioQuality: 'auto',
+                ...options,
+                // below two fields should be exactly same and should not be overloaded
+                hasAudio: true,
+                hasVideo: false,
             }
 
             /**
@@ -135,13 +126,137 @@ export function useTrackPlayer() {
                             musicId: musicID,
                             url: url,
                         }),
-                    )
+                    ) // saving to reducer's store
 
                     resolve({
                         url: url,
                     })
+
+                    /**
+                     * now setting the data to the local storage also
+                     * here the key should be the same as the below one where we are getting the data from
+                     * the local storage
+                     */
+                    const expirationTimestamp = dayjs().add(
+                        TRACK_URL_EXPIRATION_PERIOD,
+                        'second',
+                    )
+
+                    // this time is after adding number of expiration period's seconds to current time, which is the expiration time
+                    setItemToLocalStorage(
+                        TRACK_URL_STORAGE_KEY,
+                        musicID,
+                        // in string format
+                        JSON.stringify({
+                            musicId: musicID,
+                            url: url,
+                            expire: expirationTimestamp,
+                        }),
+                    )
                 }
             })
+        })
+    }
+
+    /**
+     * get the tracks origin URL using this function
+     * but at first this function checks if the track's url is saved in the reducer's store
+     * and then check if the data is saved in the async local storage and is not expired
+     * then provide the data from there, (in this way the data of the user will not be used again & again)
+     *
+     * if the data is not found then only we will load the data from the actual origin API...
+     *
+     * @param musicID the music ID
+     * @param options other specific details that need to be checked before providing the actual final data
+     * providing options in optional and also not recommended, please use it wisely
+     * @returns tracks data with URL...
+     */
+    async function getTrackURL(
+        musicID: string,
+        options: MusicDataFetchOptions = {},
+    ): Promise<TrackURLDataModal> {
+        return new Promise(async (resolve, _reject) => {
+            // setItemToLocalStorage(TRACK_URL_STORAGE_KEY, musicID, '')
+
+            /**
+             * if the URL is already fetched once than return it
+             *
+             * TODO: we need to update this feature... because
+             * let's say the person has pinned our App to there recent and now,
+             * the app could be opened for more than 6 hours
+             * but our URLs are only valid for upto 6 hours
+             *
+             * so to resolve this we can have a time field along with the URL in trackURLs reducer
+             * so that we can check if the URL was generated under 3 hours (our thresold) and then procced to use it...
+             */
+            if (musicID in trackURLs) {
+                return resolve({
+                    url: trackURLs[musicID],
+                })
+            }
+
+            /**
+             * if the track is not in the reducer's store then check if the url is saved in the asyncronous local storage
+             * ok see, we are saving every track's URL in the local storage with a timestamp of when it will get expire
+             *
+             */
+            getItemFromLocalStorage(TRACK_URL_STORAGE_KEY, musicID)
+                .then((data: string) => {
+                    const URLData: TrackURLLocalStorageData = JSON.parse(data)
+
+                    if (
+                        URLData &&
+                        data &&
+                        URLData?.expire.length > 0 && // and if the expiration time is present in the data object
+                        URLData?.url?.length > TRACK_URL_MINIMUM_LENGTH // if the url is valid to some point
+                    ) {
+                        const currentTime = dayjs() // the current time
+                        const expirationTime = dayjs(URLData.expire) // the time expiration, if it is expired then currentTime should be greater than this
+
+                        /**
+                         * checking if the timestamp when the data was saved is more than @constant @TRACK_URL_EXPIRATION_PERIOD units of time
+                         * then loads the data from the original origin and provide the url
+                         */
+                        if (
+                            expirationTime.diff(currentTime, 'seconds') <= 0 // the different is negative, means the url time is more than @TRACK_URL_EXPIRATION_PERIOD value
+                        ) {
+                            // the link is expired provide a new one in this case...
+                            getTrackURLFromOrigin(musicID, options).then(
+                                urlDataFromOrigin => {
+                                    resolve(urlDataFromOrigin)
+                                },
+                            )
+                        } else {
+                            // if the data is found provide it
+                            resolve({
+                                url: URLData.url,
+                            })
+
+                            dispatch(
+                                addTrackURL({
+                                    musicId: musicID,
+                                    url: URLData.url,
+                                }),
+                            ) // and also saving to reducer's store
+                        }
+                    } else {
+                        // the data is not been loaded yet
+                        getTrackURLFromOrigin(musicID, options).then(
+                            urlDataFromOrigin => {
+                                resolve(urlDataFromOrigin)
+                            },
+                        )
+                    }
+                })
+                .catch(_ERR => {
+                    // any error in getting the data from the local storage
+                    // get load the track's url from the origin only, the actual API work now...
+                    getTrackURLFromOrigin(musicID, options).then(
+                        urlDataFromOrigin => {
+                            resolve(urlDataFromOrigin)
+                        },
+                    )
+                })
         })
     }
 
@@ -359,7 +474,7 @@ export function useTrackPlayer() {
                     // and now play the song/track
                     if (addAndPlayTrack)
                         TrackPlayer.play()
-                            .then(res => {
+                            .then(_RES => {
                                 console.log(
                                     'Played',
                                     trackData.title,
@@ -395,6 +510,7 @@ export function useTrackPlayer() {
     const trackPlayer = {
         getTrackURL,
         playTrack,
+        getTrackURLFromOrigin,
     }
 
     return trackPlayer

@@ -365,6 +365,21 @@ export interface TrackURLDataModal {
 }
 
 /**
+ * the type of data that will be saved on the local storage in the device after searcing for it
+ * and with a expiration timestamp so that the URL could not be used after that
+ *
+ * this expiration is because, from where we are geting this data has a expiration property on every URL
+ * so we could use them till they expire (why not right!) so to do that the expiration field must be present
+ *
+ * and also with the music ID all this is related to
+ */
+export interface TrackURLLocalStorageData {
+    musicId: string
+    url: string
+    expire: string // new Date().getTime()
+}
+
+/**
  * the full data returned when requesting for the music origin URL
  */
 interface MusicFormats {
