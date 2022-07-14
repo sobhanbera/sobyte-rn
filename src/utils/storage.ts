@@ -54,3 +54,38 @@ export function getDataFromLocalStorage(
             })
     })
 }
+
+/**
+ * this method saves any string data to the to the local storage after getting a valid
+ * reference id and a unique local storage id
+ *
+ * @param storageKey a unique key as the storage key/location
+ * @param id the unique id
+ * @returns a promise when the item is returned from the storage
+ */
+export function setItemToLocalStorage(
+    storageKey: string,
+    id: string,
+    data: string,
+) {
+    return AsyncStorage.setItem(`${storageKey}-${id}`, data)
+}
+
+/**
+ * this method provides data from the local storage with providing to storage
+ * reference string, where the data was saved previously
+ *
+ * @param storageKey a unique key as the storage key/location
+ * @param id the unique id
+ * @returns a promise when the item is returned from the storage
+ */
+export function getItemFromLocalStorage(
+    storageKey: string,
+    id: string,
+): Promise<any> {
+    return new Promise((resolve, reject) => {
+        AsyncStorage.getItem(`${storageKey}-${id}`)
+            .then((res: any) => resolve(res))
+            .catch(err => reject(err))
+    })
+}
