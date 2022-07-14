@@ -8,14 +8,15 @@
  * Purpose - data and objects related modals...
  */
 
+import {ImageSourcePropType} from 'react-native'
+
 /**
  * genre and mood data
  */
 export interface GenreData {
     id: string | number
     title: string
-    artwork: string
-    hqArtwork: string
+    artwork: ImageSourcePropType
     color: string
     searchQuery: string
 }
