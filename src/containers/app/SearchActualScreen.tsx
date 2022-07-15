@@ -45,17 +45,17 @@ import {
  * the type of data passed through routes
  * when the navigation to this screen was done
  */
-export interface ActualSearchScreenRouteParams {
+export interface SearchActualScreenRouteParams {
     searchQuery: string // a optional string which could be passed to this screen
 }
-export interface ActualSearchScreenProps {
+export interface SearchActualScreenProps {
     navigation: NavigationHelpers<any>
-    route: RouteProp<{params: ActualSearchScreenRouteParams}>
+    route: RouteProp<{params: SearchActualScreenRouteParams}>
 }
-export function ActualSearchScreen({
+export function SearchActualScreen({
     navigation,
     route,
-}: ActualSearchScreenProps) {
+}: SearchActualScreenProps) {
     const {layouts, assets} = useTheme()
     const {getSearchSuggestions, search} = useMusic()
 

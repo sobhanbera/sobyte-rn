@@ -31,7 +31,7 @@ export const SOBYTE_PLAYER_QUEUE_SCREEN = 'SOBYTE_PLAYER_QUEUE_SCREEN'
 
 // search stack sub screens..
 export const SEARCH_SCREEN = 'SEARCH_SCREEN'
-export const ACTUAL_SEARCH_SCREEN = 'ACTUAL_SEARCH_SCREEN'
+export const SEARCH_ACTUAL_SCREEN = 'SEARCH_ACTUAL_SCREEN'
 
 // explore screen's sub navigation screens'
 export const EXPLORE_SCREEN = 'EXPLORE_SCREEN'

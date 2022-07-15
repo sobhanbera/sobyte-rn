@@ -28,7 +28,7 @@ import {
     ExtraMusicTypesList,
     SEARCH_HISTORY_STORAGE_KEY,
     AppSearchSuggestions,
-    ACTUAL_SEARCH_SCREEN,
+    SEARCH_ACTUAL_SCREEN,
 } from '@/configs'
 import {SobyteState, updateSearchHistories} from '@/state'
 export interface SearchScreenProps {
@@ -79,7 +79,7 @@ export function SearchScreen({navigation}: SearchScreenProps) {
      * and the songs, artists, albums, playlists will be displayed...
      */
     const openActualSearchTab = (queryString: string = '') => {
-        navigation.navigate(ACTUAL_SEARCH_SCREEN, {
+        navigation.navigate(SEARCH_ACTUAL_SCREEN, {
             searchQuery: queryString,
         })
     }
