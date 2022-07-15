@@ -22,8 +22,9 @@ import {View} from 'react-native'
 
 export interface ListCardArtistProps {
     artistData: ArtistObject
+    onPress: () => void
 }
-export const ListCardArtist = ({artistData}: ListCardArtistProps) => {
+export const ListCardArtist = ({artistData, onPress}: ListCardArtistProps) => {
     const {fonts, layouts, gutters} = useTheme()
 
     // data to display in the screen like title,artist and image
@@ -47,7 +48,7 @@ export const ListCardArtist = ({artistData}: ListCardArtistProps) => {
     return (
         <View style={[layouts.center]}>
             <TouchableScalable
-                onPress={() => {}}
+                onPress={onPress}
                 style={[gutters.smallPadding, layouts.center]}>
                 <FastImage
                     source={{

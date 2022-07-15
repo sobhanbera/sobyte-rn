@@ -18,9 +18,11 @@ import {ListCardArtist} from './ListCardArtist'
 
 export interface ListCardRendererArtistsProps {
     artistList: Array<ArtistObject>
+    onPressArtistCard(artistData: ArtistObject): void
 }
 export const ListCardRendererArtists = ({
     artistList,
+    onPressArtistCard,
 }: ListCardRendererArtistsProps) => {
     const {gutters} = useTheme()
 
@@ -34,6 +36,7 @@ export const ListCardRendererArtists = ({
             {artistList.map((artist, index) => {
                 return (
                     <ListCardArtist
+                        onPress={() => onPressArtistCard(artist)}
                         artistData={artist}
                         key={`${artist.browseId}${index}`}
                     />
