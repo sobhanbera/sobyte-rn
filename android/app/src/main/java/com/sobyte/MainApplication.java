@@ -32,7 +32,7 @@ import org.reactnative.maskedview.RNCMaskedViewPackage;
 import com.airbnb.android.react.lottie.LottiePackage;
 import com.th3rdwave.safeareacontext.SafeAreaContextPackage;
 import com.swmansion.reanimated.ReanimatedPackage;
-import com.cmcewen.blurview.BlurViewPackage;
+import com.reactnativeimagecolors.ImageColorsPackage;
 
 public class MainApplication extends Application implements ReactApplication {
 

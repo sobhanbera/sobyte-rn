@@ -49,7 +49,7 @@ target 'sobyte' do
 
   pod 'react-native-safe-area-context', :path => '../node_modules/react-native-safe-area-context'
 
-  pod 'react-native-blur', :path => '../node_modules/@react-native-community/blur'
+  pod 'RNImageColors', :path => '../node_modules/react-native-image-colors'
 
   target 'sobyteTests' do
     inherit! :complete
