@@ -43,6 +43,9 @@ export const USER_PROFILE_SCREEN = 'USER_PROFILE_SCREEN'
 export const APP_SETTINGS_SCREEN = 'APP_SETTINGS_SCREEN'
 export const APP_SEARCH_SCREEN = 'APP_SEARCH_SCREEN'
 
+// App;s common screens which could be used in multiple stack navigations
+export const COMMON_ARTIST_DETAILS_SCREEN = 'COMMON_ARTIST_DETAILS_SCREEN'
+
 /**
  * ID's of all the screens, tabs, navigators, bottom tab bars, top tab bars, etc
  * this is a indented hierarchy of all the stack and tab navigators...

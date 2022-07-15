@@ -12,11 +12,16 @@ import React from 'react'
 import {createNativeStackNavigator} from '@react-navigation/native-stack'
 
 import {
+    COMMON_ARTIST_DETAILS_SCREEN,
     SEARCH_ACTUAL_SCREEN,
     SEARCH_SCREEN,
     SEARCH_STACK_NAVIGATOR_ID,
 } from '@/configs'
-import {SearchScreen, SearchActualScreen} from '@/containers/app'
+import {
+    SearchScreen,
+    SearchActualScreen,
+    ArtistDetailsScreen,
+} from '@/containers/app'
 import {useTheme} from '@/hooks'
 
 const StackNavigator = createNativeStackNavigator()
@@ -52,6 +57,12 @@ export function SearchStackNavigator() {
             <StackNavigator.Screen
                 name={SEARCH_ACTUAL_SCREEN}
                 component={SearchActualScreen}
+            />
+
+            {/* screen to render songs and playlist of any particular singer/artist */}
+            <StackNavigator.Screen
+                name={COMMON_ARTIST_DETAILS_SCREEN}
+                component={ArtistDetailsScreen}
             />
         </StackNavigator.Navigator>
     )
