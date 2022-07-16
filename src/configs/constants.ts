@@ -256,7 +256,7 @@ export const TOTAL_ANIMATED_HEADER_HEIGHT =
 
 export const DEFAULT_SCALE_VALUE_FOR_TOUCHABLE_SCALABLE = 0.98 // the default value of the scaler touchable to scale when hovered
 export const SEARCH_CATEGORY_CARD_HEIGHT = 120
-export const SEARCH_HISTORY_COUNT_LIMIT = 15 // maximum number of search history to save in local storage
+export const SEARCH_HISTORY_COUNT_LIMIT = 7 // maximum number of search history to save in local storage
 
 export const DEFAULT_MAXIMUM_CHARACTERS_IN_TITLE = 35 // the default number of characters a title can have...
 
