@@ -57,7 +57,7 @@ export function SearchActualScreen({
     navigation,
     route,
 }: SearchActualScreenProps) {
-    const {layouts, assets} = useTheme()
+    const {layouts, assets, variables} = useTheme()
     const {getSearchSuggestions, search} = useMusic()
 
     const {searchQuery} = route.params // data we got from previous screen
@@ -367,7 +367,11 @@ export function SearchActualScreen({
                 nestedScrollEnabled>
                 {/* rendering loading when any data is not being loaded */}
                 {isLoading ? (
-                    <View style={[layouts.fullHeight, layouts.center]}>
+                    <View
+                        style={[
+                            layouts.center,
+                            {paddingVertical: variables.metrics.huge * 2},
+                        ]}>
                         <AnimatedLottieView
                             loop
                             autoPlay
