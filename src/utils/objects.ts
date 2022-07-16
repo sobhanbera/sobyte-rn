@@ -138,10 +138,10 @@ export function updateArtworkQualityUniversal(
         artwork.url.match(ARTWORK_HEIGHT_WIDTH_PART_WITH_CHARACTER_IN_BETWEEN)
     ) {
         // getting to know which character is used in the URL of artwork
-        const charBetweenHeightAndQuality =
+        const charBetweenHeightAndQuality: string =
             ARTWORK_HEIGHT_WIDTH_PART_WITH_CHARACTER_IN_BETWEEN.exec(
                 artwork.url,
-            )
+            )[1] // since the character group is in 2nd index of the array i.e. [1]
 
         const qualityPartOfURL = `w${width}-h${height}-${charBetweenHeightAndQuality}-l90-rj`
         const updatedQuality = `w${wantedWidth}-h${wantedHeight}-${charBetweenHeightAndQuality}-l${wantedQuality}-rj`
