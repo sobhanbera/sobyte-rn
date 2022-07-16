@@ -100,6 +100,10 @@ export function updateArtworkQuality(
  * get a changed quality image of any song object
  * using its existing artwork data
  *
+ * NOTE: this method is used to convert both width and height,
+ *          and the above method only converts height in the link everywhere
+ *          so this method is more usable then the above for many types of thumbnail
+ *
  * @param {Artwork} artwork any artwork object from song object or else
  * @param {number} wantedSize the height and width to update
  * @param {number} wantedQuality optional, the quality of the image
@@ -107,7 +111,10 @@ export function updateArtworkQuality(
  */
 export function updateArtworkQualityUniversal(
     artwork: Artwork,
-    wantedSize: number = DEFAULT_PLAYER_ARTWORK_SIZE,
+
+    wantedWidth: number = DEFAULT_PLAYER_ARTWORK_SIZE,
+    wantedHeight: number = DEFAULT_PLAYER_ARTWORK_SIZE,
+
     wantedQuality: number = DEFAULT_PLAYER_ARTWORK_QUALITY,
 ): string {
     // demo url - https://lh3.googleusercontent.com/WP7l4p-2WhWzLM6lXJ0n2gXLK6u07eCejpybWzb-yhEyt9Y0aOkxMlLhpayO7PdXYOYy2NgkWu9hGBPy=w60-h60-l90-rj
@@ -115,16 +122,16 @@ export function updateArtworkQualityUniversal(
     // demo url - https://lh3.googleusercontent.com/WP7l4p-2WhWzLM6lXJ0n2gXLK6u07eCejpybWzb-yhEyt9Y0aOkxMlLhpayO7PdXYOYy2NgkWu9hGBPy=w60-p-h60-l90-rj
     // demo url - https://lh3.googleusercontent.com/WP7l4p-2WhWzLM6lXJ0n2gXLK6u07eCejpybWzb-yhEyt9Y0aOkxMlLhpayO7PdXYOYy2NgkWu9hGBPy=w60-r-h60-l90-rj
     // here size is 60
-    const {height, url} = artwork
+    const {height, width, url} = artwork
 
     if (artwork.url.match(ARTWORK_HEIGHT_WIDTH_PART_WITH_SIZE)) {
-        const qualityPartOfURL = `w${height}-h${height}-s-l90-rj`
-        const updatedQuality = `w${wantedSize}-h${wantedSize}-s-l${wantedQuality}-rj`
+        const qualityPartOfURL = `w${width}-h${height}-s-l90-rj`
+        const updatedQuality = `w${wantedWidth}-h${wantedHeight}-s-l${wantedQuality}-rj`
 
         return url.replace(qualityPartOfURL, updatedQuality)
     } else if (artwork.url.match(ARTWORK_HEIGHT_WIDTH_PART)) {
-        const qualityPartOfURL = `w${height}-h${height}-l90-rj`
-        const updatedQuality = `w${wantedSize}-h${wantedSize}-l${wantedQuality}-rj`
+        const qualityPartOfURL = `w${width}-h${height}-l90-rj`
+        const updatedQuality = `w${wantedWidth}-h${wantedHeight}-l${wantedQuality}-rj`
 
         return url.replace(qualityPartOfURL, updatedQuality)
     } else if (
@@ -136,8 +143,8 @@ export function updateArtworkQualityUniversal(
                 artwork.url,
             )
 
-        const qualityPartOfURL = `w${height}-h${height}-${charBetweenHeightAndQuality}-l90-rj`
-        const updatedQuality = `w${wantedSize}-h${wantedSize}-${charBetweenHeightAndQuality}-l${wantedQuality}-rj`
+        const qualityPartOfURL = `w${width}-h${height}-${charBetweenHeightAndQuality}-l90-rj`
+        const updatedQuality = `w${wantedWidth}-h${wantedHeight}-${charBetweenHeightAndQuality}-l${wantedQuality}-rj`
 
         return url.replace(qualityPartOfURL, updatedQuality)
     } else {
