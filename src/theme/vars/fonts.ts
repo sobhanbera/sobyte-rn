@@ -83,6 +83,13 @@ export default function GetFonts({fontsize}: CombinedThemeVariables) {
         textCenter: {
             textAlign: 'center',
         },
+        textVCenter: {
+            textAlignVertical: 'center',
+        },
+        textAllCenter: {
+            textAlign: 'center',
+            textAlignVertical: 'center',
+        },
         textJustify: {
             textAlign: 'justify',
         },
