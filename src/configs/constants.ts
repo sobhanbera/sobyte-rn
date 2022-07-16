@@ -66,6 +66,7 @@ export const SHARED_IMAGE_LOCATION = RNFetchBlob.fs.dirs.CacheDir // here "/" ch
 export const ANDROID_FILE_ACCESSOR = 'file://'
 
 export const MUSIC_PLAYER_BLUR = 25 // blur value of music player image background
+export const DEFAULT_IMAGE_BLUR = 45 // blurRadius value
 
 // marquee constants
 export const MARQUEE_SCROLL_SPEED = 30 // scroll speed of the marquee text
@@ -245,6 +246,13 @@ export const ANIMATION_ITERATION_DELAY = 1000 // a delay between lottie animatio
 export const DEFAULT_LOTTIE_LOGO_ANIMATION_HEIGHT = 40
 
 export const DEFAULT_HEADER_HEIGHT = 55 // the default header's height
+export const ACTUAL_HEADER_HEIGHT =
+    DEVICE_STATUSBAR_HEIGHT + DEFAULT_HEADER_HEIGHT // the height if header including the statusbar's height
+
+export const ANIMATED_HEADER_EXTENDED_HEIGHT = 250 // the extra height to provide after the acutual height for the header of animated type
+
+export const TOTAL_ANIMATED_HEADER_HEIGHT =
+    ACTUAL_HEADER_HEIGHT + ANIMATED_HEADER_EXTENDED_HEIGHT // the is the total header height with animation full component
 
 export const DEFAULT_SCALE_VALUE_FOR_TOUCHABLE_SCALABLE = 0.98 // the default value of the scaler touchable to scale when hovered
 export const SEARCH_CATEGORY_CARD_HEIGHT = 120
@@ -256,3 +264,5 @@ export const TRACK_URL_EXPIRATION_PERIOD = 18000 // the time after which every t
 export const TRACK_URL_MINIMUM_LENGTH = 700 // every track's url is more than 1000 characters, but for now to be in the safe side let take this as the minimum length of the track's url
 
 export const DEFAULT_TIME_FORMAT = 'YYYY-MM-DD HH:MM:ss A' // the default string format for datetime
+
+export const ARTIST_ARTWORK_COLOR_UNIQUE_KEY = 'ARTIST_ARTWORK_COLOR_UNIQUE_KEY' // the unique key of caching images color using react-native-image-colors

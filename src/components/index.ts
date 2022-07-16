@@ -8,6 +8,8 @@
  * Purpose - component exports
  */
 
+export * from './AnimatedHeader'
+
 export * from './BluredImageBackground'
 export * from './BluredImageBackgroundRenderer'
 
@@ -22,6 +24,7 @@ export * from './SobyteIcon'
 export * from './SearchInputHeader'
 export * from './SobyteMarquee'
 export * from './SobyteTextInput'
+export * from './SobyteAnimatedTextView'
 export * from './SobyteTextView'
 
 export * from './ListCardArtist'
