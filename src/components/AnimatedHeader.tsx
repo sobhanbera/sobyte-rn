@@ -167,7 +167,10 @@ export function AnimatedHeader({
                         height: '100%',
                         width: '100%',
                     },
-                ]}>
+                ]}
+                imageStyle={{
+                    backgroundColor: headerBackgroundColor,
+                }}>
                 <SobyteAnimatedTextView
                     style={[
                         fonts.titleExtraLarge,

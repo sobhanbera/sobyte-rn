@@ -195,7 +195,9 @@ export function ArtistDetailsScreen({
     console.log([artistArtworkColors, theme.themecolor, theme.themecolor])
 
     return (
-        <View>
+        <View
+            style={{backgroundColor: artistArtworkColors}} // so that the bg colors are synced together
+        >
             <AnimatedHeader
                 navigation={navigation}
                 scrollYOffset={scrollYOffset}
