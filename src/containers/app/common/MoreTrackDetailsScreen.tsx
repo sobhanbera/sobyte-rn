@@ -12,16 +12,15 @@ import React, {useEffect, useState} from 'react'
 import {ScrollView, View} from 'react-native'
 import {NavigationHelpers, RouteProp} from '@react-navigation/native'
 
-import {useMusic, useTheme} from '@/hooks'
+import {useMusic} from '@/hooks'
 import {
     BottomPaddingComponent,
     CommonHeader,
     ListRendererSongs,
+    LoadingAnimation,
 } from '@/components'
 import {ContinuationObjectKeys, FetchedSongObject, SongObject} from '@/schemas'
 import {isScrollViewReachedCloseToBottom} from '@/utils'
-import AnimatedLottieView from 'lottie-react-native'
-import {DEFAULT_LOTTIE_LOGO_ANIMATION_HEIGHT} from '@/configs'
 
 export interface MoreTrackDetailsScreenRouteParams {
     searchQuery: string
@@ -36,7 +35,6 @@ export function MoreTrackDetailsScreen({
 }: MoreTrackDetailsScreenProps) {
     const {searchQuery} = route.params
     const {search, getContinuation} = useMusic()
-    const {layouts, gutters, assets} = useTheme()
 
     /** is the search or the get continuation is being loading or not */
     const [loading, setLoading] = useState<boolean>(true)
@@ -128,22 +126,7 @@ export function MoreTrackDetailsScreen({
                     searchQuery={searchQuery}
                 />
 
-                {loading ? (
-                    <View style={[layouts.center, gutters.smallPadding]}>
-                        <AnimatedLottieView
-                            loop
-                            autoPlay
-                            source={assets.animations.dancing_logo}
-                            style={[
-                                {
-                                    height: DEFAULT_LOTTIE_LOGO_ANIMATION_HEIGHT,
-                                    alignSelf: 'center',
-                                    position: 'relative',
-                                },
-                            ]}
-                        />
-                    </View>
-                ) : null}
+                {loading && <LoadingAnimation />}
 
                 <BottomPaddingComponent padding={150} />
             </ScrollView>

@@ -13,7 +13,6 @@ import {BackHandler, Keyboard, ScrollView, View} from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import {NavigationHelpers, RouteProp} from '@react-navigation/native'
-import AnimatedLottieView from 'lottie-react-native'
 
 import {useMusic, useTheme} from '@/hooks'
 import {
@@ -24,9 +23,9 @@ import {
     TitleTextIcon,
     ListRendererPlaylists,
     ListCardRendererArtists,
+    LoadingAnimation,
 } from '@/components'
 import {
-    DEFAULT_LOTTIE_LOGO_ANIMATION_HEIGHT,
     SCREEN_HEIGHT,
     SEARCH_HISTORY_COUNT_LIMIT,
     SEARCH_HISTORY_STORAGE_KEY,
@@ -62,7 +61,7 @@ export function SearchActualScreen({
     navigation,
     route,
 }: SearchActualScreenProps) {
-    const {layouts, assets, variables} = useTheme()
+    const {layouts} = useTheme()
     const {getSearchSuggestions, search} = useMusic()
 
     const {searchQuery} = route.params // data we got from previous screen
@@ -367,26 +366,7 @@ export function SearchActualScreen({
                 showsVerticalScrollIndicator={false}
                 nestedScrollEnabled>
                 {/* rendering loading when any data is not being loaded */}
-                {isLoading ? (
-                    <View
-                        style={[
-                            layouts.center,
-                            {paddingVertical: variables.metrics.huge * 2},
-                        ]}>
-                        <AnimatedLottieView
-                            loop
-                            autoPlay
-                            source={assets.animations.dancing_logo}
-                            style={[
-                                {
-                                    height: DEFAULT_LOTTIE_LOGO_ANIMATION_HEIGHT,
-                                    alignSelf: 'center',
-                                    position: 'relative',
-                                },
-                            ]}
-                        />
-                    </View>
-                ) : null}
+                {isLoading ? <LoadingAnimation /> : null}
 
                 {/* songs data */}
                 {songsData.length > 0 ? (
