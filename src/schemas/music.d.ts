@@ -178,7 +178,7 @@ export interface Artwork {
  * content of songs which are returned when making a request to get songs list
  */
 export interface SongObject {
-    type?: 'song'
+    type: 'song'
     title: string
     musicId: string
     playlistId: string
@@ -259,6 +259,33 @@ export interface ArtistDetailsObject {
             params: string
         }
     }
+    views?: number
+}
+
+export interface PlaylistTrackObject {
+    type: 'song'
+    title: string
+    musicId: string
+    playlistId: string
+    artists: Array<SongArtistObject>
+    album?: {
+        name: string
+        browseId: string
+    }
+    duration: number
+    artworks: Array<Artwork>
+}
+/**
+ * this is the playlist's page data we get after quering using browseId
+ */
+export interface PlaylistDetailsObject {
+    title: string
+    trackCount: number
+    dateYear: number
+    content: Array<PlaylistTrackObject>
+    artwork: Array<Artwork>
+    continuation: ContinuationObjectKeys
+    owner?: string
     views?: number
 }
 

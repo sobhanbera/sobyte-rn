@@ -758,36 +758,39 @@ export function useMusic() {
      * @param browseId id of the album
      * @returns the object with album data
      */
-    // const getAlbum = (browseId: string) => {
-    //     if (_.startsWith(browseId, 'MPREb')) {
-    //         return new Promise((resolve, reject) => {
-    //             _createApiRequest(
-    //                 PRIMARY_MUSIC_API_ENDPOINTS.browse,
-    //                 MusicUtils.buildEndpointContext('ALBUM', browseId),
-    //             )
-    //                 .then(context => {
-    //                     try {
-    //                         const result = MusicParser.parseAlbumPage(context)
-    //                         resolve(result)
-    //                     } catch (error) {
-    //                         return resolve({
-    //                             error: error.message,
-    //                         })
-    //                     }
-    //                 })
-    //                 .catch(error => reject(error))
-    //         })
-    //     } else {
-    //         throw new Error('invalid album browse id.')
-    //     }
-    // }
+    const getAlbum = (browseId: string) => {
+        if (_.startsWith(browseId, 'MPREb')) {
+            return new Promise((resolve, reject) => {
+                _createApiRequest(
+                    PRIMARY_MUSIC_API_ENDPOINTS.browse,
+                    MusicUtils.buildEndpointContext('ALBUM', browseId),
+                )
+                    .then(context => {
+                        try {
+                            const result = MusicParser.parseAlbumPage(context)
+                            resolve(result)
+                        } catch (error) {
+                            return resolve({
+                                error: error.message,
+                            })
+                        }
+                    })
+                    .catch(error => reject(error))
+            })
+        } else {
+            throw new Error('invalid album browse id.')
+        }
+    }
 
     /**
      * @param browseId id of the playlist
      * @param contentLimit limiting the data
      * @returns the object with playlist data
      */
-    const getPlaylist = (browseId: string, contentLimit = 100) => {
+    const getPlaylist = (
+        browseId: string,
+        contentLimit = 200,
+    ): Promise<any> => {
         return new Promise((resolve, reject) => {
             if (_.startsWith(browseId, 'VL') || _.startsWith(browseId, 'PL')) {
                 _.startsWith(browseId, 'PL') && (browseId = 'VL' + browseId)
@@ -798,7 +801,10 @@ export function useMusic() {
                 )
                     .then(context => {
                         try {
-                            var result = MusicParser.parsePlaylistPage(context)
+                            var result = MusicParser.parsePlaylistPage(
+                                context,
+                                browseId,
+                            )
                             const getContinuations = (
                                 params: ContinuationObject,
                             ) => {
@@ -816,6 +822,7 @@ export function useMusic() {
                                         const continuationResult =
                                             MusicParser.parsePlaylistPage(
                                                 context,
+                                                browseId,
                                             )
                                         if (
                                             Array.isArray(
@@ -1037,7 +1044,10 @@ export function useMusic() {
 
         search: search,
 
-        // getAlbum: getAlbum,
+        /**
+         * @deprecated
+         */
+        getAlbum: getAlbum,
         getPlaylist: getPlaylist,
         getArtist: getArtist,
         getPlayer: getPlayer,

@@ -994,14 +994,21 @@ export const parseArtistPage = (context: any) => {
     return result
 }
 
-export const parsePlaylistPage = (context: any) => {
+/**
+ * get playlist page
+ *
+ * @param context the actual data returned from remote origin as the playlist data
+ * @param playlistId since there is no playlist data we are providing during retuning from this function, so why not provide the playlist data along with tracks content
+ * @returns a parsed playlist page with tracks and its metadata
+ */
+export const parsePlaylistPage = (context: any, playlistId: string) => {
     const result: any = {
         title: '',
         owner: '',
         trackCount: 0,
         dateYear: '',
         content: [],
-        thumbnails: [],
+        artwork: [],
         continuation: MusicUtils.fv(context, 'nextContinuationData', true),
     }
 
@@ -1030,7 +1037,7 @@ export const parsePlaylistPage = (context: any) => {
             MusicUtils.fv(lodash.at(pageHeader, 'subtitle'), 'runs:text'),
             4,
         )
-        result.thumbnails = MusicUtils.fv(
+        result.artwork = MusicUtils.fv(
             pageHeader,
             'croppedSquareThumbnailRenderer:thumbnails',
         )
@@ -1053,6 +1060,7 @@ export const parsePlaylistPage = (context: any) => {
                     itemContext[i],
                     'playNavigationEndpoint:videoId',
                 ),
+                playlistId: playlistId,
                 title: MusicUtils.fv(lodash.nth(flexColumn, 0), 'runs:text'),
                 artists: (function () {
                     var a = [],
@@ -1090,10 +1098,12 @@ export const parsePlaylistPage = (context: any) => {
                     ),
                     true, // now in seconds
                 ),
-                artworks: MusicUtils.fv(
-                    itemContext[i],
-                    'musicThumbnailRenderer:thumbnails',
-                ),
+                artworks: [
+                    MusicUtils.fv(
+                        itemContext[i],
+                        'musicThumbnailRenderer:thumbnails',
+                    ),
+                ],
             })
         }
     } else {
@@ -1108,6 +1118,7 @@ export const parsePlaylistPage = (context: any) => {
                 itemContext,
                 'playNavigationEndpoint:videoId',
             ),
+            playlistId: playlistId,
             title: MusicUtils.fv(lodash.nth(flexColumn, 0), 'runs:text'),
             artists: (function () {
                 var a = [],
@@ -1141,11 +1152,13 @@ export const parsePlaylistPage = (context: any) => {
                 ),
                 true, // now in seconds
             ),
-            artworks: MusicUtils.fv(
-                itemContext,
-                'musicThumbnailRenderer:thumbnails',
-                true,
-            ),
+            artworks: [
+                MusicUtils.fv(
+                    itemContext,
+                    'musicThumbnailRenderer:thumbnails',
+                    true,
+                ),
+            ],
         })
     }
     return result
