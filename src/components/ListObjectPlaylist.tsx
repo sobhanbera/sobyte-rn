@@ -22,8 +22,12 @@ import {View} from 'react-native'
 
 export interface ListObjectPlaylistProps {
     playlistData: PlaylistObject
+    onPressPlaylist: () => void
 }
-export const ListObjectPlaylist = ({playlistData}: ListObjectPlaylistProps) => {
+export const ListObjectPlaylist = ({
+    playlistData,
+    onPressPlaylist,
+}: ListObjectPlaylistProps) => {
     const {fonts, layouts, gutters} = useTheme()
 
     // data to display in the screen like title,artist and image
@@ -46,7 +50,7 @@ export const ListObjectPlaylist = ({playlistData}: ListObjectPlaylistProps) => {
                 {width: '50%'}, // imp for flex-wrap
             ]}>
             <TouchableScalable
-                onPress={() => {}}
+                onPress={onPressPlaylist}
                 style={[
                     gutters.smallPadding,
                     {width: '100%'}, // imp for flex-wrap

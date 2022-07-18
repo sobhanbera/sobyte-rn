@@ -18,9 +18,11 @@ import {ListObjectPlaylist} from './ListObjectPlaylist'
 
 export interface ListRendererPlaylistsProps {
     playlistList: Array<PlaylistObject>
+    onPressPlaylist: () => void
 }
 export const ListRendererPlaylists = ({
     playlistList,
+    onPressPlaylist,
 }: ListRendererPlaylistsProps) => {
     const {layouts, gutters} = useTheme()
 
@@ -34,6 +36,7 @@ export const ListRendererPlaylists = ({
             {playlistList.map((playlist, index) => {
                 return (
                     <ListObjectPlaylist
+                        onPressPlaylist={onPressPlaylist}
                         playlistData={playlist}
                         key={`${playlist.browseId}${index}`}
                     />
