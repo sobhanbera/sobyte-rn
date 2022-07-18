@@ -30,6 +30,7 @@ import {
 } from '@/configs'
 import {
     ARTWORK_HEIGHT_WIDTH_PART_WITH_CHARACTER_IN_BETWEEN,
+    SOMETIME_PLAYLIST_ARTWORK_WITH_ONLY_SIZE,
     ARTWORK_HEIGHT_WIDTH_PART_WITH_SIZE,
     ARTWORK_HEIGHT_WIDTH_PART,
     BRACES_SURROUNDED_TEXT,
@@ -87,6 +88,11 @@ export function updateArtworkQuality(
 
         const qualityPartOfURL = `w${height}-h${height}-${charBetweenHeightAndQuality}-l90-rj`
         const updatedQuality = `w${wantedSize}-h${wantedSize}-${charBetweenHeightAndQuality}-l${wantedQuality}-rj`
+
+        return url.replace(qualityPartOfURL, updatedQuality)
+    } else if (artwork.url.match(SOMETIME_PLAYLIST_ARTWORK_WITH_ONLY_SIZE)) {
+        const qualityPartOfURL = `s${height}`
+        const updatedQuality = `s${wantedSize}`
 
         return url.replace(qualityPartOfURL, updatedQuality)
     } else {
@@ -151,6 +157,11 @@ export function updateArtworkQualityUniversal(
 
         const qualityPartOfURL = `w${width}-h${height}-${charBetweenHeightAndQuality}-l90-rj`
         const updatedQuality = `w${wantedWidth}-h${wantedHeight}-${charBetweenHeightAndQuality}-l${wantedQuality}-rj`
+
+        return url.replace(qualityPartOfURL, updatedQuality)
+    } else if (artwork.url.match(SOMETIME_PLAYLIST_ARTWORK_WITH_ONLY_SIZE)) {
+        const qualityPartOfURL = `s${width}`
+        const updatedQuality = `s${wantedWidth}`
 
         return url.replace(qualityPartOfURL, updatedQuality)
     } else {

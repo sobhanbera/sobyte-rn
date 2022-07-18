@@ -25,6 +25,12 @@ export const ARTWORK_HEIGHT_WIDTH_PART_WITH_SIZE =
     /w[0-9]{2,4}-h[0-9]{2,4}-s-l[0-9]{2,3}-rj/
 
 /**
+ * Sometimes the artwork of playlist does not have height and width but it has only size property like this
+ * https://yt3.ggpht.com/odms6d6yJQr9mnbX_tf39D2-aoTduFTJEfiR0pOPwPIZHj5kwMSzrlcOX2Kyf6CDp4yPvFpzuQ=s120
+ */
+export const SOMETIME_PLAYLIST_ARTWORK_WITH_ONLY_SIZE = /=s[0-9]{2,4}/
+
+/**
  * a second type of artwork, this contains a 'p' character is between height and quality
  * so now let's make a regex which can excepts any character between the height and the quality in the artwork url
  *
