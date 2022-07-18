@@ -17,6 +17,7 @@ export * from './BottomPaddingComponent'
 export * from './BottomTabBarButton'
 export * from './BottomTabBarPlayerButton'
 
+export * from './CommonHeader'
 export * from './SearchGenreListRenderer'
 export * from './SearchHistoryRenderer'
 export * from './SearchSuggestionsRenderer'
