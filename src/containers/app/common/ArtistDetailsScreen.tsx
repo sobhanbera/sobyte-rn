@@ -37,7 +37,10 @@ import {
     NOTHING_URL,
 } from '@/configs'
 import {ArtistDetailsObject} from '@/schemas'
-import {updateArtworkQualityUniversal} from '@/utils'
+import {
+    navigateToMoreTrackDetailsScreen,
+    updateArtworkQualityUniversal,
+} from '@/utils'
 import LinearGradient from 'react-native-linear-gradient'
 
 /**
@@ -226,7 +229,12 @@ export function ArtistDetailsScreen({
                         <View>
                             <TitleTextIcon
                                 text="More"
-                                onPressTextOrIcon={() => {}}
+                                onPressTextOrIcon={() =>
+                                    navigateToMoreTrackDetailsScreen(
+                                        navigation,
+                                        {searchQuery: artistData.title},
+                                    )
+                                }
                                 showIcon={true}
                                 IconType={'EvilIcons'}
                                 iconName={'chevron-right'}>
