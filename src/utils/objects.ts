@@ -8,7 +8,13 @@
  * Purpose - util functions for objects and all...
  */
 
-import {Animated, StyleProp, ViewStyle} from 'react-native'
+import {
+    Animated,
+    NativeScrollEvent,
+    NativeSyntheticEvent,
+    StyleProp,
+    ViewStyle,
+} from 'react-native'
 
 import {
     DEFAULT_MAXIMUM_CHARACTERS_IN_TITLE,
@@ -74,10 +80,10 @@ export function updateArtworkQuality(
         artwork.url.match(ARTWORK_HEIGHT_WIDTH_PART_WITH_CHARACTER_IN_BETWEEN)
     ) {
         // getting to know which character is used in the URL of artwork
-        const charBetweenHeightAndQuality =
+        const charBetweenHeightAndQuality: string =
             ARTWORK_HEIGHT_WIDTH_PART_WITH_CHARACTER_IN_BETWEEN.exec(
                 artwork.url,
-            )
+            )[1] // since the character group is in 2nd index of the array i.e. [1]
 
         const qualityPartOfURL = `w${height}-h${height}-${charBetweenHeightAndQuality}-l90-rj`
         const updatedQuality = `w${wantedSize}-h${wantedSize}-${charBetweenHeightAndQuality}-l${wantedQuality}-rj`
@@ -627,4 +633,23 @@ export function getCustomTabBarStyles(
         backgroundColor: backgroundColor || 'transparent', // no colors for the background
         borderTopWidth: 0, // this is rendering a default border on top, so removing it
     }
+}
+
+/**
+ * wheather any scroll view reached its end or not
+ * give some params and get to know whether it reached its end or not
+ *
+ * @param param the on scroll event parameters
+ * @param paddingBottom a number denoting the padding bottom value of scroll view
+ * @returns {boolean} close to end in scroll view or not
+ */
+export function isScrollViewReachedCloseToBottom(
+    {nativeEvent}: NativeSyntheticEvent<NativeScrollEvent>,
+    paddingBottom: number = 300,
+) {
+    const {layoutMeasurement, contentOffset, contentSize} = nativeEvent
+    return (
+        layoutMeasurement.height + contentOffset.y >=
+        contentSize.height - paddingBottom
+    )
 }
