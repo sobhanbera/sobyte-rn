@@ -14,6 +14,8 @@ import {View} from 'react-native'
 import {SongObject} from '@/schemas'
 import {ListObjectSong} from './ListObjectSong'
 
+import ErrorBoundary from '@/error/ErrorBoundary'
+
 export interface ListRendererSongsProps {
     songsList: Array<SongObject>
     searchQuery: string // this is needed description to play any song
@@ -26,11 +28,15 @@ export const ListRendererSongs = ({
         <View>
             {songsList.map((song, index) => {
                 return (
-                    <ListObjectSong
-                        songData={song}
-                        searchQuery={searchQuery}
-                        key={`${song.musicId}${index}`}
-                    />
+                    <ErrorBoundary
+                        id={song.title}
+                        key={`${song.musicId}${index}`}>
+                        <ListObjectSong
+                            songData={song}
+                            searchQuery={searchQuery}
+                            // key={`${song.musicId}${index}`}
+                        />
+                    </ErrorBoundary>
                 )
             })}
         </View>
