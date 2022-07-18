@@ -19,7 +19,7 @@ import ErrorBoundary from '@/error/ErrorBoundary'
 
 export interface ListRendererPlaylistsProps {
     playlistList: Array<PlaylistObject>
-    onPressPlaylist: () => void
+    onPressPlaylist: (playlistData: PlaylistObject) => void
 }
 export const ListRendererPlaylists = ({
     playlistList,
@@ -40,7 +40,7 @@ export const ListRendererPlaylists = ({
                         id={playlist.title}
                         key={`${playlist.browseId}${index}`}>
                         <ListObjectPlaylist
-                            onPressPlaylist={onPressPlaylist}
+                            onPressPlaylist={() => onPressPlaylist(playlist)}
                             playlistData={playlist}
                             // key={`${playlist.browseId}${index}`}
                         />

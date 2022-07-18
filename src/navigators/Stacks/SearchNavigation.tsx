@@ -15,6 +15,7 @@ import {
     COMMON_ARTIST_DETAILS_SCREEN,
     COMMON_MORE_PLAYLIST_DETAILS_SCREEN,
     COMMON_MORE_TRACK_DETAILS_SCREEN,
+    COMMON_PLAYLIST_DETAILS_SCREEN,
     SEARCH_ACTUAL_SCREEN,
     SEARCH_SCREEN,
     SEARCH_STACK_NAVIGATOR_ID,
@@ -25,6 +26,7 @@ import {
     ArtistDetailsScreen,
     MoreTrackDetailsScreen,
     MorePlaylistDetailsScreen,
+    PlaylistDetailsScreen,
 } from '@/containers/app'
 import {useTheme} from '@/hooks'
 
@@ -69,13 +71,19 @@ export function SearchStackNavigator() {
                 component={ArtistDetailsScreen}
             />
 
+            {/* screen to render songs and playlist with any browseID */}
+            <StackNavigator.Screen
+                name={COMMON_PLAYLIST_DETAILS_SCREEN}
+                component={PlaylistDetailsScreen}
+            />
+
             {/* screen to show more tracks data */}
             <StackNavigator.Screen
                 name={COMMON_MORE_TRACK_DETAILS_SCREEN}
                 component={MoreTrackDetailsScreen}
             />
 
-            {/* screen to show more tracks data */}
+            {/* screen to show more playlists data */}
             <StackNavigator.Screen
                 name={COMMON_MORE_PLAYLIST_DETAILS_SCREEN}
                 component={MorePlaylistDetailsScreen}

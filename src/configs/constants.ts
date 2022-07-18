@@ -266,3 +266,5 @@ export const TRACK_URL_MINIMUM_LENGTH = 700 // every track's url is more than 10
 export const DEFAULT_TIME_FORMAT = 'YYYY-MM-DD HH:MM:ss A' // the default string format for datetime
 
 export const ARTIST_ARTWORK_COLOR_UNIQUE_KEY = 'ARTIST_ARTWORK_COLOR_UNIQUE_KEY' // the unique key of caching images color using react-native-image-colors
+export const PLAYLIST_ARTWORK_COLOR_UNIQUE_KEY =
+    'PLAYLIST_ARTWORK_COLOR_UNIQUE_KEY' // the unique key of caching images color for playlists using react-native-image-colors

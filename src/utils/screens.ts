@@ -15,6 +15,7 @@ import {
     MoreTrackDetailsScreenRouteParams,
     ArtistDetailsScreenRouteParams,
     MorePlaylistDetailsScreenRouteParams,
+    PlaylistDetailsScreenRouteParams,
 } from '@/containers/app'
 
 /**
@@ -55,11 +56,11 @@ export function navigateToMoreTrackDetailsScreen(
  * @param navigation
  * @param params
  */
-export function navigateToArtistDetailsScreen(
+export function navigateToMorePlaylistDetailsScreen(
     navigation: NavigationHelpers<any>,
-    params: ArtistDetailsScreenRouteParams,
+    params: MorePlaylistDetailsScreenRouteParams,
 ) {
-    navigateToScreen(navigation, 'COMMON_ARTIST_DETAILS_SCREEN', params)
+    navigateToScreen(navigation, 'COMMON_MORE_PLAYLIST_DETAILS_SCREEN', params)
 }
 
 /**
@@ -69,9 +70,23 @@ export function navigateToArtistDetailsScreen(
  * @param navigation
  * @param params
  */
-export function navigateToMorePlaylistDetailsScreen(
+export function navigateToPlaylistDetailsScreen(
     navigation: NavigationHelpers<any>,
-    params: MorePlaylistDetailsScreenRouteParams,
+    params: PlaylistDetailsScreenRouteParams,
 ) {
-    navigateToScreen(navigation, 'COMMON_MORE_PLAYLIST_DETAILS_SCREEN', params)
+    navigateToScreen(navigation, 'COMMON_PLAYLIST_DETAILS_SCREEN', params)
+}
+
+/**
+ * navigate to the artist's details screen
+ * NOTE: the screen should be in the same stack, inside where this method is being called
+ *
+ * @param navigation
+ * @param params
+ */
+export function navigateToArtistDetailsScreen(
+    navigation: NavigationHelpers<any>,
+    params: ArtistDetailsScreenRouteParams,
+) {
+    navigateToScreen(navigation, 'COMMON_ARTIST_DETAILS_SCREEN', params)
 }
