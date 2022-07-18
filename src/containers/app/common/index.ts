@@ -9,4 +9,5 @@
  */
 
 export * from './ArtistDetailsScreen'
+export * from './MorePlaylistDetailsScreen'
 export * from './MoreTrackDetailsScreen'

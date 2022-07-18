@@ -14,6 +14,7 @@ import * as SCREEN_NAMES from '@/configs/screens' // getting name of all the scr
 import {
     MoreTrackDetailsScreenRouteParams,
     ArtistDetailsScreenRouteParams,
+    MorePlaylistDetailsScreenRouteParams,
 } from '@/containers/app'
 
 /**
@@ -59,4 +60,18 @@ export function navigateToArtistDetailsScreen(
     params: ArtistDetailsScreenRouteParams,
 ) {
     navigateToScreen(navigation, 'COMMON_ARTIST_DETAILS_SCREEN', params)
+}
+
+/**
+ * navigate to the artist's details screen
+ * NOTE: the screen should be in the same stack, inside where this method is being called
+ *
+ * @param navigation
+ * @param params
+ */
+export function navigateToMorePlaylistDetailsScreen(
+    navigation: NavigationHelpers<any>,
+    params: MorePlaylistDetailsScreenRouteParams,
+) {
+    navigateToScreen(navigation, 'COMMON_MORE_PLAYLIST_DETAILS_SCREEN', params)
 }

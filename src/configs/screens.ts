@@ -47,6 +47,8 @@ export const APP_SEARCH_SCREEN = 'APP_SEARCH_SCREEN'
 export const COMMON_ARTIST_DETAILS_SCREEN = 'COMMON_ARTIST_DETAILS_SCREEN'
 export const COMMON_MORE_TRACK_DETAILS_SCREEN =
     'COMMON_MORE_TRACK_DETAILS_SCREEN'
+export const COMMON_MORE_PLAYLIST_DETAILS_SCREEN =
+    'COMMON_MORE_PLAYLIST_DETAILS_SCREEN'
 
 /**
  * ID's of all the screens, tabs, navigators, bottom tab bars, top tab bars, etc
