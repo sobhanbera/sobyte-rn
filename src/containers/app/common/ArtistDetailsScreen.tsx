@@ -103,7 +103,6 @@ export function ArtistDetailsScreen({
                     const updatedArtistArtwork = updateArtworkQualityUniversal(
                         artistResult.thumbnails[0],
                     )
-                    // console.log(updatedArtistArtwork)
                     // setting it to state
                     setArtistArtwork(updatedArtistArtwork)
 
@@ -191,8 +190,6 @@ export function ArtistDetailsScreen({
         if (artist.browseId !== artistData.browseId)
             navigation.push(COMMON_ARTIST_DETAILS_SCREEN, {artistData: artist})
     }
-
-    console.log([artistArtworkColors, theme.themecolor, theme.themecolor])
 
     return (
         <View
