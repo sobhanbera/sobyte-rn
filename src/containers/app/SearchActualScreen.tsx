@@ -26,7 +26,6 @@ import {
     ListCardRendererArtists,
 } from '@/components'
 import {
-    COMMON_ARTIST_DETAILS_SCREEN,
     DEFAULT_LOTTIE_LOGO_ANIMATION_HEIGHT,
     SCREEN_HEIGHT,
     SEARCH_HISTORY_COUNT_LIMIT,
@@ -41,6 +40,10 @@ import {
     updateSearchQueryText,
     resetSearchResults,
 } from '@/state'
+import {
+    navigateToArtistDetailsScreen,
+    navigateToMoreTrackDetailsScreen,
+} from '@/utils'
 
 /**
  * the type of data passed through routes
@@ -337,10 +340,6 @@ export function SearchActualScreen({
         })
     }
 
-    const openArtistDetailsScreen = (artistData: ArtistObject) => {
-        navigation.navigate(COMMON_ARTIST_DETAILS_SCREEN, {artistData})
-    }
-
     return (
         <View style={[layouts.fill]}>
             {/* the search input field */}
@@ -392,7 +391,11 @@ export function SearchActualScreen({
                     <View>
                         <TitleTextIcon
                             text="More"
-                            onPressTextOrIcon={() => {}}
+                            onPressTextOrIcon={() =>
+                                navigateToMoreTrackDetailsScreen(navigation, {
+                                    searchQuery: searchQueryText,
+                                })
+                            }
                             showIcon={true}
                             IconType={'EvilIcons'}
                             iconName={'chevron-right'}>
@@ -421,7 +424,9 @@ export function SearchActualScreen({
                         <ListCardRendererArtists
                             artistList={artistsData}
                             onPressArtistCard={artistData =>
-                                openArtistDetailsScreen(artistData)
+                                navigateToArtistDetailsScreen(navigation, {
+                                    artistData: artistData,
+                                })
                             }
                         />
                     </View>
