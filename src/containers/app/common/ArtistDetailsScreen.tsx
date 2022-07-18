@@ -38,7 +38,9 @@ import {
 } from '@/configs'
 import {ArtistDetailsObject} from '@/schemas'
 import {
+    navigateToMorePlaylistDetailsScreen,
     navigateToMoreTrackDetailsScreen,
+    navigateToPlaylistDetailsScreen,
     updateArtworkQualityUniversal,
 } from '@/utils'
 import LinearGradient from 'react-native-linear-gradient'
@@ -253,7 +255,12 @@ export function ArtistDetailsScreen({
                         <View>
                             <TitleTextIcon
                                 text="More"
-                                onPressTextOrIcon={() => {}}
+                                onPressTextOrIcon={() =>
+                                    navigateToMorePlaylistDetailsScreen(
+                                        navigation,
+                                        {searchQuery: artistData.title},
+                                    )
+                                }
                                 showIcon={true}
                                 IconType={'EvilIcons'}
                                 iconName={'chevron-right'}
@@ -263,6 +270,14 @@ export function ArtistDetailsScreen({
 
                             <ListRendererPlaylists
                                 playlistList={artistPlaylists}
+                                onPressPlaylist={playlist =>
+                                    navigateToPlaylistDetailsScreen(
+                                        navigation,
+                                        {
+                                            playlistData: playlist,
+                                        },
+                                    )
+                                }
                             />
                         </View>
                     ) : null}
