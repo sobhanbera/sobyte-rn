@@ -58,7 +58,7 @@ export const ListObjectSong = ({
      * so if any track contains only one artwork, that means the tracks data has not beed loaded yet
      * and the songData passed is the currentTrack from reducer, the currently playing section of the queue
      */
-    if (songData.artworks.length === 1) return null
+    if (songData.artworks.length <= 0) return null
 
     return (
         <TouchableScalable

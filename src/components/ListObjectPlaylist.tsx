@@ -13,7 +13,7 @@ import FastImage from 'react-native-fast-image'
 
 import {useTheme} from '@/hooks'
 import {PlaylistObject} from '@/schemas'
-import {formatTitle} from '@/utils'
+import {formatTitle, updateArtworkQualityUniversal} from '@/utils'
 import {DEFAULT_PLAYLIST_LIST_TRACK_ARTWORK_MIN_WIDTH} from '@/configs'
 
 import {SobyteTextView} from './SobyteTextView'
@@ -32,6 +32,10 @@ export const ListObjectPlaylist = ({
 
     // data to display in the screen like title,artist and image
     const playlistTitle = formatTitle(playlistData.title)
+    const playlistArtwork = updateArtworkQualityUniversal(
+        playlistData.artworks[0],
+        500,
+    )
 
     /**
      * since there are no playlists which doesnot contains 2 types of sizes of artworks
@@ -39,8 +43,11 @@ export const ListObjectPlaylist = ({
      *
      * so if any playlist contains only one artwork, that means the playlists data has not beed loaded yet
      * and the playlistData passed is the current playlist from reducer, the currently playing section of the queue
+     *
+     * and many playlist artworks are not of same type
+     * for them don't render those
      */
-    if (playlistData.artworks.length < 1) return null
+    if (playlistData.artworks.length < 1 || !playlistArtwork) return null
 
     return (
         <View
