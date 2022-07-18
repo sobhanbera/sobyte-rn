@@ -9,3 +9,4 @@
  */
 
 export * from './ArtistDetailsScreen'
+export * from './MoreTrackDetailsScreen'

@@ -13,6 +13,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack'
 
 import {
     COMMON_ARTIST_DETAILS_SCREEN,
+    COMMON_MORE_TRACK_DETAILS_SCREEN,
     SEARCH_ACTUAL_SCREEN,
     SEARCH_SCREEN,
     SEARCH_STACK_NAVIGATOR_ID,
@@ -21,6 +22,7 @@ import {
     SearchScreen,
     SearchActualScreen,
     ArtistDetailsScreen,
+    MoreTrackDetailsScreen,
 } from '@/containers/app'
 import {useTheme} from '@/hooks'
 
@@ -63,6 +65,12 @@ export function SearchStackNavigator() {
             <StackNavigator.Screen
                 name={COMMON_ARTIST_DETAILS_SCREEN}
                 component={ArtistDetailsScreen}
+            />
+
+            {/* screen to show more tracks data */}
+            <StackNavigator.Screen
+                name={COMMON_MORE_TRACK_DETAILS_SCREEN}
+                component={MoreTrackDetailsScreen}
             />
         </StackNavigator.Navigator>
     )
