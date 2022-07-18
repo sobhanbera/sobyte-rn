@@ -35,8 +35,8 @@ export * from './ListObjectSong'
 export * from './ListRendererPlaylists'
 export * from './ListRendererSongs'
 
+export * from './LoadingAnimation'
 export * from './TitleTextIcon'
-
 export * from './TouchableScalable'
 
 export * from './TrackControls'
