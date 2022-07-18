@@ -19,7 +19,10 @@ import {
     ListRendererPlaylists,
 } from '@/components'
 import {ContinuationObjectKeys, FetchedData, PlaylistObject} from '@/schemas'
-import {isScrollViewReachedCloseToBottom} from '@/utils'
+import {
+    isScrollViewReachedCloseToBottom,
+    navigateToPlaylistDetailsScreen,
+} from '@/utils'
 import AnimatedLottieView from 'lottie-react-native'
 import {DEFAULT_LOTTIE_LOGO_ANIMATION_HEIGHT} from '@/configs'
 
@@ -128,7 +131,11 @@ export function MorePlaylistDetailsScreen({
                 {/* list of songs are rendered here */}
                 <ListRendererPlaylists
                     playlistList={playlists}
-                    onPressPlaylist={() => {}}
+                    onPressPlaylist={playlist =>
+                        navigateToPlaylistDetailsScreen(navigation, {
+                            playlistData: playlist,
+                        })
+                    }
                 />
 
                 {loading ? (

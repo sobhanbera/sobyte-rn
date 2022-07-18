@@ -44,6 +44,7 @@ import {
     navigateToArtistDetailsScreen,
     navigateToMorePlaylistDetailsScreen,
     navigateToMoreTrackDetailsScreen,
+    navigateToPlaylistDetailsScreen,
 } from '@/utils'
 
 /**
@@ -452,7 +453,11 @@ export function SearchActualScreen({
 
                         <ListRendererPlaylists
                             playlistList={playlistsData}
-                            onPressPlaylist={() => {}}
+                            onPressPlaylist={playlist =>
+                                navigateToPlaylistDetailsScreen(navigation, {
+                                    playlistData: playlist,
+                                })
+                            }
                         />
                     </View>
                 ) : null}
