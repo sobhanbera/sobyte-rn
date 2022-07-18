@@ -42,6 +42,7 @@ import {
 } from '@/state'
 import {
     navigateToArtistDetailsScreen,
+    navigateToMorePlaylistDetailsScreen,
     navigateToMoreTrackDetailsScreen,
 } from '@/utils'
 
@@ -437,14 +438,22 @@ export function SearchActualScreen({
                     <View>
                         <TitleTextIcon
                             text="More"
-                            onPressTextOrIcon={() => {}}
+                            onPressTextOrIcon={() =>
+                                navigateToMorePlaylistDetailsScreen(
+                                    navigation,
+                                    {searchQuery: searchQuery},
+                                )
+                            }
                             showIcon={true}
                             IconType={'EvilIcons'}
                             iconName={'chevron-right'}>
                             {'Playlists'}
                         </TitleTextIcon>
 
-                        <ListRendererPlaylists playlistList={playlistsData} />
+                        <ListRendererPlaylists
+                            playlistList={playlistsData}
+                            onPressPlaylist={() => {}}
+                        />
                     </View>
                 ) : null}
                 <BottomPaddingComponent />
