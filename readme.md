@@ -16,22 +16,22 @@
 
 <ol>
 <li>
-    <a href="#app-features">App Features</a>
+    <a href="#app-features-">App Features</a>
 </li>
 <li>
-    <a href="#environment-setup">Environment Setup</a>
+    <a href="#environment-setup-">Environment Setup</a>
 </li>
 <li>
-    <a href="#commands">Available Commands</a>
+    <a href="#commands-">Available Commands</a>
 </li>
 <li>
-    <a href="#file-structure">File Structure</a>
+    <a href="#file-structure-">File Structure</a>
 </li>
 <li>
-    <a href="#author">Author</a>
+    <a href="#author-">Author</a>
 </li>
 <li>
-    <a href="#contact">Connect with me!</a>
+    <a href="#contact-">Connect with me!</a>
 </li>
 </ol>
 
