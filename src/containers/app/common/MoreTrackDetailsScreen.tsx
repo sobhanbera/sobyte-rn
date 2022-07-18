@@ -90,12 +90,6 @@ export function MoreTrackDetailsScreen({
                 .then((continuedTrackResults: FetchedSongObject) => {
                     if (continuedTrackResults.content.length > 0) {
                         setTracks(previousTracks => {
-                            console.log(
-                                [
-                                    ...previousTracks,
-                                    ...continuedTrackResults.content,
-                                ].length,
-                            )
                             return [
                                 ...previousTracks,
                                 ...continuedTrackResults.content,
