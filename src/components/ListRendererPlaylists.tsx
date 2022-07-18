@@ -15,6 +15,7 @@ import {PlaylistObject} from '@/schemas'
 import {useTheme} from '@/hooks'
 
 import {ListObjectPlaylist} from './ListObjectPlaylist'
+import ErrorBoundary from '@/error/ErrorBoundary'
 
 export interface ListRendererPlaylistsProps {
     playlistList: Array<PlaylistObject>
@@ -35,11 +36,15 @@ export const ListRendererPlaylists = ({
             ]}>
             {playlistList.map((playlist, index) => {
                 return (
-                    <ListObjectPlaylist
-                        onPressPlaylist={onPressPlaylist}
-                        playlistData={playlist}
-                        key={`${playlist.browseId}${index}`}
-                    />
+                    <ErrorBoundary
+                        id={playlist.title}
+                        key={`${playlist.browseId}${index}`}>
+                        <ListObjectPlaylist
+                            onPressPlaylist={onPressPlaylist}
+                            playlistData={playlist}
+                            // key={`${playlist.browseId}${index}`}
+                        />
+                    </ErrorBoundary>
                 )
             })}
         </View>
