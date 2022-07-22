@@ -1,7 +1,12 @@
 /**
- * @format
+ * © Sobyte
+ *
+ * @author : Sobhan Bera (sobhanbera)
+ * @other_editors :
+ * @file : TyepscriptReact
+ *
+ * Purpose - app's root
  */
-
 import {AppRegistry} from 'react-native'
 import TrackPlayer from 'react-native-track-player'
 
