@@ -12,6 +12,7 @@ export * from './store'
 export * from './reducers'
 
 import {
+    EXPLORE_SCREEN_DATA_SLICE_NAME,
     MUSIC_CONFIG_SLICE_NAME,
     PLAYER_DATA_SLICE_NAME,
     SEARCH_RESULTS_DATA_SLICE_NAME,
@@ -19,6 +20,7 @@ import {
     TRACK_URL_DATA_SLICE_NAME,
 } from '@/configs'
 import {
+    ExploreScreenDataState,
     ThemeState,
     MusicConfigState,
     PlayerDataState,
@@ -40,4 +42,5 @@ export interface SobyteState {
     [PLAYER_DATA_SLICE_NAME]: PlayerDataState
     [TRACK_URL_DATA_SLICE_NAME]: TrackURLDataState
     [SEARCH_RESULTS_DATA_SLICE_NAME]: SearchResultsDataState
+    [EXPLORE_SCREEN_DATA_SLICE_NAME]: ExploreScreenDataState
 }

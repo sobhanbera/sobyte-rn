@@ -9,16 +9,7 @@
  */
 
 import {combineReducers} from 'redux'
-import {
-    persistReducer,
-    persistStore,
-    FLUSH,
-    REHYDRATE,
-    PAUSE,
-    PERSIST,
-    PURGE,
-    REGISTER,
-} from 'redux-persist'
+import {persistReducer, persistStore, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER} from 'redux-persist'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import {configureStore} from '@reduxjs/toolkit'
 import {setupListeners} from '@reduxjs/toolkit/query'
@@ -29,9 +20,11 @@ import {
     PlayerDataReducer,
     TrackURLDataReducer,
     SearchResultsDataReducer,
+    ExploreScreenDataReducer,
 } from './reducers'
 import {SobyteState} from '.'
 import {
+    EXPLORE_SCREEN_DATA_SLICE_NAME,
     MUSIC_CONFIG_SLICE_NAME,
     PLAYER_DATA_SLICE_NAME,
     SEARCH_RESULTS_DATA_SLICE_NAME,
@@ -60,6 +53,7 @@ const rootReducers = combineReducers<SobyteState>({
     [PLAYER_DATA_SLICE_NAME]: PlayerDataReducer,
     [TRACK_URL_DATA_SLICE_NAME]: TrackURLDataReducer,
     [SEARCH_RESULTS_DATA_SLICE_NAME]: SearchResultsDataReducer,
+    [EXPLORE_SCREEN_DATA_SLICE_NAME]: ExploreScreenDataReducer,
 })
 
 // persisted reducers
@@ -74,14 +68,7 @@ const store = configureStore({
     middleware: getDefaultMiddleware => {
         const middlewares = getDefaultMiddleware({
             serializableCheck: {
-                ignoredActions: [
-                    FLUSH,
-                    REHYDRATE,
-                    PAUSE,
-                    PERSIST,
-                    PURGE,
-                    REGISTER,
-                ],
+                ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
             },
         })
 

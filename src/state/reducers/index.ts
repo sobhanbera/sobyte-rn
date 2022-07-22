@@ -8,6 +8,7 @@
  * Purpose - here all the redux reducers are being exported
  */
 
+export * from './ExploreScreenData'
 export * from './MusicConfig'
 export * from './PlayerData'
 export * from './SearchResults'
