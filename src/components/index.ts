@@ -17,8 +17,9 @@ export * from './BottomTabBarPlayerButton'
 
 export * from './HeaderAnimated'
 export * from './HeaderCommon'
-export * from './HeaderTrackPlayer'
+export * from './HeaderExploreScreen'
 export * from './HeaderSearchInput'
+export * from './HeaderTrackPlayer'
 
 export * from './SearchGenreListRenderer'
 export * from './SearchHistoryRenderer'
