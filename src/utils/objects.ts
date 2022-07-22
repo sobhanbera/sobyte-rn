@@ -117,7 +117,8 @@ export function updateArtworkQuality(
  *          so this method is more usable then the above for many types of thumbnail
  *
  * @param {Artwork} artwork any artwork object from song object or else
- * @param {number} wantedSize the height and width to update
+ * @param {number} wantedWidth the width to update
+ * @param {number} wantedHeight the height to update
  * @param {number} wantedQuality optional, the quality of the image
  * @returns a URL with high quality of the image
  */
@@ -299,7 +300,7 @@ export function formatTrackTitle(trackTitle: string): string {
  * this method is same as the above one
  * but the catch is here we can limit the character count
  *
- * @param {string} the name or the string of the song
+ * @param {string} title the name or the string of the song
  * @returns the capitalized words string
  * but the change is this function replaces text between (), [] and {} to null/empty
  */
@@ -607,7 +608,7 @@ export function getShareableImagePath(musicID: string) {
  * @returns {string} a query to search
  */
 export function getARandomQuery() {
-    return 'hindi romantic sad songs'
+    return 'top listened romantic songs'
     return GLOBAL_QUERIES[Math.floor(Math.random() * GLOBAL_QUERIES.length)]
 }
 
