@@ -60,7 +60,7 @@ export function HeaderAnimated({
      */
     const headerBackground = scrollYOffset.interpolate({
         inputRange: [0, TOTAL_ANIMATED_HEADER_HEIGHT],
-        outputRange: ['rgba(0, 0, 0, 0)', headerBackgroundColor],
+        outputRange: [headerBackgroundColor + '00', headerBackgroundColor],
         extrapolate: 'clamp',
     })
 
