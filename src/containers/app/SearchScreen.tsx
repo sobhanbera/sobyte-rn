@@ -18,7 +18,7 @@ import {useTheme} from '@/hooks'
 import {
     SearchGenreListRenderer,
     SearchHistoryRenderer,
-    SearchInputHeader,
+    HeaderSearchInput,
 } from '@/components'
 import {
     GenreList,
@@ -103,7 +103,7 @@ export function SearchScreen({navigation}: SearchScreenProps) {
                     },
                 ]}>
                 {/* the sticky header, this text input is a way to open the actual search tab */}
-                <SearchInputHeader
+                <HeaderSearchInput
                     textInputProps={{
                         value: '',
                         focusable: true,

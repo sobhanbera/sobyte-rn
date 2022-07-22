@@ -22,7 +22,7 @@ import {
     SongObject,
 } from '@/schemas'
 import {
-    AnimatedHeader,
+    HeaderAnimated,
     BottomPaddingComponent,
     ListCardRendererArtists,
     ListRendererPlaylists,
@@ -200,7 +200,7 @@ export function ArtistDetailsScreen({
         <View
             style={{backgroundColor: artistArtworkColors}} // so that the bg colors are synced together
         >
-            <AnimatedHeader
+            <HeaderAnimated
                 navigation={navigation}
                 scrollYOffset={scrollYOffset}
                 headerTitle={artistData.title}

@@ -17,20 +17,20 @@ import {CircularRegular, DEFAULT_HEADER_HEIGHT, TINY_ICON_SIZE} from '@/configs'
 import {TouchableScalable} from './TouchableScalable'
 import {SobyteIcon} from './SobyteIcon'
 
-export interface SearchInputHeaderProps {
+export interface HeaderSearchInputProps {
     textInputProps?: TextInputProps
     onClearSearchInput?: () => void
 
     showBackButton?: boolean // this is to cancel all the search results
     onBackButtonPress?: () => void // method which will cancel the search results
 }
-export function SearchInputHeader({
+export function HeaderSearchInput({
     textInputProps,
     onClearSearchInput = () => {},
 
     showBackButton = false,
     onBackButtonPress = () => {},
-}: SearchInputHeaderProps) {
+}: HeaderSearchInputProps) {
     const {theme, gutters, fonts, layouts} = useTheme()
     const searchInputRef = useRef<TextInput>(null)
 

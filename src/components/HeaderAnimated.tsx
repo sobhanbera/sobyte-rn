@@ -25,7 +25,7 @@ import {SobyteAnimatedTextView} from './SobyteAnimatedTextView'
 import {TouchableScalable} from './TouchableScalable'
 import {SobyteIcon} from './SobyteIcon'
 
-type AniamtedHeaderProps = {
+type HeaderAnimatedProps = {
     navigation: NavigationHelpers<any>
     scrollYOffset: Animated.Value
 
@@ -33,14 +33,14 @@ type AniamtedHeaderProps = {
     headerBackgroundImage: string // the image to render on the header
     headerBackgroundColor: string // the header background primary color
 }
-export function AnimatedHeader({
+export function HeaderAnimated({
     navigation,
     scrollYOffset,
 
     headerTitle,
     headerBackgroundImage,
     headerBackgroundColor,
-}: AniamtedHeaderProps) {
+}: HeaderAnimatedProps) {
     const {gutters, layouts, theme, fonts, variables} = useTheme()
 
     /**

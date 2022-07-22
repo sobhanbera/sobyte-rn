@@ -19,11 +19,11 @@ import {SobyteTextView} from './SobyteTextView'
 import {SobyteIcon} from './SobyteIcon'
 import {TouchableScalable} from './TouchableScalable'
 
-export interface CommonHeaderProps {
+export interface HeaderCommonProps {
     title: string
     navigation: NavigationHelpers<any>
 }
-export function CommonHeader({title, navigation}: CommonHeaderProps) {
+export function HeaderCommon({title, navigation}: HeaderCommonProps) {
     const {fonts, gutters, layouts, theme} = useTheme()
 
     return (

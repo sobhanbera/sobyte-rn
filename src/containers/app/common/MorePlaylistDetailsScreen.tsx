@@ -15,7 +15,7 @@ import {NavigationHelpers, RouteProp} from '@react-navigation/native'
 import {useMusic, useTheme} from '@/hooks'
 import {
     BottomPaddingComponent,
-    CommonHeader,
+    HeaderCommon,
     ListRendererPlaylists,
 } from '@/components'
 import {ContinuationObjectKeys, FetchedData, PlaylistObject} from '@/schemas'
@@ -115,7 +115,7 @@ export function MorePlaylistDetailsScreen({
 
     return (
         <View>
-            <CommonHeader title="Playlists" navigation={navigation} />
+            <HeaderCommon title="Playlists" navigation={navigation} />
 
             <ScrollView
                 showsVerticalScrollIndicator={false}

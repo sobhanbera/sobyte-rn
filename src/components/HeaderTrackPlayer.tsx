@@ -26,10 +26,10 @@ import {SobyteIcon} from './SobyteIcon'
  * sobyte white colored logo
  */
 const SobyteLogo = require('../assets/images/logos/sobyte_white.png')
-export interface TrackPlayerHeaderProps {
+export interface HeaderTrackPlayerProps {
     onPressSearch(): void
 }
-export const TrackPlayerHeader = ({onPressSearch}: TrackPlayerHeaderProps) => {
+export const HeaderTrackPlayer = ({onPressSearch}: HeaderTrackPlayerProps) => {
     const {gutters, layouts, variables} = useTheme()
 
     return (

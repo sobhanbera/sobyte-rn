@@ -19,7 +19,7 @@ import {
     PlaylistTrackObject,
 } from '@/schemas'
 import {
-    AnimatedHeader,
+    HeaderAnimated,
     BottomPaddingComponent,
     ListRendererSongs,
     LoadingAnimation,
@@ -186,7 +186,7 @@ export function PlaylistDetailsScreen({
         <View
             style={{backgroundColor: playlistArtworkColor}} // so that the bg colors are synced together
         >
-            <AnimatedHeader
+            <HeaderAnimated
                 navigation={navigation}
                 scrollYOffset={scrollYOffset}
                 headerTitle={restPlaylistData.title}

@@ -17,7 +17,7 @@ import {NavigationHelpers, RouteProp} from '@react-navigation/native'
 import {useMusic, useTheme} from '@/hooks'
 import {
     BottomPaddingComponent,
-    SearchInputHeader,
+    HeaderSearchInput,
     SearchSuggestionsRenderer,
     ListRendererSongs,
     TitleTextIcon,
@@ -344,7 +344,7 @@ export function SearchActualScreen({
     return (
         <View style={[layouts.fill]}>
             {/* the search input field */}
-            <SearchInputHeader
+            <HeaderSearchInput
                 textInputProps={{
                     value: searchQueryText,
                     onChangeText: (changedSearchValue: string) =>

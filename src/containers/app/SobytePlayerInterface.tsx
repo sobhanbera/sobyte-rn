@@ -52,7 +52,7 @@ import {
     BluredImageBackgroundRenderer,
     TrackPlayerDescriptionRenderer,
     TrackControls,
-    TrackPlayerHeader,
+    HeaderTrackPlayer,
     TrackDetailsMenu,
     TrackPlayerFooter,
 } from '@/components'
@@ -536,7 +536,7 @@ const SobytePlayerInterface = withMenuContext(
                         true,
                     )}>
                     {/* the top header, this is the first component which will be rendered */}
-                    <TrackPlayerHeader
+                    <HeaderTrackPlayer
                         onPressSearch={changeNavigationToSearchTab}
                     />
 
