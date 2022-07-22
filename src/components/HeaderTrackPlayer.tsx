@@ -25,12 +25,11 @@ import {SobyteIcon} from './SobyteIcon'
 /**
  * sobyte white colored logo
  */
-const SobyteLogo = require('../assets/images/logos/sobyte_white.png')
 export interface HeaderTrackPlayerProps {
     onPressSearch(): void
 }
 export const HeaderTrackPlayer = ({onPressSearch}: HeaderTrackPlayerProps) => {
-    const {gutters, layouts, variables} = useTheme()
+    const {gutters, layouts, variables, assets} = useTheme()
 
     return (
         <View
@@ -48,7 +47,7 @@ export const HeaderTrackPlayer = ({onPressSearch}: HeaderTrackPlayerProps) => {
                     {width: TRACK_ARTWORK_WIDTH_LARGE}, // somewhat larger than track artwork's width
                 ]}>
                 <Image
-                    source={SobyteLogo}
+                    source={assets.images.logos.sobyte_white}
                     style={[
                         gutters.regularMarginHorizontal, // a few padding, horizontal but needed on left side...
                         {
