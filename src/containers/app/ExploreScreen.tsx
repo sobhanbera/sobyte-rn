@@ -9,16 +9,48 @@
  */
 
 import React from 'react'
-import {Text, View} from 'react-native'
+import {ScrollView, View} from 'react-native'
 import {NavigationHelpers} from '@react-navigation/native'
+
+import {HeaderExploreScreen} from '@/components'
+import {useTheme} from '@/hooks'
+import {ROOT_BOTTOM_BAR_SEARCH_SCREEN_STACK} from '@/configs'
+import LinearGradient from 'react-native-linear-gradient'
 
 export interface ExploreScreenProps {
     navigation: NavigationHelpers<any>
 }
 export function ExploreScreen({navigation}: ExploreScreenProps) {
+    const {theme, colorscheme} = useTheme()
+
+    /**
+     * this function will launch search songs/tracks, artists tab
+     */
+    function changeNavigationToSearchTab() {
+        /**
+         * getting the parent navigator which is the bottom tab bar
+         * and then navigating to the search stack navigator
+         */
+        navigation.getParent()?.navigate(ROOT_BOTTOM_BAR_SEARCH_SCREEN_STACK)
+    }
+
     return (
         <View>
-            <Text>EXPLORE SCREEN</Text>
+            <ScrollView showsVerticalScrollIndicator={false}>
+                <LinearGradient
+                    colors={[
+                        ...colorscheme,
+                        theme.background,
+                        theme.background,
+                        theme.background,
+                        theme.background,
+                        theme.background,
+                    ]}
+                    useAngle
+                    angle={135}>
+                    <HeaderExploreScreen onPressSearch={changeNavigationToSearchTab} />
+                </LinearGradient>
+            </ScrollView>
         </View>
     )
 }
