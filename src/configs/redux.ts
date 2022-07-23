@@ -22,6 +22,3 @@ export const TRACK_URL_DATA_SLICE_NAME = 'trackurldata'
 
 // reducer/slice name for saving the track's url
 export const SEARCH_RESULTS_DATA_SLICE_NAME = 'searchresults'
-
-// reducer/slice name for saving the track's data in the explore screen
-export const EXPLORE_SCREEN_DATA_SLICE_NAME = 'exploredata'

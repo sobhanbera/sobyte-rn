@@ -20,11 +20,9 @@ import {
     PlayerDataReducer,
     TrackURLDataReducer,
     SearchResultsDataReducer,
-    ExploreScreenDataReducer,
 } from './reducers'
 import {SobyteState} from '.'
 import {
-    EXPLORE_SCREEN_DATA_SLICE_NAME,
     MUSIC_CONFIG_SLICE_NAME,
     PLAYER_DATA_SLICE_NAME,
     SEARCH_RESULTS_DATA_SLICE_NAME,
@@ -53,7 +51,6 @@ const rootReducers = combineReducers<SobyteState>({
     [PLAYER_DATA_SLICE_NAME]: PlayerDataReducer,
     [TRACK_URL_DATA_SLICE_NAME]: TrackURLDataReducer,
     [SEARCH_RESULTS_DATA_SLICE_NAME]: SearchResultsDataReducer,
-    [EXPLORE_SCREEN_DATA_SLICE_NAME]: ExploreScreenDataReducer,
 })
 
 // persisted reducers

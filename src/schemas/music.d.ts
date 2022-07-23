@@ -12,7 +12,7 @@
  * from the backend api
  * 'ALBUM' is also one option but we are not providing it currently
  */
-export type SearchOptions = 'SONG' | 'ARTIST' | 'PLAYLIST' | 'VIDEO'
+export type SearchOptions = 'SONG' | 'ARTIST' | 'PLAYLIST' //| 'VIDEO'
 
 /**
  * all the endpoints we are supporting right now
@@ -503,42 +503,4 @@ interface MusicFormats {
             shortDescription: string
         }
     }
-}
-
-/**
- * explore screen data types and modals are described here
- * like what are the songs list and songs type and more....
- */
-
-/**
- * this is the modal of the data which will be saved in the explore screen data reducer
- * in form of array of data
- */
-export enum ExploreScreenDataCategory {
-    romantic_songs = 'romantic_songs',
-    bollywood_songs = 'bollywood_songs',
-
-    todays_hits = 'todays_hits',
-    new_release = 'new_release',
-    romance_2010 = 'romance_2010',
-
-    made_for_you = 'made_for_you',
-    evergreen = 'evergreen',
-    trending_songs = 'trending_songs',
-
-    blockbuster_romance = 'blockbuster_romance',
-    popular_tracks = 'popular_tracks',
-
-    popular_artists = 'popular_artists',
-    top_tracks = 'top_tracks',
-    top_playlists = 'top_playlists',
-    new_artists = 'new_artists',
-
-    sad_tracks = 'sad_tracks',
-    lofi_tracks = 'lofi_tracks',
-}
-export interface ExploreScreenDataModal {
-    searchQuery: string
-    dataCategory: keyof typeof ExploreScreenDataCategory
-    results: Array<SongObject | PlaylistObject | ArtistObject>
 }
