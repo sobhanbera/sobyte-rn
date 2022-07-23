@@ -37,18 +37,12 @@ import {
 import MusicUtils from '@/utils/music'
 import MusicParser from '@/utils/musicparser'
 import {useDispatch, useSelector} from 'react-redux'
-import {
-    SobyteState,
-    updateMusicConfigState,
-    updateMusicConfigStatus,
-} from '@/state'
+import {SobyteState, updateMusicConfigState, updateMusicConfigStatus} from '@/state'
 import {getDataFromLocalStorage, setDataToLocalStorage} from '@/utils'
 
 export function useMusic() {
     // state for the music config and more...
-    const {musicConfigData} = useSelector(
-        (state: SobyteState) => state.musicconfig,
-    )
+    const {musicConfigData} = useSelector((state: SobyteState) => state.musicconfig)
     const dispatch = useDispatch()
 
     /**
@@ -80,9 +74,7 @@ export function useMusic() {
                     /**
                      * @SOBYTE_MUSIC_CONFIG_LAST_UPDATED - this is the timestamp when the last api was last updated which is done every day once automatically...
                      */
-                    const LAST_DATE = new Date(
-                        Number(apiConfigs.SOBYTE_MUSIC_CONFIG_LAST_UPDATED),
-                    ).getDate()
+                    const LAST_DATE = new Date(Number(apiConfigs.SOBYTE_MUSIC_CONFIG_LAST_UPDATED)).getDate()
                     // current date to compare the above date with...
                     const CURR_DATE = new Date().getDate()
 
@@ -137,26 +129,17 @@ export function useMusic() {
                             .get('/')
                             .then(async res => {
                                 try {
-                                    let fetchConfig: {[key: string]: string} =
-                                        {}
+                                    let fetchConfig: {[key: string]: string} = {}
 
                                     res.data
                                         .split('ytcfg.set(')
                                         .map((v: string) => {
                                             try {
-                                                return JSON.parse(
-                                                    v.split(');')[0],
-                                                )
+                                                return JSON.parse(v.split(');')[0])
                                             } catch (_) {}
                                         })
                                         .filter(Boolean)
-                                        .forEach(
-                                            (cfg: any) =>
-                                                (fetchConfig = Object.assign(
-                                                    cfg,
-                                                    fetchConfig,
-                                                )),
-                                        )
+                                        .forEach((cfg: any) => (fetchConfig = Object.assign(cfg, fetchConfig)))
 
                                     // not working with normal react state
                                     dispatch(
@@ -170,14 +153,12 @@ export function useMusic() {
                                     /**
                                      * this is the timestamp when the last api was last updated which is done every day once automatically...
                                      */
-                                    const SOBYTE_MUSIC_CONFIG_LAST_UPDATED =
-                                        new Date().getTime().toString()
+                                    const SOBYTE_MUSIC_CONFIG_LAST_UPDATED = new Date().getTime().toString()
                                     await AsyncStorage.setItem(
                                         API_CONFIG_DATA_STORAGE_KEY,
                                         JSON.stringify({
                                             ...fetchConfig,
-                                            SOBYTE_MUSIC_CONFIG_LAST_UPDATED:
-                                                SOBYTE_MUSIC_CONFIG_LAST_UPDATED,
+                                            SOBYTE_MUSIC_CONFIG_LAST_UPDATED: SOBYTE_MUSIC_CONFIG_LAST_UPDATED,
                                         }),
                                     )
 
@@ -235,13 +216,7 @@ export function useMusic() {
                                         } catch (_) {}
                                     })
                                     .filter(Boolean)
-                                    .forEach(
-                                        (cfg: any) =>
-                                            (fetchConfig = Object.assign(
-                                                cfg,
-                                                fetchConfig,
-                                            )),
-                                    )
+                                    .forEach((cfg: any) => (fetchConfig = Object.assign(cfg, fetchConfig)))
 
                                 // not working with normal react state
                                 dispatch(
@@ -255,14 +230,12 @@ export function useMusic() {
                                 /**
                                  * this is the timestamp when the last api was last updated which is done every day once automatically...
                                  */
-                                const SOBYTE_MUSIC_CONFIG_LAST_UPDATED =
-                                    new Date().getTime().toString()
+                                const SOBYTE_MUSIC_CONFIG_LAST_UPDATED = new Date().getTime().toString()
                                 await AsyncStorage.setItem(
                                     API_CONFIG_DATA_STORAGE_KEY,
                                     JSON.stringify({
                                         ...fetchConfig,
-                                        SOBYTE_MUSIC_CONFIG_LAST_UPDATED:
-                                            SOBYTE_MUSIC_CONFIG_LAST_UPDATED,
+                                        SOBYTE_MUSIC_CONFIG_LAST_UPDATED: SOBYTE_MUSIC_CONFIG_LAST_UPDATED,
                                     }),
                                 )
 
@@ -320,10 +293,8 @@ export function useMusic() {
             {
                 'x-origin': musicDataApiRequestor.defaults.baseURL,
                 'X-Goog-Visitor-Id': musicConfigData.VISITOR_DATA,
-                'X-YouTube-Client-Name':
-                    musicConfigData.INNERTUBE_CONTEXT_CLIENT_NAME,
-                'X-YouTube-Client-Version':
-                    musicConfigData.INNERTUBE_CLIENT_VERSION,
+                'X-YouTube-Client-Name': musicConfigData.INNERTUBE_CONTEXT_CLIENT_NAME,
+                'X-YouTube-Client-Version': musicConfigData.INNERTUBE_CLIENT_VERSION,
                 'X-YouTube-Device': musicConfigData.DEVICE,
                 'X-YouTube-Page-CL': musicConfigData.PAGE_CL,
                 'X-YouTube-Page-Label': musicConfigData.PAGE_BUILD_LABEL,
@@ -358,9 +329,7 @@ export function useMusic() {
                                 )}`,
                                 Object.assign(
                                     inputVariables,
-                                    MusicUtils.createApiContext(
-                                        musicConfigDataAfterManualInit,
-                                    ),
+                                    MusicUtils.createApiContext(musicConfigDataAfterManualInit),
                                 ),
                                 {
                                     responseType: 'json',
@@ -371,9 +340,7 @@ export function useMusic() {
                                 },
                             )
                             .then(res => {
-                                if (
-                                    res.data?.hasOwnProperty('responseContext')
-                                ) {
+                                if (res.data?.hasOwnProperty('responseContext')) {
                                     apiRequsetResolver(res.data)
                                 }
                             })
@@ -403,12 +370,7 @@ export function useMusic() {
                                         inputQuery,
                                     ),
                                 )}`,
-                                Object.assign(
-                                    inputVariables,
-                                    MusicUtils.createApiContext(
-                                        musicConfigData,
-                                    ),
-                                ),
+                                Object.assign(inputVariables, MusicUtils.createApiContext(musicConfigData)),
                                 {
                                     responseType: 'json',
                                     headers: {
@@ -418,9 +380,7 @@ export function useMusic() {
                                 },
                             )
                             .then(res => {
-                                if (
-                                    res.data?.hasOwnProperty('responseContext')
-                                ) {
+                                if (res.data?.hasOwnProperty('responseContext')) {
                                     apiRequsetResolver(res.data)
                                 }
                             })
@@ -432,9 +392,7 @@ export function useMusic() {
                 // the music config data is updated and usable
                 musicDataApiRequestor
                     .post(
-                        `youtubei/${
-                            musicConfigData.INNERTUBE_API_VERSION
-                        }/${endpointName}?${querystring.stringify(
+                        `youtubei/${musicConfigData.INNERTUBE_API_VERSION}/${endpointName}?${querystring.stringify(
                             Object.assign(
                                 {
                                     alt: 'json',
@@ -443,10 +401,7 @@ export function useMusic() {
                                 inputQuery,
                             ),
                         )}`,
-                        Object.assign(
-                            inputVariables,
-                            MusicUtils.createApiContext(musicConfigData),
-                        ),
+                        Object.assign(inputVariables, MusicUtils.createApiContext(musicConfigData)),
                         {
                             responseType: 'json',
                             headers: {
@@ -474,9 +429,7 @@ export function useMusic() {
     let getSearchSuggestionsCancelToken: any
     const getSearchSuggestions = (query: string) => {
         if (typeof getSearchSuggestionsCancelToken != typeof undefined)
-            getSearchSuggestionsCancelToken.cancel(
-                'Cancelling the previous token for new request.',
-            )
+            getSearchSuggestionsCancelToken.cancel('Cancelling the previous token for new request.')
 
         getSearchSuggestionsCancelToken = axios.CancelToken.source()
 
@@ -491,12 +444,7 @@ export function useMusic() {
             )
                 .then(content => {
                     try {
-                        resolve(
-                            MusicUtils.fv(
-                                content,
-                                'searchSuggestionRenderer:navigationEndpoint:query',
-                            ),
-                        )
+                        resolve(MusicUtils.fv(content, 'searchSuggestionRenderer:navigationEndpoint:query'))
                     } catch (error) {
                         reject(error)
                     }
@@ -509,8 +457,8 @@ export function useMusic() {
      * @param query the query string
      * @param categoryName what type of data is needed like "song" | "album" | "playlist"
      * @param saveToLocalStorage boolean if true then after searching and providing the results this function will also save the data in local storage for offline use cases.
-     * @param saveToCustomLocation this is a string if any part of app needs only one type of data everytime then provide a custom location reference we will save the data instead of `${SEARCHED_SONG_OFFLINE_DATA_STORAGE_KEY}${query}${categoryName}` location this could be used in music player main UI component since there many different types of random queries are done and we have to load it in offline purpose so no need to save everytype query of data only one is sufficient
      * @param provideASubarray if any part of the app wants a subarray from the fetched content about 0 to 5 then use [0, 5]... etc.
+     * @param saveToCustomLocation this is a string if any part of app needs only one type of data everytime then provide a custom location reference we will save the data instead of `${SEARCHED_SONG_OFFLINE_DATA_STORAGE_KEY}${query}${categoryName}` location this could be used in music player main UI component since there many different types of random queries are done and we have to load it in offline purpose so no need to save everytype query of data only one is sufficient
      * @returns the search result after making api request
      *
      * the local storage will store the data in form of key value pair like {"search_query": JSON.stringify("search_result_json_value")}
@@ -521,8 +469,8 @@ export function useMusic() {
         query: string,
         categoryName: SearchOptions = 'SONG',
         saveToLocalStorage: boolean = false,
-        saveToCustomLocation: string = '',
         provideASubarray: number[] = [0, 100], // default list count would be less than 30 so for safe case we are using 100 items
+        saveToCustomLocation: string = '',
     ): Promise<any> => {
         var isOffline = false
         return new Promise((resolve, reject) => {
@@ -586,26 +534,20 @@ export function useMusic() {
                     try {
                         switch (categoryName) {
                             case 'SONG':
-                                result =
-                                    MusicParser.parseSongSearchResult(context)
+                                result = MusicParser.parseSongSearchResult(context)
                                 break
                             case 'VIDEO':
-                                result =
-                                    MusicParser.parseVideoSearchResult(context)
+                                result = MusicParser.parseVideoSearchResult(context)
                                 break
                             // case 'ALBUM':
                             //     result =
                             //         MusicParser.parseAlbumSearchResult(context)
                             //     break
                             case 'ARTIST':
-                                result =
-                                    MusicParser.parseArtistSearchResult(context)
+                                result = MusicParser.parseArtistSearchResult(context)
                                 break
                             case 'PLAYLIST':
-                                result =
-                                    MusicParser.parsePlaylistSearchResult(
-                                        context,
-                                    )
+                                result = MusicParser.parsePlaylistSearchResult(context)
                                 break
                             default:
                                 result = MusicParser.parseSearchResult(context)
@@ -635,10 +577,7 @@ export function useMusic() {
                             if (result.content.length > provideASubarray[0]) {
                                 resolve({
                                     ...result,
-                                    content: result.content.slice(
-                                        provideASubarray[0],
-                                        provideASubarray[1],
-                                    ),
+                                    content: result.content.slice(provideASubarray[0], provideASubarray[1]),
                                 })
                             } else {
                                 resolve(result)
@@ -712,30 +651,22 @@ export function useMusic() {
                     try {
                         switch (_.upperCase(dataType)) {
                             case 'SONG':
-                                parsedData =
-                                    MusicParser.parseSongSearchResult(context)
+                                parsedData = MusicParser.parseSongSearchResult(context)
                                 break
                             case 'VIDEO':
-                                parsedData =
-                                    MusicParser.parseVideoSearchResult(context)
+                                parsedData = MusicParser.parseVideoSearchResult(context)
                                 break
                             case 'ALBUM':
-                                parsedData =
-                                    MusicParser.parseAlbumSearchResult(context)
+                                parsedData = MusicParser.parseAlbumSearchResult(context)
                                 break
                             case 'ARTIST':
-                                parsedData =
-                                    MusicParser.parseArtistSearchResult(context)
+                                parsedData = MusicParser.parseArtistSearchResult(context)
                                 break
                             case 'PLAYLIST':
-                                parsedData =
-                                    MusicParser.parsePlaylistSearchResult(
-                                        context,
-                                    )
+                                parsedData = MusicParser.parsePlaylistSearchResult(context)
                                 break
                             default:
-                                parsedData =
-                                    MusicParser.parseSearchResult(context)
+                                parsedData = MusicParser.parseSearchResult(context)
                                 break
                         }
                         resolve(parsedData)
@@ -787,10 +718,7 @@ export function useMusic() {
      * @param contentLimit limiting the data
      * @returns the object with playlist data
      */
-    const getPlaylist = (
-        browseId: string,
-        contentLimit = 200,
-    ): Promise<any> => {
+    const getPlaylist = (browseId: string, contentLimit = 200): Promise<any> => {
         return new Promise((resolve, reject) => {
             if (_.startsWith(browseId, 'VL') || _.startsWith(browseId, 'PL')) {
                 _.startsWith(browseId, 'PL') && (browseId = 'VL' + browseId)
@@ -801,55 +729,29 @@ export function useMusic() {
                 )
                     .then(context => {
                         try {
-                            var result = MusicParser.parsePlaylistPage(
-                                context,
-                                browseId,
-                            )
-                            const getContinuations = (
-                                params: ContinuationObject,
-                            ) => {
+                            var result = MusicParser.parsePlaylistPage(context, browseId)
+                            const getContinuations = (params: ContinuationObject) => {
                                 _createApiRequest(
                                     PRIMARY_MUSIC_API_ENDPOINTS.browse,
                                     {},
                                     {
                                         ctoken: params.continuation,
                                         continuation: params.continuation,
-                                        itct: params.continuation
-                                            .clickTrackingParams,
+                                        itct: params.continuation.clickTrackingParams,
                                     },
                                 )
                                     .then(context => {
-                                        const continuationResult =
-                                            MusicParser.parsePlaylistPage(
-                                                context,
-                                                browseId,
-                                            )
-                                        if (
-                                            Array.isArray(
-                                                continuationResult.content,
-                                            )
-                                        ) {
-                                            result.content = _.concat(
-                                                result.content,
-                                                continuationResult.content,
-                                            )
-                                            result.continuation =
-                                                continuationResult.continuation
+                                        const continuationResult = MusicParser.parsePlaylistPage(context, browseId)
+                                        if (Array.isArray(continuationResult.content)) {
+                                            result.content = _.concat(result.content, continuationResult.content)
+                                            result.continuation = continuationResult.continuation
                                         }
                                         if (
-                                            !Array.isArray(
-                                                continuationResult.continuation,
-                                            ) &&
-                                            result.continuation instanceof
-                                                Object
+                                            !Array.isArray(continuationResult.continuation) &&
+                                            result.continuation instanceof Object
                                         ) {
-                                            if (
-                                                contentLimit >
-                                                result.content.length
-                                            ) {
-                                                getContinuations(
-                                                    continuationResult.continuation,
-                                                )
+                                            if (contentLimit > result.content.length) {
+                                                getContinuations(continuationResult.continuation)
                                             } else {
                                                 return resolve(result)
                                             }
@@ -889,10 +791,7 @@ export function useMusic() {
      * @param saveToLocalStorage if the artist's data should be saved to the local storage or not
      * @returns the object with artist data
      */
-    const getArtist = (
-        browseId: string,
-        saveToLocalStorage?: boolean,
-    ): Promise<ArtistDetailsObject> => {
+    const getArtist = (browseId: string, saveToLocalStorage?: boolean): Promise<ArtistDetailsObject> => {
         if (_.startsWith(browseId, 'UC')) {
             return new Promise(async (resolve, reject) => {
                 /**
@@ -907,20 +806,15 @@ export function useMusic() {
                  * and after getting the data we will check if the needed data is available, like the name, thumbnail
                  * if it is available then set @resolvedData to true and resolve the data
                  */
-                await getDataFromLocalStorage(
-                    SEARCHED_SONG_OFFLINE_DATA_STORAGE_KEY,
-                    'ARTIST',
-                    browseId,
-                ).then((res: ArtistDetailsObject | any) => {
-                    if (res !== null)
-                        if (
-                            res?.name.length > 0 &&
-                            res?.thumbnails?.length >= 1
-                        ) {
-                            resolvedData = true
-                            resolve(res)
-                        }
-                })
+                await getDataFromLocalStorage(SEARCHED_SONG_OFFLINE_DATA_STORAGE_KEY, 'ARTIST', browseId).then(
+                    (res: ArtistDetailsObject | any) => {
+                        if (res !== null)
+                            if (res?.name.length > 0 && res?.thumbnails?.length >= 1) {
+                                resolvedData = true
+                                resolve(res)
+                            }
+                    },
+                )
 
                 if (resolvedData) return
 
@@ -961,11 +855,7 @@ export function useMusic() {
      * @param paramString id of the param string if any
      * @returns the object with songs data
      */
-    const getPlayer = (
-        musicId: string,
-        playlistId: string,
-        paramString: string = '',
-    ) => {
+    const getPlayer = (musicId: string, playlistId: string, paramString: string = '') => {
         return new Promise((resolve, reject) => {
             _createApiRequest(PRIMARY_MUSIC_API_ENDPOINTS.player, {
                 captionParams: {},
@@ -976,11 +866,7 @@ export function useMusic() {
             })
                 .then((context: any) => {
                     try {
-                        const result = MusicParser.parseSongDetailsPlayer(
-                            context,
-                            musicId,
-                            playlistId,
-                        )
+                        const result = MusicParser.parseSongDetailsPlayer(context, musicId, playlistId)
                         resolve(result)
                     } catch (error) {
                         resolve({
