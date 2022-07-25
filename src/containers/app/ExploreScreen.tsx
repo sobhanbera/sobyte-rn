@@ -12,7 +12,7 @@ import React from 'react'
 import {ScrollView, View} from 'react-native'
 import {NavigationHelpers} from '@react-navigation/native'
 
-import {HeaderExploreScreen} from '@/components'
+import {TrackChunksRenderer, HeaderExploreScreen} from '@/components'
 import {useTheme} from '@/hooks'
 import {ROOT_BOTTOM_BAR_SEARCH_SCREEN_STACK} from '@/configs'
 import LinearGradient from 'react-native-linear-gradient'
@@ -36,7 +36,9 @@ export function ExploreScreen({navigation}: ExploreScreenProps) {
 
     return (
         <View>
-            <ScrollView showsVerticalScrollIndicator={false}>
+            <ScrollView
+                showsVerticalScrollIndicator={false}
+                nestedScrollEnabled>
                 <LinearGradient
                     colors={[
                         ...colorscheme,
@@ -48,7 +50,11 @@ export function ExploreScreen({navigation}: ExploreScreenProps) {
                     ]}
                     useAngle
                     angle={135}>
-                    <HeaderExploreScreen onPressSearch={changeNavigationToSearchTab} />
+                    <HeaderExploreScreen
+                        onPressSearch={changeNavigationToSearchTab}
+                    />
+
+                    <TrackChunksRenderer searchQuery="today's romantic songs" />
                 </LinearGradient>
             </ScrollView>
         </View>
