@@ -8,14 +8,20 @@
  * Purpose - util functions for objects and all...
  */
 
-import {Animated, NativeScrollEvent, NativeSyntheticEvent, StyleProp, ViewStyle} from 'react-native'
+import {
+    Animated,
+    NativeScrollEvent,
+    NativeSyntheticEvent,
+    StyleProp,
+    ViewStyle,
+} from 'react-native'
 
 import {
     DEFAULT_MAXIMUM_CHARACTERS_IN_TITLE,
     DEFAULT_NOTIFICATION_ARTWORK_QUALITY,
     DEFAULT_NOTIFICATION_ARTWORK_SIZE,
     DEFAULT_PLAYER_ARTWORK_QUALITY,
-    DEFAULT_PLAYER_ARTWORK_SIZE,
+    DEFAULT_MEDIUM_ARTWORK_SIZE,
     FALLBACK_ARTIST_NAME,
     GLOBAL_QUERIES,
     MAX_DISPLAY_TEXT_LENGTH,
@@ -38,9 +44,7 @@ import {
     SongObject,
     TrackMetadataBase,
     TrackDescription,
-    ExploreScreenDataCategory,
 } from '@/schemas'
-import {ExploreScreenDataState} from '@/state'
 
 /**
  * get a changed quality image of any song object
@@ -53,7 +57,7 @@ import {ExploreScreenDataState} from '@/state'
  */
 export function updateArtworkQuality(
     artwork: ArtworkObject,
-    wantedSize: number = DEFAULT_PLAYER_ARTWORK_SIZE,
+    wantedSize: number = DEFAULT_MEDIUM_ARTWORK_SIZE,
     wantedQuality: number = DEFAULT_PLAYER_ARTWORK_QUALITY,
 ): string {
     // demo url - https://lh3.googleusercontent.com/WP7l4p-2WhWzLM6lXJ0n2gXLK6u07eCejpybWzb-yhEyt9Y0aOkxMlLhpayO7PdXYOYy2NgkWu9hGBPy=w60-h60-l90-rj
@@ -73,11 +77,14 @@ export function updateArtworkQuality(
         const updatedQuality = `w${wantedSize}-h${wantedSize}-l${wantedQuality}-rj`
 
         return url.replace(qualityPartOfURL, updatedQuality)
-    } else if (artwork.url.match(ARTWORK_HEIGHT_WIDTH_PART_WITH_CHARACTER_IN_BETWEEN)) {
+    } else if (
+        artwork.url.match(ARTWORK_HEIGHT_WIDTH_PART_WITH_CHARACTER_IN_BETWEEN)
+    ) {
         // getting to know which character is used in the URL of artwork
-        const charBetweenHeightAndQuality: string = ARTWORK_HEIGHT_WIDTH_PART_WITH_CHARACTER_IN_BETWEEN.exec(
-            artwork.url,
-        )[1] // since the character group is in 2nd index of the array i.e. [1]
+        const charBetweenHeightAndQuality: string =
+            ARTWORK_HEIGHT_WIDTH_PART_WITH_CHARACTER_IN_BETWEEN.exec(
+                artwork.url,
+            )[1] // since the character group is in 2nd index of the array i.e. [1]
 
         const qualityPartOfURL = `w${height}-h${height}-${charBetweenHeightAndQuality}-l90-rj`
         const updatedQuality = `w${wantedSize}-h${wantedSize}-${charBetweenHeightAndQuality}-l${wantedQuality}-rj`
@@ -118,8 +125,8 @@ export function updateArtworkQuality(
 export function updateArtworkQualityUniversal(
     artwork: Artwork,
 
-    wantedWidth: number = DEFAULT_PLAYER_ARTWORK_SIZE,
-    wantedHeight: number = DEFAULT_PLAYER_ARTWORK_SIZE,
+    wantedWidth: number = DEFAULT_MEDIUM_ARTWORK_SIZE,
+    wantedHeight: number = DEFAULT_MEDIUM_ARTWORK_SIZE,
 
     wantedQuality: number = DEFAULT_PLAYER_ARTWORK_QUALITY,
 ): string {
@@ -140,11 +147,14 @@ export function updateArtworkQualityUniversal(
         const updatedQuality = `w${wantedWidth}-h${wantedHeight}-l${wantedQuality}-rj`
 
         return url.replace(qualityPartOfURL, updatedQuality)
-    } else if (artwork.url.match(ARTWORK_HEIGHT_WIDTH_PART_WITH_CHARACTER_IN_BETWEEN)) {
+    } else if (
+        artwork.url.match(ARTWORK_HEIGHT_WIDTH_PART_WITH_CHARACTER_IN_BETWEEN)
+    ) {
         // getting to know which character is used in the URL of artwork
-        const charBetweenHeightAndQuality: string = ARTWORK_HEIGHT_WIDTH_PART_WITH_CHARACTER_IN_BETWEEN.exec(
-            artwork.url,
-        )[1] // since the character group is in 2nd index of the array i.e. [1]
+        const charBetweenHeightAndQuality: string =
+            ARTWORK_HEIGHT_WIDTH_PART_WITH_CHARACTER_IN_BETWEEN.exec(
+                artwork.url,
+            )[1] // since the character group is in 2nd index of the array i.e. [1]
 
         const qualityPartOfURL = `w${width}-h${height}-${charBetweenHeightAndQuality}-l90-rj`
         const updatedQuality = `w${wantedWidth}-h${wantedHeight}-${charBetweenHeightAndQuality}-l${wantedQuality}-rj`
@@ -175,7 +185,10 @@ export function firstLetterCap(text: string): string {
  * @param {number} length the max length of the string
  * @returns the result of the above operation
  */
-export function trimLargeString(text: string, length: number = MAX_DISPLAY_TEXT_LENGTH): string {
+export function trimLargeString(
+    text: string,
+    length: number = MAX_DISPLAY_TEXT_LENGTH,
+): string {
     if (text.length > length) return text.substring(0, length) + '...'
     return firstLetterCap(text)
 }
@@ -186,7 +199,9 @@ export function trimLargeString(text: string, length: number = MAX_DISPLAY_TEXT_
  * @param {Array<SongArtistObject>} artists array of artists with multiple values
  * @returns the string of list of names of artist in the arguments of function
  */
-export function formatArtistsListFromArray(artists: Array<SongArtistObject>): string {
+export function formatArtistsListFromArray(
+    artists: Array<SongArtistObject>,
+): string {
     let str = ''
     for (let i = 0; i < artists.length; ++i) {
         str += capitalizeWords(`${artists[i].name}`)
@@ -201,7 +216,9 @@ export function formatArtistsListFromArray(artists: Array<SongArtistObject>): st
  * @param artists the artist object
  * @returns the first artist from the artist object
  */
-export function getFirstArtistFromTrackData(artists: Array<SongArtistObject>): string {
+export function getFirstArtistFromTrackData(
+    artists: Array<SongArtistObject>,
+): string {
     // since some tracks don't have artist's name on them
     if (artists.length >= 1) return artists[0].name
     return ''
@@ -287,7 +304,10 @@ export function formatTrackTitle(trackTitle: string): string {
  * @returns the capitalized words string
  * but the change is this function replaces text between (), [] and {} to null/empty
  */
-export function formatTitle(title: string, _characterLimit: number = DEFAULT_MAXIMUM_CHARACTERS_IN_TITLE): string {
+export function formatTitle(
+    title: string,
+    _characterLimit: number = DEFAULT_MAXIMUM_CHARACTERS_IN_TITLE,
+): string {
     return capitalizeWords(
         removeUnnecessaryCharacters(
             title
@@ -436,7 +456,8 @@ export function endcrypt(ID: string): string {
     let caseExchange: string = '' // case toggled string ID
     for (let i: number = 0; i < ID.length; ++i)
         if (ID[i] >= 'a' && ID[i] <= 'z') caseExchange += ID[i].toUpperCase()
-        else if (ID[i] >= 'A' && ID[i] <= 'Z') caseExchange += ID[i].toLowerCase()
+        else if (ID[i] >= 'A' && ID[i] <= 'Z')
+            caseExchange += ID[i].toLowerCase()
         else caseExchange += ID[i]
 
     /**
@@ -465,11 +486,16 @@ export function endcrypt(ID: string): string {
                  * if the ith character is less than 'm'
                  * add the random number to the ith character and append to @encryptedID
                  */
-                encryptedID += String.fromCharCode(reversedID[i].charCodeAt(0) + randomNumber)
+                encryptedID += String.fromCharCode(
+                    reversedID[i].charCodeAt(0) + randomNumber,
+                )
             /**
              * if the ith character is more than 'm'
              * subtract the random number with the ith character and append to @encryptedID
-             */ else encryptedID += String.fromCharCode(reversedID[i].charCodeAt(0) - randomNumber)
+             */ else
+                encryptedID += String.fromCharCode(
+                    reversedID[i].charCodeAt(0) - randomNumber,
+                )
         /**
          * if the ith character is uppercase character
          */ else if (reversedID[i] >= 'A' && reversedID[i] <= 'Z')
@@ -478,11 +504,16 @@ export function endcrypt(ID: string): string {
                  * if the ith character is less than 'M'
                  * add the random number to the ith character and append to @encryptedID
                  */
-                encryptedID += String.fromCharCode(reversedID[i].charCodeAt(0) + randomNumber)
+                encryptedID += String.fromCharCode(
+                    reversedID[i].charCodeAt(0) + randomNumber,
+                )
             /**
              * if the ith character is more than 'M'
              * subtract the random number with the ith character and append to @encryptedID
-             */ else encryptedID += String.fromCharCode(reversedID[i].charCodeAt(0) - randomNumber)
+             */ else
+                encryptedID += String.fromCharCode(
+                    reversedID[i].charCodeAt(0) - randomNumber,
+                )
         /**
          * if the character if a number
          * append @encryptedID after subtracting the number from 9 in string format afterwards
@@ -545,9 +576,14 @@ export function generateShareableMusicMessage(trackData: SongObject): string {
     const trackArtist = getFirstArtistFromTrackData(trackData.artists)
 
     // shareable url generation
-    const shareableURL = generateShareableURL(trackData.musicId, trackData.playlistId)
+    const shareableURL = generateShareableURL(
+        trackData.musicId,
+        trackData.playlistId,
+    )
 
-    return `Listen to ${trackTitle}${trackArtist ? ` by ${trackArtist} ` : ' '}on Sobyte - \n${shareableURL}`
+    return `Listen to ${trackTitle}${
+        trackArtist ? ` by ${trackArtist} ` : ' '
+    }on Sobyte - \n${shareableURL}`
 }
 
 /**
@@ -556,7 +592,8 @@ export function generateShareableMusicMessage(trackData: SongObject): string {
  * @returns a path where the shareable image could be saved temprarily
  */
 export function getShareableImagePath(musicID: string) {
-    if (musicID) return `${SHARED_IMAGE_LOCATION}/sobyte_${endcrypt(musicID)}.jpg`
+    if (musicID)
+        return `${SHARED_IMAGE_LOCATION}/sobyte_${endcrypt(musicID)}.jpg`
 
     // if the music id is not provided, just save it in a safe location
     return `${SHARED_IMAGE_LOCATION}/sobyte_share.jpg`
@@ -571,7 +608,7 @@ export function getShareableImagePath(musicID: string) {
  * @returns {string} a query to search
  */
 export function getARandomQuery() {
-    return 'top listened romantic songs'
+    return 'top hindi heart touching romantic songs'
     return GLOBAL_QUERIES[Math.floor(Math.random() * GLOBAL_QUERIES.length)]
 }
 
@@ -579,7 +616,9 @@ export function getARandomQuery() {
  *
  * @returns the default style for bottom tab bar
  */
-export function getDefaultTabBarStyles(): Animated.WithAnimatedValue<StyleProp<ViewStyle>> {
+export function getDefaultTabBarStyles(): Animated.WithAnimatedValue<
+    StyleProp<ViewStyle>
+> {
     return {
         height: 58,
         position: 'absolute',
@@ -621,5 +660,8 @@ export function isScrollViewReachedCloseToBottom(
     paddingBottom: number = 300,
 ) {
     const {layoutMeasurement, contentOffset, contentSize} = nativeEvent
-    return layoutMeasurement.height + contentOffset.y >= contentSize.height - paddingBottom
+    return (
+        layoutMeasurement.height + contentOffset.y >=
+        contentSize.height - paddingBottom
+    )
 }
