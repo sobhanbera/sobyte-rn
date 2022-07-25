@@ -134,7 +134,13 @@ const SobytePlayerInterface = withMenuContext(
         const getInitialTracksData = useCallback(() => {
             const query = getARandomQuery()
             console.log('Query -', query)
-            search(query, 'SONG', true, MUSIC_PLAYER_SONGS_RESULT_STORAGE_KEY)
+            search(
+                query,
+                'SONG',
+                true,
+                [],
+                MUSIC_PLAYER_SONGS_RESULT_STORAGE_KEY,
+            )
                 .then((result: FetchedSongObject) => {
                     // now save or update this request data to the player data state
                     dispatch(
