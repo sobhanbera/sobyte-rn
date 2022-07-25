@@ -23,6 +23,8 @@ export * from './HeaderExploreScreen'
 export * from './HeaderSearchInput'
 export * from './HeaderTrackPlayer'
 
+export * from './ShimmerListObjectSong'
+
 export * from './SearchGenreListRenderer'
 export * from './SearchHistoryRenderer'
 export * from './SearchSuggestionsRenderer'

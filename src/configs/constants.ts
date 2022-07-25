@@ -89,19 +89,15 @@ export const TRACK_ARTWORK_SCREEN_WIDTH_SMALL_OCCUPICATION = 0.7 // the artwork 
 export const TRACK_ARTWORK_SCREEN_WIDTH_LARGE_OCCUPICATION = 0.9 // the artwork will take 82% of the available screen width
 export const TRACK_DATA_OVERFLOW_HEIGHT = 70
 export const TRACK_ARTWORK_PARENT_VERTICAL_PADDING = 35
-export const TRACK_ARTWORK_WIDTH =
-    SCREEN_WIDTH * TRACK_ARTWORK_SCREEN_WIDTH_OCCUPICATION // track artwork width
+export const TRACK_ARTWORK_WIDTH = SCREEN_WIDTH * TRACK_ARTWORK_SCREEN_WIDTH_OCCUPICATION // track artwork width
 export const TRACK_ARTWORK_HEIGHT = TRACK_ARTWORK_WIDTH // default track artwork height
 
-export const TRACK_ARTWORK_WIDTH_SMALL =
-    SCREEN_WIDTH * TRACK_ARTWORK_SCREEN_WIDTH_SMALL_OCCUPICATION // somewhat small than default track artwork width
+export const TRACK_ARTWORK_WIDTH_SMALL = SCREEN_WIDTH * TRACK_ARTWORK_SCREEN_WIDTH_SMALL_OCCUPICATION // somewhat small than default track artwork width
 
-export const TRACK_ARTWORK_WIDTH_LARGE =
-    SCREEN_WIDTH * TRACK_ARTWORK_SCREEN_WIDTH_LARGE_OCCUPICATION // somewhat larger than default track artwork width
+export const TRACK_ARTWORK_WIDTH_LARGE = SCREEN_WIDTH * TRACK_ARTWORK_SCREEN_WIDTH_LARGE_OCCUPICATION // somewhat larger than default track artwork width
 
 export const TRACK_ARTWORK_SPACING = 10
-export const TRACK_ARTWORK_HORIZONAL_SPACING =
-    (SCREEN_WIDTH - TRACK_ARTWORK_WIDTH) / 2 // divide by 2, since the padding will be on both sides...
+export const TRACK_ARTWORK_HORIZONAL_SPACING = (SCREEN_WIDTH - TRACK_ARTWORK_WIDTH) / 2 // divide by 2, since the padding will be on both sides...
 export const NUMBER_OF_VISIBLE_PLAYER_TRACKS = 2
 export const MAX_DISPLAY_HEIGHT_OF_TRACK_ARTWORK_WRAPPER =
     TRACK_ARTWORK_PARENT_VERTICAL_PADDING + // since vertical padding would be on both side, top & bottom
@@ -114,7 +110,7 @@ export const MAX_DISPLAY_HEIGHT_OF_TRACK_ARTWORK_WRAPPER =
 export const ARTWORK_WIDTH_IN_QUEUE = 60
 export const ARTIST_ARTWORK_WIDTH_SMALL = 50
 
-export const DEFAULT_SONG_LIST_TRACK_ARTWORK_WIDTH = 50 // this is the default width and height of the artwork in song's list
+export const DEFAULT_SONG_LIST_TRACK_ARTWORK_WIDTH = 52 // this is the default width and height of the artwork in song's list
 export const DEFAULT_PLAYLIST_LIST_TRACK_ARTWORK_MIN_WIDTH = SCREEN_WIDTH * 0.41 // this is the default width and height of the artwork in playlist's list 41% of the screen's width
 export const DEFAULT_ARTIST_LIST_TRACK_ARTWORK_MIN_WIDTH = SCREEN_WIDTH * 0.37 // this is the default width and height of the artwork in artist's list 41% of the screen's width
 
@@ -134,6 +130,9 @@ export const EXTRA_LARGE_ICON_SIZE = 45 // extra large icons size
 export const PLAY_PAUSE_ICON_SIZE = 80 // icon size for play/pause button
 
 export const DEFAULT_TOUCHABLE_OPACITY_BUTTON_ACTIVE_OPACITY = 0.75 // default active opacity value of the touchable opacity component
+
+export const DEFAULT_TITLE_WIDTH = SCREEN_WIDTH * 0.65 // the default width of any title text, this is about more than 50% always
+export const DEFAULT_SUB_TITLE_WIDTH = SCREEN_WIDTH * 0.45 // the deafult width of any sub title text, this is 40% to 50%
 
 /**
  * urls related to the personal uscase of application
@@ -203,14 +202,11 @@ export const LOGO_ACTUAL_HEIGHT = 276 // the actual height of the "sobyte_white.
 export const DEFAULT_NAMED_LOGO_DIVISION_RATE = 20 // multiplier/divisor of the size of logo. the same multiplier will be multiplied by both height and width of actual logo
 export const DEFAULT_LOGO_DIVISION_RATE = 10 // multiplier/divisor of the size of logo. the same multiplier will be multiplied by both height and width of actual logo
 
-export const DEFAULT_NAMED_LOGO_WIDTH =
-    NAMED_LOGO_ACTUAL_WIDTH / DEFAULT_NAMED_LOGO_DIVISION_RATE // a small width version of the "named.png" logo image
-export const DEFAULT_NAMED_LOGO_HEIGHT =
-    NAMED_LOGO_ACTUAL_HEIGHT / DEFAULT_NAMED_LOGO_DIVISION_RATE // a small height version of the "named.png" logo image
+export const DEFAULT_NAMED_LOGO_WIDTH = NAMED_LOGO_ACTUAL_WIDTH / DEFAULT_NAMED_LOGO_DIVISION_RATE // a small width version of the "named.png" logo image
+export const DEFAULT_NAMED_LOGO_HEIGHT = NAMED_LOGO_ACTUAL_HEIGHT / DEFAULT_NAMED_LOGO_DIVISION_RATE // a small height version of the "named.png" logo image
 
 export const DEFAULT_LOGO_WIDTH = LOGO_ACTUAL_WIDTH / DEFAULT_LOGO_DIVISION_RATE // a small width version of the "sobyte_white.png" logo image
-export const DEFAULT_LOGO_HEIGHT =
-    LOGO_ACTUAL_HEIGHT / DEFAULT_LOGO_DIVISION_RATE // a small height version of the "sobyte_white.png" logo image
+export const DEFAULT_LOGO_HEIGHT = LOGO_ACTUAL_HEIGHT / DEFAULT_LOGO_DIVISION_RATE // a small height version of the "sobyte_white.png" logo image
 
 // user agent while making api request
 export const MUSIC_API_USER_AGENT =
@@ -230,12 +226,9 @@ export const MUSIC_API_ALT = 'json'
  */
 export const LOCATION_PERMISSION_AUTHORIZATION_STATUS_UNSUPPORTED =
     'LOCATION_PERMISSION_AUTHORIZATION_STATUS_UNSUPPORTED'
-export const MUSIC_ACTIVITY_MASTER_SWITCH_INDETERMINATE =
-    'MUSIC_ACTIVITY_MASTER_SWITCH_INDETERMINATE'
-export const MUSIC_LOCATION_MASTER_SWITCH_INDETERMINATE =
-    'MUSIC_LOCATION_MASTER_SWITCH_INDETERMINATE'
-export const PWA_INSTALLABILITY_STATUS_UNKNOWN =
-    'PWA_INSTALLABILITY_STATUS_UNKNOWN'
+export const MUSIC_ACTIVITY_MASTER_SWITCH_INDETERMINATE = 'MUSIC_ACTIVITY_MASTER_SWITCH_INDETERMINATE'
+export const MUSIC_LOCATION_MASTER_SWITCH_INDETERMINATE = 'MUSIC_LOCATION_MASTER_SWITCH_INDETERMINATE'
+export const PWA_INSTALLABILITY_STATUS_UNKNOWN = 'PWA_INSTALLABILITY_STATUS_UNKNOWN'
 
 export const FALLBACK_ARTIST_NAME = '✔  Sobyte Special' // I noticed many tracks don't have artist's name on them, I don't have time to patch the musicparser currently. but will try in future, for now we can show a fallback string btw.
 
@@ -246,13 +239,11 @@ export const ANIMATION_ITERATION_DELAY = 1000 // a delay between lottie animatio
 export const DEFAULT_LOTTIE_LOGO_ANIMATION_HEIGHT = 40
 
 export const DEFAULT_HEADER_HEIGHT = 55 // the default header's height
-export const ACTUAL_HEADER_HEIGHT =
-    DEVICE_STATUSBAR_HEIGHT + DEFAULT_HEADER_HEIGHT // the height if header including the statusbar's height
+export const ACTUAL_HEADER_HEIGHT = DEVICE_STATUSBAR_HEIGHT + DEFAULT_HEADER_HEIGHT // the height if header including the statusbar's height
 
 export const ANIMATED_HEADER_EXTENDED_HEIGHT = 250 // the extra height to provide after the acutual height for the header of animated type
 
-export const TOTAL_ANIMATED_HEADER_HEIGHT =
-    ACTUAL_HEADER_HEIGHT + ANIMATED_HEADER_EXTENDED_HEIGHT // the is the total header height with animation full component
+export const TOTAL_ANIMATED_HEADER_HEIGHT = ACTUAL_HEADER_HEIGHT + ANIMATED_HEADER_EXTENDED_HEIGHT // the is the total header height with animation full component
 
 export const DEFAULT_SCALE_VALUE_FOR_TOUCHABLE_SCALABLE = 0.98 // the default value of the scaler touchable to scale when hovered
 export const SEARCH_CATEGORY_CARD_HEIGHT = 120
@@ -266,5 +257,4 @@ export const TRACK_URL_MINIMUM_LENGTH = 700 // every track's url is more than 10
 export const DEFAULT_TIME_FORMAT = 'YYYY-MM-DD HH:MM:ss A' // the default string format for datetime
 
 export const ARTIST_ARTWORK_COLOR_UNIQUE_KEY = 'ARTIST_ARTWORK_COLOR_UNIQUE_KEY' // the unique key of caching images color using react-native-image-colors
-export const PLAYLIST_ARTWORK_COLOR_UNIQUE_KEY =
-    'PLAYLIST_ARTWORK_COLOR_UNIQUE_KEY' // the unique key of caching images color for playlists using react-native-image-colors
+export const PLAYLIST_ARTWORK_COLOR_UNIQUE_KEY = 'PLAYLIST_ARTWORK_COLOR_UNIQUE_KEY' // the unique key of caching images color for playlists using react-native-image-colors
