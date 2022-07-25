@@ -34,7 +34,6 @@ export const ListObjectPlaylist = ({
     const playlistTitle = formatTitle(playlistData.title)
     const playlistArtwork = updateArtworkQualityUniversal(
         playlistData.artworks[0],
-        500,
     )
 
     /**

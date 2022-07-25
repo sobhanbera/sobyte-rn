@@ -14,8 +14,17 @@ import FastImage from 'react-native-fast-image'
 
 import {useTheme, useTrackPlayer} from '@/hooks'
 import {SongObject} from '@/schemas'
-import {formatArtistsListFromArray, formatTrackTitle} from '@/utils'
-import {DEFAULT_ICON_SIZE, DEFAULT_SONG_LIST_TRACK_ARTWORK_WIDTH, NEXT_TITLE_COLOR_ALPHA, SCREEN_WIDTH} from '@/configs'
+import {
+    formatArtistsListFromArray,
+    formatTrackTitle,
+    updateArtworkQuality,
+} from '@/utils'
+import {
+    DEFAULT_ICON_SIZE,
+    DEFAULT_SONG_LIST_TRACK_ARTWORK_WIDTH,
+    NEXT_TITLE_COLOR_ALPHA,
+    SCREEN_WIDTH,
+} from '@/configs'
 
 import {SobyteTextView} from './SobyteTextView'
 import {TouchableScalable} from './TouchableScalable'
@@ -28,13 +37,18 @@ export interface ListObjectSongProps {
     // any extra style if there to provide to the image component/artwork image
     artworkStyle?: StyleProp<ImageStyle>
 }
-export const ListObjectSong = ({songData, searchQuery, artworkStyle}: ListObjectSongProps) => {
+export const ListObjectSong = ({
+    songData,
+    searchQuery,
+    artworkStyle,
+}: ListObjectSongProps) => {
     const {theme, fonts, layouts, gutters} = useTheme()
     const {playTrack} = useTrackPlayer()
 
     // data to display in the screen like title,artist and image
     const trackTitle = formatTrackTitle(songData.title)
     const trackArtist = formatArtistsListFromArray(songData.artists)
+    const trackArtwork = updateArtworkQuality(songData.artworks[0])
 
     /**
      * this method is used to play the track from the songs results
@@ -71,9 +85,9 @@ export const ListObjectSong = ({songData, searchQuery, artworkStyle}: ListObject
             ]}>
             <FastImage
                 source={{
-                    uri: songData.artworks[0].url,
+                    uri: trackArtwork,
                     cache: FastImage.cacheControl.immutable,
-                    priority: FastImage.priority.normal,
+                    priority: FastImage.priority.low,
                 }}
                 resizeMode={FastImage.resizeMode.cover}
                 style={[
@@ -86,14 +100,26 @@ export const ListObjectSong = ({songData, searchQuery, artworkStyle}: ListObject
                 ]}
             />
 
-            <View style={[layouts.fill, layouts.justifyContentCenter, gutters.regularPaddingHorizontal]}>
+            <View
+                style={[
+                    layouts.fill,
+                    layouts.justifyContentCenter,
+                    gutters.regularPaddingHorizontal,
+                ]}>
                 <SobyteTextView
-                    style={[fonts.mediumFont, fonts.textRegular, gutters.extraTinyPaddingVertical]}
+                    style={[
+                        fonts.mediumFont,
+                        fonts.textRegular,
+                        gutters.extraTinyPaddingVertical,
+                    ]}
                     numberOfLines={1}>
                     {trackTitle}
                 </SobyteTextView>
 
-                <SobyteTextView style={[gutters.extraTinyPaddingVertical]} subTitle numberOfLines={1}>
+                <SobyteTextView
+                    style={[gutters.extraTinyPaddingVertical]}
+                    subTitle
+                    numberOfLines={1}>
                     {trackArtist}
                 </SobyteTextView>
             </View>
