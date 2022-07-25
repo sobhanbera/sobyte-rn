@@ -9,17 +9,13 @@
  */
 
 import React, {useCallback} from 'react'
-import {View} from 'react-native'
+import {ImageStyle, StyleProp, View} from 'react-native'
 import FastImage from 'react-native-fast-image'
 
 import {useTheme, useTrackPlayer} from '@/hooks'
 import {SongObject} from '@/schemas'
 import {formatArtistsListFromArray, formatTrackTitle} from '@/utils'
-import {
-    DEFAULT_ICON_SIZE,
-    DEFAULT_SONG_LIST_TRACK_ARTWORK_WIDTH,
-    NEXT_TITLE_COLOR_ALPHA,
-} from '@/configs'
+import {DEFAULT_ICON_SIZE, DEFAULT_SONG_LIST_TRACK_ARTWORK_WIDTH, NEXT_TITLE_COLOR_ALPHA, SCREEN_WIDTH} from '@/configs'
 
 import {SobyteTextView} from './SobyteTextView'
 import {TouchableScalable} from './TouchableScalable'
@@ -28,11 +24,11 @@ import {SobyteIcon} from './SobyteIcon'
 export interface ListObjectSongProps {
     songData: SongObject
     searchQuery: string // this is needed description to play any song
+
+    // any extra style if there to provide to the image component/artwork image
+    artworkStyle?: StyleProp<ImageStyle>
 }
-export const ListObjectSong = ({
-    songData,
-    searchQuery,
-}: ListObjectSongProps) => {
+export const ListObjectSong = ({songData, searchQuery, artworkStyle}: ListObjectSongProps) => {
     const {theme, fonts, layouts, gutters} = useTheme()
     const {playTrack} = useTrackPlayer()
 
@@ -62,6 +58,7 @@ export const ListObjectSong = ({
 
     return (
         <TouchableScalable
+            containerStyle={{width: SCREEN_WIDTH}}
             onPress={playThisTrack}
             style={[
                 layouts.row,
@@ -79,33 +76,24 @@ export const ListObjectSong = ({
                     priority: FastImage.priority.normal,
                 }}
                 resizeMode={FastImage.resizeMode.cover}
-                style={{
-                    borderRadius: 2,
-                    width: DEFAULT_SONG_LIST_TRACK_ARTWORK_WIDTH,
-                    height: DEFAULT_SONG_LIST_TRACK_ARTWORK_WIDTH,
-                }}
+                style={[
+                    {
+                        borderRadius: 2,
+                        width: DEFAULT_SONG_LIST_TRACK_ARTWORK_WIDTH,
+                        height: DEFAULT_SONG_LIST_TRACK_ARTWORK_WIDTH,
+                    },
+                    artworkStyle,
+                ]}
             />
 
-            <View
-                style={[
-                    layouts.fill,
-                    layouts.justifyContentCenter,
-                    gutters.regularPaddingHorizontal,
-                ]}>
+            <View style={[layouts.fill, layouts.justifyContentCenter, gutters.regularPaddingHorizontal]}>
                 <SobyteTextView
-                    style={[
-                        fonts.mediumFont,
-                        fonts.textRegular,
-                        gutters.extraTinyPaddingVertical,
-                    ]}
+                    style={[fonts.mediumFont, fonts.textRegular, gutters.extraTinyPaddingVertical]}
                     numberOfLines={1}>
                     {trackTitle}
                 </SobyteTextView>
 
-                <SobyteTextView
-                    style={[gutters.extraTinyPaddingVertical]}
-                    subTitle
-                    numberOfLines={1}>
+                <SobyteTextView style={[gutters.extraTinyPaddingVertical]} subTitle numberOfLines={1}>
                     {trackArtist}
                 </SobyteTextView>
             </View>
