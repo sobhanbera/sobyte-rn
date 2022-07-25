@@ -567,3 +567,34 @@ export const ExtraMusicTypesList: Array<GenreData> = [
         searchQuery: '',
     },
 ]
+
+/**
+ * this is a nothing array containing nothing
+ * this array could be used when there is to render nothing
+ * got it? fine!
+ *
+ * ok let's be serious, this array will be used when there is a need to render shimmer
+ * and there are not sufficient number of components to render on temporary basis
+ */
+export const NothingArray: Array<{id: string}> = [
+    {id: '15_15_1'},
+    {id: '190_95_2'},
+    {id: '96_32_3'},
+    {id: '224_56_4'},
+    {id: '295_59_5'},
+    {id: '366_61_6'},
+    {id: '644_92_7'},
+    {id: '568_71_8'},
+    {id: '729_81_9'},
+    {id: '660_66_10'},
+    {id: '187_17_11'},
+    {id: '1080_90_12'},
+    {id: '234_18_13'},
+    {id: '1036_74_14'},
+    {id: '525_35_15'},
+    {id: '1488_93_16'},
+    {id: '51_3_17'},
+    {id: '180_10_18'},
+    {id: '209_11_19'},
+    {id: '300_15_20'},
+]
