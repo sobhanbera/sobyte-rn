@@ -22,10 +22,12 @@ import {
 } from '@/configs'
 import {ShimmerListObjectSong} from './ShimmerListObjectSong'
 
-interface TrackChunksRendererProps {
+interface QueryTrackChunksRendererProps {
     searchQuery: string
 }
-export function TrackChunksRenderer({searchQuery}: TrackChunksRendererProps) {
+export function QueryTrackChunksRenderer({
+    searchQuery,
+}: QueryTrackChunksRendererProps) {
     const {search} = useMusic()
 
     const [trackChunks, setTrackChunks] = useState<Array<Array<SongObject>>>([])

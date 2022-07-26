@@ -15,7 +15,7 @@ export * from './BottomPaddingComponent'
 export * from './BottomTabBarButton'
 export * from './BottomTabBarPlayerButton'
 
-export * from './TrackChunksRenderer'
+export * from './QueryTrackChunksRenderer'
 
 export * from './HeaderAnimated'
 export * from './HeaderCommon'

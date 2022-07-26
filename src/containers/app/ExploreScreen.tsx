@@ -12,9 +12,14 @@ import React from 'react'
 import {ScrollView, View} from 'react-native'
 import {NavigationHelpers} from '@react-navigation/native'
 
-import {TrackChunksRenderer, HeaderExploreScreen} from '@/components'
+import {
+    QueryTrackChunksRenderer,
+    HeaderExploreScreen,
+    BottomPaddingComponent,
+    TitleTextIcon,
+} from '@/components'
 import {useTheme} from '@/hooks'
-import {ROOT_BOTTOM_BAR_SEARCH_SCREEN_STACK} from '@/configs'
+import {ROOT_BOTTOM_BAR_SEARCH_SCREEN_STACK, SCREEN_HEIGHT} from '@/configs'
 import LinearGradient from 'react-native-linear-gradient'
 
 export interface ExploreScreenProps {
@@ -49,12 +54,24 @@ export function ExploreScreen({navigation}: ExploreScreenProps) {
                         theme.background,
                     ]}
                     useAngle
-                    angle={135}>
+                    angle={180}
+                    style={
+                        {
+                            // minHeight: SCREEN_HEIGHT * 5, // this is the minimum height of this screen
+                        }
+                    }>
                     <HeaderExploreScreen
                         onPressSearch={changeNavigationToSearchTab}
                     />
 
-                    <TrackChunksRenderer searchQuery="today's romantic songs" />
+                    {/* today's hits */}
+                    <TitleTextIcon>Today's Selection</TitleTextIcon>
+                    <QueryTrackChunksRenderer searchQuery="Hindi romantic songs" />
+
+                    {/* some artists list so render in this screen */}
+                    <TitleTextIcon>Artists you may like</TitleTextIcon>
+
+                    <BottomPaddingComponent />
                 </LinearGradient>
             </ScrollView>
         </View>
