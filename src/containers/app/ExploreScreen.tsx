@@ -93,7 +93,7 @@ export function ExploreScreen({navigation}: ExploreScreenProps) {
                         searchQuery={'Top bollywood singers'}
                     />
 
-                    <BottomPaddingComponent />
+                    <BottomPaddingComponent padding={65} />
                 </LinearGradient>
             </ScrollView>
         </View>
