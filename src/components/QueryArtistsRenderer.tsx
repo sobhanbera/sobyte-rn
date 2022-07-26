@@ -29,11 +29,6 @@ export function QueryArtistRenderer({searchQueries}: QueryArtistRendererProps) {
      */
     useEffect(() => {
         if (searchQueries) {
-            // search(searchQuery, 'ARTIST')
-            //     .then((res: FetchedData<ArtistObject>) => {
-            //         setArtists(res.content)
-            //     })
-            //     .catch(_ERR => {})
             Promise.all(
                 searchQueries.map(searchQuery =>
                     search(searchQuery, 'ARTIST', true),
@@ -61,8 +56,6 @@ export function QueryArtistRenderer({searchQueries}: QueryArtistRendererProps) {
 
                             return true
                         }
-
-                        console.log(artistData.title)
 
                         // the data is already here in the array and the current one is a duplicate
                         return false
