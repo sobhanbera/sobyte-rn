@@ -12,7 +12,7 @@ import axios from 'axios'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import RNLocalize from 'react-native-localize' // to pass the location of user in the api call
 import querystring from 'querystring' // string methods
-import _ from 'lodash' // util methods
+import Lodash from 'lodash' // util methods
 import NetInfo from '@react-native-community/netinfo'
 
 import {
@@ -716,7 +716,7 @@ export function useMusic() {
                     // let parse:Date = new Date()
                     let parsedData: any = {}
                     try {
-                        switch (_.upperCase(dataType)) {
+                        switch (Lodash.upperCase(dataType)) {
                             case 'SONG':
                                 parsedData =
                                     MusicParser.parseSongSearchResult(context)
@@ -765,7 +765,7 @@ export function useMusic() {
      * @returns the object with album data
      */
     const getAlbum = (browseId: string) => {
-        if (_.startsWith(browseId, 'MPREb')) {
+        if (Lodash.startsWith(browseId, 'MPREb')) {
             // return new Promise((resolve, reject) => {
             //     _createApiRequest(
             //         PRIMARY_MUSIC_API_ENDPOINTS.browse,
@@ -798,8 +798,12 @@ export function useMusic() {
         contentLimit = 200,
     ): Promise<any> => {
         return new Promise((resolve, reject) => {
-            if (_.startsWith(browseId, 'VL') || _.startsWith(browseId, 'PL')) {
-                _.startsWith(browseId, 'PL') && (browseId = 'VL' + browseId)
+            if (
+                Lodash.startsWith(browseId, 'VL') ||
+                Lodash.startsWith(browseId, 'PL')
+            ) {
+                Lodash.startsWith(browseId, 'PL') &&
+                    (browseId = 'VL' + browseId)
 
                 _createApiRequest(
                     PRIMARY_MUSIC_API_ENDPOINTS.browse,
@@ -835,7 +839,7 @@ export function useMusic() {
                                                 continuationResult.content,
                                             )
                                         ) {
-                                            result.content = _.concat(
+                                            result.content = Lodash.concat(
                                                 result.content,
                                                 continuationResult.content,
                                             )
@@ -899,7 +903,7 @@ export function useMusic() {
         browseId: string,
         saveToLocalStorage?: boolean,
     ): Promise<ArtistDetailsObject> => {
-        if (_.startsWith(browseId, 'UC')) {
+        if (Lodash.startsWith(browseId, 'UC')) {
             return new Promise(async (resolve, reject) => {
                 /**
                  * since we are first checking if the data is in local storage so this var is needed
