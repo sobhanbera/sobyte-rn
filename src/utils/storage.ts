@@ -11,6 +11,33 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 import {SearchOptions} from '@/schemas'
+import {
+    SEARCHED_ARTIST_OFFLINE_DATA_STORAGE_KEY,
+    SEARCHED_PLAYLIST_OFFLINE_DATA_STORAGE_KEY,
+    SEARCHED_SONG_OFFLINE_DATA_STORAGE_KEY,
+} from '@/configs'
+
+/**
+ * this method returns a string which denotes where to save differen kinds of search data in the app's
+ * local storage
+ *
+ * @param searchCategory the type of category to search for
+ * @returns a string based on what type of search location to save the searched data
+ */
+export function getLocationKeyForSavingSearchData(
+    searchCategory: SearchOptions,
+) {
+    switch (searchCategory) {
+        case 'ARTIST':
+            return SEARCHED_ARTIST_OFFLINE_DATA_STORAGE_KEY
+        case 'PLAYLIST':
+            return SEARCHED_PLAYLIST_OFFLINE_DATA_STORAGE_KEY
+        case 'SONG':
+            return SEARCHED_SONG_OFFLINE_DATA_STORAGE_KEY
+        default:
+            return ''
+    }
+}
 
 /**
  * saves some string to the local storage directory given some parameters depending on the data type
