@@ -19,8 +19,9 @@ import {
     TitleTextIcon,
 } from '@/components'
 import {useTheme} from '@/hooks'
-import {ROOT_BOTTOM_BAR_SEARCH_SCREEN_STACK, SCREEN_HEIGHT} from '@/configs'
+import {ROOT_BOTTOM_BAR_SEARCH_SCREEN_STACK} from '@/configs'
 import LinearGradient from 'react-native-linear-gradient'
+import {QueryArtistRenderer} from '@/components'
 
 export interface ExploreScreenProps {
     navigation: NavigationHelpers<any>
@@ -70,6 +71,13 @@ export function ExploreScreen({navigation}: ExploreScreenProps) {
 
                     {/* some artists list so render in this screen */}
                     <TitleTextIcon>Artists you may like</TitleTextIcon>
+                    <QueryArtistRenderer
+                        searchQueries={[
+                            'Top bollywood singers',
+                            'hindi romantic artist',
+                            'Top bollywood singers',
+                        ]}
+                    />
 
                     <BottomPaddingComponent />
                 </LinearGradient>

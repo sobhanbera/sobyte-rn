@@ -15,6 +15,7 @@ export * from './BottomPaddingComponent'
 export * from './BottomTabBarButton'
 export * from './BottomTabBarPlayerButton'
 
+export * from './QueryArtistsRenderer'
 export * from './QueryTrackChunksRenderer'
 
 export * from './HeaderAnimated'
