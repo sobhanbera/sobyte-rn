@@ -25,7 +25,7 @@ export const ShimmerListCardArtist = ({}: ShimmerListCardArtistProps) => {
 
     return (
         <View style={[layouts.center]}>
-            <View style={[gutters.smallPadding, layouts.center]}>
+            <View style={[gutters.smallPaddingHorizontal, layouts.center]}>
                 <Skeleton
                     animation="wave"
                     circle={true}

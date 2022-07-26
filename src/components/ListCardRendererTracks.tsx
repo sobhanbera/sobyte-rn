@@ -32,6 +32,7 @@ export const ListCardRendererTracks = ({
         <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false}
+            style={[gutters.smallPaddingBottom]} // to provide some space between datas
             contentContainerStyle={[gutters.tinyPaddingHorizontal]} // since every child component has some horizontal padding, so to make it even on both side. this is the style for that
         >
             {/* if the track list is empty, then show shimmer */}

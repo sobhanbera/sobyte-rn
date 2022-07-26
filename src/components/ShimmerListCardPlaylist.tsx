@@ -24,8 +24,8 @@ export const ShimmerListCardPlaylist = ({}: ShimmerListCardPlaylistProps) => {
     const {layouts, gutters} = useTheme()
 
     return (
-        <View style={[layouts.center, gutters.tinyPaddingVertical]}>
-            <View style={[gutters.smallPadding]}>
+        <View style={[layouts.center]}>
+            <View style={[gutters.smallPaddingHorizontal]}>
                 <Skeleton
                     animation="wave"
                     circle={false}

@@ -49,7 +49,7 @@ export const ListCardArtist = ({artistData, onPress}: ListCardArtistProps) => {
         <View style={[layouts.center]}>
             <TouchableScalable
                 onPress={onPress}
-                style={[gutters.smallPadding, layouts.center]}>
+                style={[gutters.smallPaddingHorizontal, layouts.center]}>
                 <FastImage
                     source={{
                         uri: artistData.artworks[1].url,

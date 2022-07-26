@@ -32,7 +32,7 @@ export const ListCardRendererArtists = ({
         <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false}
-            style={[gutters.extraTinyPaddingVertical]}
+            style={[gutters.smallPaddingBottom]} // to provide some space between datas
             contentContainerStyle={[gutters.smallPaddingHorizontal]} // since every child component has some horizontal padding, so to make it even on both side. this is the style for that
         >
             {/* if the artist list is empty, then show shimmer */}

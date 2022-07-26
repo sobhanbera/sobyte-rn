@@ -49,10 +49,10 @@ export const ListCardPlaylist = ({
     if (playlistData.artworks.length < 1 || !playlistArtwork) return null
 
     return (
-        <View style={[layouts.center, gutters.tinyPaddingVertical]}>
+        <View style={[layouts.center]}>
             <TouchableScalable
                 onPress={onPressPlaylist}
-                style={[gutters.smallPadding]}>
+                style={[gutters.smallPaddingHorizontal]}>
                 <FastImage
                     source={{
                         uri: playlistData.artworks[0].url,
