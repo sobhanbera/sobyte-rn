@@ -11,6 +11,7 @@
 import React from 'react'
 import {ScrollView, View} from 'react-native'
 import {NavigationHelpers} from '@react-navigation/native'
+import LinearGradient from 'react-native-linear-gradient'
 
 import {
     QueryTrackChunksRenderer,
@@ -19,10 +20,10 @@ import {
     TitleTextIcon,
     QueryPlaylistsRenderer,
     QueryArtistRenderer,
+    QueryTracksRenderer,
 } from '@/components'
 import {useTheme} from '@/hooks'
 import {ROOT_BOTTOM_BAR_SEARCH_SCREEN_STACK} from '@/configs'
-import LinearGradient from 'react-native-linear-gradient'
 
 export interface ExploreScreenProps {
     navigation: NavigationHelpers<any>
@@ -83,6 +84,12 @@ export function ExploreScreen({navigation}: ExploreScreenProps) {
                     {/* some artists list so render in this screen */}
                     <TitleTextIcon>Some playlists</TitleTextIcon>
                     <QueryPlaylistsRenderer
+                        searchQuery={'Top bollywood singers'}
+                    />
+
+                    {/* some artists list so render in this screen */}
+                    <TitleTextIcon>Some Tracks</TitleTextIcon>
+                    <QueryTracksRenderer
                         searchQuery={'Top bollywood singers'}
                     />
 
