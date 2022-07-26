@@ -17,11 +17,12 @@ import {
     HeaderExploreScreen,
     BottomPaddingComponent,
     TitleTextIcon,
+    QueryPlaylistsRenderer,
+    QueryArtistRenderer,
 } from '@/components'
 import {useTheme} from '@/hooks'
 import {ROOT_BOTTOM_BAR_SEARCH_SCREEN_STACK} from '@/configs'
 import LinearGradient from 'react-native-linear-gradient'
-import {QueryArtistRenderer} from '@/components'
 
 export interface ExploreScreenProps {
     navigation: NavigationHelpers<any>
@@ -77,6 +78,12 @@ export function ExploreScreen({navigation}: ExploreScreenProps) {
                             'hindi romantic artist',
                             'Top bollywood singers',
                         ]}
+                    />
+
+                    {/* some artists list so render in this screen */}
+                    <TitleTextIcon>Some playlists</TitleTextIcon>
+                    <QueryPlaylistsRenderer
+                        searchQuery={'Top bollywood singers'}
                     />
 
                     <BottomPaddingComponent />
