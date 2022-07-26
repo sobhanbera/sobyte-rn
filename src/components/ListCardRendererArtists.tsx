@@ -15,6 +15,8 @@ import {ArtistObject} from '@/schemas'
 import {useTheme} from '@/hooks'
 
 import {ListCardArtist} from './ListCardArtist'
+import {NothingArray} from '@/configs'
+import {ShimmerListCardArtist} from './ShimmerListCardArtist'
 
 export interface ListCardRendererArtistsProps {
     artistList: Array<ArtistObject>
@@ -33,15 +35,20 @@ export const ListCardRendererArtists = ({
             style={[gutters.extraTinyPaddingVertical]}
             contentContainerStyle={[gutters.smallPaddingHorizontal]} // since every child component has some horizontal padding, so to make it even on both side. this is the style for that
         >
-            {artistList.map((artist, index) => {
-                return (
-                    <ListCardArtist
-                        onPress={() => onPressArtistCard(artist)}
-                        artistData={artist}
-                        key={`${artist.browseId}${index}`}
-                    />
-                )
-            })}
+            {/* if the artist list is empty, then show shimmer */}
+            {artistList.length > 0
+                ? artistList.map((artist, index) => {
+                      return (
+                          <ListCardArtist
+                              onPress={() => onPressArtistCard(artist)}
+                              artistData={artist}
+                              key={`${artist.browseId}${index}`}
+                          />
+                      )
+                  })
+                : NothingArray.map(nothingShimmer => {
+                      return <ShimmerListCardArtist key={nothingShimmer.id} />
+                  })}
         </ScrollView>
     )
 }

@@ -25,6 +25,7 @@ export * from './HeaderSearchInput'
 export * from './HeaderTrackPlayer'
 
 export * from './ShimmerListObjectSong'
+export * from './ShimmerListCardArtist'
 
 export * from './SearchGenreListRenderer'
 export * from './SearchHistoryRenderer'
