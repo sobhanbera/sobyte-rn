@@ -20,11 +20,11 @@ import {ShimmerListCardTrack} from './ShimmerListCardTrack'
 
 export interface ListCardRendererTracksProps {
     tracksList: Array<SongObject>
-    onPressTrackCard(trackData: SongObject): void
+    searchQuery: string
 }
 export const ListCardRendererTracks = ({
     tracksList,
-    onPressTrackCard,
+    searchQuery,
 }: ListCardRendererTracksProps) => {
     const {gutters} = useTheme()
 
@@ -40,8 +40,8 @@ export const ListCardRendererTracks = ({
                 ? tracksList.map((track, index) => {
                       return (
                           <ListCardTrack
+                              searchQuery={searchQuery}
                               trackData={track}
-                              onPressTrack={() => onPressTrackCard(track)}
                               key={`${track.musicId}-${index}`}
                           />
                       )

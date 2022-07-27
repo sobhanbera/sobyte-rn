@@ -13,7 +13,7 @@ import {ImageStyle, StyleProp, View} from 'react-native'
 import FastImage from 'react-native-fast-image'
 
 import {useTheme, useTrackPlayer} from '@/hooks'
-import {SongObject} from '@/schemas'
+import {ScreenContext, SongObject} from '@/schemas'
 import {
     formatArtistsListFromArray,
     formatTrackTitle,
@@ -36,11 +36,16 @@ export interface ListObjectSongProps {
 
     // any extra style if there to provide to the image component/artwork image
     artworkStyle?: StyleProp<ImageStyle>
+
+    screenContext?: ScreenContext // in which screen this song is rendered
 }
 export const ListObjectSong = ({
     songData,
     searchQuery,
     artworkStyle,
+
+    // default value is search
+    screenContext = 'search',
 }: ListObjectSongProps) => {
     const {theme, fonts, layouts, gutters} = useTheme()
     const {playTrack} = useTrackPlayer()
@@ -56,7 +61,7 @@ export const ListObjectSong = ({
      */
     const playThisTrack = useCallback(() => {
         playTrack(songData, {
-            context: 'search',
+            context: screenContext || 'search',
             query: searchQuery,
         })
     }, [searchQuery])

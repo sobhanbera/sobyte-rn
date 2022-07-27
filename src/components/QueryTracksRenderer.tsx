@@ -39,9 +39,6 @@ export function QueryTracksRenderer({searchQuery}: QueryTracksRendererProps) {
     }, [])
 
     return (
-        <ListCardRendererTracks
-            tracksList={track}
-            onPressTrackCard={() => {}}
-        />
+        <ListCardRendererTracks tracksList={track} searchQuery={searchQuery} />
     )
 }

@@ -17,7 +17,12 @@ export type SearchOptions = 'SONG' | 'ARTIST' | 'PLAYLIST' //| 'VIDEO'
 /**
  * all the endpoints we are supporting right now
  */
-type PrimaryMusicApiEndpointsOptions = 'search' | 'music/get_search_suggestions' | 'browse' | 'player' | 'next'
+type PrimaryMusicApiEndpointsOptions =
+    | 'search'
+    | 'music/get_search_suggestions'
+    | 'browse'
+    | 'player'
+    | 'next'
 
 export interface MusicFormats {
     formats: Array<{
@@ -339,8 +344,9 @@ export type FetchedData<DataObject> = {
  * this query will be executed again to get the rest of songs
  * which will be pushed after the song which is being played/changed
  */
+export type ScreenContext = 'player' | 'explore' | 'search' | 'other' | '' // reference denoting a screen tag
 export interface TrackDescription {
-    context: 'player' | 'explore' | 'search' | 'other' | ''
+    context: ScreenContext
     trackData?: SongObject
     query: string
 }

@@ -8,10 +8,10 @@
  * Purpose - the track card component, mainly for explore screen
  */
 
-import React from 'react'
+import React, {useCallback} from 'react'
 import FastImage from 'react-native-fast-image'
 
-import {useTheme} from '@/hooks'
+import {useTheme, useTrackPlayer} from '@/hooks'
 import {SongObject} from '@/schemas'
 import {
     formatArtistsListFromArray,
@@ -26,18 +26,27 @@ import {View} from 'react-native'
 
 export interface ListCardTrackProps {
     trackData: SongObject
-    onPressTrack: () => void
+    searchQuery: string // this is needed description to play any song
 }
-export const ListCardTrack = ({
-    trackData,
-    onPressTrack,
-}: ListCardTrackProps) => {
+export const ListCardTrack = ({trackData, searchQuery}: ListCardTrackProps) => {
     const {fonts, layouts, gutters} = useTheme()
+    const {playTrack} = useTrackPlayer()
 
     // data to display in the screen like title and image and artist's data
     const trackTitle = formatTitle(trackData.title)
     const trackArtist = formatArtistsListFromArray(trackData.artists)
     const trackArtwork = updateArtworkQuality(trackData.artworks[0])
+
+    /**
+     * this method is used to play the track from the songs card data provided from props
+     * this method is also capable to provide all the metadata while playing the song
+     */
+    const playThisTrack = useCallback(() => {
+        playTrack(trackData, {
+            context: 'explore',
+            query: searchQuery,
+        })
+    }, [searchQuery])
 
     return (
         <View
@@ -46,7 +55,7 @@ export const ListCardTrack = ({
                 {justifyContent: 'flex-start'}, // to get all the artwork images in a perfect row
             ]}>
             <TouchableScalable
-                onPress={onPressTrack}
+                onPress={playThisTrack}
                 style={[gutters.smallPaddingHorizontal]}>
                 <FastImage
                     source={{

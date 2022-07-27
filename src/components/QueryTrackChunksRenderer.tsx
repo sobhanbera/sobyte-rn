@@ -74,6 +74,7 @@ export function QueryTrackChunksRenderer({
                                 key={`${track.musicId}-${index}`}
                                 songData={track}
                                 searchQuery={searchQuery}
+                                screenContext={'explore'}
                                 artworkStyle={{
                                     width:
                                         DEFAULT_SONG_LIST_TRACK_ARTWORK_WIDTH +
