@@ -30,6 +30,7 @@ export * from './SobyteTextInput'
 export * from './SobyteAnimatedTextView'
 export * from './SobyteTextView'
 
+export * from './QueryDataRenderer'
 export * from './QueryArtistsRenderer'
 export * from './QueryTrackChunksRenderer'
 export * from './QueryPlaylistsRenderer'
