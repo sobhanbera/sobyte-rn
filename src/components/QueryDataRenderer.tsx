@@ -59,11 +59,12 @@ export interface QueryDataRendererProps {
      * these are the combined props needed for all
      * kinds of the data content in the list renderer
      */
-    combinedProps?:
-        | QueryTracksRendererProps
-        | QueryTrackChunksRendererProps
-        | QueryArtistRendererProps
-        | QueryPlaylistsRendererProps
+    combinedProps?: Partial<
+        QueryTracksRendererProps &
+            QueryTrackChunksRendererProps &
+            QueryArtistRendererProps &
+            QueryPlaylistsRendererProps
+    >
 }
 export function QueryDataRenderer({
     title,
