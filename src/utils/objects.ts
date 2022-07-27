@@ -60,7 +60,7 @@ export function updateArtworkQuality(
     wantedSize: number = DEFAULT_MEDIUM_ARTWORK_SIZE,
     wantedQuality: number = DEFAULT_PLAYER_ARTWORK_QUALITY,
 ): string {
-    if (!artwork.height)
+    if (!artwork?.height)
         console.log(artwork, 'ARTWORK NOT FOUND in updateArtworkQuality')
 
     // demo url - https://lh3.googleusercontent.com/WP7l4p-2WhWzLM6lXJ0n2gXLK6u07eCejpybWzb-yhEyt9Y0aOkxMlLhpayO7PdXYOYy2NgkWu9hGBPy=w60-h60-l90-rj
@@ -134,7 +134,7 @@ export function updateArtworkQualityUniversal(
 
     wantedQuality: number = DEFAULT_PLAYER_ARTWORK_QUALITY,
 ): string {
-    if (!artwork.height)
+    if (!artwork?.height)
         console.log(
             artwork,
             'ARTWORK NOT FOUND in updateArtworkQualityUniversal',
