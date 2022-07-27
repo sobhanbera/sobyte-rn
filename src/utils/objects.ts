@@ -60,11 +60,15 @@ export function updateArtworkQuality(
     wantedSize: number = DEFAULT_MEDIUM_ARTWORK_SIZE,
     wantedQuality: number = DEFAULT_PLAYER_ARTWORK_QUALITY,
 ): string {
+    if (!artwork.height)
+        console.log(artwork, 'ARTWORK NOT FOUND in updateArtworkQuality')
+
     // demo url - https://lh3.googleusercontent.com/WP7l4p-2WhWzLM6lXJ0n2gXLK6u07eCejpybWzb-yhEyt9Y0aOkxMlLhpayO7PdXYOYy2NgkWu9hGBPy=w60-h60-l90-rj
     // demo url - https://lh3.googleusercontent.com/WP7l4p-2WhWzLM6lXJ0n2gXLK6u07eCejpybWzb-yhEyt9Y0aOkxMlLhpayO7PdXYOYy2NgkWu9hGBPy=w60-s-h60-l90-rj
     // demo url - https://lh3.googleusercontent.com/WP7l4p-2WhWzLM6lXJ0n2gXLK6u07eCejpybWzb-yhEyt9Y0aOkxMlLhpayO7PdXYOYy2NgkWu9hGBPy=w60-p-h60-l90-rj
     // demo url - https://lh3.googleusercontent.com/WP7l4p-2WhWzLM6lXJ0n2gXLK6u07eCejpybWzb-yhEyt9Y0aOkxMlLhpayO7PdXYOYy2NgkWu9hGBPy=w60-r-h60-l90-rj
     // here size is 60
+
     const {height, url} = artwork
 
     if (artwork.url.match(ARTWORK_HEIGHT_WIDTH_PART_WITH_SIZE)) {
@@ -130,11 +134,18 @@ export function updateArtworkQualityUniversal(
 
     wantedQuality: number = DEFAULT_PLAYER_ARTWORK_QUALITY,
 ): string {
+    if (!artwork.height)
+        console.log(
+            artwork,
+            'ARTWORK NOT FOUND in updateArtworkQualityUniversal',
+        )
+
     // demo url - https://lh3.googleusercontent.com/WP7l4p-2WhWzLM6lXJ0n2gXLK6u07eCejpybWzb-yhEyt9Y0aOkxMlLhpayO7PdXYOYy2NgkWu9hGBPy=w60-h60-l90-rj
     // demo url - https://lh3.googleusercontent.com/WP7l4p-2WhWzLM6lXJ0n2gXLK6u07eCejpybWzb-yhEyt9Y0aOkxMlLhpayO7PdXYOYy2NgkWu9hGBPy=w60-s-h60-l90-rj
     // demo url - https://lh3.googleusercontent.com/WP7l4p-2WhWzLM6lXJ0n2gXLK6u07eCejpybWzb-yhEyt9Y0aOkxMlLhpayO7PdXYOYy2NgkWu9hGBPy=w60-p-h60-l90-rj
     // demo url - https://lh3.googleusercontent.com/WP7l4p-2WhWzLM6lXJ0n2gXLK6u07eCejpybWzb-yhEyt9Y0aOkxMlLhpayO7PdXYOYy2NgkWu9hGBPy=w60-r-h60-l90-rj
     // here size is 60
+
     const {height, width, url} = artwork
 
     if (artwork.url.match(ARTWORK_HEIGHT_WIDTH_PART_WITH_SIZE)) {
