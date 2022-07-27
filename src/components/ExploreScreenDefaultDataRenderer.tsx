@@ -35,12 +35,16 @@ export function ExploreScreenDefaultDataRenderer({}: ExploreScreenDefaultDataRen
         axios
             .get(EXPLORE_SCREEN_DATA_GITHUB_FILE_URL)
             .then((data: AxiosResponse<ExploreScreenDataResponse>) => {
-                console.log(data)
-                // setContents(data.)
+                const exploreScreenContent = JSON.parse(
+                    JSON.stringify(data.data),
+                )
+                setContents(exploreScreenContent)
+
                 // remove loading when the data is fetched
                 setLoading(false)
             })
             .catch(_ERR => {
+                console.log('ERROR IN EXPLOER', _ERR)
                 setContents(ExploreScreenDefaultFallbackData) // saving fallback data when any error occurs
 
                 // remove loading when the data is from fallback and fetching process is ended with error
