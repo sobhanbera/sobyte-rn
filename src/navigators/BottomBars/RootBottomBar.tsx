@@ -53,6 +53,9 @@ export function RootBottomBarNavigator() {
                         config: {},
                     },
                 },
+
+                // loads up all the needed data at render
+                lazy: true,
             }}
             backBehavior="history"
             initialRouteName={ROOT_BOTTOM_BAR_TRACK_PLAYER_SCREEN_STACK}>
