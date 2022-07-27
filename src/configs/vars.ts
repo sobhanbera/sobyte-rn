@@ -597,4 +597,4 @@ export const NothingArray: Array<{id: string}> = [
     {id: '180_10_18'},
     {id: '209_11_19'},
     {id: '300_15_20'},
-]
+].slice(0, 3)
