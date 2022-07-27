@@ -10,3 +10,4 @@
 
 export * from './data'
 export * from './music'
+export * from './response'
