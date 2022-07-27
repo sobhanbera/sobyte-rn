@@ -119,6 +119,8 @@ export const DEFAULT_SONG_LIST_TRACK_ARTWORK_MIN_WIDTH = SCREEN_WIDTH * 0.39 // 
 export const DEFAULT_PLAYLIST_LIST_TRACK_ARTWORK_MIN_WIDTH = SCREEN_WIDTH * 0.37 // this is the default width and height of the artwork in playlist's list 37% of the screen's width
 export const DEFAULT_ARTIST_LIST_TRACK_ARTWORK_MIN_WIDTH = SCREEN_WIDTH * 0.35 // this is the default width and height of the artwork in artist's list 35% of the screen's width
 
+export const TRACKS_PER_COLUMN_IN_CHUNKS = 3 // number of tracks per column in track chunks component flatlist
+
 export const LAST_TRACKS_REMAIN_TO_LOAD_MORE_TRACK = 1
 
 export const NEXT_TITLE_COLOR_ALPHA = 'B0' // the alpha value of text next to title

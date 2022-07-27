@@ -5,7 +5,7 @@
  * @other_editors :
  * @file : TypescriptReact
  *
- * Purpose - component to render tracks horizontally in fashion of 3 per column.
+ * Purpose - component to render tracks horizontally in fashion of TRACKS_PER_COLUMN_IN_CHUNKS per column.
  */
 
 import React, {useCallback, useEffect, useState} from 'react'
@@ -19,14 +19,17 @@ import {
     DEFAULT_SONG_LIST_TRACK_ARTWORK_WIDTH,
     NothingArray,
     SCREEN_WIDTH,
+    TRACKS_PER_COLUMN_IN_CHUNKS,
 } from '@/configs'
 import {ShimmerListObjectSong} from './ShimmerListObjectSong'
 
 export interface QueryTrackChunksRendererProps {
     searchQuery: string
+    tracksPerColumn?: number
 }
 export function QueryTrackChunksRenderer({
     searchQuery,
+    tracksPerColumn = TRACKS_PER_COLUMN_IN_CHUNKS,
 }: QueryTrackChunksRendererProps) {
     const {search} = useMusic()
 
@@ -42,15 +45,15 @@ export function QueryTrackChunksRenderer({
         if (searchQuery) {
             search(searchQuery, 'SONG', true)
                 .then((res: FetchedSongObject) => {
-                    setTrackChunks(Lodash.chunk(res.content, 3))
+                    setTrackChunks(Lodash.chunk(res.content, tracksPerColumn))
                 })
                 .catch(_ERR => {})
         }
-    }, [])
+    }, [tracksPerColumn, searchQuery])
 
     /**
      * responsible for rendering the chunk of some tracks
-     * renders a list of maximum of 3 components which are nested array objects
+     * renders a list of maximum of TRACKS_PER_COLUMN_IN_CHUNKS components which are nested array objects
      */
     const renderTrackChunkItem = useCallback(
         (itemDetails: ListRenderItemInfo<Array<SongObject>>) => {
@@ -131,7 +134,7 @@ export function QueryTrackChunksRenderer({
         />
     ) : (
         <FlatList
-            data={Lodash.chunk(NothingArray, 3)} // data formatting
+            data={Lodash.chunk(NothingArray, tracksPerColumn)} // data formatting
             renderItem={renderShimmerTrackChunkItem}
             horizontal
             showsHorizontalScrollIndicator={false}
