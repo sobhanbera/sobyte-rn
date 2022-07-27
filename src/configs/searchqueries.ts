@@ -331,7 +331,7 @@ export const GLOBAL_QUERIES: string[] = [
 ]
 
 export const EXTRA__DEV__SPECIFIC_QUERIES: string[] = [
-    'tu itni khoobsurat hai by rahat fateh ali ka',
+    'new movies trending bollywood songs',
 ]
 
 /**

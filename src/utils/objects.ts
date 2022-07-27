@@ -23,7 +23,6 @@ import {
     DEFAULT_PLAYER_ARTWORK_QUALITY,
     DEFAULT_MEDIUM_ARTWORK_SIZE,
     FALLBACK_ARTIST_NAME,
-    GLOBAL_QUERIES,
     MAX_DISPLAY_TEXT_LENGTH,
     SHARED_IMAGE_LOCATION,
     SOBYTE_URL,
@@ -45,6 +44,7 @@ import {
     TrackMetadataBase,
     TrackDescription,
 } from '@/schemas'
+import DEFAULT_EXPORT from '@/configs/searchqueries'
 
 /**
  * get a changed quality image of any song object
@@ -619,8 +619,7 @@ export function getShareableImagePath(musicID: string) {
  * @returns {string} a query to search
  */
 export function getARandomQuery() {
-    return 'top hindi heart touching romantic songs'
-    return GLOBAL_QUERIES[Math.floor(Math.random() * GLOBAL_QUERIES.length)]
+    return DEFAULT_EXPORT[Math.floor(Math.random() * DEFAULT_EXPORT.length)]
 }
 
 /**
