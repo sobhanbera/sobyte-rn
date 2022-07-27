@@ -26,3 +26,9 @@ export const APP_LOGO_WITH_NAME_IMG_LINK =
 
 // this is a random route URL which doesn't exists currently
 export const NOTHING_URL = 'https://sobhanbera.com/sobyte/image'
+
+/**
+ * this is the URL from where the explore screen's data will be fetched
+ * this URL links to a GitHub JSON file...
+ */
+export const EXPLORE_SCREEN_DATA_GITHUB_FILE_URL = ''

@@ -14,13 +14,9 @@ import {NavigationHelpers} from '@react-navigation/native'
 import LinearGradient from 'react-native-linear-gradient'
 
 import {
-    QueryTrackChunksRenderer,
     HeaderExploreScreen,
     BottomPaddingComponent,
-    TitleTextIcon,
-    QueryPlaylistsRenderer,
-    QueryArtistRenderer,
-    QueryTracksRenderer,
+    ExploreScreenDefaultDataRenderer,
 } from '@/components'
 import {useTheme} from '@/hooks'
 import {ROOT_BOTTOM_BAR_SEARCH_SCREEN_STACK} from '@/configs'
@@ -29,7 +25,7 @@ export interface ExploreScreenProps {
     navigation: NavigationHelpers<any>
 }
 export function ExploreScreen({navigation}: ExploreScreenProps) {
-    const {theme, colorscheme} = useTheme()
+    const {colorscheme, variables} = useTheme()
 
     /**
      * this function will launch search songs/tracks, artists tab
@@ -49,49 +45,22 @@ export function ExploreScreen({navigation}: ExploreScreenProps) {
                 nestedScrollEnabled>
                 <LinearGradient
                     colors={[
-                        ...colorscheme,
-                        theme.background,
-                        theme.background,
-                        theme.background,
-                        theme.background,
-                        theme.background,
+                        ...colorscheme.slice(5),
+                        variables.colors.black,
+                        variables.colors.black,
+                        variables.colors.black,
+                        ...colorscheme.slice(5),
+                        variables.colors.black,
+                        variables.colors.black,
+                        variables.colors.black,
                     ]}
                     useAngle
-                    angle={180}
-                    style={
-                        {
-                            // minHeight: SCREEN_HEIGHT * 5, // this is the minimum height of this screen
-                        }
-                    }>
+                    angle={180}>
                     <HeaderExploreScreen
                         onPressSearch={changeNavigationToSearchTab}
                     />
 
-                    {/* today's hits */}
-                    <TitleTextIcon>Today's Selection</TitleTextIcon>
-                    <QueryTrackChunksRenderer searchQuery="Hindi romantic songs" />
-
-                    {/* some artists list so render in this screen */}
-                    <TitleTextIcon>Artists you may like</TitleTextIcon>
-                    <QueryArtistRenderer
-                        searchQueries={[
-                            'Top bollywood singers',
-                            'hindi romantic artist',
-                            'Top bollywood singers',
-                        ]}
-                    />
-
-                    {/* some artists list so render in this screen */}
-                    <TitleTextIcon>Some playlists</TitleTextIcon>
-                    <QueryPlaylistsRenderer
-                        searchQuery={'Top bollywood singers'}
-                    />
-
-                    {/* some artists list so render in this screen */}
-                    <TitleTextIcon>Some Tracks</TitleTextIcon>
-                    <QueryTracksRenderer
-                        searchQuery={'Top bollywood singers'}
-                    />
+                    <ExploreScreenDefaultDataRenderer />
 
                     <BottomPaddingComponent padding={65} />
                 </LinearGradient>

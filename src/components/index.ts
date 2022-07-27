@@ -15,6 +15,8 @@ export * from './BottomPaddingComponent'
 export * from './BottomTabBarButton'
 export * from './BottomTabBarPlayerButton'
 
+export * from './ExploreScreenDefaultDataRenderer'
+
 export * from './HeaderAnimated'
 export * from './HeaderCommon'
 export * from './HeaderExploreScreen'

@@ -8,7 +8,7 @@
  * Purpose - variables, objects, constants, etc.
  */
 
-import {GenreData} from '@/schemas'
+import {ExploreScreenDataResponse, GenreData} from '@/schemas'
 
 export const AppSearchSuggestions: string[] = [
     'Romantic tracks',
@@ -598,3 +598,163 @@ export const NothingArray: Array<{id: string}> = [
     {id: '209_11_19'},
     {id: '300_15_20'},
 ].slice(0, 3)
+
+/**
+ * this data is the data for the explore screen
+ *
+ * and this data will be rendered when no kind of data is returned from the api request
+ * this data contents are also rendered when there is no preloaded data in the explore screen/tab
+ */
+export const ExploreScreenDefaultFallbackData: ExploreScreenDataResponse = [
+    {
+        id: 'NSBlMURCyL',
+        type: 'Tracks',
+        title: 'New Releases',
+        searchQueries: ['new movies trending bollywood songs'],
+        combinedProps: {tracksPerColumn: 3},
+    },
+    {
+        id: 'Ys2o63NaFt',
+        type: 'Tracks',
+        title: 'Romantic tracks',
+        searchQueries: ['hindi romantic songs'],
+        combinedProps: {tracksPerColumn: 3},
+    },
+    {
+        id: 'CxAp1kas9B',
+        type: 'Artists',
+        title: 'Top Artists',
+        searchQueries: [
+            'new bollywood songs',
+            'trending songs',
+            'top hindi artists',
+        ],
+        combinedProps: {tracksPerColumn: 3},
+    },
+    {
+        id: 'z29OlOS2sv',
+        type: 'Playlists',
+        title: 'Romantic playlists',
+        searchQueries: ['romantic playlists'],
+        combinedProps: {tracksPerColumn: 3},
+    },
+    {
+        id: 'VnnCfKnlba',
+        type: 'Playlists',
+        title: 'Bollywood contents',
+        searchQueries: ['top bollywood playlists'],
+        combinedProps: {tracksPerColumn: 3},
+    },
+    {
+        id: 'NqNlNff4jj',
+        type: 'Playlists',
+        title: 'English plays',
+        searchQueries: ['top english songs'],
+        combinedProps: {tracksPerColumn: 3},
+    },
+    {
+        id: '5pl1ACEbWC',
+        type: 'TrackChunks',
+        title: 'English hits',
+        searchQueries: ['trending english songs'],
+        combinedProps: {tracksPerColumn: 3},
+    },
+    {
+        id: '1RDnQqjg7d',
+        type: 'Tracks',
+        title: 'Bollywood hits',
+        searchQueries: ['bollywood trending hits'],
+        combinedProps: {tracksPerColumn: 3},
+    },
+    {
+        id: 'KVVjHN9Pkn',
+        type: 'Tracks',
+        title: 'Popular tracks',
+        searchQueries: ['popular songs'],
+        combinedProps: {tracksPerColumn: 4},
+    },
+    {
+        id: 'OmlPJbI3yp',
+        type: 'Tracks',
+        title: 'You may also like',
+        searchQueries: ['darshan raval or arijit singh'],
+        combinedProps: {tracksPerColumn: 3},
+    },
+    {
+        id: 'ExArjD1SeY',
+        type: 'Tracks',
+        title: 'Indie folk',
+        searchQueries: ['Indie folk'],
+        combinedProps: {tracksPerColumn: 3},
+    },
+    {
+        id: 'dyqxlqNXOo',
+        type: 'Tracks',
+        title: 'Indie folk hindi',
+        searchQueries: ['Indie folk hindi'],
+        combinedProps: {tracksPerColumn: 3},
+    },
+    {
+        id: 'FdMgAH42zf',
+        type: 'Tracks',
+        title: 'DJs',
+        searchQueries: ['dj & mashups'],
+        combinedProps: {tracksPerColumn: 3},
+    },
+    {
+        id: 'H2cP11jRvG',
+        type: 'Tracks',
+        title: 'Pop beats',
+        searchQueries: ['Pop beats'],
+        combinedProps: {tracksPerColumn: 3},
+    },
+    {
+        id: 'BuDVwFzdxv',
+        type: 'TrackChunks',
+        title: 'Heart break tracks',
+        searchQueries: ['breakup playlist'],
+        combinedProps: {tracksPerColumn: 3},
+    },
+    {
+        id: 'SUU5OUZ9Eu',
+        type: 'Tracks',
+        title: 'Sad Time',
+        searchQueries: ['new bollywood sad songs'],
+        combinedProps: {tracksPerColumn: 3},
+    },
+    {
+        id: 'SYok88Gr6q',
+        type: 'Tracks',
+        title: 'Sad Time',
+        searchQueries: ['new bollywood sad songs'],
+        combinedProps: {tracksPerColumn: 3},
+    },
+    {
+        id: 'HYiXriAplY',
+        type: 'TrackChunks',
+        title: 'Anytime tracks',
+        searchQueries: ['relax musics'],
+        combinedProps: {tracksPerColumn: 3},
+    },
+    {
+        id: 'gyJrnJvoca',
+        type: 'Tracks',
+        title: 'You need to chill',
+        searchQueries: ['Chill beats'],
+        combinedProps: {tracksPerColumn: 3},
+    },
+    {
+        id: 'GVs0FT9tGa',
+        type: 'Tracks',
+        title: 'Hindi x English',
+        searchQueries: ['hindi x english mashup lofi'],
+        combinedProps: {tracksPerColumn: 4},
+    },
+    {
+        id: 'DWGLbqeYVH',
+        type: 'TrackChunks',
+        title: 'Lo-Fi Times',
+        searchQueries: ['hindi lofi songs'],
+        combinedProps: {tracksPerColumn: 4},
+    },
+]
