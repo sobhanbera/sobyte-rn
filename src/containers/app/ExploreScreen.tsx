@@ -25,7 +25,7 @@ export interface ExploreScreenProps {
     navigation: NavigationHelpers<any>
 }
 export function ExploreScreen({navigation}: ExploreScreenProps) {
-    const {colorscheme, variables} = useTheme()
+    const {colorscheme, theme} = useTheme()
 
     /**
      * this function will launch search songs/tracks, artists tab
@@ -45,17 +45,20 @@ export function ExploreScreen({navigation}: ExploreScreenProps) {
                 nestedScrollEnabled>
                 <LinearGradient
                     colors={[
-                        ...colorscheme.slice(5),
-                        variables.colors.black,
-                        variables.colors.black,
-                        variables.colors.black,
-                        ...colorscheme.slice(5),
-                        variables.colors.black,
-                        variables.colors.black,
-                        variables.colors.black,
+                        ...colorscheme.slice(6),
+                        theme.background,
+                        theme.background,
+                        theme.background,
+                        theme.background,
+                        theme.background,
+                        theme.background,
+                        theme.background,
                     ]}
                     useAngle
-                    angle={180}>
+                    angle={180}
+                    style={{
+                        minHeight: 3000,
+                    }}>
                     <HeaderExploreScreen
                         onPressSearch={changeNavigationToSearchTab}
                     />
