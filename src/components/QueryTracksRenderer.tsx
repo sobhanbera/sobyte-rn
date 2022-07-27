@@ -30,7 +30,7 @@ export function QueryTracksRenderer({searchQuery}: QueryTracksRendererProps) {
      */
     useEffect(() => {
         if (searchQuery) {
-            search(searchQuery, 'SONG')
+            search(searchQuery, 'SONG', true)
                 .then((res: FetchedData<SongObject>) => {
                     setTracks(res.content)
                 })

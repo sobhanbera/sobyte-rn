@@ -31,7 +31,7 @@ export function QueryPlaylistsRenderer({
      */
     useEffect(() => {
         if (searchQuery) {
-            search(searchQuery, 'PLAYLIST')
+            search(searchQuery, 'PLAYLIST', true)
                 .then((res: FetchedData<PlaylistObject>) => {
                     setPlaylists(res.content)
                     // console.log(res.content)
