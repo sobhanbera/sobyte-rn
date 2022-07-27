@@ -34,3 +34,5 @@ export const SEARCH_HISTORY_STORAGE_KEY = '@APP:SEARCH_HISTORY_STORAGE_KEY' // t
  * the storage key where the url of tracks will be saved for @constant @TRACK_URL_EXPIRATION_PERIOD hours
  */
 export const TRACK_URL_STORAGE_KEY = '@APP:TRACK_URL_STORAGE_KEY'
+
+export const EXPLORE_SCREEN_DATA_STORAGE_KEY = '@APP:EXPLORE_SCREEN_DATA' // this is the location where the data of explore screen will be saved locally

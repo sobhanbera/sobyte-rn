@@ -9,17 +9,19 @@
  */
 
 import React, {useEffect, useState} from 'react'
-
-import {ExploreScreenDataResponse} from '@/schemas'
-
-import {QueryDataRenderer} from './QueryDataRenderer'
 import {View} from 'react-native'
 import axios, {AxiosResponse} from 'axios'
+
+import {ExploreScreenDataResponse} from '@/schemas'
 import {
     ExploreScreenDefaultFallbackData,
     EXPLORE_SCREEN_DATA_GITHUB_FILE_URL,
+    EXPLORE_SCREEN_DATA_STORAGE_KEY,
 } from '@/configs'
+import {getItemFromLocalStorage, setItemToLocalStorage} from '@/utils'
+
 import {LoadingAnimation} from './LoadingAnimation'
+import {QueryDataRenderer} from './QueryDataRenderer'
 
 export interface ExploreScreenDefaultDataRendererProps {}
 export function ExploreScreenDefaultDataRenderer({}: ExploreScreenDefaultDataRendererProps) {
@@ -27,28 +29,99 @@ export function ExploreScreenDefaultDataRenderer({}: ExploreScreenDefaultDataRen
     const [loading, setLoading] = useState<boolean>(true)
 
     /**
+     * this method just updates the content array and
+     * disables the loading by default
+     *
+     * @param content the content data of the screen
+     * @param isLoading is the loading should be shown or not..
+     */
+    const updateContents = (
+        content: ExploreScreenDataResponse,
+        isLoading: boolean = false,
+    ) => {
+        setContents(content)
+
+        /**
+         * this operation is done only after setting/updating the contents of this screen,
+         * this could be after getting error fetching the data,
+         * getting data after fetching
+         * else getting data from local stoarge
+         * else getting data from the fallback variable itself
+         */
+        setLoading(isLoading)
+    }
+
+    /**
+     * this method load up data from the local storage if the network issue or any error
+     * occurs during making api request to the GitHub file
+     */
+    const loadExploreScreenDataFromLocalStorage = () => {
+        /**
+         * first get the data from the local storage
+         * if the data is valid then update it to the state
+         * else update the state to a fallback value
+         */
+        getItemFromLocalStorage(EXPLORE_SCREEN_DATA_STORAGE_KEY, '').then(
+            (data: string) => {
+                const parsedExploreScreenContent: ExploreScreenDataResponse =
+                    JSON.parse(data)
+
+                /**
+                 * while validating the data
+                 * the data should be an array in the local storage
+                 */
+                if (Array.isArray(parsedExploreScreenContent)) {
+                    updateContents(parsedExploreScreenContent)
+
+                    // also remove the loading after getting the data from anywhere
+                } else {
+                    // else update the value to fallback data
+                    updateContents(ExploreScreenDefaultFallbackData) // saving fallback data when any error occurs
+
+                    // remove loading when the data is from fallback
+                }
+            },
+        )
+    }
+
+    /**
      * this method loads up the data from GitHub file which is data related to
      * explore screen to be rendered
      */
     const loadExploreScreenData = () => {
+        // show the loading before fetching the data
         setLoading(true)
+
         axios
             .get(EXPLORE_SCREEN_DATA_GITHUB_FILE_URL)
             .then((data: AxiosResponse<ExploreScreenDataResponse>) => {
-                const exploreScreenContent = JSON.parse(
-                    JSON.stringify(data.data),
-                )
-                setContents(exploreScreenContent)
+                const nonParsedData = JSON.stringify(data.data)
+                const parsedExploreScreenContent = JSON.parse(nonParsedData)
 
-                // remove loading when the data is fetched
-                setLoading(false)
+                /**
+                 * checking wheather the data is a valid array
+                 * else loads up the data from local storage
+                 */
+                if (Array.isArray(parsedExploreScreenContent)) {
+                    // udpate the state after fetching and parsing the data
+                    updateContents(parsedExploreScreenContent)
+
+                    /**
+                     * also save the data in the local storage so that the data
+                     * could be used when there is no internet available
+                     */
+                    setItemToLocalStorage(
+                        EXPLORE_SCREEN_DATA_STORAGE_KEY,
+                        '',
+                        nonParsedData,
+                    )
+                } else {
+                    loadExploreScreenDataFromLocalStorage()
+                }
             })
             .catch(_ERR => {
-                console.log('ERROR IN EXPLOER', _ERR)
-                setContents(ExploreScreenDefaultFallbackData) // saving fallback data when any error occurs
-
-                // remove loading when the data is from fallback and fetching process is ended with error
-                setLoading(false)
+                // load data from local storage if any
+                loadExploreScreenDataFromLocalStorage()
             })
     }
 
