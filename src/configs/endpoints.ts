@@ -31,4 +31,5 @@ export const NOTHING_URL = 'https://sobhanbera.com/sobyte/image'
  * this is the URL from where the explore screen's data will be fetched
  * this URL links to a GitHub JSON file...
  */
-export const EXPLORE_SCREEN_DATA_GITHUB_FILE_URL = ''
+export const EXPLORE_SCREEN_DATA_GITHUB_FILE_URL =
+    'https://raw.githubusercontent.com/sobhanbera/src/main/sobyte/mobile/explorescreendata.json?token=GHSAT0AAAAAABQFG2BGEHKLPJW5FNCJ3INOYXBLVPA'

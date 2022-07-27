@@ -60,6 +60,7 @@ export function ExploreScreen({navigation}: ExploreScreenProps) {
                         onPressSearch={changeNavigationToSearchTab}
                     />
 
+                    {/* entry point to all the explore screen renders */}
                     <ExploreScreenDefaultDataRenderer />
 
                     <BottomPaddingComponent padding={65} />
