@@ -16,7 +16,7 @@ import {
     SOBYTE_PLAYER_SCREEN,
     TRACK_PLAYER_STACK_NAVIGATOR_ID,
 } from '@/configs'
-import {SobytePlayerScreen, TrackPlayerQueueScreen} from '@/containers/app'
+import {SobytePlayerScreen, TrackPlayerQueueScreen} from '@/containers'
 import {useTheme} from '@/hooks'
 
 const TrackPlayerNavigationStack = createNativeStackNavigator()

@@ -27,7 +27,7 @@ import {
     MoreTrackDetailsScreen,
     MorePlaylistDetailsScreen,
     PlaylistDetailsScreen,
-} from '@/containers/app'
+} from '@/containers'
 import {useTheme} from '@/hooks'
 
 const StackNavigator = createNativeStackNavigator()

@@ -11,7 +11,7 @@
 import React from 'react'
 import {createNativeStackNavigator} from '@react-navigation/native-stack'
 
-import {ForgotPass, Landing, OTPScreen, SignIn, SignUp} from '@/containers/auth'
+import {ForgotPass, Landing, OTPScreen, SignIn, SignUp} from '@/containers'
 import {
     AUTH_FORGOT_SCREEN,
     AUTH_LANDING_SCREEN,

@@ -12,7 +12,7 @@ import React from 'react'
 import {createNativeStackNavigator} from '@react-navigation/native-stack'
 
 import {USER_PROFILE_SCREEN, USER_PROFILE_STACK_NAVIGATOR_ID} from '@/configs'
-import {UserProfileScreen} from '@/containers/app'
+import {UserProfileScreen} from '@/containers'
 import {useTheme} from '@/hooks'
 
 const StackNavigator = createNativeStackNavigator()
