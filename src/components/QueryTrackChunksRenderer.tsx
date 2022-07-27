@@ -22,7 +22,7 @@ import {
 } from '@/configs'
 import {ShimmerListObjectSong} from './ShimmerListObjectSong'
 
-interface QueryTrackChunksRendererProps {
+export interface QueryTrackChunksRendererProps {
     searchQuery: string
 }
 export function QueryTrackChunksRenderer({

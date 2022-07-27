@@ -15,7 +15,7 @@ import {FetchedData, SongObject} from '@/schemas'
 
 import {ListCardRendererTracks} from './ListCardRendererTracks'
 
-interface QueryTracksRendererProps {
+export interface QueryTracksRendererProps {
     searchQuery: string
 }
 export function QueryTracksRenderer({searchQuery}: QueryTracksRendererProps) {

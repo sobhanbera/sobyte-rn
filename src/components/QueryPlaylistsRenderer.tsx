@@ -14,7 +14,7 @@ import {useMusic} from '@/hooks'
 import {FetchedData, PlaylistObject} from '@/schemas'
 import {ListCardRendererPlaylists} from './ListCardRendererPlaylists'
 
-interface QueryPlaylistsRendererProps {
+export interface QueryPlaylistsRendererProps {
     searchQuery: string
 }
 export function QueryPlaylistsRenderer({

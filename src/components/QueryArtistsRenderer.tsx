@@ -14,7 +14,7 @@ import {useMusic} from '@/hooks'
 import {ArtistObject, FetchedData} from '@/schemas'
 import {ListCardRendererArtists} from './ListCardRendererArtists'
 
-interface QueryArtistRendererProps {
+export interface QueryArtistRendererProps {
     searchQueries: string[]
 }
 export function QueryArtistRenderer({searchQueries}: QueryArtistRendererProps) {
