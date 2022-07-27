@@ -528,7 +528,7 @@ export function useMusic() {
         saveToCustomLocation: string = '',
     ): Promise<any> => {
         var isOffline = false
-        return new Promise((resolve, reject) => {
+        return new Promise(async (resolve, reject) => {
             /**
              * if there is not internet connection we will check if the searched results are
              * saved in the local storage properly if it is stored then we could resolve with that data only
@@ -547,8 +547,15 @@ export function useMusic() {
                 getLocationKeyForSavingSearchData(categoryName)
             if (saveToLocalStorage && localStorageLocationKey) {
                 // since sometimes the categoryName could be empty and in that case the local we get is also empty
-                NetInfo.fetch()
+                await NetInfo.fetch()
                     .then(state => {
+                        // console.log(
+                        //     'CONNECTION STATUS:',
+                        //     state.isConnected,
+                        //     query,
+                        //     categoryName,
+                        // )
+
                         if (!state.isConnected) {
                             isOffline = true
                             AsyncStorage.getItem(
