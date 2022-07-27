@@ -11,6 +11,7 @@
 import React, {useEffect, useState} from 'react'
 import {View} from 'react-native'
 import axios, {AxiosResponse} from 'axios'
+import {NavigationHelpers} from '@react-navigation/native'
 
 import {ExploreScreenDataResponse} from '@/schemas'
 import {
@@ -23,8 +24,12 @@ import {getItemFromLocalStorage, setItemToLocalStorage} from '@/utils'
 import {LoadingAnimation} from './LoadingAnimation'
 import {QueryDataRenderer} from './QueryDataRenderer'
 
-export interface ExploreScreenDefaultDataRendererProps {}
-export function ExploreScreenDefaultDataRenderer({}: ExploreScreenDefaultDataRendererProps) {
+export interface ExploreScreenDefaultDataRendererProps {
+    navigation: NavigationHelpers<any>
+}
+export function ExploreScreenDefaultDataRenderer({
+    navigation,
+}: ExploreScreenDefaultDataRendererProps) {
     const [contents, setContents] = useState<ExploreScreenDataResponse>([])
     const [loading, setLoading] = useState<boolean>(true)
 
@@ -146,6 +151,7 @@ export function ExploreScreenDefaultDataRenderer({}: ExploreScreenDefaultDataRen
                     return (
                         <QueryDataRenderer
                             key={content.id}
+                            navigation={navigation}
                             contentType={content.type}
                             searchQueries={content.searchQueries}
                             title={content.title}

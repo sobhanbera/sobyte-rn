@@ -8,6 +8,11 @@
  * Purpose - this component is a helper component to render data in the explore screen
  */
 
+import {
+    navigateToArtistDetailsScreen,
+    navigateToPlaylistDetailsScreen,
+} from '@/utils'
+import {NavigationHelpers} from '@react-navigation/native'
 import React from 'react'
 import {View} from 'react-native'
 
@@ -47,6 +52,9 @@ export const ContentOptions = {
 export type ContentTypeOptions = keyof typeof ContentOptions
 
 export interface QueryDataRendererProps {
+    // to navigate to artist details and playlist screen
+    navigation: NavigationHelpers<any>
+
     // the title of the data category
     title: string
     // what type of data to render
@@ -67,12 +75,14 @@ export interface QueryDataRendererProps {
     >
 }
 export function QueryDataRenderer({
+    navigation,
+
     title,
     contentType,
     searchQueries,
     combinedProps,
 }: QueryDataRendererProps) {
-    const ActualContent = ContentOptions[contentType]
+    // const ActualContent = ContentOptions[contentType]
 
     return (
         <View>
@@ -80,11 +90,49 @@ export function QueryDataRenderer({
             <TitleTextIcon>{title}</TitleTextIcon>
 
             {/* the actual component that renders the actual data about the query passed */}
-            <ActualContent
+            {contentType === 'Tracks' ? (
+                <QueryTracksRenderer searchQuery={searchQueries[0]} />
+            ) : contentType === 'TrackChunks' ? (
+                <QueryTrackChunksRenderer
+                    searchQuery={searchQueries[0]}
+                    tracksPerColumn={combinedProps?.tracksPerColumn}
+                />
+            ) : contentType === 'Artists' ? (
+                <QueryArtistRenderer
+                    searchQueries={searchQueries}
+                    onPressArtistCard={artistData =>
+                        navigateToArtistDetailsScreen(navigation, {
+                            artistData: artistData,
+                        })
+                    }
+                />
+            ) : contentType === 'Playlists' ? (
+                <QueryPlaylistsRenderer
+                    searchQuery={searchQueries[0]}
+                    onPressPlaylist={playlistData =>
+                        navigateToPlaylistDetailsScreen(navigation, {
+                            playlistData: playlistData,
+                        })
+                    }
+                />
+            ) : null}
+
+            {/* this below is deprecated and not recommended anymore. since many useless methods are passed in this way which are not needed by all the components */}
+            {/* <ActualContent
                 searchQuery={searchQueries[0]}
                 searchQueries={searchQueries}
+                onPressArtistCard={artistData =>
+                    navigateToArtistDetailsScreen(navigation, {
+                        artistData: artistData,
+                    })
+                }
+                onPressPlaylist={playlistData =>
+                    navigateToPlaylistDetailsScreen(navigation, {
+                        playlistData: playlistData,
+                    })
+                }
                 {...combinedProps}
-            />
+            /> */}
         </View>
     )
 }

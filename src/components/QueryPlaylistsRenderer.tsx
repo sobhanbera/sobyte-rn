@@ -16,9 +16,12 @@ import {ListCardRendererPlaylists} from './ListCardRendererPlaylists'
 
 export interface QueryPlaylistsRendererProps {
     searchQuery: string
+
+    onPressPlaylist: (playlistData: PlaylistObject) => void // to show the playlist songs
 }
 export function QueryPlaylistsRenderer({
     searchQuery,
+    onPressPlaylist,
 }: QueryPlaylistsRendererProps) {
     const {search} = useMusic()
 
@@ -43,7 +46,7 @@ export function QueryPlaylistsRenderer({
     return (
         <ListCardRendererPlaylists
             playlistsList={playlists}
-            onPressPlaylistCard={() => {}}
+            onPressPlaylistCard={onPressPlaylist}
         />
     )
 }

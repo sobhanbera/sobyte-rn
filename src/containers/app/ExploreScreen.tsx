@@ -64,7 +64,7 @@ export function ExploreScreen({navigation}: ExploreScreenProps) {
                     />
 
                     {/* entry point to all the explore screen renders */}
-                    <ExploreScreenDefaultDataRenderer />
+                    <ExploreScreenDefaultDataRenderer navigation={navigation} />
 
                     <BottomPaddingComponent padding={65} />
                 </LinearGradient>

@@ -36,12 +36,9 @@ export function QueryTrackChunksRenderer({
     const [trackChunks, setTrackChunks] = useState<Array<Array<SongObject>>>([])
 
     /**
-     * loads up all the neccessary data required to render the songs/tracks list
-     * this method searches and save the data on first render
-     *
-     * the search query will be dynamic and will be modified
+     * this method loads up the data for tracks and updates the state
      */
-    useEffect(() => {
+    const loadTracksData = () => {
         if (searchQuery) {
             search(searchQuery, 'SONG', true)
                 .then((res: FetchedSongObject) => {
@@ -49,7 +46,17 @@ export function QueryTrackChunksRenderer({
                 })
                 .catch(_ERR => {})
         }
-    }, [tracksPerColumn, searchQuery])
+    }
+
+    /**
+     * loads up all the neccessary data required to render the songs/tracks list
+     * this method searches and save the data on first render
+     *
+     * the search query will be dynamic and will be modified
+     */
+    useEffect(() => {
+        loadTracksData()
+    }, [searchQuery])
 
     /**
      * responsible for rendering the chunk of some tracks

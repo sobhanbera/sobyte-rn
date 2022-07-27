@@ -16,18 +16,21 @@ import {ListCardRendererArtists} from './ListCardRendererArtists'
 
 export interface QueryArtistRendererProps {
     searchQueries: string[]
+    onPressArtistCard(artistData: ArtistObject): void // when the artist card will be pressed
 }
-export function QueryArtistRenderer({searchQueries}: QueryArtistRendererProps) {
+export function QueryArtistRenderer({
+    searchQueries,
+    onPressArtistCard,
+}: QueryArtistRendererProps) {
     const {search} = useMusic()
 
     // since we are not rendering data to get continuous data, so only the searched content
     const [artists, setArtists] = useState<Array<ArtistObject>>([])
 
     /**
-     * loads up all the neccessary data required to render the artists list
-     * the search query will be dynamic and will be modified
+     * method loads up the artists data using search method of useMusic hook
      */
-    useEffect(() => {
+    const loadArtistsData = () => {
         if (searchQueries) {
             Promise.all(
                 searchQueries.map(searchQuery =>
@@ -66,12 +69,20 @@ export function QueryArtistRenderer({searchQueries}: QueryArtistRendererProps) {
                 setArtists(finalFilteredArtistsData)
             })
         }
+    }
+
+    /**
+     * loads up all the neccessary data required to render the artists list
+     * the search query will be dynamic and will be modified
+     */
+    useEffect(() => {
+        loadArtistsData()
     }, [])
 
     return (
         <ListCardRendererArtists
             artistList={artists}
-            onPressArtistCard={() => {}}
+            onPressArtistCard={onPressArtistCard}
         />
     )
 }
