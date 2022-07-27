@@ -9,6 +9,7 @@
  */
 
 import React from 'react'
+import {View} from 'react-native'
 import {Skeleton} from '@rneui/themed'
 
 import {useTheme} from '@/hooks'
@@ -17,8 +18,6 @@ import {
     DEFAULT_SUB_TITLE_WIDTH,
     DEFAULT_TITLE_WIDTH,
 } from '@/configs'
-
-import {View} from 'react-native'
 
 export interface ShimmerListCardTrackProps {}
 export const ShimmerListCardTrack = ({}: ShimmerListCardTrackProps) => {
