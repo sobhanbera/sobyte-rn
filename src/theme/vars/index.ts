@@ -14,6 +14,7 @@ import {RequiredCommonColors} from '..'
 import GetFonts from './fonts'
 import GetGutters from './gutters'
 import GetLayouts from './layouts'
+import GetAssets from './assets'
 
 import CombinedVariables, {
     FontSizeTypes,
@@ -29,15 +30,18 @@ export const VariablesCollection: CombinedThemeVariables = {
 
 /**
  * styles related to fonts, gutter and layout in single variable
+ * also all types of assets...
  */
 export const fontStyles = GetFonts(VariablesCollection)
 export const gutterStyles = GetGutters(VariablesCollection)
 export const layoutStyles = GetLayouts()
+export const appAssets = GetAssets()
 
 export {
     GetFonts,
     GetGutters,
     GetLayouts,
+    GetAssets,
     CombinedVariables,
     FontSizeTypes,
     MetricSizeTypes,

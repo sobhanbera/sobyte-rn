@@ -14,15 +14,11 @@ export * from './reducers'
 import {
     MUSIC_CONFIG_SLICE_NAME,
     PLAYER_DATA_SLICE_NAME,
+    SEARCH_RESULTS_DATA_SLICE_NAME,
     THEME_SLICE_NAME,
     TRACK_URL_DATA_SLICE_NAME,
 } from '@/configs'
-import {
-    ThemeState,
-    MusicConfigState,
-    PlayerDataState,
-    TrackURLDataState,
-} from './reducers'
+import {ThemeState, MusicConfigState, PlayerDataState, TrackURLDataState, SearchResultsDataState} from './reducers'
 
 /**
  * a interface which is a blueprint for all the states combined
@@ -37,4 +33,5 @@ export interface SobyteState {
     [MUSIC_CONFIG_SLICE_NAME]: MusicConfigState
     [PLAYER_DATA_SLICE_NAME]: PlayerDataState
     [TRACK_URL_DATA_SLICE_NAME]: TrackURLDataState
+    [SEARCH_RESULTS_DATA_SLICE_NAME]: SearchResultsDataState
 }

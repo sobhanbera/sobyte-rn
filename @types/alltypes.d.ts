@@ -1,3 +1,3 @@
-declare module 'react-native-ytdl'
+declare module '@sobhanbera/react-native-sobyte-ytdl'
 // declare module ''
 // declare module ''

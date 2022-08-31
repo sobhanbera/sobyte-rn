@@ -9,6 +9,7 @@
  */
 
 import {NativeModules, Dimensions} from 'react-native'
+import RNFetchBlob from 'rn-fetch-blob'
 
 /** App details */
 export const APP_NAME = 'Sobyte'
@@ -37,7 +38,7 @@ export const MAX_DISPLAY_TEXT_LENGTH = 30 // length of the text after which "...
 export const DEFAULT_ARTWORK_SIZE = 200 // default image width and height in string...
 export const DEFAULT_ARTWORK_QUALITY = 90 // default image quality in string...
 
-export const DEFAULT_SMALL_ARTWORK_SIZE = 250 // default small/low quality image width and height in string...
+export const DEFAULT_SMALL_ARTWORK_SIZE = 120 // default small/low quality image width and height in string...
 export const DEFAULT_SMALL_ARTWORK_QUALITY = 90 // default small/low quality image quality in string...
 
 export const DEFAULT_MEDIUM_ARTWORK_SIZE = 446 // default medium quality image width and height in string...
@@ -49,14 +50,23 @@ export const DEFAULT_LARGE_ARTWORK_QUALITY = 100 // default high quality image q
 export const DEFAULT_EXTRA_LARGE_ARTWORK_SIZE = 720 // default extra high/extreme quality image width and height in string...
 export const DEFAULT_EXTRA_LARGE_ARTWORK_QUALITY = 100 // default extra high/extreme quality image quality in string...
 
-export const DEFAULT_PLAYER_ARTWORK_SIZE = DEFAULT_SMALL_ARTWORK_SIZE // this could be changed as per need during development
-export const DEFAULT_PLAYER_ARTWORK_QUALITY = DEFAULT_SMALL_ARTWORK_QUALITY // this could be changed as per need during development
+// TODO: this value needs to be changed
+export const DEFAULT_PLAYER_ARTWORK_SIZE = 720 // this could be changed as per need during development
+export const DEFAULT_PLAYER_ARTWORK_QUALITY = 100 // this could be changed as per need during development
 
 // below value should not be changed regarding the shades on notification panel
 export const DEFAULT_NOTIFICATION_ARTWORK_SIZE = 300 // the size (width/height) of the image which will be shown in the notification of when a track is played short size of image would take less time to load and play the song faster then previously...
 export const DEFAULT_NOTIFICATION_ARTWORK_QUALITY = 100 // the quality of the image which will be shown in the notification of when a track is played short size of image would take less time to load and play the song faster then previously...
 
+// TODO: this value needs to be changed
+export const TRACK_SHARE_ARTWORK_SIZE = 120 // the size of the image which will be used during sharing any track
+export const TRACK_SHARE_ARTWORK_QUALITY = 100 // the quality of the image which will be used during sharing any track
+
+export const SHARED_IMAGE_LOCATION = RNFetchBlob.fs.dirs.CacheDir // here "/" character is very important or the app will crash
+export const ANDROID_FILE_ACCESSOR = 'file://'
+
 export const MUSIC_PLAYER_BLUR = 25 // blur value of music player image background
+export const DEFAULT_IMAGE_BLUR = 45 // blurRadius value
 
 // marquee constants
 export const MARQUEE_SCROLL_SPEED = 30 // scroll speed of the marquee text
@@ -75,11 +85,20 @@ export const CircularLight = 'Circular-Light'
  * music player interface constants and vars...
  */
 export const TRACK_ARTWORK_SCREEN_WIDTH_OCCUPICATION = 0.82 // the artwork will take 82% of the available screen width
+export const TRACK_ARTWORK_SCREEN_WIDTH_SMALL_OCCUPICATION = 0.7 // the artwork will take 82% of the available screen width
+export const TRACK_ARTWORK_SCREEN_WIDTH_LARGE_OCCUPICATION = 0.9 // the artwork will take 82% of the available screen width
 export const TRACK_DATA_OVERFLOW_HEIGHT = 70
-export const TRACK_ARTWORK_PARENT_VERTICAL_PADDING = 55
+export const TRACK_ARTWORK_PARENT_VERTICAL_PADDING = 35
 export const TRACK_ARTWORK_WIDTH =
-    SCREEN_WIDTH * TRACK_ARTWORK_SCREEN_WIDTH_OCCUPICATION
-export const TRACK_ARTWORK_HEIGHT = TRACK_ARTWORK_WIDTH
+    SCREEN_WIDTH * TRACK_ARTWORK_SCREEN_WIDTH_OCCUPICATION // track artwork width
+export const TRACK_ARTWORK_HEIGHT = TRACK_ARTWORK_WIDTH // default track artwork height
+
+export const TRACK_ARTWORK_WIDTH_SMALL =
+    SCREEN_WIDTH * TRACK_ARTWORK_SCREEN_WIDTH_SMALL_OCCUPICATION // somewhat small than default track artwork width
+
+export const TRACK_ARTWORK_WIDTH_LARGE =
+    SCREEN_WIDTH * TRACK_ARTWORK_SCREEN_WIDTH_LARGE_OCCUPICATION // somewhat larger than default track artwork width
+
 export const TRACK_ARTWORK_SPACING = 10
 export const TRACK_ARTWORK_HORIZONAL_SPACING =
     (SCREEN_WIDTH - TRACK_ARTWORK_WIDTH) / 2 // divide by 2, since the padding will be on both sides...
@@ -88,8 +107,47 @@ export const MAX_DISPLAY_HEIGHT_OF_TRACK_ARTWORK_WRAPPER =
     TRACK_ARTWORK_PARENT_VERTICAL_PADDING + // since vertical padding would be on both side, top & bottom
     TRACK_ARTWORK_PARENT_VERTICAL_PADDING + // since vertical padding would be on both side, top & bottom
     TRACK_ARTWORK_HEIGHT +
-    TRACK_ARTWORK_SPACING + // this is also on both side as above, the difference is, this is just a extra padding
-    TRACK_ARTWORK_SPACING // this is also on both side as above, the difference is, this is just a extra padding
+    SCREEN_HEIGHT * 0.02 // 2% of the screen's height available
+// TRACK_ARTWORK_SPACING // this is also on both side as above, the difference is, this is just a extra padding
+// commented for now since it is covering a huge height // + TRACK_ARTWORK_SPACING // this is also on both side as above, the difference is, this is just a extra padding
+
+export const ARTWORK_WIDTH_IN_QUEUE = 60
+export const ARTIST_ARTWORK_WIDTH_SMALL = 50
+
+export const DEFAULT_SONG_LIST_TRACK_ARTWORK_WIDTH = 52 // this is the default width and height of the artwork in song's list
+export const DEFAULT_SONG_LIST_TRACK_ARTWORK_MIN_WIDTH = SCREEN_WIDTH * 0.39 // this is the default width and height of the artwork in track's list 39% of the screen's width
+export const DEFAULT_PLAYLIST_LIST_TRACK_ARTWORK_MIN_WIDTH = SCREEN_WIDTH * 0.37 // this is the default width and height of the artwork in playlist's list 37% of the screen's width
+export const DEFAULT_ARTIST_LIST_TRACK_ARTWORK_MIN_WIDTH = SCREEN_WIDTH * 0.35 // this is the default width and height of the artwork in artist's list 35% of the screen's width
+
+export const TRACKS_PER_COLUMN_IN_CHUNKS = 3 // number of tracks per column in track chunks component flatlist
+
+export const LAST_TRACKS_REMAIN_TO_LOAD_MORE_TRACK = 1
+
+export const NEXT_TITLE_COLOR_ALPHA = 'B0' // the alpha value of text next to title
+
+export const DEFAULT_SLIDER_THUMB_SIZE = 8 // the width and height of the thumb in sliders
+export const DEFAULT_SLIDER_TRACK_HEIGHT = 2.6 // the default height of the slider's track
+
+export const TINY_ICON_SIZE = 22 // size of tiny icons
+export const DEFAULT_ICON_SIZE = 24 // default icon size
+export const SMALL_ICON_SIZE = 28 // somewhat larger than tiny and deafult icon
+export const MEDIUM_ICON_SIZE = 32 // icon size for medium icons
+export const LARGE_ICON_SIZE = 38 // large icons size
+export const EXTRA_LARGE_ICON_SIZE = 45 // extra large icons size
+export const PLAY_PAUSE_ICON_SIZE = 80 // icon size for play/pause button
+
+export const DEFAULT_TOUCHABLE_OPACITY_BUTTON_ACTIVE_OPACITY = 0.75 // default active opacity value of the touchable opacity component
+
+export const DEFAULT_TITLE_WIDTH = SCREEN_WIDTH * 0.65 // the default width of any title text, this is about more than 50% always
+export const DEFAULT_SUB_TITLE_WIDTH = SCREEN_WIDTH * 0.45 // the deafult width of any sub title text, this is 40% to 50%
+
+/**
+ * urls related to the personal uscase of application
+ * like apps website, origin
+ * share url, etc
+ */
+export const SOBYTE_URL = 'https://sobyte.sobhanbera.com'
+export const MUSIC_SHARE_SUBJECT = 'Listen Music In Sobyte!'
 
 /**
  * music URL related constants
@@ -112,6 +170,53 @@ export const LOW_AUDIO_MINIMUM_BITRATE = 33 // a minimal thresold for every qual
 
 export const REMOTE_ORIGIN_MUSIC_ID_MAXIMUM_LENGTH = 11
 export const SOBYTE_MUSIC_ID_MAXIMUM_LENGTH = 11
+
+/**
+ * colors related constants
+ */
+export const DEFUALT_LENGTH_OF_LINEAR_GRADIENT_COLORS = 7
+export const COLOR_SMOOTHNING_ALPHAS = [
+    '00',
+    '10',
+    '20',
+    '30',
+    '40',
+    '50',
+    '60',
+    '70',
+    '80',
+    '90',
+    'A0',
+    'B0',
+    'C0',
+    'D0',
+    'E0',
+    'F0',
+]
+
+export const DEFAULT_TRACK_PLAYER_RATE = 1 // this is the default rate of speed of every track, just nonsense... :)
+export const DEFAULT_BORDER_RADIUS = 12 // the default border radius value for any kind of card or so..
+
+/**
+ * these are some heights and width of the logo images
+ * these all are in the same ratio as of the image's aspect ratio
+ */
+export const NAMED_LOGO_ACTUAL_WIDTH = 1564 // the actual width of the "named.png" logo image
+export const NAMED_LOGO_ACTUAL_HEIGHT = 511 // the actual height of the "named.png" logo image
+export const LOGO_ACTUAL_WIDTH = 218 // the actual width of the "sobyte_white.png" logo image
+export const LOGO_ACTUAL_HEIGHT = 276 // the actual height of the "sobyte_white.png" logo image
+
+export const DEFAULT_NAMED_LOGO_DIVISION_RATE = 20 // multiplier/divisor of the size of logo. the same multiplier will be multiplied by both height and width of actual logo
+export const DEFAULT_LOGO_DIVISION_RATE = 10 // multiplier/divisor of the size of logo. the same multiplier will be multiplied by both height and width of actual logo
+
+export const DEFAULT_NAMED_LOGO_WIDTH =
+    NAMED_LOGO_ACTUAL_WIDTH / DEFAULT_NAMED_LOGO_DIVISION_RATE // a small width version of the "named.png" logo image
+export const DEFAULT_NAMED_LOGO_HEIGHT =
+    NAMED_LOGO_ACTUAL_HEIGHT / DEFAULT_NAMED_LOGO_DIVISION_RATE // a small height version of the "named.png" logo image
+
+export const DEFAULT_LOGO_WIDTH = LOGO_ACTUAL_WIDTH / DEFAULT_LOGO_DIVISION_RATE // a small width version of the "sobyte_white.png" logo image
+export const DEFAULT_LOGO_HEIGHT =
+    LOGO_ACTUAL_HEIGHT / DEFAULT_LOGO_DIVISION_RATE // a small height version of the "sobyte_white.png" logo image
 
 // user agent while making api request
 export const MUSIC_API_USER_AGENT =
@@ -137,3 +242,35 @@ export const MUSIC_LOCATION_MASTER_SWITCH_INDETERMINATE =
     'MUSIC_LOCATION_MASTER_SWITCH_INDETERMINATE'
 export const PWA_INSTALLABILITY_STATUS_UNKNOWN =
     'PWA_INSTALLABILITY_STATUS_UNKNOWN'
+
+export const FALLBACK_ARTIST_NAME = '✔  Sobyte Special' // I noticed many tracks don't have artist's name on them, I don't have time to patch the musicparser currently. but will try in future, for now we can show a fallback string btw.
+
+export const TRACK_ARTIST_MENU_NAME = 'TRACK_ARTIST_MENU_NAME' // a menu id for the menu of player track's data
+
+export const APP_INFINITE = 100000000 // a random large number which could act as infinite, this constant could be used in place of loop iteration counts, since the number is so huge, till that no user will open the app, I guess so!
+export const ANIMATION_ITERATION_DELAY = 1000 // a delay between lottie animation iteration
+export const DEFAULT_LOTTIE_LOGO_ANIMATION_HEIGHT = 40
+
+export const DEFAULT_HEADER_HEIGHT = 55 // the default header's height
+export const ACTUAL_HEADER_HEIGHT =
+    DEVICE_STATUSBAR_HEIGHT + DEFAULT_HEADER_HEIGHT // the height if header including the statusbar's height
+
+export const ANIMATED_HEADER_EXTENDED_HEIGHT = 250 // the extra height to provide after the acutual height for the header of animated type
+
+export const TOTAL_ANIMATED_HEADER_HEIGHT =
+    ACTUAL_HEADER_HEIGHT + ANIMATED_HEADER_EXTENDED_HEIGHT // the is the total header height with animation full component
+
+export const DEFAULT_SCALE_VALUE_FOR_TOUCHABLE_SCALABLE = 0.98 // the default value of the scaler touchable to scale when hovered
+export const SEARCH_CATEGORY_CARD_HEIGHT = 120
+export const SEARCH_HISTORY_COUNT_LIMIT = 7 // maximum number of search history to save in local storage
+
+export const DEFAULT_MAXIMUM_CHARACTERS_IN_TITLE = 35 // the default number of characters a title can have...
+
+export const TRACK_URL_EXPIRATION_PERIOD = 18000 // the time after which every track url will get expire, NOTE: in seconds
+export const TRACK_URL_MINIMUM_LENGTH = 700 // every track's url is more than 1000 characters, but for now to be in the safe side let take this as the minimum length of the track's url
+
+export const DEFAULT_TIME_FORMAT = 'YYYY-MM-DD HH:MM:ss A' // the default string format for datetime
+
+export const ARTIST_ARTWORK_COLOR_UNIQUE_KEY = 'ARTIST_ARTWORK_COLOR_UNIQUE_KEY' // the unique key of caching images color using react-native-image-colors
+export const PLAYLIST_ARTWORK_COLOR_UNIQUE_KEY =
+    'PLAYLIST_ARTWORK_COLOR_UNIQUE_KEY' // the unique key of caching images color for playlists using react-native-image-colors

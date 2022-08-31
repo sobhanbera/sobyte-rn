@@ -14,10 +14,11 @@ import React from 'react'
 import {Provider} from 'react-redux'
 import {PersistGate} from 'redux-persist/lib/integration/react'
 import {GestureHandlerRootView} from 'react-native-gesture-handler'
+import {MenuProvider} from 'react-native-popup-menu'
 
 import ErrorBoundary from '@/error/ErrorBoundary'
 import {store, persistor} from '@/state/store'
-import AppNavigator from '@/navigators/AppNavigator'
+import {AppNavigator} from '@/navigators'
 import SobyteTrackPlayer from '@/services/SobyteTrackPlayer'
 
 export function AppEntryPoint() {
@@ -42,9 +43,18 @@ export function AppEntryPoint() {
                                     flex: 1,
                                     justifyContent: 'center',
                                 }}> */}
-                            <ErrorBoundary id="app">
-                                <AppNavigator />
-                            </ErrorBoundary>
+
+                            {/**
+                             * Wrap your application inside MenuProvider and then simply use Menu
+                             * component where you need it. Below you can find a simple example.
+                             *
+                             * @see https://github.com/instea/react-native-popup-menu#basic-usage
+                             */}
+                            <MenuProvider>
+                                <ErrorBoundary id="app">
+                                    <AppNavigator />
+                                </ErrorBoundary>
+                            </MenuProvider>
                             {/* </SafeAreaView> */}
                         </SobyteTrackPlayer>
                     </PersistGate>

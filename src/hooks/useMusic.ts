@@ -12,12 +12,11 @@ import axios from 'axios'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import RNLocalize from 'react-native-localize' // to pass the location of user in the api call
 import querystring from 'querystring' // string methods
-import _ from 'lodash' // util methods
+import Lodash from 'lodash' // util methods
 import NetInfo from '@react-native-community/netinfo'
 
 import {
     API_CONFIG_DATA_STORAGE_KEY,
-    SEARCHED_SONG_OFFLINE_DATA_STORAGE_KEY,
     PRIMARY_MUSIC_API,
     PRIMARY_MUSIC_API_ENDPOINTS,
     MUSIC_API_USER_AGENT,
@@ -27,6 +26,7 @@ import {
     MUSIC_API_ALT,
 } from '@/configs'
 import {
+    ArtistDetailsObject,
     ContinuationObject,
     ContinuationObjectKeys,
     PrimaryMusicApiEndpointsOptions,
@@ -41,6 +41,11 @@ import {
     updateMusicConfigState,
     updateMusicConfigStatus,
 } from '@/state'
+import {
+    getDataFromLocalStorage,
+    getLocationKeyForSavingSearchData,
+    setDataToLocalStorage,
+} from '@/utils'
 
 export function useMusic() {
     // state for the music config and more...
@@ -339,7 +344,7 @@ export function useMusic() {
             if (musicConfigData.DEVICE === undefined) {
                 initialize()
                     .then((musicConfigDataAfterManualInit: any) => {
-                        console.log('Successfully Manual Initialization')
+                        // console.log('Successfully Manual Initialization') // JUST_FOR_DEV
 
                         musicDataApiRequestor
                             .post(
@@ -507,8 +512,8 @@ export function useMusic() {
      * @param query the query string
      * @param categoryName what type of data is needed like "song" | "album" | "playlist"
      * @param saveToLocalStorage boolean if true then after searching and providing the results this function will also save the data in local storage for offline use cases.
-     * @param saveToCustomLocation this is a string if any part of app needs only one type of data everytime then provide a custom location reference we will save the data instead of `${SEARCHED_SONG_OFFLINE_DATA_STORAGE_KEY}${query}${categoryName}` location this could be used in music player main UI component since there many different types of random queries are done and we have to load it in offline purpose so no need to save everytype query of data only one is sufficient
      * @param provideASubarray if any part of the app wants a subarray from the fetched content about 0 to 5 then use [0, 5]... etc.
+     * @param saveToCustomLocation this is a string if any part of app needs only one type of data everytime then provide a custom location reference we will save the data instead of `${localStorageLocationKey}${query}${categoryName}` location this could be used in music player main UI component since there many different types of random queries are done and we have to load it in offline purpose so no need to save everytype query of data only one is sufficient
      * @returns the search result after making api request
      *
      * the local storage will store the data in form of key value pair like {"search_query": JSON.stringify("search_result_json_value")}
@@ -519,11 +524,11 @@ export function useMusic() {
         query: string,
         categoryName: SearchOptions = 'SONG',
         saveToLocalStorage: boolean = false,
-        saveToCustomLocation: string = '',
         provideASubarray: number[] = [0, 100], // default list count would be less than 30 so for safe case we are using 100 items
-    ): any => {
+        saveToCustomLocation: string = '',
+    ): Promise<any> => {
         var isOffline = false
-        return new Promise((resolve, reject) => {
+        return new Promise(async (resolve, reject) => {
             /**
              * if there is not internet connection we will check if the searched results are
              * saved in the local storage properly if it is stored then we could resolve with that data only
@@ -538,26 +543,40 @@ export function useMusic() {
              * so if the saveToLocalStorage is true than we are confirm that this data is also saved locally previously
              * then only we will procced to resolve with this data
              */
-            if (saveToLocalStorage) {
-                NetInfo.fetch().then(state => {
-                    if (!state.isConnected) {
-                        isOffline = true
-                        AsyncStorage.getItem(
-                            saveToCustomLocation ||
-                                `${SEARCHED_SONG_OFFLINE_DATA_STORAGE_KEY}-${categoryName}-${query}`,
-                        )
-                            .then((res: any) => {
-                                // checking if the data exists in local storage or not...
-                                if (res !== null) {
-                                    // load data and provide it for rendering purpose...
-                                    return resolve(JSON.parse(res))
-                                }
-                            })
-                            .catch(_err => {})
-                    } else {
-                        // connected, do nothing and continue
-                    }
-                })
+            const localStorageLocationKey =
+                getLocationKeyForSavingSearchData(categoryName)
+            if (saveToLocalStorage && localStorageLocationKey) {
+                // since sometimes the categoryName could be empty and in that case the local we get is also empty
+                await NetInfo.fetch()
+                    .then(state => {
+                        // console.log(
+                        //     'CONNECTION STATUS:',
+                        //     state.isConnected,
+                        //     query,
+                        //     categoryName,
+                        // )
+
+                        if (!state.isConnected) {
+                            isOffline = true
+                            AsyncStorage.getItem(
+                                saveToCustomLocation ||
+                                    `${localStorageLocationKey}-${categoryName}-${query}`,
+                            )
+                                .then((res: any) => {
+                                    // checking if the data exists in local storage or not...
+                                    if (res !== null) {
+                                        // load data and provide it for rendering purpose...
+                                        return resolve(JSON.parse(res))
+                                    }
+                                })
+                                .catch(_err => {})
+                        } else {
+                            // connected, do nothing and continue
+                        }
+                    })
+                    .catch(_ERR => {
+                        console.log('NETWORK', _ERR)
+                    })
             }
 
             /**
@@ -583,14 +602,14 @@ export function useMusic() {
                                 result =
                                     MusicParser.parseSongSearchResult(context)
                                 break
-                            case 'VIDEO':
-                                result =
-                                    MusicParser.parseVideoSearchResult(context)
-                                break
-                            case 'ALBUM':
-                                result =
-                                    MusicParser.parseAlbumSearchResult(context)
-                                break
+                            // case 'VIDEO':
+                            //     result =
+                            //         MusicParser.parseVideoSearchResult(context)
+                            //     break
+                            // case 'ALBUM':
+                            //     result =
+                            //         MusicParser.parseAlbumSearchResult(context)
+                            //     break
                             case 'ARTIST':
                                 result =
                                     MusicParser.parseArtistSearchResult(context)
@@ -653,14 +672,14 @@ export function useMusic() {
                          *
                          * for simply using the below line of code to get the item from local storage
                          *
-                         * `${SEARCHED_SONG_OFFLINE_DATA_STORAGE_KEY}${query}${categoryName}`
+                         * `${localStorageLocationKey}${query}${categoryName}`
                          */
                         if (saveToLocalStorage) {
                             // if the internet is available then only save the data
                             if (!isOffline) {
                                 AsyncStorage.setItem(
                                     saveToCustomLocation ||
-                                        `${SEARCHED_SONG_OFFLINE_DATA_STORAGE_KEY}-${categoryName}-${query}`,
+                                        `${localStorageLocationKey}-${categoryName}-${query}`,
                                     JSON.stringify(result),
                                 )
                                     .then(() => {})
@@ -686,30 +705,25 @@ export function useMusic() {
         endpointName: PrimaryMusicApiEndpointsOptions = 'search',
         continuation: ContinuationObjectKeys,
         dataType: SearchOptions,
-    ) => {
-        if (
-            // continuation != [] &&
-            continuation instanceof Object &&
-            continuation.continuation &&
-            continuation.clickTrackingParams
-        ) {
-            return new Promise(resolve => {
-                _createApiRequest(
-                    endpointName,
-                    {},
-                    {
-                        ctoken: continuation.continuation,
-                        continuation: continuation.continuation,
-                        itct: continuation.clickTrackingParams,
-                        type: MUSIC_API_NEXT,
-                        key: MUSIC_API_KEY,
-                        alt: MUSIC_API_ALT,
-                    },
-                ).then(context => {
+    ): Promise<any> => {
+        return new Promise((resolve, _reject) => {
+            _createApiRequest(
+                endpointName,
+                {},
+                {
+                    ctoken: continuation.continuation,
+                    continuation: continuation.continuation,
+                    itct: continuation.clickTrackingParams,
+                    type: MUSIC_API_NEXT,
+                    key: MUSIC_API_KEY,
+                    alt: MUSIC_API_ALT,
+                },
+            )
+                .then(context => {
                     // let parse:Date = new Date()
                     let parsedData: any = {}
                     try {
-                        switch (_.upperCase(dataType)) {
+                        switch (Lodash.upperCase(dataType)) {
                             case 'SONG':
                                 parsedData =
                                     MusicParser.parseSongSearchResult(context)
@@ -745,37 +759,39 @@ export function useMusic() {
                     }
                     // let o:number = new Date() - parse
                 })
-            })
-        } else {
-            return new Promise(() => {})
-        }
+                .catch(_ERR => {
+                    console.log('Cannot provide getContinuation()', _ERR)
+                })
+        })
     }
 
     /**
+     * @deprecated feature not provided for now
+     *
      * @param browseId id of the album
      * @returns the object with album data
      */
     const getAlbum = (browseId: string) => {
-        if (_.startsWith(browseId, 'MPREb')) {
-            return new Promise((resolve, reject) => {
-                _createApiRequest(
-                    PRIMARY_MUSIC_API_ENDPOINTS.browse,
-                    MusicUtils.buildEndpointContext('ALBUM', browseId),
-                )
-                    .then(context => {
-                        try {
-                            const result = MusicParser.parseAlbumPage(context)
-                            resolve(result)
-                        } catch (error) {
-                            return resolve({
-                                error: error.message,
-                            })
-                        }
-                    })
-                    .catch(error => reject(error))
-            })
+        if (Lodash.startsWith(browseId, 'MPREb')) {
+            // return new Promise((resolve, reject) => {
+            //     _createApiRequest(
+            //         PRIMARY_MUSIC_API_ENDPOINTS.browse,
+            //         MusicUtils.buildEndpointContext('ALBUM', browseId),
+            //     )
+            //         .then(context => {
+            //             try {
+            //                 const result = MusicParser.parseAlbumPage(context)
+            //                 resolve(result)
+            //             } catch (error) {
+            //                 return resolve({
+            //                     error: error.message,
+            //                 })
+            //             }
+            //         })
+            //         .catch(error => reject(error))
+            // })
         } else {
-            throw new Error('invalid album browse id.')
+            // throw new Error('invalid album browse id.')
         }
     }
 
@@ -784,17 +800,28 @@ export function useMusic() {
      * @param contentLimit limiting the data
      * @returns the object with playlist data
      */
-    const getPlaylist = (browseId: string, contentLimit = 100) => {
-        if (_.startsWith(browseId, 'VL') || _.startsWith(browseId, 'PL')) {
-            _.startsWith(browseId, 'PL') && (browseId = 'VL' + browseId)
-            return new Promise((resolve, reject) => {
+    const getPlaylist = (
+        browseId: string,
+        contentLimit = 200,
+    ): Promise<any> => {
+        return new Promise((resolve, reject) => {
+            if (
+                Lodash.startsWith(browseId, 'VL') ||
+                Lodash.startsWith(browseId, 'PL')
+            ) {
+                Lodash.startsWith(browseId, 'PL') &&
+                    (browseId = 'VL' + browseId)
+
                 _createApiRequest(
                     PRIMARY_MUSIC_API_ENDPOINTS.browse,
                     MusicUtils.buildEndpointContext('PLAYLIST', browseId),
                 )
                     .then(context => {
                         try {
-                            var result = MusicParser.parsePlaylistPage(context)
+                            var result = MusicParser.parsePlaylistPage(
+                                context,
+                                browseId,
+                            )
                             const getContinuations = (
                                 params: ContinuationObject,
                             ) => {
@@ -807,40 +834,49 @@ export function useMusic() {
                                         itct: params.continuation
                                             .clickTrackingParams,
                                     },
-                                ).then(context => {
-                                    const continuationResult =
-                                        MusicParser.parsePlaylistPage(context)
-                                    if (
-                                        Array.isArray(
-                                            continuationResult.content,
-                                        )
-                                    ) {
-                                        result.content = _.concat(
-                                            result.content,
-                                            continuationResult.content,
-                                        )
-                                        result.continuation =
-                                            continuationResult.continuation
-                                    }
-                                    if (
-                                        !Array.isArray(
-                                            continuationResult.continuation,
-                                        ) &&
-                                        result.continuation instanceof Object
-                                    ) {
-                                        if (
-                                            contentLimit > result.content.length
-                                        ) {
-                                            getContinuations(
-                                                continuationResult.continuation,
+                                )
+                                    .then(context => {
+                                        const continuationResult =
+                                            MusicParser.parsePlaylistPage(
+                                                context,
+                                                browseId,
                                             )
+                                        if (
+                                            Array.isArray(
+                                                continuationResult.content,
+                                            )
+                                        ) {
+                                            result.content = Lodash.concat(
+                                                result.content,
+                                                continuationResult.content,
+                                            )
+                                            result.continuation =
+                                                continuationResult.continuation
+                                        }
+                                        if (
+                                            !Array.isArray(
+                                                continuationResult.continuation,
+                                            ) &&
+                                            result.continuation instanceof
+                                                Object
+                                        ) {
+                                            if (
+                                                contentLimit >
+                                                result.content.length
+                                            ) {
+                                                getContinuations(
+                                                    continuationResult.continuation,
+                                                )
+                                            } else {
+                                                return resolve(result)
+                                            }
                                         } else {
                                             return resolve(result)
                                         }
-                                    } else {
-                                        return resolve(result)
-                                    }
-                                })
+                                    })
+                                    .catch(_ERR => {
+                                        console.log('CANOT PLAYLIST')
+                                    })
                             }
 
                             if (
@@ -859,19 +895,54 @@ export function useMusic() {
                         }
                     })
                     .catch(error => reject(error))
-            })
-        } else {
-            throw new Error('invalid playlist id.')
-        }
+            } else {
+                reject('invalid playlist id.')
+            }
+        })
     }
 
     /**
      * @param browseId id of the artist
+     * @param saveToLocalStorage if the artist's data should be saved to the local storage or not
      * @returns the object with artist data
      */
-    const getArtist = (browseId: string) => {
-        if (_.startsWith(browseId, 'UC')) {
-            return new Promise((resolve, reject) => {
+    const getArtist = (
+        browseId: string,
+        saveToLocalStorage?: boolean,
+    ): Promise<ArtistDetailsObject> => {
+        if (Lodash.startsWith(browseId, 'UC')) {
+            return new Promise(async (resolve, reject) => {
+                /**
+                 * since we are first checking if the data is in local storage so this var is needed
+                 * if the data is returned from the local storage then this variable will be true and we
+                 * will not fetch the remote data again after that
+                 */
+                let resolvedData = false // default value false
+
+                /**
+                 * getting the data from the local storage
+                 * and after getting the data we will check if the needed data is available, like the name, thumbnail
+                 * if it is available then set @resolvedData to true and resolve the data
+                 */
+                const localArtistSavingLocationKey =
+                    getLocationKeyForSavingSearchData('ARTIST')
+                await getDataFromLocalStorage(
+                    localArtistSavingLocationKey,
+                    'ARTIST',
+                    browseId,
+                ).then((res: ArtistDetailsObject | any) => {
+                    if (res !== null)
+                        if (
+                            res?.name.length > 0 &&
+                            res?.thumbnails?.length >= 1
+                        ) {
+                            resolvedData = true
+                            resolve(res)
+                        }
+                })
+
+                if (resolvedData) return
+
                 _createApiRequest(
                     PRIMARY_MUSIC_API_ENDPOINTS.browse,
                     MusicUtils.buildEndpointContext('ARTIST', browseId),
@@ -879,9 +950,19 @@ export function useMusic() {
                     .then(context => {
                         try {
                             const result = MusicParser.parseArtistPage(context)
+
+                            if (saveToLocalStorage) {
+                                setDataToLocalStorage(
+                                    localArtistSavingLocationKey,
+                                    'ARTIST',
+                                    browseId,
+                                    JSON.stringify(result),
+                                )
+                            }
+
                             resolve(result)
                         } catch (error) {
-                            resolve({
+                            reject({
                                 error: error.message,
                             })
                         }
@@ -933,10 +1014,10 @@ export function useMusic() {
     /**
      * @param {string} musicId id of the music
      * @param {string} playlistId id of the playlist
-     * @param {boolean} provideFullData if true than will provide a SongObject type object else will provide only music Id and playlist Id object array
-     * @param {number} numberOfSongs the number of songs data to return from this function
      * @param {string} param id of the param string if any
      * @param {string} playerParams id of the param string if any
+     * @param {boolean} provideFullData if true than will provide a SongObject type object else will provide only music Id and playlist Id object array
+     * @param {number} numberOfSongs the number of songs data to return from this function
      * @returns the next songs list may be bare or with full data of each song
      *
      * current the use of @param provideFullData and @param numberOfSongs is deprecated
@@ -944,10 +1025,10 @@ export function useMusic() {
     const getNext = (
         musicId: string,
         playlistId: string,
-        _provideFullData: boolean = false,
-        _numberOfSongs: number = 10,
         param: string = '',
         playerParams: string = '',
+        _provideFullData: boolean = false,
+        _numberOfSongs: number = 10,
     ) => {
         return new Promise((resolve, reject) => {
             _createApiRequest(PRIMARY_MUSIC_API_ENDPOINTS.next, {
@@ -982,6 +1063,9 @@ export function useMusic() {
 
         search: search,
 
+        /**
+         * @deprecated
+         */
         getAlbum: getAlbum,
         getPlaylist: getPlaylist,
         getArtist: getArtist,

@@ -15,6 +15,7 @@ import {
     fontStyles,
     gutterStyles,
     layoutStyles,
+    appAssets,
     FontSizeTypes,
     MetricSizeTypes,
 } from '@/theme'
@@ -37,6 +38,7 @@ export function useTheme(): ThemeCombinationParams {
      * @param {FontStyles} fonts: all the font styles
      * @param {GutterStyles} gutters: every gutter styles
      * @param {LayoutStyles} layouts: all styles related to layouts and all
+     * @param {AppAssets} assets: all styles related to layouts and all
      * @param {CombinedThemeVariables} variables: {
      *      @param {CommonColors} colors: common colors for both the themes
      *      @param {[key: string]: number} fontsize: all the font sizes we can use
@@ -48,6 +50,7 @@ export function useTheme(): ThemeCombinationParams {
         fonts: fontStyles,
         gutters: gutterStyles,
         layouts: layoutStyles,
+        assets: appAssets,
         variables: {
             colors: RequiredCommonColors,
             fontsize: FontSizeTypes,

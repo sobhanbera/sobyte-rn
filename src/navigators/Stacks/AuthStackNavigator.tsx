@@ -11,18 +11,18 @@
 import React from 'react'
 import {createNativeStackNavigator} from '@react-navigation/native-stack'
 
-import {ForgotPass, Landing, OTPScreen, SignIn, SignUp} from '@/containers/auth'
+import {ForgotPass, Landing, OTPScreen, SignIn, SignUp} from '@/containers'
 import {
     AUTH_FORGOT_SCREEN,
     AUTH_LANDING_SCREEN,
     AUTH_OTP_SCREEN,
     AUTH_SIGNIN_SCREEN,
     AUTH_SIGNUP_SCREEN,
-} from '@/configs/screens'
+} from '@/configs'
 import {useTheme} from '@/hooks'
 
 const AuthNavigationStack = createNativeStackNavigator()
-export default function AuthStackNavigator() {
+export function AuthStackNavigator() {
     const {theme} = useTheme()
 
     return (

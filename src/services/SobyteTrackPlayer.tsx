@@ -12,7 +12,7 @@ import React, {useCallback, useEffect, useState} from 'react'
 import {useSelector} from 'react-redux'
 import TrackPlayer, {Capability, RatingType} from 'react-native-track-player'
 
-import {useMusic} from '@/hooks'
+import {useMusic, useTheme} from '@/hooks'
 import {SobyteState} from '@/state'
 
 const SobyteTrackPlayerContext = React.createContext<boolean>(false)
@@ -21,6 +21,8 @@ interface SobyteTrackPlayerProps {
 }
 export default function SobyteTrackPlayer(props: SobyteTrackPlayerProps) {
     const {initMusicApi, search} = useMusic()
+    const {assets} = useTheme()
+
     const musicConfigError = useSelector(
         (state: SobyteState) => state.musicconfig.error,
     )
@@ -34,16 +36,17 @@ export default function SobyteTrackPlayer(props: SobyteTrackPlayerProps) {
          * or configs..
          */
         TrackPlayer.updateOptions({
-            icon: require('@/assets/images/logos/sobyte_white.png'),
+            icon: assets.images.logos.sobyte_white,
 
-            rewindIcon: require('@/assets/images/icons/backward.png'),
-            forwardIcon: require('@/assets/images/icons/forward.png'),
-            playIcon: require('@/assets/images/icons/play.png'),
-            pauseIcon: require('@/assets/images/icons/pause.png'),
+            playIcon: assets.images.icons.play, // require('@/assets/images/icons/play.png'),
+            pauseIcon: assets.images.icons.pause, // require('@/assets/images/icons/pause.png'),
 
-            // nextIcon: require(''), maybe
-            // previousIcon: require(''), maybe
-            // stopIcon: require(''), maybe
+            rewindIcon: assets.images.icons.backward, // require('@/assets/images/icons/backward.png'),
+            forwardIcon: assets.images.icons.forward, // require('@/assets/images/icons/forward.png'),
+
+            nextIcon: assets.images.icons.forwardb, // require('@/assets/images/icons/forwardb.png'),
+            previousIcon: assets.images.icons.backwardb, // require('@/assets/images/icons/backwardb.png'),
+            // stopIcon: require(''),
 
             stopWithApp: false,
             forwardJumpInterval: 5,
@@ -55,34 +58,32 @@ export default function SobyteTrackPlayer(props: SobyteTrackPlayerProps) {
                 Capability.Pause,
                 Capability.Stop,
                 Capability.SeekTo,
+
                 Capability.JumpForward,
                 Capability.JumpBackward,
 
-                // Capability.Skip,
-                // Capability.SkipToNext,
-                // Capability.SkipToPrevious,
+                Capability.Skip,
+                Capability.SkipToNext,
+                Capability.SkipToPrevious,
             ],
             notificationCapabilities: [
                 Capability.Play,
                 Capability.Pause,
                 Capability.SeekTo,
+
                 Capability.JumpBackward,
                 Capability.JumpForward,
-                Capability.SetRating,
 
-                // Capability.Skip,
-                // Capability.SkipToPrevious,
+                Capability.SkipToNext,
+                Capability.SkipToPrevious,
             ],
             compactCapabilities: [
                 Capability.Play,
                 Capability.Pause,
                 Capability.SeekTo,
+
                 Capability.JumpBackward,
                 Capability.JumpForward,
-                Capability.SetRating,
-
-                // Capability.Skip,
-                // Capability.SkipToPrevious,
             ],
             alwaysPauseOnInterruption: true,
             ratingType: RatingType.Heart,
@@ -93,7 +94,7 @@ export default function SobyteTrackPlayer(props: SobyteTrackPlayerProps) {
          * with some metadata about the track which is to be played in the future of this instance
          */
         TrackPlayer.setupPlayer({
-            // minBuffer: 15, // Minimum time in seconds that needs to be buffered
+            minBuffer: 30, // Minimum time in seconds that needs to be buffered
             maxBuffer: 45, // Maximum time in seconds that needs to be buffered
             playBuffer: 3, // Minimum time in seconds that needs to be buffered to start playing
             // backBuffer: 0, // Time in seconds that should be kept in the buffer behind the current playhead time.
@@ -110,6 +111,14 @@ export default function SobyteTrackPlayer(props: SobyteTrackPlayerProps) {
     }
     useEffect(() => {
         initializeAppTrackPlayer()
+
+        /**
+         * destroying the track player
+         * so that no duplicate track player instances are created
+         */
+        return () => {
+            TrackPlayer.destroy()
+        }
     }, [])
 
     /**
@@ -136,18 +145,20 @@ export default function SobyteTrackPlayer(props: SobyteTrackPlayerProps) {
             })
             .catch(_error => {
                 // if any error occurs at least try once again to init the service
-                initMusicApi().then(_result => {
-                    // if passes this time then call it again, and we are done!
+                initMusicApi()
+                    .then(_result => {
+                        // if passes this time then call it again, and we are done!
 
-                    /**
-                     * we are searching for song because this will indirectly trigger the _createApiRequest function to call initialize once more...
-                     * then we can continue to make any other requests
-                     *
-                     * this makes sure that the api is up and running
-                     * with a status of 200 always...
-                     */
-                    search('any random query here', 'SONG')
-                })
+                        /**
+                         * we are searching for song because this will indirectly trigger the _createApiRequest function to call initialize once more...
+                         * then we can continue to make any other requests
+                         *
+                         * this makes sure that the api is up and running
+                         * with a status of 200 always...
+                         */
+                        search('any random query here', 'SONG')
+                    })
+                    .catch(_ERR => {})
             })
     }, [musicConfigError])
     useEffect(() => {

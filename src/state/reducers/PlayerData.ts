@@ -36,7 +36,7 @@ export const BareCurrentTrack: TrackMetadataBase & SongObject = {
     musicId: '',
     playlistId: '',
     duration: 0,
-    type: '',
+    type: 'song',
     artist: '',
     description: '',
     artwork: '',
@@ -45,7 +45,11 @@ export const BareCurrentTrack: TrackMetadataBase & SongObject = {
     artworks: [
         {
             url: '',
-            height: 0,
+            height: 60,
+        },
+        {
+            url: '',
+            height: 120,
         },
     ],
     album: {
@@ -120,6 +124,72 @@ const playerDataSlice = createSlice({
         },
 
         /**
+         * @deprecated
+         * this action will add more tracks data to the list of tracks/queue
+         *
+         * @param state initial state
+         * @param param1 more track data which is to be added at the end of main "tracks"
+         */
+        addMoreTracksToQueue: (
+            state,
+            {
+                payload: {
+                    tracks = [],
+                    continuationData = initialState.continuationData,
+                },
+            }: {
+                payload: {
+                    tracks: Array<SongObject>
+                    continuationData: ContinuationObjectKeys
+                }
+            },
+        ) => {
+            state.tracks = [...state.tracks, ...tracks]
+            state.continuationData = continuationData
+        },
+
+        /**
+         * this method adds more tracks data to the queue but forgot/deletes all the remaining tracks in the queue except the last one
+         * this is because, while adding more tracks to the list (by the above @addMoreTracksToQueue method) the animation is lagging very much
+         * and the indexing and playing stucks sometimes...
+         * so to overcome that I have decided to delete all the tracks excecpt the last one while adding more tracks to the queue
+         *
+         * @param state initial state
+         * @param param1 tracks data and continuation data
+         */
+        addMoreTracksToQueueWhileKeepingTheLastTrack: (
+            state,
+            {
+                payload: {
+                    tracks = [],
+                    continuationData = initialState.continuationData,
+                },
+            }: {
+                payload: {
+                    tracks: Array<SongObject>
+                    continuationData: ContinuationObjectKeys
+                }
+            },
+        ) => {
+            state.tracks = [state.tracks[state.tracks.length - 1], ...tracks]
+            state.continuationData = continuationData
+        },
+
+        /**
+         * updates the current track
+         * @param state initial state
+         * @param param1 updated current
+         */
+        updateCurrentTrack: (
+            state,
+            {
+                payload: {currentTrack},
+            }: {payload: {currentTrack: TrackMetadataBase & SongObject}},
+        ) => {
+            state.currentTrack = currentTrack
+        },
+
+        /**
          * updates the current track index
          * @param state initial state
          * @param param1 updated current index
@@ -138,6 +208,22 @@ const playerDataSlice = createSlice({
         resetPlayerData: state => {
             state.currentTrack = BareCurrentTrack
         },
+
+        /**
+         * this method changes the index of any track in the queue
+         * this method will be called when the user moves any track in the queue
+         *
+         * @param state initial state
+         * @param param1 two numbers (from and to) which says from which index to which index any track is moved
+         * @returns state
+         */
+        changeTrackPositionInQueue: (
+            state,
+            {payload: {from, to}}: {payload: {from: number; to: number}},
+        ) => {
+            if (from !== to && to < state.tracks.length)
+                state.tracks.splice(to, 0, state.tracks.splice(from, 1)[0])
+        },
     },
 
     extraReducers: {},
@@ -146,8 +232,12 @@ const playerDataSlice = createSlice({
 export const {
     updateTracksData,
     updatePlayerData,
+    addMoreTracksToQueue,
+    addMoreTracksToQueueWhileKeepingTheLastTrack,
+    updateCurrentTrack,
     updateCurrentTrackIndex,
     resetPlayerData,
+    changeTrackPositionInQueue,
 } = playerDataSlice.actions
 
 const {reducer} = playerDataSlice

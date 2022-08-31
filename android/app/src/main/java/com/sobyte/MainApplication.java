@@ -25,7 +25,14 @@ import com.swmansion.rnscreens.RNScreensPackage;
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 import com.dylanvann.fastimage.FastImageViewPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
-import com.reactnativecommunity.slider.ReactSliderPackage;
+import com.oblador.vectoricons.VectorIconsPackage;
+import cl.json.RNSharePackage;
+import com.RNFetchBlob.RNFetchBlobPackage;
+import org.reactnative.maskedview.RNCMaskedViewPackage;
+import com.airbnb.android.react.lottie.LottiePackage;
+import com.th3rdwave.safeareacontext.SafeAreaContextPackage;
+import com.swmansion.reanimated.ReanimatedPackage;
+import com.reactnativeimagecolors.ImageColorsPackage;
 
 public class MainApplication extends Application implements ReactApplication {
 

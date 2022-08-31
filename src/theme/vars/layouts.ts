@@ -77,6 +77,9 @@ export default function GetLayouts() {
         justifyContentBetween: {
             justifyContent: 'space-between',
         },
+        justifyContentEvenly: {
+            justifyContent: 'space-evenly',
+        },
         scrollSpaceAround: {
             flexGrow: 1,
             justifyContent: 'space-around',
@@ -113,6 +116,16 @@ export default function GetLayouts() {
         },
         rotate90Inverse: {
             transform: [{rotate: '-90deg'}],
+        },
+
+        hiddenOverflow: {
+            overflow: 'hidden',
+        },
+        scrollOverflow: {
+            overflow: 'scroll',
+        },
+        visibleOverflow: {
+            overflow: 'visible',
         },
     })
 }

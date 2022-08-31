@@ -11,15 +11,15 @@
 import {NavigationContainer} from '@react-navigation/native'
 import React from 'react'
 
-import AppStackNavigator from './AppStackNavigator'
-import AuthStackNavigator from './AuthStackNavigator'
+import {RootBottomBarNavigator} from './BottomBars'
+import {AuthStackNavigator} from './Stacks'
 
-export default function AppNavigator() {
+export function AppNavigator() {
     const isLoggedIn = true
 
     return (
         <NavigationContainer>
-            {isLoggedIn ? <AppStackNavigator /> : <AuthStackNavigator />}
+            {isLoggedIn ? <RootBottomBarNavigator /> : <AuthStackNavigator />}
         </NavigationContainer>
     )
 }

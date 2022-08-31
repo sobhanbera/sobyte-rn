@@ -8,8 +8,5 @@
  * Purpose - navigation....
  */
 
-import AppNavigator from './AppNavigator'
-import AppStackNavigator from './AppStackNavigator'
-import AuthStackNavigator from './AuthStackNavigator'
-
-export {AppNavigator, AppStackNavigator, AuthStackNavigator}
+export * from './AppNavigator'
+export * from './Stacks'

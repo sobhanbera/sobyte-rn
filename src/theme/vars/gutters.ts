@@ -41,6 +41,9 @@ export default function GetGutters({metrics}: CombinedThemeVariables): Gutters {
             (acc, [key, value]) => ({
                 ...acc,
                 /* Margins */
+                [`${key}Margin`]: {
+                    margin: value,
+                },
                 [`${key}MarginBottom`]: {
                     marginBottom: value,
                 },
@@ -59,7 +62,27 @@ export default function GetGutters({metrics}: CombinedThemeVariables): Gutters {
                 [`${key}MarginHorizontal`]: {
                     marginHorizontal: value,
                 },
+                [`${key}MarginExceptTop`]: {
+                    marginHorizontal: value,
+                    marginBottom: value,
+                },
+                [`${key}MarginExceptBottom`]: {
+                    marginHorizontal: value,
+                    marginTop: value,
+                },
+                [`${key}MarginExceptRight`]: {
+                    marginVertical: value,
+                    marginLeft: value,
+                },
+                [`${key}MarginExceptLeft`]: {
+                    marginVertical: value,
+                    marginRight: value,
+                },
+
                 /* Paddings */
+                [`${key}Padding`]: {
+                    padding: value,
+                },
                 [`${key}PaddingBottom`]: {
                     paddingBottom: value,
                 },
@@ -77,6 +100,22 @@ export default function GetGutters({metrics}: CombinedThemeVariables): Gutters {
                 },
                 [`${key}PaddingHorizontal`]: {
                     paddingHorizontal: value,
+                },
+                [`${key}PaddingExceptTop`]: {
+                    paddingHorizontal: value,
+                    paddingBottom: value,
+                },
+                [`${key}PaddingExceptBottom`]: {
+                    paddingHorizontal: value,
+                    paddingTop: value,
+                },
+                [`${key}PaddingExceptRight`]: {
+                    paddingVertical: value,
+                    paddingLeft: value,
+                },
+                [`${key}PaddingExceptLeft`]: {
+                    paddingVertical: value,
+                    paddingRight: value,
                 },
             }),
             {},

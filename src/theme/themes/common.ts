@@ -72,13 +72,17 @@ export const DefaultTheme: ThemeColors = {
         dark: '#EE7674',
     },
 
-    background: '#101010',
     themecolor: '#000000',
     themecolorrevert: '#FFFFFF',
 
-    surface: '#050505',
-    surfacelight: '#21242b',
-    border: '#303030',
+    background: '#121212',
+    surface: '#21242b',
+    surfacelight: '#282B32',
+
+    border: '#191919',
+    surfaceborder: '#31343b',
+    surfacelightborder: '#383B42',
+
     placeholder: '#CFCFCF',
     text: '#EFEFEF',
 
@@ -129,14 +133,14 @@ export const DefaultTheme: ThemeColors = {
             '#10404E',
         ],
         yellow: [
-            '#1F3D00',
-            '#1F3D00',
-            '#1A3B03',
-            '#173B01',
-            '#173B01',
-            '#173B01',
-            '#204E00',
-            '#205E00',
+            '#3F4D00',
+            '#3F4D00',
+            '#3A4B03',
+            '#374B01',
+            '#374B01',
+            '#374B01',
+            '#405E00',
+            '#405E00',
         ],
     },
 }

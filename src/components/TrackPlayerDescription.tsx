@@ -14,6 +14,7 @@ import {View} from 'react-native'
 import {formatArtistsListFromArray, formatTrackTitle} from '@/utils'
 import {SongObject} from '@/schemas'
 import {
+    NEXT_TITLE_COLOR_ALPHA,
     SCREEN_WIDTH,
     TRACK_ARTWORK_HORIZONAL_SPACING,
     TRACK_ARTWORK_SPACING,
@@ -21,13 +22,15 @@ import {
 import {useTheme} from '@/hooks'
 import {SobyteMarquee} from './SobyteMarquee'
 
-type TrackPlayerDescriptionProps = {
+interface TrackPlayerDescriptionProps {
     track: SongObject
     index: number
+    onShowTrackMenu(): void
 }
 export const TrackPlayerDescription = ({
     track,
     index,
+    onShowTrackMenu,
 }: TrackPlayerDescriptionProps) => {
     const {fonts, gutters, theme} = useTheme()
 
@@ -43,15 +46,18 @@ export const TrackPlayerDescription = ({
                 paddingHorizontal: TRACK_ARTWORK_HORIZONAL_SPACING,
             }}>
             <SobyteMarquee
-                style={[fonts.titleSmall, gutters.extraTinyMarginBottom]}>
+                style={[fonts.titleRegular, gutters.extraTinyMarginBottom]}>
                 {formattedTitle}
             </SobyteMarquee>
 
             <SobyteMarquee
+                onPress={onShowTrackMenu}
                 style={[
-                    fonts.titleTiny,
+                    fonts.titleSmall,
                     gutters.extraTinyMarginTop,
-                    {color: `${theme.themecolorrevert}C7`},
+                    {
+                        color: `${theme.themecolorrevert}${NEXT_TITLE_COLOR_ALPHA}`,
+                    },
                 ]}>
                 {formattedArtist}
             </SobyteMarquee>

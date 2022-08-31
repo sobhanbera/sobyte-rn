@@ -4,8 +4,17 @@ apply from: file("../node_modules/@react-native-community/cli-platform-android/n
 include ':app'
 includeBuild('../node_modules/react-native-gradle-plugin')
 
+/** for gestures support */
 include ':react-native-gesture-handler'
 project(':react-native-gesture-handler').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-gesture-handler/android')
+
+/** reanimated library for animation purpose */
+include ':react-native-reanimated'
+project(':react-native-reanimated').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-reanimated/android')
+
+/** a view for masking purpose */
+include ':@react-native-masked-view_masked-view'
+project(':@react-native-masked-view_masked-view').projectDir = new File(rootProject.projectDir, '../node_modules/@react-native-masked-view/masked-view/android')
 
 /** the main library by which the app will play music....  🎵️ 👍 */
 include ':react-native-track-player'
@@ -35,12 +44,29 @@ project(':react-native-fast-image').projectDir = new File(rootProject.projectDir
 include ':react-native-linear-gradient'
 project(':react-native-linear-gradient').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-linear-gradient/android')
 
-/** slider component from react native community itself */
-include ':@react-native-community_slider'
-project(':@react-native-community_slider').projectDir = new File(rootProject.projectDir, '../node_modules/@react-native-community/slider/android')
+/** vector icons for our application */
+include ':react-native-vector-icons'
+project(':react-native-vector-icons').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-vector-icons/android')
 
-/**  */
+/** this module will help up share something throughout the app */
+include ':react-native-share'
+project(':react-native-share').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-share/android')
 
+/** for remote files blob */
+include ':rn-fetch-blob'
+project(':rn-fetch-blob').projectDir = new File(rootProject.projectDir, '../node_modules/rn-fetch-blob/android')
+
+/** lottie JSON animation library */
+include ':lottie-react-native'
+project(':lottie-react-native').projectDir = new File(rootProject.projectDir, '../node_modules/lottie-react-native/src/android')
+
+/** for rendering safe are view, but we are not using this */
+include ':react-native-safe-area-context'
+project(':react-native-safe-area-context').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-safe-area-context/android')
+
+/** package to get primary, secondary, light and vibrant colors of any image */
+include ':react-native-image-colors'
+project(':react-native-image-colors').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-image-colors/android')
 
 if (settings.hasProperty("newArchEnabled") && settings.newArchEnabled == "true") {
     include(":ReactAndroid")

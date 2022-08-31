@@ -10,8 +10,9 @@
 /**
  * this is the all types of data which could be fetched
  * from the backend api
+ * 'ALBUM' is also one option but we are not providing it currently
  */
-export type SearchOptions = 'SONG' | 'ALBUM' | 'ARTIST' | 'PLAYLIST' | 'VIDEO'
+export type SearchOptions = 'SONG' | 'ARTIST' | 'PLAYLIST' //| 'VIDEO'
 
 /**
  * all the endpoints we are supporting right now
@@ -124,7 +125,7 @@ export interface MusicFormats {
     }
 }
 
-export interface VideoDetails {
+export interface MusicTrackAsVideoDetails {
     videoDetails: {
         // type: SearchOptions
         // musicId: string
@@ -157,7 +158,7 @@ export interface SongArtistObject {
 }
 
 /**
- * thumbnail data for songs
+ * artwork data for songs
  */
 export interface ArtworkObject {
     height: number
@@ -165,10 +166,19 @@ export interface ArtworkObject {
 }
 
 /**
+ * default artwork modal
+ */
+export interface Artwork {
+    height: number
+    width: number
+    url: string
+}
+
+/**
  * content of songs which are returned when making a request to get songs list
  */
 export interface SongObject {
-    type?: string
+    type: 'song'
     title: string
     musicId: string
     playlistId: string
@@ -180,21 +190,103 @@ export interface SongObject {
     duration: number
     artworks: Array<ArtworkObject>
     params?: string
-    [key: string]: any
 }
 
 /**
- * metadata which every track contains...
+ * artist object when returned from api request
+ * whichever arttributes aren't used in the app they are optional in this interface (but not actually)
  */
-export interface TrackMetadataBase {
-    url: string
-    artist: string
-    artwork: string
-    description: string
-    genre?: string
-    contentType?: string
+export interface ArtistObject {
+    type: 'artist'
+    browseId: string
+    title: string
+    artworks: Array<Artwork>
+}
 
-    [key: string]: any
+/**
+ * playlist object when returned from api request
+ * whichever arttributes aren't used in the app they are optional in this interface (but not actually)
+ */
+export interface PlaylistObject {
+    type: 'playlist'
+    browseId: string
+    title: string
+    trackCount: number
+    artworks: Array<Artwork>
+    author?: string
+}
+
+/**
+ * @deprecated
+ *
+ * album object when returned from api request
+ * whichever arttributes aren't used in the app they are optional in this interface (but not actually)
+ */
+export interface AlbumObject {
+    type: 'album' | 'single'
+    browseId: string
+    playlistId: string
+    title: string
+    year: string
+    artworks: Array<Artwork>
+    artist?: string
+}
+
+/**
+ * this is the artist's page data we get after quering using browseId
+ */
+export interface ArtistDetailsObject {
+    name: string
+    thumbnails: Array<Artwork>
+    description?: string
+    products?: {
+        albums: {
+            content: []
+        }
+        singles: {
+            browseId: string
+            content: []
+            params: string
+        }
+        songs: {
+            browseId: string
+            content: []
+            params: string
+        }
+        videos: {
+            browseId: string
+            content: []
+            params: string
+        }
+    }
+    views?: number
+}
+
+export interface PlaylistTrackObject {
+    type: 'song'
+    title: string
+    musicId: string
+    playlistId: string
+    artists: Array<SongArtistObject>
+    album?: {
+        name: string
+        browseId: string
+    }
+    duration: number
+    artworks: Array<Artwork>
+}
+/**
+ * this is the playlist's page data we get after quering using browseId
+ */
+export interface PlaylistDetailsObject {
+    title: string
+    trackCount: number
+    dateYear: number
+    content: Array<PlaylistTrackObject>
+    artwork: Array<Artwork>
+    continuation: ContinuationObjectKeys
+    owner?: string
+    views?: number
 }
 
 /**
@@ -227,6 +319,53 @@ export interface FetchedSongObject {
 }
 
 /**
+ * this type could be used for any type of fetched data
+ * like song, playlist, artists, albums
+ * just provide the data type in the generics
+ */
+export type FetchedData<DataObject> = {
+    content: Array<DataObject>
+    continuation: ContinuationObjectKeys
+}
+
+/**
+ * data about from where does a track/song is being played
+ * a song could be loaded in the music player's UI at initial app's launch
+ * or either it can be played from other screens as well
+ *
+ * so this is the type which describes it
+ *
+ * here 'player' is the only way that the song is played from the player's interface
+ *
+ * here context is the position of screen from where the track is been played
+ * musicId is the current music's id
+ * musicId is the current music's playlist's id
+ * query is the query executed to get the song's list
+ * this query will be executed again to get the rest of songs
+ * which will be pushed after the song which is being played/changed
+ */
+export type ScreenContext = 'player' | 'explore' | 'search' | 'other' | '' // reference denoting a screen tag
+export interface TrackDescription {
+    context: ScreenContext
+    trackData?: SongObject
+    query: string
+}
+
+/**
+ * metadata which every track contains...
+ */
+export interface TrackMetadataBase {
+    url: string
+    artist: string
+    artwork: string
+    description: string // actual type is string, we need to parse the JSON from this string, if we want to use
+    genre?: string
+    contentType?: string
+
+    [key: string]: any
+}
+
+/**
  * here onwards all the interface, modals and schemas for the TRACK's actual URL goes....
  *
  * like tracks data, track's url, track's
@@ -251,6 +390,21 @@ export interface MusicDataFetchOptions {
  */
 export interface TrackURLDataModal {
     url: string
+}
+
+/**
+ * the type of data that will be saved on the local storage in the device after searcing for it
+ * and with a expiration timestamp so that the URL could not be used after that
+ *
+ * this expiration is because, from where we are geting this data has a expiration property on every URL
+ * so we could use them till they expire (why not right!) so to do that the expiration field must be present
+ *
+ * and also with the music ID all this is related to
+ */
+export interface TrackURLLocalStorageData {
+    musicId: string
+    url: string
+    expire: string // new Date().getTime()
 }
 
 /**

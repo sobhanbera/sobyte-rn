@@ -21,8 +21,8 @@ export const fv: any = (input: any, query: any, justOne: boolean = false) => {
     const iterate: any = (x: any, y: any) => {
         var r = []
 
-        x.hasOwnProperty(y) && r.push(x[y])
-        if (justOne && x.hasOwnProperty(y)) {
+        x?.hasOwnProperty(y) && r.push(x[y])
+        if (justOne && x?.hasOwnProperty(y)) {
             return r.shift()
         }
 
@@ -130,9 +130,9 @@ export const getCategoryURI = (categoryName: SearchOptions) => {
         case 'VIDEO':
             b64Key = 'BABGAAgACgA'
             break
-        case 'ALBUM':
-            b64Key = 'BAAGAEgACgA'
-            break
+        // case 'ALBUM':
+        //     b64Key = 'BAAGAEgACgA'
+        //     break
         case 'ARTIST':
             b64Key = 'BAAGAAgASgA'
             break
