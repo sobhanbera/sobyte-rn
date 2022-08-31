@@ -1,0 +1,309 @@
+  _    _  ___  __     __   __   __  __  ___
+ ( \/\/ )(  _)(  )   / _) /  \ (  \/  )(  _)
+  \    /  ) _) )(__ ( (_ ( () ) )    (  ) _)
+   \/\/  (___)(____) \__) \__/ (_/\/\_)(___)
+   ___   __   ___  _  _   __   _  _    ___  ___  ___    __
+  / __) /  \ (  ,)( )( ) (  ) ( \( )  (  ,)(  _)(  ,)  (  )
+  \__ \( () ) ) ,\ )__(  /__\  )  (    ) ,\ ) _) )  \  /__\
+  (___/ \__/ (___/(_)(_)(_)(_)(_)\_)  (___/(___)(_)\_)(_)(_)
+
+ sobyte   main ±  gst
+On branch main
+Your branch is ahead of 'origin/main' by 10 commits.
+  (use "git push" to publish your local commits)
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   .husky/pre-commit
+
+no changes added to commit (use "git add" and/or "git commit -a")
+ sobyte   main ±  git checkout -b development
+ ✘  sobyte   main ± 
+ ✘  sobyte   main ± 
+ ✘  sobyte   main ±  git branch development
+fatal: a branch named 'development' already exists
+ ✘  sobyte   main ±  git checkout development
+M       .husky/pre-commit
+Switched to branch 'development'
+Your branch is up to date with 'origin/development'.
+ sobyte   development ±  git pull
+remote: Enumerating objects: 1, done.
+remote: Counting objects: 100% (1/1), done.
+remote: Total 1 (delta 0), reused 0 (delta 0), pack-reused 0
+Unpacking objects: 100% (1/1), 636 bytes | 636.00 KiB/s, done.
+From https://github.com/sobhanbera/sobyte
+   83c0102..67f2662  development -> origin/development
+Updating 83c0102..67f2662
+Updating files: 100% (167/167), done.
+Fast-forward
+ .github_src/named_logo.png                                     | Bin 0 -> 42179 bytes
+ .gitignore                                                     |   3 +
+ .npmrc                                                         |   5 +-
+ .prettierrc.js                                                 |  16 +--
+ .watchmanconfig                                                |   2 +-
+ @types/alltypes.d.ts                                           |   2 +-
+ README.md                                                      |   0
+ android/app/src/main/AndroidManifest.xml                       |  24 +++-
+ android/app/src/main/assets/fonts/AntDesign.ttf                | Bin 0 -> 70344 bytes
+ android/app/src/main/assets/fonts/Entypo.ttf                   | Bin 0 -> 66200 bytes
+ android/app/src/main/assets/fonts/EvilIcons.ttf                | Bin 0 -> 13456 bytes
+ android/app/src/main/assets/fonts/Feather.ttf                  | Bin 0 -> 56228 bytes
+ android/app/src/main/assets/fonts/FontAwesome.ttf              | Bin 0 -> 165548 bytes
+ android/app/src/main/assets/fonts/FontAwesome5_Brands.ttf      | Bin 0 -> 134040 bytes
+ android/app/src/main/assets/fonts/FontAwesome5_Regular.ttf     | Bin 0 -> 33736 bytes
+ android/app/src/main/assets/fonts/FontAwesome5_Solid.ttf       | Bin 0 -> 202744 bytes
+ android/app/src/main/assets/fonts/Fontisto.ttf                 | Bin 0 -> 313528 bytes
+ android/app/src/main/assets/fonts/Foundation.ttf               | Bin 0 -> 56976 bytes
+ android/app/src/main/assets/fonts/Ionicons.ttf                 | Bin 0 -> 247192 bytes
+ android/app/src/main/assets/fonts/MaterialCommunityIcons.ttf   | Bin 0 -> 1147844 bytes
+ android/app/src/main/assets/fonts/MaterialIcons.ttf            | Bin 0 -> 230384 bytes
+ android/app/src/main/assets/fonts/Octicons.ttf                 | Bin 0 -> 49404 bytes
+ android/app/src/main/assets/fonts/SimpleLineIcons.ttf          | Bin 0 -> 54056 bytes
+ android/app/src/main/assets/fonts/Zocial.ttf                   | Bin 0 -> 25788 bytes
+ android/app/src/main/java/com/sobyte/MainApplication.java      |   9 +-
+ android/app/src/main/res/mipmap-hdpi/ic_launcher.png           | Bin 3056 -> 3983 bytes
+ android/app/src/main/res/mipmap-hdpi/ic_launcher_curved.png    | Bin 0 -> 2499 bytes
+ android/app/src/main/res/mipmap-hdpi/ic_launcher_round.png     | Bin 5024 -> 0 bytes
+ android/app/src/main/res/mipmap-mdpi/ic_launcher.png           | Bin 2096 -> 2509 bytes
+ android/app/src/main/res/mipmap-mdpi/ic_launcher_curved.png    | Bin 0 -> 1570 bytes
+ android/app/src/main/res/mipmap-mdpi/ic_launcher_round.png     | Bin 2858 -> 0 bytes
+ android/app/src/main/res/mipmap-xhdpi/ic_launcher.png          | Bin 4569 -> 5992 bytes
+ android/app/src/main/res/mipmap-xhdpi/ic_launcher_curved.png   | Bin 0 -> 3554 bytes
+ android/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png    | Bin 7098 -> 0 bytes
+ android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png         | Bin 6464 -> 10915 bytes
+ android/app/src/main/res/mipmap-xxhdpi/ic_launcher_curved.png  | Bin 0 -> 6239 bytes
+ android/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png   | Bin 10676 -> 0 bytes
+ android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png        | Bin 9250 -> 15771 bytes
+ android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_curved.png | Bin 0 -> 9313 bytes
+ android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png  | Bin 15523 -> 0 bytes
+ android/app/src/main/res/values/strings.xml                    |   2 +-
+ android/app/src/main/res/values/styles.xml                     |   7 +-
+ android/settings.gradle                                        |  34 +++++-
+ index.js                                                       |   9 +-
+ ios/Podfile                                                    |  16 ++-
+ jest.config.js                                                 |  10 ++
+ jest.setup.js                                                  |   4 -
+ metro.config.js                                                |  18 +--
+ package.json                                                   |  23 ++--
+ readme.md                                                      | 321 +++++++++++++++++++++++++++++++++++++++++++++++++++++
+ src/api/music/index.ts                                         |   9 ++
+ src/assets/anims/dancing_logo.json                             | 642 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ src/assets/anims/rythm.json                                    | 554 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ src/assets/images/bgs/categories/romantic_roses.jpg            | Bin 0 -> 219554 bytes
+ src/components/BottomPaddingComponent.tsx                      |  28 +++++
+ src/components/BottomTabBarButton.tsx                          |  98 ++++++++++++++++
+ src/components/BottomTabBarPlayerButton.tsx                    | 178 +++++++++++++++++++++++++++++
+ src/components/ExploreScreenDefaultDataRenderer.tsx            | 165 +++++++++++++++++++++++++++
+ src/components/HeaderAnimated.tsx                              | 190 +++++++++++++++++++++++++++++++
+ src/components/HeaderCommon.tsx                                |  58 ++++++++++
+ src/components/HeaderExploreScreen.tsx                         |  66 +++++++++++
+ src/components/HeaderSearchInput.tsx                           | 113 +++++++++++++++++++
+ src/components/HeaderTrackPlayer.tsx                           |  86 +++++++++++++++
+ src/components/ListCardArtist.tsx                              |  80 ++++++++++++++
+ src/components/ListCardPlaylist.tsx                            |  95 ++++++++++++++++
+ src/components/ListCardRendererArtists.tsx                     |  54 +++++++++
+ src/components/ListCardRendererPlaylists.tsx                   |  56 ++++++++++
+ src/components/ListCardRendererTracks.tsx                      |  54 +++++++++
+ src/components/ListCardTrack.tsx                               | 101 +++++++++++++++++
+ src/components/ListObjectPlaylist.tsx                          | 101 +++++++++++++++++
+ src/components/ListObjectSong.tsx                              | 148 +++++++++++++++++++++++++
+ src/components/ListRendererPlaylists.tsx                       |  52 +++++++++
+ src/components/ListRendererSongs.tsx                           |  44 ++++++++
+ src/components/LoadingAnimation.tsx                            |  37 +++++++
+ src/components/QueryArtistsRenderer.tsx                        |  88 +++++++++++++++
+ src/components/QueryDataRenderer.tsx                           | 138 +++++++++++++++++++++++
+ src/components/QueryPlaylistsRenderer.tsx                      |  52 +++++++++
+ src/components/QueryTrackChunksRenderer.tsx                    | 156 ++++++++++++++++++++++++++
+ src/components/QueryTracksRenderer.tsx                         |  44 ++++++++
+ src/components/SearchGenreListRenderer.tsx                     |  95 ++++++++++++++++
+ src/components/SearchHistoryRenderer.tsx                       |  99 +++++++++++++++++
+ src/components/SearchSuggestionsRenderer.tsx                   | 127 +++++++++++++++++++++
+ src/components/ShimmerListCardArtist.tsx                       |  53 +++++++++
+ src/components/ShimmerListCardPlaylist.tsx                     |  55 +++++++++
+ src/components/ShimmerListCardTrack.tsx                        |  55 +++++++++
+ src/components/ShimmerListObjectSong.tsx                       |  70 ++++++++++++
+ src/components/SobyteAnimatedTextView.tsx                      |  46 ++++++++
+ src/components/SobyteIcon.tsx                                  |  77 +++++++++++++
+ src/components/SobyteTextInput.tsx                             |  36 ++++++
+ src/components/SobyteTextView.tsx                              |  12 +-
+ src/components/TitleTextIcon.tsx                               | 101 +++++++++++++++++
+ src/components/TouchableScalable.tsx                           | 120 ++++++++++++++++++++
+ src/components/TrackControls.tsx                               | 499 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ src/components/TrackDetailsMenu.tsx                            | 120 ++++++++++++++++++++
+ src/components/TrackDetailsMenuArtist.tsx                      | 127 +++++++++++++++++++++
+ src/components/TrackPlayerDescription.tsx                      |  14 ++-
+ src/components/TrackPlayerDescriptionRenderer.tsx              |   3 +
+ src/components/TrackPlayerFooter.tsx                           | 226 +++++++++++++++++++++++++++++++++++++
+ src/components/TrackPlayerImage.tsx                            |   6 +-
+ src/components/TrackPlayerQueueTrack.tsx                       | 123 +++++++++++++++++++++
+ src/components/TrackPlayerVolumeChangerMenu.tsx                | 239 +++++++++++++++++++++++++++++++++++++++
+ src/components/index.ts                                        |  59 +++++++++-
+ src/configs/constants.ts                                       | 153 +++++++++++++++++++++++--
+ src/configs/endpoints.ts                                       |  14 +++
+ src/configs/index.ts                                           |   6 +
+ src/configs/redux.ts                                           |   4 +
+ src/configs/regex.ts                                           |  36 +++++-
+ src/configs/screens.ts                                         |  40 +++++++
+ src/configs/searchqueries.ts                                   | 357 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-
+ src/configs/storage.ts                                         |  12 ++
+ src/configs/vars.ts                                            | 760 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ src/containers/app/ExploreScreen.tsx                           |  74 +++++++++++++
+ src/containers/app/SearchActualScreen.tsx                      | 466 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ src/containers/app/SearchScreen.tsx                            | 183 ++++++++++++++++++++++++++++++
+ src/containers/app/SobytePlayerInterface.tsx                   | 866 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++---------------------------------------
+ src/containers/app/TrackPlayerQueueScreen.tsx                  | 154 ++++++++++++++++++++++++++
+ src/containers/app/UserProfileScreen.tsx                       |  24 ++++
+ src/containers/app/common/ArtistDetailsScreen.tsx              | 312 +++++++++++++++++++++++++++++++++++++++++++++++++++
+ src/containers/app/common/MorePlaylistDetailsScreen.tsx        | 162 +++++++++++++++++++++++++++
+ src/containers/app/common/MoreTrackDetailsScreen.tsx           | 135 ++++++++++++++++++++++
+ src/containers/app/common/PlaylistDetailsScreen.tsx            | 234 +++++++++++++++++++++++++++++++++++++++
+ src/containers/app/common/index.ts                             |  14 +++
+ src/containers/app/index.ts                                    |  10 +-
+ src/containers/index.ts                                        |  15 +++
+ src/containers/template.tsx                                    |  20 ++++
+ src/export/index.tsx                                           |  18 ++-
+ src/hooks/useMusic.ts                                          | 336 ++++++++++++++++++++++++++++++++++---------------------
+ src/hooks/useTheme.ts                                          |   3 +
+ src/hooks/useTrackPlayer.ts                                    | 351 ++++++++++++++++++++++++++++++++++++++++++++++++----------
+ src/navigators/AppNavigator.tsx                                |   8 +-
+ src/navigators/AppStackNavigator.tsx                           |  45 --------
+ src/navigators/BottomBars/RootBottomBar.tsx                    | 155 ++++++++++++++++++++++++++
+ src/navigators/BottomBars/index.ts                             |  11 ++
+ src/navigators/{ => Stacks}/AuthStackNavigator.tsx             |   6 +-
+ src/navigators/Stacks/ExploreNavigation.tsx                    |  69 ++++++++++++
+ src/navigators/Stacks/SearchNavigation.tsx                     |  93 ++++++++++++++++
+ src/navigators/Stacks/TrackPlayerStackNavigator.tsx            |  59 ++++++++++
+ src/navigators/Stacks/UserProfileNavigation.tsx                |  48 ++++++++
+ src/navigators/Stacks/index.ts                                 |  15 +++
+ src/navigators/index.ts                                        |   7 +-
+ src/schemas/data.d.ts                                          |  22 ++++
+ src/schemas/index.ts                                           |   2 +
+ src/schemas/music.d.ts                                         | 182 +++++++++++++++++++++++++++---
+ src/schemas/response.d.ts                                      |  24 ++++
+ src/services/SobyteTrackPlayer.tsx                             |  75 +++++++------
+ src/state/index.ts                                             |   9 +-
+ src/state/reducers/PlayerData.ts                               |  94 +++++++++++++++-
+ src/state/reducers/SearchResults.ts                            | 161 +++++++++++++++++++++++++++
+ src/state/reducers/index.ts                                    |   1 +
+ src/state/store.ts                                             |  23 +---
+ src/theme/theme.d.ts                                           |  60 +++++++++-
+ src/theme/themes/common.ts                                     |  28 +++--
+ src/theme/vars/assets.ts                                       |  37 +++++++
+ src/theme/vars/fonts.ts                                        |   7 ++
+ src/theme/vars/gutters.ts                                      |  39 +++++++
+ src/theme/vars/index.ts                                        |   4 +
+ src/theme/vars/layouts.ts                                      |  13 +++
+ src/theme/vars/variables.ts                                    |  26 +++--
+ src/utils/colors.ts                                            |  69 ++++++++++++
+ src/utils/index.ts                                             |   6 +-
+ src/utils/music.ts                                             |  10 +-
+ src/utils/musicparser.ts                                       | 297 ++++++++++++++++++++++++++++++-------------------
+ src/utils/objects.ts                                           | 554 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++---
+ src/utils/screens.ts                                           |  92 +++++++++++++++
+ src/utils/storage.ts                                           | 118 ++++++++++++++++++++
+ yarn.lock                                                      | 569 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-----
+ 166 files changed, 13333 insertions(+), 818 deletions(-)
+ create mode 100644 .github_src/named_logo.png
+ delete mode 100644 README.md
+ create mode 100644 android/app/src/main/assets/fonts/AntDesign.ttf
+ create mode 100644 android/app/src/main/assets/fonts/Entypo.ttf
+ create mode 100644 android/app/src/main/assets/fonts/EvilIcons.ttf
+ create mode 100644 android/app/src/main/assets/fonts/Feather.ttf
+ create mode 100644 android/app/src/main/assets/fonts/FontAwesome.ttf
+ create mode 100644 android/app/src/main/assets/fonts/FontAwesome5_Brands.ttf
+ create mode 100644 android/app/src/main/assets/fonts/FontAwesome5_Regular.ttf
+ create mode 100644 android/app/src/main/assets/fonts/FontAwesome5_Solid.ttf
+ create mode 100755 android/app/src/main/assets/fonts/Fontisto.ttf
+ create mode 100644 android/app/src/main/assets/fonts/Foundation.ttf
+ create mode 100644 android/app/src/main/assets/fonts/Ionicons.ttf
+ create mode 100644 android/app/src/main/assets/fonts/MaterialCommunityIcons.ttf
+ create mode 100644 android/app/src/main/assets/fonts/MaterialIcons.ttf
+ create mode 100644 android/app/src/main/assets/fonts/Octicons.ttf
+ create mode 100644 android/app/src/main/assets/fonts/SimpleLineIcons.ttf
+ create mode 100644 android/app/src/main/assets/fonts/Zocial.ttf
+ create mode 100644 android/app/src/main/res/mipmap-hdpi/ic_launcher_curved.png
+ delete mode 100644 android/app/src/main/res/mipmap-hdpi/ic_launcher_round.png
+ create mode 100644 android/app/src/main/res/mipmap-mdpi/ic_launcher_curved.png
+ delete mode 100644 android/app/src/main/res/mipmap-mdpi/ic_launcher_round.png
+ create mode 100644 android/app/src/main/res/mipmap-xhdpi/ic_launcher_curved.png
+ delete mode 100644 android/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png
+ create mode 100644 android/app/src/main/res/mipmap-xxhdpi/ic_launcher_curved.png
+ delete mode 100644 android/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png
+ create mode 100644 android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_curved.png
+ delete mode 100644 android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png
+ create mode 100644 jest.config.js
+ delete mode 100644 jest.setup.js
+ create mode 100755 src/assets/anims/dancing_logo.json
+ create mode 100644 src/assets/anims/rythm.json
+ create mode 100644 src/assets/images/bgs/categories/romantic_roses.jpg
+ create mode 100644 src/components/BottomPaddingComponent.tsx
+ create mode 100644 src/components/BottomTabBarButton.tsx
+ create mode 100644 src/components/BottomTabBarPlayerButton.tsx
+ create mode 100644 src/components/ExploreScreenDefaultDataRenderer.tsx
+ create mode 100644 src/components/HeaderAnimated.tsx
+ create mode 100644 src/components/HeaderCommon.tsx
+ create mode 100644 src/components/HeaderExploreScreen.tsx
+ create mode 100644 src/components/HeaderSearchInput.tsx
+ create mode 100644 src/components/HeaderTrackPlayer.tsx
+ create mode 100644 src/components/ListCardArtist.tsx
+ create mode 100644 src/components/ListCardPlaylist.tsx
+ create mode 100644 src/components/ListCardRendererArtists.tsx
+ create mode 100644 src/components/ListCardRendererPlaylists.tsx
+ create mode 100644 src/components/ListCardRendererTracks.tsx
+ create mode 100644 src/components/ListCardTrack.tsx
+ create mode 100644 src/components/ListObjectPlaylist.tsx
+ create mode 100644 src/components/ListObjectSong.tsx
+ create mode 100644 src/components/ListRendererPlaylists.tsx
+ create mode 100644 src/components/ListRendererSongs.tsx
+ create mode 100644 src/components/LoadingAnimation.tsx
+ create mode 100644 src/components/QueryArtistsRenderer.tsx
+ create mode 100644 src/components/QueryDataRenderer.tsx
+ create mode 100644 src/components/QueryPlaylistsRenderer.tsx
+ create mode 100644 src/components/QueryTrackChunksRenderer.tsx
+ create mode 100644 src/components/QueryTracksRenderer.tsx
+ create mode 100644 src/components/SearchGenreListRenderer.tsx
+ create mode 100644 src/components/SearchHistoryRenderer.tsx
+ create mode 100644 src/components/SearchSuggestionsRenderer.tsx
+ create mode 100644 src/components/ShimmerListCardArtist.tsx
+ create mode 100644 src/components/ShimmerListCardPlaylist.tsx
+ create mode 100644 src/components/ShimmerListCardTrack.tsx
+ create mode 100644 src/components/ShimmerListObjectSong.tsx
+ create mode 100644 src/components/SobyteAnimatedTextView.tsx
+ create mode 100644 src/components/SobyteIcon.tsx
+ create mode 100644 src/components/SobyteTextInput.tsx
+ create mode 100644 src/components/TitleTextIcon.tsx
+ create mode 100644 src/components/TouchableScalable.tsx
+ create mode 100644 src/components/TrackControls.tsx
+ create mode 100644 src/components/TrackDetailsMenu.tsx
+ create mode 100644 src/components/TrackDetailsMenuArtist.tsx
+ create mode 100644 src/components/TrackPlayerFooter.tsx
+ create mode 100644 src/components/TrackPlayerQueueTrack.tsx
+ create mode 100644 src/components/TrackPlayerVolumeChangerMenu.tsx
+ create mode 100644 src/configs/vars.ts
+ create mode 100644 src/containers/app/ExploreScreen.tsx
+ create mode 100644 src/containers/app/SearchActualScreen.tsx
+ create mode 100644 src/containers/app/SearchScreen.tsx
+ create mode 100644 src/containers/app/TrackPlayerQueueScreen.tsx
+ create mode 100644 src/containers/app/UserProfileScreen.tsx
+ create mode 100644 src/containers/app/common/ArtistDetailsScreen.tsx
+ create mode 100644 src/containers/app/common/MorePlaylistDetailsScreen.tsx
+ create mode 100644 src/containers/app/common/MoreTrackDetailsScreen.tsx
+ create mode 100644 src/containers/app/common/PlaylistDetailsScreen.tsx
+ create mode 100644 src/containers/app/common/index.ts
+ create mode 100644 src/containers/template.tsx
+ delete mode 100644 src/navigators/AppStackNavigator.tsx
+ create mode 100644 src/navigators/BottomBars/RootBottomBar.tsx
+ create mode 100644 src/navigators/BottomBars/index.ts
+ rename src/navigators/{ => Stacks}/AuthStackNavigator.tsx (95%)
+ create mode 100644 src/navigators/Stacks/ExploreNavigation.tsx
+ create mode 100644 src/navigators/Stacks/SearchNavigation.tsx
+ create mode 100644 src/navigators/Stacks/TrackPlayerStackNavigator.tsx
+ create mode 100644 src/navigators/Stacks/UserProfileNavigation.tsx
+ create mode 100644 src/navigators/Stacks/index.ts
+ create mode 100644 src/schemas/data.d.ts
+ create mode 100644 src/schemas/response.d.ts
+ create mode 100644 src/state/reducers/SearchResults.ts
+ create mode 100644 src/theme/vars/assets.ts
+ create mode 100644 src/utils/screens.ts
+ sobyte   development ± 
