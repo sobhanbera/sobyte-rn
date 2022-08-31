@@ -24,6 +24,7 @@ import {SobyteTextView, TrackPlayerQueueTrack, SobyteIcon} from '@/components'
 import {
     DEFAULT_ICON_SIZE,
     DEFAULT_TOUCHABLE_OPACITY_BUTTON_ACTIVE_OPACITY,
+    TINY_ICON_SIZE,
 } from '@/configs'
 
 interface TrackPlayerQueueScreenProps {
@@ -111,17 +112,17 @@ export default function TrackPlayerQueueScreen({
                     onPress={() => navigation.goBack()}
                     style={gutters.smallPadding}>
                     <SobyteIcon
-                        IconType="MaterialIcons"
-                        name="keyboard-backspace"
+                        IconType="Entypo"
+                        name="chevron-thin-down"
                         color={theme.themecolorrevert}
-                        size={DEFAULT_ICON_SIZE}
+                        size={TINY_ICON_SIZE}
                     />
                 </TouchableOpacity>
 
                 {/* header title */}
                 <SobyteTextView
                     style={[fonts.titleSmall, gutters.mediumPaddingHorizontal]}>
-                    Queue
+                    Next Up
                 </SobyteTextView>
             </View>
 
@@ -146,7 +147,7 @@ export default function TrackPlayerQueueScreen({
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={[
                     gutters.hugePaddingBottom,
-                    gutters.regularPaddingTop,
+                    // gutters.regularPaddingTop,
                 ]}
             />
         </View>
