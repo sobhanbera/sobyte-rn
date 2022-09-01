@@ -330,9 +330,7 @@ export const GLOBAL_QUERIES: string[] = [
     'top new bollywood romantic songs',
 ]
 
-export const EXTRA__DEV__SPECIFIC_QUERIES: string[] = [
-    'new movies trending bollywood songs',
-]
+export const EXTRA__DEV__SPECIFIC_QUERIES: string[] = ['atif aslam hits']
 
 /**
  * default export will be the concatation of all these above queries
