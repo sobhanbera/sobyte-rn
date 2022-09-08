@@ -9,9 +9,14 @@
  */
 
 import React from 'react'
+import {
+    StyleProp,
+    TouchableOpacity,
+    View,
+    ViewStyle,
+    TouchableWithoutFeedback,
+} from 'react-native'
 import {SongObject} from '@/schemas'
-import {StyleProp, TouchableOpacity, View, ViewStyle} from 'react-native'
-import FastImage from 'react-native-fast-image'
 
 import {useTheme} from '@/hooks'
 import {formatArtistsListFromArray, formatTrackTitle} from '@/utils'
@@ -19,6 +24,7 @@ import {
     DEFAULT_TOUCHABLE_OPACITY_BUTTON_ACTIVE_OPACITY,
     NEXT_TITLE_COLOR_ALPHA,
     SMALL_ICON_SIZE,
+    TINY_ICON_SIZE,
 } from '@/configs'
 
 import {SobyteTextView} from './SobyteTextView'
@@ -62,24 +68,43 @@ export const TrackPlayerQueueTrack = ({
             style={[
                 layouts.row,
                 layouts.justifyContentBetween,
+                layouts.alignItemsCenter,
                 gutters.mediumPaddingHorizontal,
+                gutters.smallPaddingVertical,
                 gutters.tinyMarginVertical,
                 containerStyle, // extra styles
             ]}>
             {/* queue track artwork */}
-            <FastImage
-                source={{
-                    uri: trackData.artworks[0].url,
-                    cache: FastImage.cacheControl.immutable,
-                    priority: FastImage.priority.normal,
-                }}
-                resizeMode={FastImage.resizeMode.cover}
-                style={{
-                    borderRadius: 2,
-                    width: 50,
-                    height: 50,
-                }}
-            />
+            {/* <FastImage */}
+            {/*     source={{ */}
+            {/*         uri: trackData.artworks[0].url, */}
+            {/*         cache: FastImage.cacheControl.immutable, */}
+            {/*         priority: FastImage.priority.normal, */}
+            {/*     }} */}
+            {/*     resizeMode={FastImage.resizeMode.cover} */}
+            {/*     style={{ */}
+            {/*         borderRadius: 2, */}
+            {/*         width: 50, */}
+            {/*         height: 50, */}
+            {/*     }} */}
+            {/* /> */}
+
+            <TouchableWithoutFeedback
+                style={[gutters.smallPadding]}
+                onPress={() => {
+                    /**
+                     * © Sobyte
+                     * TODO: this feature is todo for now
+                     * this feature will remove the track from the queue
+                     * */
+                }}>
+                <SobyteIcon
+                    IconType="EvilIcons"
+                    name={'close'}
+                    size={TINY_ICON_SIZE - 2}
+                    color={theme.themecolorrevert}
+                />
+            </TouchableWithoutFeedback>
 
             <View
                 style={[
@@ -89,7 +114,7 @@ export const TrackPlayerQueueTrack = ({
                 ]}>
                 {/* queue track title */}
                 <SobyteTextView
-                    style={[fonts.titleTiny, fonts.regularFont]}
+                    style={[fonts.textRegular, fonts.regularFont]}
                     numberOfLines={1}>
                     {formattedTitle}
                 </SobyteTextView>
@@ -97,8 +122,8 @@ export const TrackPlayerQueueTrack = ({
                 {/* queue track artists */}
                 <SobyteTextView
                     style={[
-                        gutters.tinyPaddingVertical,
-                        fonts.textRegular,
+                        // gutters.tinyPaddingVertical,
+                        fonts.textSmall,
                         {
                             color:
                                 theme.themecolorrevert + NEXT_TITLE_COLOR_ALPHA,

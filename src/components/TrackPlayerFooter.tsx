@@ -132,7 +132,7 @@ export const TrackPlayerFooter = ({
             style={[
                 layouts.row, // to get everything in row and center, to make the header at center parallel to other UI components
                 layouts.justifyContentCenter, // center everything
-                gutters.smallPaddingVertical, // a tiny padding on top and bottom
+                // gutters.smallPaddingVertical, // a tiny padding on top and bottom
             ]}>
             <View
                 style={[

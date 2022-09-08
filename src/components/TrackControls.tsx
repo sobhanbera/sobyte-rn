@@ -297,6 +297,7 @@ export const TrackControls = ({
                     {
                         width: TRACK_ARTWORK_WIDTH,
                         marginTop: -15, // since the above slider takes some touch area padding
+                        zIndex: 10,
                     },
                     layouts.row,
                     layouts.scrollSpaceBetween,
@@ -325,6 +326,7 @@ export const TrackControls = ({
                     layouts.scrollSpaceBetween,
                     {
                         width: TRACK_ARTWORK_WIDTH,
+                        marginTop: -15,
                     },
                 ]}>
                 <Menu renderer={SlideInMenu}>

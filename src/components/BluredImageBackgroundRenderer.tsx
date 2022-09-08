@@ -22,6 +22,7 @@ export const BluredImageBackgroundRenderer = ({
     scrollXAnimated,
 }: BluredImageBackgroundRendererProps) => {
     const {tracks} = useSelector((state: SobyteState) => state.playerdata)
+    // return null
 
     return (
         <View style={StyleSheet.absoluteFill}>
